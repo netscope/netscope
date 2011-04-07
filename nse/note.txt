@@ -1,0 +1,5 @@
+nsc -- Network Simulator Client
+
+20:20 2011/4/7
+==================================================
+upgraded from old version. 
