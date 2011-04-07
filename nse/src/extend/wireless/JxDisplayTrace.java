@@ -22,7 +22,7 @@
  * Date last modified: 02/09/04
  */
 
-package nse.ns.wireless;
+package extend.wireless;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -33,8 +33,8 @@ import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import nse.kernel.JiBaseTrace;
-import nse.kernel.JxBaseSimulator;
+import kernel.JiBaseTrace;
+import kernel.JxBaseSimulator;
 
 /**
  * Inherited from java.awt.Frame this class controls the graphical output of our

@@ -1,4 +1,7 @@
-package nse.cellular;                        
+package extend.cellular;                        
+
+import trace.JxDbConnection;
+
 public class Linesimu 
 {
     int vel_in=5;           //输入速度固定为5
@@ -8,7 +11,7 @@ public class Linesimu
     
     Node node[]=new Node[3];              //节点数组
     String link []=new String[3];         //边数组，使用数组前一定要先申明
-    DBconnect dbconnect=new DBconnect();  //JDBC类，使用新的类之前一定要先用new声明
+    JxDbConnection dbconnect=new JxDbConnection();  //JDBC类，使用新的类之前一定要先用new声明
     String str1;
     String str2;
     

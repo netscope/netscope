@@ -22,9 +22,9 @@
  * Date last modified: 02/09/04
  */
  
-package nse.ns.wireless;
+package extend.wireless;
 
-import nse.kernel.JiBaseTrace;
+import kernel.JiBaseTrace;
 
 /**
  * This class represents one application that sends and receives
