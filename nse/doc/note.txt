@@ -1,0 +1,14 @@
+Network Simulating Engine(NSE) adopts hierachical design.
+
+experiment <==> extend <==> network <==> kernel 
+
+- kernel: An general simulating kernel, which can be used for any simulations.
+
+- network: Extends the kernel functionality to support network simulation. Attention the network in this layer is an abstract network model. It doesn't care the features of specific networks. The difference between "network" layer and "kernel" is that the "network" layer simulator introduce network topology support. It can save/load the network topology settings of a network.
+
+- extend: Extends the network simulation in "network layer" to support specific networks, such as wireless network and fractal network. 
+
+- experiments: Each time the simulator run, an new experiment trace will be generated and saved. 
+
+
+"trace" isn't a separate layer. It provides tracing functionality for the simulator. 
