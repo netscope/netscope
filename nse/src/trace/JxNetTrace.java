@@ -1,9 +1,9 @@
 /**
  * 
  */
-package nse.trace;
+package trace;
 
-import nse.kernel.JiBaseTrace;
+import kernel.JiBaseTrace;
 
 /**
  * @author Allen

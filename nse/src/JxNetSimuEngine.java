@@ -1,4 +1,4 @@
-package nse;
+
 
 /*
  * Reference
@@ -13,6 +13,6 @@ package nse;
  * http://hi.baidu.com/nczhang1999/blog/item/f438bade05a7cb5194ee37f3.html
  */
 
-public class JNetSimuEngine {
+public class JxNetSimuEngine {
 
 }

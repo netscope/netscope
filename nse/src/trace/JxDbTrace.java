@@ -1,10 +1,11 @@
 package trace;
 
 import kernel.JiBaseTrace;
+import kernel.*;
 
 public class JxDbTrace implements JiBaseTrace {
 
-	private String m_rootdir = "/dev/netscope/data/"
+	private String m_rootdir = "/dev/netscope/data/";
 	private JxDbConnection m_db = null;
 	
 	JxDbTrace()
@@ -14,10 +15,13 @@ public class JxDbTrace implements JiBaseTrace {
 	
 	public boolean init()
 	{
-		String dbname = m_rootdir + "trace" + time + ".trace";
+		// add timestamp into the dbname
+		String dbname = m_rootdir + "trace" + "201004120345" + ".trace";
 		m_db.openDatabase( dbname);
 		
 		// Create tables in the database
+		
+		return false;
 	}
 	
     public void update()
@@ -49,7 +53,7 @@ public class JxDbTrace implements JiBaseTrace {
         
         
       public void opendatabase(String database)                       //打开数据库
-      { 
+      { /*
     	System.out.println("dbconnect.createnodetable() is ok");
     	try{
     		 if (con != null) 
@@ -70,11 +74,12 @@ public class JxDbTrace implements JiBaseTrace {
       		 con=null;
       		 sta=null;
       	   }
+      	   */
       }
       
       
       public void createnodetable()
-      {  
+      { /* 
     	  try
     	  { 
     		System.out.println("dbconnect.createnodetable() is ok");
@@ -86,11 +91,12 @@ public class JxDbTrace implements JiBaseTrace {
     	  {
     		  e.printStackTrace();
     	  }
+    	  */
        }
     
       
       public void insertnodetable(int TIME,int NODEID,int QUELENGTH)
-      {   
+      { /*  
     	  try
     	  { System.out.println("dbconnect.insertnodetable() is ok");
     	    assert((con!=null)&&!(con.isClosed()));
@@ -101,11 +107,12 @@ public class JxDbTrace implements JiBaseTrace {
     	  {
       		 e.printStackTrace();
     	  }
+    	  */
        }
       
       
       public void createlinktable()
-      {   
+      {  /* 
     	  try
     	  {System.out.println("dbconnect.createlinktable() is ok");
     	    assert((con!=null)&&!(con.isClosed()));
@@ -116,11 +123,12 @@ public class JxDbTrace implements JiBaseTrace {
     	  {
     		e.printStackTrace();
     	  }
+    	  */
        }
 
       
      public void insertlinktable(int TIME,String LINKID,int QUELENGTH)
-   {   
+   {   /*
     try
 	  {
 	    assert((con!=null)&&!(con.isClosed()));
@@ -131,8 +139,10 @@ public class JxDbTrace implements JiBaseTrace {
 	  {
 		  e.printStackTrace();
 	  }
+	  */
    }
-     public void CloseDatabase() {                                       //关闭数据库
+     public void CloseDatabase() {  
+    	 /*//关闭数据库
          try {
             
              if (sta != null) {
@@ -147,5 +157,6 @@ public class JxDbTrace implements JiBaseTrace {
              con = null;
              
          }
+         */
      }	
 }

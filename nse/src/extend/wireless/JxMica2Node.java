@@ -21,9 +21,9 @@
  * Author: Gyorgy Balogh, Gabor Pap, Miklos Maroti
  * Date last modified: 02/09/04
  */
-package nse.ns.wireless;
+package extend.wireless;
 
-import nse.kernel.JxBaseEvent;
+import kernel.JxBaseEvent;
 
 /**
  * This class represents a mote and all its properties important from the
@@ -38,7 +38,7 @@ public class JxMica2Node extends JxNode{
 	 * All this means is that the Mica2Node has to hold the information on 
 	 * the sender application which runs on this very mote.
 	 */
-	protected JxApplication senderApplication = null;
+	protected JxWirelessApplication senderApplication = null;
 	
 	/**
 	 * This node is the one that sent the last message or the one this node is
@@ -50,7 +50,7 @@ public class JxMica2Node extends JxNode{
 	/**	
 	 * This is the message being sent, on reception it is extracted and the 
 	 * message part is forwarded to the appropriate application, see
-	 * {@link JxApplication#receiveMessage}. 
+	 * {@link JxWirelessApplication#receiveMessage}. 
 	 */
 	protected Object    message   = null;
 
@@ -233,7 +233,7 @@ public class JxMica2Node extends JxNode{
 	 * @param app the application sending the message
 	 * @return If the node is in sending state it returns false otherwise true.
 	 */
-	public boolean sendMessage( Object message, JxApplication app){
+	public boolean sendMessage( Object message, JxWirelessApplication app){
 		if( sending )
 			return false;
 		else{
@@ -358,7 +358,7 @@ public class JxMica2Node extends JxNode{
         if( parentNode == stream ){            
             receiving = false;
             if( !corrupted ){
-				JxApplication tempApp = getApplication(((JxMica2Node)stream).senderApplication.getClass());
+				JxWirelessApplication tempApp = getApplication(((JxMica2Node)stream).senderApplication.getClass());
                 tempApp.receiveMessage(((JxMica2Node)stream).message);
             }
             signalStrength = 0;

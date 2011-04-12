@@ -14,16 +14,21 @@ public class JxDbConnection {
 	// Open the database at "%APPLICATIOIN_ROOT%/data/" by default. If the database
 	// already exists there, then open it directly. If it doesn't exist, then create
 	// it and open it.
-	public bool openDatabase( String database )
+	public boolean openDatabase( String database )
 	{
+		m_database = "D:\\dev\\netscope\\data";
+		m_database += "database";
+		return false;
 	}
 	
 	public void closeDatabase()
 	{
+		//m_connection.Close();
 	}
 	
-	public bool startTransaction()
+	public boolean startTransaction()
 	{
+		return false;
 	}
 	
 	public void commit()
@@ -36,13 +41,16 @@ public class JxDbConnection {
 	
 	// Execute an sql statement. This statement doesn't return dataset, such as 
 	// "CREATE TABLE" and "INSERT INTO".
-	public bool execute( String sql )
+	public boolean execute( String sql )
 	{
+		return false;
 	}
 	
 	// Execute an sql statement. This statement returns an dataset, such as "SELECT".
 	public ResultSet select( String sql )
 	{
+		return null;
+		
 	}
 }  
 

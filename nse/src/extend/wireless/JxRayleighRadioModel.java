@@ -22,10 +22,12 @@
  * Date last modified: 02/09/04
  */
  
-package nse.ns.wireless;
+package extend.wireless;
 
-import nse.kernel.JxBaseSimulator;
-import nse.kernel.JxBaseEvent;
+import kernel.JxBaseSimulator;
+import kernel.JxBaseEvent;
+import extend.wireless.JxNode;
+import extend.wireless.JxRadioModel;
 
 
 /**
@@ -110,8 +112,8 @@ public class JxRayleighRadioModel extends JxRadioModel {
 	/**
 	 * This is a factory method for creating radio model specific neigborhoods.
 	 */
-    public  JxRadioModel.Neighborhood createNeighborhood() {
-		return new Neighborhood();
+    public JxRadioModel.JxNeighborhood createNeighborhood() {
+		return new JxNeighborhood();
     }
 
 	/**
@@ -146,7 +148,7 @@ public class JxRayleighRadioModel extends JxRadioModel {
                 node2 = (JxNode)node2.nextNode;
             }
         
-            Neighborhood neighborhood = (Neighborhood)((JxNode)node1).getNeighborhood();
+            JxNeighborhood neighborhood = (JxNeighborhood)((JxNode)node1).getNeighborhood();
             neighborhood.neighbors = new JxNode[i];
             System.arraycopy(neighbors, 0, neighborhood.neighbors, 0, i );           
             neighborhood.staticFadings = new double[i];
@@ -161,7 +163,7 @@ public class JxRayleighRadioModel extends JxRadioModel {
 	 * the dynamic strentgh as well for every neighboring nodes plus the entity
 	 * being transmitted by the node. 
 	 */
-	protected class Neighborhood extends JxRadioModel.Neighborhood{
+	protected class JxNeighborhood extends JxRadioModel.JxNeighborhood{
 		
 		/** The vector of the neighboring nodes. */
 		protected JxNode[] neighbors;
@@ -189,7 +191,7 @@ public class JxRayleighRadioModel extends JxRadioModel {
 		 */
 		protected Object stream = null;
         
-        public Neighborhood() { 
+        public JxNeighborhood() { 
             updateTime = sim.getSimulationTime()-COHERENCE_TIME;
         }
 

@@ -1,4 +1,4 @@
-package nse.kernel;
+package kernel;
 
 public interface JiBaseTrace {
     public void update();

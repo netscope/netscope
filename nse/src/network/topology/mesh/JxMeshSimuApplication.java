@@ -1,4 +1,4 @@
-package mesh;
+package network.topology.mesh;
 
 import java.sql.Connection;
 import java.util.Date; 
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class JiApplication {
+public class JxMeshSimuApplication {
 	public void opendatabase(String database) //打开数据库
 	{
 		Connection con = null;
@@ -164,6 +164,7 @@ public class JiApplication {
 	public JiNetWorkTopology GenerateMeshTopology(int radis) // 建 一张mesh网
 	
 	{
+		return null;
 
 	}
 }

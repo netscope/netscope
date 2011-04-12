@@ -1,6 +1,6 @@
-package nse.trace;
+package trace;
 
-import nse.kernel.JiBaseTrace;
+import kernel.JiBaseTrace;
 
 public class JxFileTrace implements JiBaseTrace {
     public void update(){}

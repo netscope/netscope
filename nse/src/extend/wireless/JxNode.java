@@ -22,11 +22,11 @@
  * Date last modified: 02/09/04
  */
  
-package nse.ns.wireless;
+package extend.wireless;
 
-import nse.kernel.JxBaseNode;
-import nse.kernel.JiBaseTrace;
-import nse.ns.wireless.JxRadioModel.Neighborhood;
+import kernel.JxBaseNode;
+import kernel.JiBaseTrace;
+import extend.wireless.JxRadioModel.JxNeighborhood;
 
 /**
  * This class is the base class of all nodes. Nodes are entities in a simulator
@@ -40,9 +40,9 @@ public abstract class JxNode extends JxBaseNode {
 	/**
 	 * The applications of the TinyOs node are linked together
 	 * in a single linked list. This points to the first,
-	 * and then {@link JxApplication#nextApplication} to the next. 
+	 * and then {@link JxWirelessApplication#nextApplication} to the next. 
 	 */
-	protected JxApplication firstApplication = null;
+	protected JxWirelessApplication firstApplication = null;
 
 	/** 
 	 * This field defines the relative strength of a mote. If it is set to
@@ -63,7 +63,7 @@ public abstract class JxNode extends JxBaseNode {
 	 * The neighborhood of this node, meaning all the neighboring nodes which 
 	 * interact with this one.
 	 */
-	private Neighborhood neighborhood;
+	private JxNeighborhood neighborhood;
 
 	/**
 	 * Parameterized constructor, sets the simulator and creates an initial 
@@ -80,7 +80,7 @@ public abstract class JxNode extends JxBaseNode {
 	/**
 	 * A getter method used by the RadioModels to manipulate neighborhood of nodes. 
 	 */
-	public Neighborhood getNeighborhood(){
+	public JxNeighborhood getNeighborhood(){
 		return neighborhood;
 	}
 
@@ -186,7 +186,7 @@ public abstract class JxNode extends JxBaseNode {
 	 * @param app the application sending the message
 	 * @return If the node is in sending state it returns false otherwise true.
 	 */
-	public abstract boolean sendMessage(Object message, JxApplication app);
+	public abstract boolean sendMessage(Object message, JxWirelessApplication app);
 	
 	/**
 	 * Sets the position of the mote in space. Please call the 
@@ -232,7 +232,7 @@ public abstract class JxNode extends JxBaseNode {
 	
 	/**
 	 * This function is part of the application management. Adds an 
-	 * {@link JxApplication} to the list of applications running on this Node.
+	 * {@link JxWirelessApplication} to the list of applications running on this Node.
 	 * Note that applications on a node represent TinyOS components, so do not 
 	 * try to solve all your problems in a derived class of Node. Also note
 	 * that there can be only one instance of an Application class running on 
@@ -241,7 +241,7 @@ public abstract class JxNode extends JxBaseNode {
 	 * 
 	 * @param app the Application 
 	 */
-	public void addApplication(JxApplication app){
+	public void addApplication(JxWirelessApplication app){
 		app.nextApplication = firstApplication;
 		firstApplication = app;
 	}
@@ -253,8 +253,8 @@ public abstract class JxNode extends JxBaseNode {
 	 * @param appClass the class that identifies the needed application for us
 	 * @return Returns the application instance running on this node
 	 */
-	protected JxApplication getApplication(Class appClass){
-		JxApplication tempApp = firstApplication;
+	protected JxWirelessApplication getApplication(Class appClass){
+		JxWirelessApplication tempApp = firstApplication;
 		while (tempApp != null && tempApp.getClass() != appClass )
 			tempApp = tempApp.nextApplication;
 		return tempApp;
@@ -267,7 +267,7 @@ public abstract class JxNode extends JxBaseNode {
 	 * @param disp the main display provided by the Simulator
 	 */
 	public void display(JiBaseTrace disp){
-		JxApplication tempApp = firstApplication;
+		JxWirelessApplication tempApp = firstApplication;
 		while(tempApp != null){
 			tempApp.display(disp);
 			tempApp = tempApp.nextApplication;

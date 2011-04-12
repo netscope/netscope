@@ -1,4 +1,4 @@
-package mesh;
+package network.topology.mesh;
 public class JiNode {
 	int node_id;
 	int que_capacity=50;

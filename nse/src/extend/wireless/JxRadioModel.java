@@ -22,7 +22,7 @@
  * Date last modified: 02/09/04
  */
 
-package nse.ns.wireless;
+package extend.wireless;
 
 /**
  * This class is the abstract baseclass of all radio models.
@@ -43,7 +43,7 @@ public abstract class JxRadioModel{
 	 * 
 	 * @return a new Neighborhood object
 	 */	
-	public abstract Neighborhood createNeighborhood();
+	public abstract JxNeighborhood createNeighborhood();
 
 	/**
 	 * (Re)calculates the neighborhoods of every transciver 
@@ -59,7 +59,7 @@ public abstract class JxRadioModel{
 	 * node. This class is radio model specific and must be derived in the 
 	 * specific radio model.
 	 */
-	public abstract static class Neighborhood{
+	public abstract static class JxNeighborhood{
 		/**
 		 * This method must call the {@link JxNode#receptionBegin} method of
 		 * each of the neighboring nodes. 

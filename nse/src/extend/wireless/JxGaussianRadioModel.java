@@ -22,7 +22,9 @@
  * Date last modified: 02/09/04
  */
 
-package nse.ns.wireless;
+package extend.wireless;
+
+import extend.wireless.*;
 
 
 /**
@@ -109,7 +111,7 @@ public class JxGaussianRadioModel extends JxRadioModel{
 				node2 = (JxNode)node2.nextNode();
 			}
 			
-			Neighborhood neighborhood = (Neighborhood)node1.getNeighborhood();
+			JxNeighborhood neighborhood = (JxNeighborhood)node1.getNeighborhood();
 			neighborhood.neighbors = new JxNode[i];
             System.arraycopy(neighbors, 0, neighborhood.neighbors, 0, i );           
 			neighborhood.staticFadings = new double[i];
@@ -122,8 +124,8 @@ public class JxGaussianRadioModel extends JxRadioModel{
 	/**
 	 * This is a factory method for creating radio model specific neigborhoods.
 	 */
-	public JxRadioModel.Neighborhood createNeighborhood(){
-		return new Neighborhood();
+	public JxRadioModel.JxNeighborhood createNeighborhood(){
+		return new JxNeighborhood();
 	}
 
 	/**
@@ -161,7 +163,7 @@ public class JxGaussianRadioModel extends JxRadioModel{
 	 * the dynamic strentgh as well for every neighboring nodes plus the entity
 	 * being transmitted by the node. 
 	 */
-	protected class Neighborhood extends JxRadioModel.Neighborhood{
+	protected class JxNeighborhood extends JxRadioModel.JxNeighborhood{
 		
 		/** The vector of the neighboring nodes. */
 		protected JxNode[] neighbors; 
@@ -220,4 +222,5 @@ public class JxGaussianRadioModel extends JxRadioModel{
 			stream = null;
 		}
 	}
+
 }

@@ -22,13 +22,13 @@
  * Date last modified: 02/09/04
  */
  
-package nse.ns.wireless;
+package extend.wireless;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import nse.kernel.JiBaseTrace;
-import nse.kernel.JxBaseEvent;
+import kernel.JiBaseTrace;
+import kernel.JxBaseEvent;
 
 /**
  * This is a sample application, it shows a way of utilizing the Prowler 
@@ -48,11 +48,11 @@ public class JxTestBroadcastNode extends JxMica2Node{
 	private JxNode parent = null; 
 
 	/**
-	 * This extension of the {@link JxApplication} baseclass does everything we 
+	 * This extension of the {@link JxWirelessApplication} baseclass does everything we 
 	 * expect from the broadcast application, simply forwards the message once,
 	 * and that is it. 
 	 */
-	public class BroadcastApplication extends JxApplication{
+	public class BroadcastApplication extends JxWirelessApplication{
 		
 		/**
 		 * @param node the Node on which this application runs.

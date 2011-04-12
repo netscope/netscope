@@ -22,10 +22,10 @@
  * Date last modified: 02/09/04
  */
 
-package nse.ns.wireless;
+package extend.wireless;
 
 import java.lang.reflect.Constructor;
-import nse.kernel.JxBaseSimulator;
+import kernel.JxBaseSimulator;
 
 /**
  * This class is the heart of Prowler, as this is the event based scheduler, or

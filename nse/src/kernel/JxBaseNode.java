@@ -22,7 +22,7 @@
  * Date last modified: 02/09/04
  */
  
-package nse.kernel;
+package kernel;
 
 /**
  * This class is the base class of all nodes. Nodes are entities in a simulator

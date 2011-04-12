@@ -2,7 +2,7 @@ package extend.cellular;
 
 import trace.JxDbConnection;
 
-public class Linesimu 
+public class JxCellularAutomataApplication 
 {
     int vel_in=5;           //输入速度固定为5
     int vel_inc=2;          //速度增量为2
@@ -93,7 +93,7 @@ public class Linesimu
 	
 	
     public void run()                                     //运行10次
-   { 
+   { /*
     try
 	  { dbconnect.opendatabase("testdbx.script");
 	    dbconnect.createnodetable();                     // 创建节点表   
@@ -115,6 +115,7 @@ public class Linesimu
 	    {
 		    ;
 	    }
+	    */
 	}
 	
 	/**
@@ -122,7 +123,7 @@ public class Linesimu
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-       Linesimu linesimu = new Linesimu();
+       JxCellularAutomataApplication linesimu = new JxCellularAutomataApplication();
        linesimu.run();
    
        }

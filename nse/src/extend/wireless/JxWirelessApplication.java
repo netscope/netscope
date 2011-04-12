@@ -38,13 +38,13 @@ import kernel.JiBaseTrace;
  * 
  * @author Gyorgy Balogh, Gabor Pap, Miklos Maroti
  */
-public abstract class JxApplication {
+public abstract class JxWirelessApplication {
 	
 	/** 
 	 * The applications objects of a node are linked together 
 	 * in a list. This reference points to the next one in the list. 
 	 */
-	public JxApplication nextApplication;
+	public JxWirelessApplication nextApplication;
 	
 	/** The parent {@link JxNode} this application belongs to. */
 	JxNode node;
@@ -60,7 +60,7 @@ public abstract class JxApplication {
 	 * 
 	 * @param node The parent {@link JxNode} of this application
 	 */
-	public JxApplication(JxNode node){
+	public JxWirelessApplication(JxNode node){
 		this.node = node;
 		node.addApplication(this);
 	}
@@ -80,13 +80,13 @@ public abstract class JxApplication {
 	
 	/**
 	 * Sends a message via the radio to neighboring nodes where
-	 * the {@link JxApplication#receiveMessage} method will be fired in the 
+	 * the {@link JxWirelessApplication#receiveMessage} method will be fired in the 
 	 * application instance of the same derived type.
 	 * This method has the same semantics as SendMsg.send() in TinyOS.
 	 * 
 	 * @param message The message to be sent.
 	 * @return Returns <code>true</code> if the message is accepted for 
-	 * 	transmissions, in which case {@link JxApplication#sendMessageDone}
+	 * 	transmissions, in which case {@link JxWirelessApplication#sendMessageDone}
 	 * 	will be called eventually, or <code>false</code> if a message 
 	 * (maybe from another Application) is under transmission and
 	 *  this message is not accepted.
@@ -99,7 +99,7 @@ public abstract class JxApplication {
 	
 	/**
 	 * Signaled when the message posted is sent. This method
-	 * is called only if {@link JxApplication#sendMessage} returned <code>true</code>. 
+	 * is called only if {@link JxWirelessApplication#sendMessage} returned <code>true</code>. 
 	 * This has the same semantics as SendMsg.sendDone() in TinyOS.
 	 * 
 	 * @see #sendMessage

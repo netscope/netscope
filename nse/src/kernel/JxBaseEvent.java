@@ -21,7 +21,7 @@
  * Author: Gyorgy Balogh, Gabor Pap, Miklos Maroti
  * Date last modified: 02/09/04
  */
-package nse.kernel;
+package kernel;
 
 /** 
  * This class represents an event in the simulator. This is a base class from 
