@@ -32,15 +32,15 @@ package kernel;
  * 
  * @author Gyorgy Balogh, Gabor Pap, Miklos Maroti
  */
-public class JxBaseEvent implements Comparable{
+public class JxBaseEvent implements Comparable{  //й╣ож
 
 	/** the time of the event */
-    public long time;
+    public long time;  
     
     /** 
      * Basic constructor, sets the time property to zero
      */
-    public JxBaseEvent(){       
+    public JxBaseEvent(){   
         time = 0;
     }
 
@@ -49,10 +49,9 @@ public class JxBaseEvent implements Comparable{
 	 * 
 	 * @param time the time of the event
 	 */
-    public JxBaseEvent( long time ){
+    public JxBaseEvent( long time ){ 
         this.time = time;
     }
-	
 	/** 
 	 * This function is called when the event occurs. If you want to have a clock
 	 * event for example, the execute function may look like this: <br>
@@ -64,14 +63,12 @@ public class JxBaseEvent implements Comparable{
 	 */
     public void execute(){
     }
-    
 	/**
 	 * @return returns the time of the event as a String
 	 */ 
     public String toString(){
         return Long.toString(time);        
     }
-
 	/**
 	 * This makes earlier events happen earlier :)
 	 */  

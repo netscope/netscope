@@ -1,7 +1,5 @@
 package extend.cellular;                        
-
 import trace.JxDbConnection;
-
 public class JxCellularAutomataApplication 
 {
     int vel_in=5;           //输入速度固定为5
@@ -124,7 +122,7 @@ public class JxCellularAutomataApplication
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
        JxCellularAutomataApplication linesimu = new JxCellularAutomataApplication();
-       linesimu.run();
+       linesimu.step();
    
        }
 
