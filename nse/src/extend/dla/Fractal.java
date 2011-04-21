@@ -1,7 +1,7 @@
-package extend.fractal;
-
+package extend.dla; 
 /*此部分：在1000*1000个方格上按DLA形式生成10万个节点。
  **/
+/*
 import java.util.*;
 import java.math.*;
 
@@ -16,7 +16,6 @@ public class Fractal {
 	long l1, l2; // l1:试验次数
 	int grids[][] = new int[1000][1000]; // 生成1000000万个格子
 	Random random = new Random();
-
 	JiNetworkTopology genfractalTopology(int Radius) {
 		radius = Radius;
 		for (i = 0; i < 1000; i++) {
@@ -65,5 +64,11 @@ public class Fractal {
 			}
 		}
 	}
-
+   boolean SaveTopology(JiNetworkTopology topo)
+   {	   
+   }
+  JiNetworkTopology LoadTopology()
+  {  
+  }
 }
+**/

@@ -1,4 +1,4 @@
-package kernel;
+ package kernel;
 
 import java.util.Iterator;
 import java.util.List;
@@ -40,14 +40,14 @@ public class JxBaseSimulator {
 	JiBaseTrace m_trace = null;
 
 	public JxBaseSimulator() {
-		super();
+		super();  //超类？？？
 	}
 
 	/**
 	 * 
 	 * @return Returns the time of the last event in 1/ONE_SECOND
 	 */
-	public long getSimulationTime() {
+	public long getSimulationTime() { //最后一个事件的时间
 		return lastEventTime;
 	}
 
@@ -55,7 +55,7 @@ public class JxBaseSimulator {
 	 * 
 	 * @return Returns the time of the last event in milliseconds.
 	 */
-	public long getSimulationTimeInMillisec() {
+	public long getSimulationTimeInMillisec() {     //？？
 		return (long)(1000 * lastEventTime / (double)JxBaseSimulator.ONE_SECOND);
 	}
 
@@ -74,8 +74,8 @@ public class JxBaseSimulator {
 	public void step() {
 		JxBaseEvent event = (JxBaseEvent)getEventQueue().getAndRemoveFirst();
 		if( event != null ){
-			lastEventTime = event.time;
-			event.execute();
+			lastEventTime = event.time;//事件的时间
+			event.execute();  //???
 		}
 	}
 
@@ -94,14 +94,14 @@ public class JxBaseSimulator {
 	 * 
 	 * @param timeInSec the time in seconds until the simulation is to run
 	 */
-	public void run(double timeInSec) {
+	public void run(double timeInSec) {         
 		long tmax = lastEventTime + (int)(JxBaseSimulator.ONE_SECOND * timeInSec);                 
 		while( lastEventTime < tmax )
 	    {
 	        JxBaseEvent event = (JxBaseEvent)getEventQueue().getAndRemoveFirst();
 	        if( event != null ){
 	            lastEventTime = event.time;
-	            event.execute();
+	            event.execute(); //
 	        }
 	        else
 	            break;
@@ -112,10 +112,11 @@ public class JxBaseSimulator {
 	 * This function runs the simulation with the display.
 	 * The user of the simulator must first add all the nodes used in the 
 	 * experiment!
+	 * 带显示的仿真
 	 */
 	public void runWithTrace(JiBaseTrace trace) {
 		//JiDisplayTrace trace = new JxBaseTrace( this, maxCoordinate );
-		trace.show();        
+		trace.show();    //显示    
 		while( true ){
 			step(100);
 			trace.update();
@@ -221,7 +222,7 @@ public class JxBaseSimulator {
 	public void addNodes(List nodes) {
 		Iterator nodeIterator = nodes.iterator();
 		while (nodeIterator.hasNext()){
-			addNode((JxBaseNode)nodeIterator.next());
+			addNode((JxBaseNode)nodeIterator.next()); 
 		}
 	}
 
@@ -240,7 +241,7 @@ public class JxBaseSimulator {
 		return eventQueue;
 	}
 	
-	public JxBaseNode firstNode(){
+	public JxBaseNode firstNode(){   
 		return firstNode;
 	}
 }

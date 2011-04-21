@@ -1,7 +1,5 @@
 package kernel;
-
 import java.util.TreeSet;
-
 /** 
  * As the simulator is event based there is a need for a queue to handle 
  * the occurring events. This general priority queue is based on a
@@ -14,7 +12,7 @@ public class JxBaseEventQueue {
 	/** Adds an item to the queue, item must be Comparable
 	 * @param item The item to be added to the queue
 	*/
-	public void add( Comparable item ){
+	public void add( Comparable item ){  //增加条目
 		queue.add( item );
 	}
 
@@ -23,8 +21,8 @@ public class JxBaseEventQueue {
 	 */
 	public Object getAndRemoveFirst(){
 		if( queue.size() > 0 ){
-			Object first = queue.first();
-			queue.remove( first );
+			Object first = queue.first(); //得到第一个元素
+			queue.remove( first ); //移除第一个
 			return first;            
 		}else{
 			return null;
@@ -34,14 +32,14 @@ public class JxBaseEventQueue {
 	/**
 	 * Clears the queue 
 	 */
-	public void clear(){
+	public void clear(){ 
 		queue.clear();
 	}
 
 	/**
 	 * @return Returns the number of items in the queue
 	*/
-	public int size(){
+	public int size(){       
 		return queue.size();
 	}
 }

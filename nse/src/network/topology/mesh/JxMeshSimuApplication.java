@@ -1,12 +1,10 @@
 package network.topology.mesh;
-
 import java.sql.Connection;
 import java.util.Date; 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-
 public class JxMeshSimuApplication {
 	public void opendatabase(String database) //打开数据库
 	{
@@ -16,8 +14,7 @@ public class JxMeshSimuApplication {
 		try {
 			if (con != null)
 				con.close();
-			Class.forName("org.hsqldb.jdbc.JDBCDriver"); // 添加驱动
-			String url = "jdbc:hsqldb:file" + database + ":shutdown=true";
+			Class.forName("org.hsqldb.jdbc.JDBCDriver"); // 添加驱动 
 
 			con = DriverManager.getConnection(url, "sa", "");
 			sta = con.createStatement();
@@ -36,7 +33,7 @@ public class JxMeshSimuApplication {
 		Statement sta = null;
 		try {
 			if (sta != null) {
-				sta.executeUpdate("SHUTDOWN"); // SHUTDOWN用法
+				sta.executeUpdate("SHUTDOWN"); // SHUTDOWN用法 
 				sta.close();
 			}
 			if (con != null) {
@@ -69,8 +66,8 @@ public class JxMeshSimuApplication {
 		Connection con=null;
         Statement sta=null;
 		try{
-			assert ((con!= null) && !(con.isClosed())); // 非空且未关闭
-			assert (sta != null); // 非空
+			assert ((con!= null) && !(con.isClosed())); //非空且未关闭
+			assert (sta != null); //非空
 			String sql2 = "create table Node_topology((int node_id,int loc_x,int loc_y,int tx.power)";// 创建节点表
 			sta.executeUpdate(sql2);
 		} catch (Exception e) {
