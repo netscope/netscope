@@ -55,19 +55,19 @@ public class JxDisplayTrace extends Frame implements JiBaseTrace{
     protected DispCanvas canvas = null;        
 
 	/** The size of the displayed area in pixels. */
-    protected Dimension  dim    = null;
+    protected Dimension  dim    = null;     //显示区域的面积（像素）
 
-	/** The size of the displayed area in meters. */
-    protected double     width;
+	/** The size of the displayed area in meters. */ 
+    protected double     width;    //  显示区域的宽度        
 
-    protected Graphics   currentGraphics = null;
+    protected Graphics   currentGraphics = null; //当前图像
 
 	/**
 	 * 
 	 * Inner class DispCanvas. Draws a white background, draws all the nodes and 
 	 * also displays the time and the number of remaining events in the upper
 	 * left corner.
-	 * 
+	 *  
 	 * @author Gabor Pap (gabor.pap@vanderbilt.edu)
 	 */    
     class DispCanvas extends Canvas{
@@ -141,7 +141,7 @@ public class JxDisplayTrace extends Frame implements JiBaseTrace{
     
     /**
      * Converts distance to pixels.
-     * 
+     * 距离——像素
      * @param x the x coordinate to be converted
      * @return returns the x coordinate in pixels
      */
@@ -160,13 +160,13 @@ public class JxDisplayTrace extends Frame implements JiBaseTrace{
     }            
     
     public void update(){
-        canvas.invalidate();
-        canvas.repaint();       
+        canvas.invalidate(); //使组件无效
+        canvas.repaint();    //重绘此组件    
     }
     
     public void show()
     {
     	//super();
-    	// todo    	
+    	//todo    	
     }
 }
