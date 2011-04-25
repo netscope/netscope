@@ -2,49 +2,43 @@
  * 
  */
 package extend.scalefree;
-
 import java.util.*;
-
 import java.util.Random;
-
 import kernel.JxBaseEvent;
 import kernel.JxBaseEventQueue;
 import kernel.JxBaseSimulator;
-
-
 /**
  * @author Allen
  *
  */
 public class JxScaleFreeSimuApplication {
 
-
-	JxScaleFreeNode []node= new JxScaleFreeNode[10000];
+/**	JxScaleFreeNode []node= new JxScaleFreeNode[10000];
 	int i,j; 
 	int id;
 	void init(){};
-	void evolve(){
+    void evolve(){
 	};
    void gen_topo(){
 	  for(i=0;i<100;i++)
 	  {
 		for(j=0;j<100;j++)    //生成10000个点
 	    {               
-		  node[id++].loc_x= random.nextInt(100); //此处需要保证生成的节点不同
-		  node[id++].loc_y = random.nextInt(100);
+		//  node[id++].loc_x= random.nextInt(100); //此处需要保证生成的节点不同
+		 // node[id++].loc_y = random.nextInt(100);
 	    }
 		
 		
       }
     }
-
+*/
 	
 	/** 
 	 * This is a static reference to a Random instance.
 	 * This makes experiments repeatable, all you have to do is to set
 	 * the seed of this Random class. 
 	 */
-	public static Random random = new Random();//
+	public static Random random = new Random();
 	
 	/**
 	 * This defines the time resolution. Every time and time interval
@@ -63,9 +57,9 @@ public class JxScaleFreeSimuApplication {
 	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();
 	
-	void init()
+	void init()  //初始化
 	{
-		// m_trace.open("database");
+		// m_trace.open("database"); 
 		generate( 10000 );
 	}
 	
