@@ -1,13 +1,15 @@
 package extend.scalefree;
 
 public class JxScaleFreeEdge {
+	
 	int m_nodefrom;
 	int m_nodeto;
 	int m_bandwidth;
 	int m_weight;
 	int m_distance;
 	
-	public JxScaleFreeEdge() {
+	public JxScaleFreeEdge() {//构造函数1
+		
 		super();
 		this.m_nodefrom = 0;
 		this.m_nodeto = 0;
@@ -15,7 +17,8 @@ public class JxScaleFreeEdge {
 		this.m_weight = 0;
 	}
 
-	public JxScaleFreeEdge(int m_nodefrom, int m_nodeto, int m_bandwidth, int m_weight) {
+	public JxScaleFreeEdge(int m_nodefrom, int m_nodeto, int m_bandwidth, int m_weight) {//构造函数2
+		
 		super();
 		this.m_nodefrom = m_nodefrom;
 		this.m_nodeto = m_nodeto;
@@ -23,8 +26,8 @@ public class JxScaleFreeEdge {
 		this.m_weight = m_weight;
 	}
 
-	@Override
-	public int hashCode() {
+	@Override //重载
+	public int hashCode() { //哈希码 
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + m_nodefrom;
@@ -33,7 +36,7 @@ public class JxScaleFreeEdge {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) { //
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -64,7 +67,7 @@ public class JxScaleFreeEdge {
 		
 	}
 */	
-	public int distance() {
+	public int distance() {   
 		return m_distance;
 	}
 
