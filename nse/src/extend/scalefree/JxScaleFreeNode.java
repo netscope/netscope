@@ -10,12 +10,20 @@ import java.util.ArrayList;
 public class JxScaleFreeNode {
 	
 	int m_loc_x;
-	int m_loc_y;
-	int m_length;
-	int m_capacity;
-	int m_weight;
 	
-	ArrayList<JxScaleFreeEdge> m_edgelist;
+	int m_loc_y;
+	
+	int m_length;
+	
+	int m_capacity;
+	
+	float degree_ratio; //度比例
+	
+	float degree_ratio_sum; //度比例
+	
+	ArrayList<JxScaleFreeEdge>  m_edgelist; //注意用法???
+	
+	int m_nodeid;
 	
 	public JxScaleFreeNode() {//构造函数1
 		
@@ -34,12 +42,13 @@ public class JxScaleFreeNode {
 	}
 
 	@Override//覆盖
-	public String toString() {
+	public String toString() { //输出接点x,y坐标
 		return "JxScaleFreeNode [m_loc_x=" + m_loc_x + ", m_loc_y=" + m_loc_y + "]";//注意引号用法
 	}
 
 	@Override//覆盖
-	public int hashCode() {  //hash函数
+	public int hashCode() {    //hash函数(需要对比开源程序看明白)
+		
 		final int prime = 31; //素数
 		int result = 1;
 		result = prime * result + m_capacity;
@@ -74,7 +83,11 @@ public class JxScaleFreeNode {
 		return true;
 	}
 
-	public int x() { 
+	public int get_nodeid() { 
+		return m_nodeid;
+	}
+	
+	public int get_x() { 
 		return m_loc_x;
 	}
 
@@ -82,7 +95,7 @@ public class JxScaleFreeNode {
 		this.m_loc_x = loc_x;
 	}
 
-	public int y() {
+	public int get_y() {
 		return m_loc_y;
 	}
 
@@ -90,7 +103,7 @@ public class JxScaleFreeNode {
 		this.m_loc_y = loc_y;
 	}
 
-	public int length() {  
+	public int get_length() {  
 		return m_length;
 	}
 
@@ -98,33 +111,41 @@ public class JxScaleFreeNode {
 		this.m_length = length;
 	}
 
-	public int capacity() {  
+	public int get_capacity() {  
 		return m_capacity;
 	}
 
-	public int weight() {
+    /*public int get_weight() {
 		return m_weight;
-	}
+	  }
 
-	public void set_weight(int weight) {
+	  public void set_weight(int weight) {
 		this.m_weight = weight;
-	}
-
+	  }
+   */
 	public void set_capacity(int capacity) {
 		this.m_capacity = capacity;
 	}
 
-	public ArrayList<JxScaleFreeEdge> edgelist() {  //每一个节点的边集？？？
+	public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
 		return m_edgelist;
 	}
 
-	int degree() {
-		return m_edgelist.size();
+   public int degree() {
+		return m_edgelist.size(); //接点的度
 	}
+    public float degree_ratio(){  //节点度比例
+       return degree_ratio;     
+    }
+    public void set_degree_ratio(float a){
+       degree_ratio=a;
+    } 
+	public float degree_ratio_sum(){
+		
+	}  
 	
-	
-	int setDegree(int number)
-	{
+	int setDegree(int number)	{   //设置节点的度？为何？
+  
 	    return 0 ;
 	}
 }

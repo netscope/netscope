@@ -13,26 +13,7 @@ import kernel.JxBaseSimulator;
  */
 public class JxScaleFreeSimuApplication {
 
-/**	JxScaleFreeNode []node= new JxScaleFreeNode[10000];
-	int i,j; 
-	int id;
-	void init(){};
-    void evolve(){
-	};
-   void gen_topo(){
-	  for(i=0;i<100;i++)
-	  {
-		for(j=0;j<100;j++)    //生成10000个点
-	    {               
-		//  node[id++].loc_x= random.nextInt(100); //此处需要保证生成的节点不同
-		 // node[id++].loc_y = random.nextInt(100);
-	    }
-		
-		
-      }
-    }
-*/
-	
+	ArrayList<JxScaleFreeNode> JoinInNetNode ;  //已加入网络的节点（组成的链表）
 	/** 
 	 * This is a static reference to a Random instance.
 	 * This makes experiments repeatable, all you have to do is to set
@@ -53,43 +34,69 @@ public class JxScaleFreeSimuApplication {
 	/** The time of the last event using the given resolution */
 	long lastEventTime = 0; 
 	
-	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
-	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();
+	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();  //点集合
+	
+	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合
+	
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();
 	
 	void init()  //初始化
 	{
-		// m_trace.open("database"); //打开数据库
+     // m_trace.open("database"); //打开数据库
 		generate( 10000 );
 	}
 	
 	void generate( int nodecount )   //产生拓扑
 	{		
 		int i, x, y;
-		JxScaleFreeEdge edge;
-		JxScaleFreeNode node;
+		JxScaleFreeEdge edge;   //边
+		JxScaleFreeNode node;   //接点
 		
-		// Create nodes and add them into the node collection. 
-		for (i=0; i<10000; i++)
-		{
+		
+		for (i=0; i<10000; i++){
 			x = random.nextInt(100);
 			y = random.nextInt(100);
-			m_nodes.add( new JxScaleFreeNode( x, y, 100 ) );//添加新节点（？？？）			
+			m_nodes.add( new JxScaleFreeNode( x, y, 100 ));//添加新节点（100——容量）			
 		}
 	
-		// Create edge and add them into the edge collection.
+        // Create edge and add them into the edge collection.
 		
-		node = m_nodes.get(0);
-		node.setDegree(1);
-		for (i = 1; i<m_nodes.count(); i++)
-		{   JxScaleFreeNode cur=new JxScaleFreeNode();
-		    float p =0; 
-		    cur = m_nodes.get(i);  //当前节点
-		    p = random.nextFloat();
-			selected =select(0, i-1, p); //选中节点
-			edge = new JxScaleFreeEdge( cur, selected, 10, 0 );//新边
+		    node = m_nodes.get(0);  //第一个点(作为初始点)                
+	        JoinInNetNode.add(node);   
+	        node.setDegree(1);      //（实时更新接点的度）
+		
+	    for (i = 1; i<m_nodes.count(); i++)//(将节点号为1-9999的节点依次加入网络)
+		{   
+			
+	    	JxScaleFreeNode cur_node=new JxScaleFreeNode();
+			JxScaleFreeNode select_node=new JxScaleFreeNode();
+		  
+			
+		    cur_node = m_nodes.get(i);       //当前节点
+		  
+			select_node =selectnodeto(i-1);  //选择下一节点
+            
+			JoinInNetNode.add(cur_node);     //当前点加入网络
+			cur_node.setDegree(cur_node.degree()+1);//当前点的度加1
+			
+			JoinInNetNode.add(select_node); //选中点加入网络
+			select_node.setDegree(select_node.degree()+1);//选中点的度加1
+			
+			edge = new JxScaleFreeEdge( cur_node.get_nodeid(),select_node.get_nodeid(), 10, 0 ); //新边(起点，终点，带宽，权值)
+			m_edges.add(edge);
 		}
 	}
+	
+	protected JxScaleFreeNode selectnodeto(int b) { //a=0,b=i-1,p
+		
+		int i; 
+		int p = random.nextInt(JoinInNetNode.size());//生成在0——列表长度之间的整数值
+	   
+		return JoinInNetNode.get(p); //返回选中点
+	    
+	}
+	
+	
 	
 	void evolve()
 	{
@@ -119,8 +126,8 @@ public class JxScaleFreeSimuApplication {
 		// save edges;
 		// save nodes		
 	}
-
-	void run( int duration )
+ 
+	void run( int duration )  //运行
 	{
 		for (int t=0; t<duration; t++)
 		{
@@ -185,6 +192,8 @@ public class JxScaleFreeSimuApplication {
 	        JxBaseEvent event = (JxBaseEvent)getEventQueue().getAndRemoveFirst();
 	        if( event != null ){
 	            lastEventTime = event.time;
+	            
+	            
 	            //event.execute(); 
 	        }
 	        else
@@ -211,8 +220,6 @@ public class JxScaleFreeSimuApplication {
 	 */
 	public JxBaseEventQueue getEventQueue() { //得到事件队列
 		return eventQueue;
-	}
-	
-
+	}	
 }
 
