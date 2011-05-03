@@ -14,9 +14,11 @@ public class JxScaleFreeNode {
 	int m_length;
 	int m_capacity;
 	int m_weight;
+	
 	ArrayList<JxScaleFreeEdge> m_edgelist;
 	
 	public JxScaleFreeNode() {//构造函数1
+		
 		super();
 		this.m_loc_x = 0;
 		this.m_loc_y = 0;
@@ -24,19 +26,20 @@ public class JxScaleFreeNode {
 	}
 
 	public JxScaleFreeNode(int x, int y, int capacity) {//构造函数2
+		
 		super();
 		this.m_loc_x = x;
 		this.m_loc_y = y;
 		this.m_capacity = capacity;
 	}
 
-	@Override
+	@Override//覆盖
 	public String toString() {
 		return "JxScaleFreeNode [m_loc_x=" + m_loc_x + ", m_loc_y=" + m_loc_y + "]";//注意引号用法
 	}
 
-	@Override
-	public int hashCode() {
+	@Override//覆盖
+	public int hashCode() {  //hash函数
 		final int prime = 31; //素数
 		int result = 1;
 		result = prime * result + m_capacity;
@@ -47,11 +50,11 @@ public class JxScaleFreeNode {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
+	public boolean equals(Object obj) {  //判断是否相等
+		if (this == obj)   
+			return true;   
+		if (obj == null)   
+			return false; 
 		if (getClass()!= obj.getClass())
 			return false;
 		JxScaleFreeNode other = (JxScaleFreeNode) obj;
@@ -87,7 +90,7 @@ public class JxScaleFreeNode {
 		this.m_loc_y = loc_y;
 	}
 
-	public int length() {
+	public int length() {  
 		return m_length;
 	}
 
@@ -95,7 +98,7 @@ public class JxScaleFreeNode {
 		this.m_length = length;
 	}
 
-	public int capacity() {
+	public int capacity() {  
 		return m_capacity;
 	}
 
@@ -111,11 +114,17 @@ public class JxScaleFreeNode {
 		this.m_capacity = capacity;
 	}
 
-	public ArrayList<JxScaleFreeEdge> edgelist() {
+	public ArrayList<JxScaleFreeEdge> edgelist() {  //每一个节点的边集？？？
 		return m_edgelist;
 	}
 
 	int degree() {
 		return m_edgelist.size();
+	}
+	
+	
+	int setDegree(int number)
+	{
+	    return 0 ;
 	}
 }

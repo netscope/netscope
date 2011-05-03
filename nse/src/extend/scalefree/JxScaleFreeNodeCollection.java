@@ -1,40 +1,42 @@
 package extend.scalefree;
-
 import java.util.ArrayList;
-
 public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6512692821729075017L;
+//private static final long serialVersionUID = 6512692821729075017L;
 
-	int count() {
+	int count() { //返回节点数
 		return super.size();
 	}
 	
-	public JxScaleFreeNode get(int index)
+	public JxScaleFreeNode get(int index) //得到索引号为index的节点
 	{
 		return super.get(index);
 	}
 	
-	public void add(int index, JxScaleFreeNode node )
+	public void add(int index, JxScaleFreeNode node )//添加节点
 	{
 		super.add(node); 
 	}
 	
-	public int indexOf(JxScaleFreeNode node)
+	public int indexOf(JxScaleFreeNode node)//指定字符第一次出现时的索引
 	{
 		return super.indexOf(node);
 	}
 	
-	public JxScaleFreeNode search( int id )
+	public JxScaleFreeNode search( int id )//搜索节点
 	{
 		// todo
 		return null;
 	}
 	
-	public void clear()
+	public void clear()//清除节点
 	{
 		super.clear();
 	}

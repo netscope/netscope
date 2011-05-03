@@ -51,7 +51,7 @@ public class JxScaleFreeSimuApplication {
 	private JxBaseEventQueue eventQueue = new JxBaseEventQueue();
 	
 	/** The time of the last event using the given resolution */
-	long lastEventTime = 0;
+	long lastEventTime = 0; 
 	
 	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
 	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();
@@ -59,14 +59,14 @@ public class JxScaleFreeSimuApplication {
 	
 	void init()  //初始化
 	{
-		// m_trace.open("database"); 
+		// m_trace.open("database"); //打开数据库
 		generate( 10000 );
 	}
 	
-	void generate( int nodecount )
+	void generate( int nodecount )   //产生拓扑
 	{		
 		int i, x, y;
-		JxScaleFreeEdge e;
+		JxScaleFreeEdge edge;
 		JxScaleFreeNode node;
 		
 		// Create nodes and add them into the node collection. 
@@ -74,7 +74,7 @@ public class JxScaleFreeSimuApplication {
 		{
 			x = random.nextInt(100);
 			y = random.nextInt(100);
-			m_nodes.add( new JxScaleFreeNode( x, y, 100 ) );			
+			m_nodes.add( new JxScaleFreeNode( x, y, 100 ) );//添加新节点（？？？）			
 		}
 	
 		// Create edge and add them into the edge collection.
@@ -82,11 +82,12 @@ public class JxScaleFreeSimuApplication {
 		node = m_nodes.get(0);
 		node.setDegree(1);
 		for (i = 1; i<m_nodes.count(); i++)
-		{
-			cur = m_nodes.get(i);
-			p = random.nextFloat( 1.0 );
-			selected = select(0, i-1, p);
-			e = new JxScaleFreeEdge( cur, selected, 10, 0 );
+		{   JxScaleFreeNode cur=new JxScaleFreeNode();
+		    float p =0; 
+		    cur = m_nodes.get(i);  //当前节点
+		    p = random.nextFloat();
+			selected =select(0, i-1, p); //选中节点
+			edge = new JxScaleFreeEdge( cur, selected, 10, 0 );//新边
 		}
 	}
 	
@@ -98,7 +99,7 @@ public class JxScaleFreeSimuApplication {
 		for (i=0; i<m_nodes.count(); i++)
 		{
 			node1 = m_nodes.get(i);
-			node2 = select_neighbot( node1 );
+			node2 = select_neighbor( node1 );
 			
 			// move some packets from node1 to node2
 			
@@ -208,7 +209,7 @@ public class JxScaleFreeSimuApplication {
 	 * Get the event queue
 	 * @return eventQueue in the simulator.
 	 */
-	public JxBaseEventQueue getEventQueue() {
+	public JxBaseEventQueue getEventQueue() { //得到事件队列
 		return eventQueue;
 	}
 	
