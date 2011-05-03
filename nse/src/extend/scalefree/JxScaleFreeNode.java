@@ -9,23 +9,19 @@ import java.util.ArrayList;
  */
 public class JxScaleFreeNode {
 	
-	int m_loc_x;
+	private int m_loc_x;
 	
-	int m_loc_y;
+	private int m_loc_y;
 	
-	int m_length;
+	private int m_length;
 	
-	int m_capacity;
+	private int m_capacity;
 	
-	float degree_ratio; //度比例
+	private ArrayList<JxScaleFreeEdge>  m_edgelist; //注意用法???
 	
-	float degree_ratio_sum; //度比例
+	private int m_nodeid;
 	
-	ArrayList<JxScaleFreeEdge>  m_edgelist; //注意用法???
-	
-	int m_nodeid;
-	
-	public JxScaleFreeNode() {//构造函数1
+	 public JxScaleFreeNode() {//构造函数1
 		
 		super();
 		this.m_loc_x = 0;
@@ -117,12 +113,12 @@ public class JxScaleFreeNode {
 
     /*public int get_weight() {
 		return m_weight;
-	  }
-
+	  } 
+ 
 	  public void set_weight(int weight) {
 		this.m_weight = weight;
 	  }
-   */
+      */
 	public void set_capacity(int capacity) {
 		this.m_capacity = capacity;
 	}
@@ -130,16 +126,14 @@ public class JxScaleFreeNode {
 	public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
 		return m_edgelist;
 	}
+	public ArrayList<JxScaleFreeNode> neighborhood(){
+		return  
+	} 
 
    public int degree() {
 		return m_edgelist.size(); //接点的度
 	}
-    public float degree_ratio(){  //节点度比例
-       return degree_ratio;     
-    }
-    public void set_degree_ratio(float a){
-       degree_ratio=a;
-    } 
+   
 	public float degree_ratio_sum(){
 		
 	}  

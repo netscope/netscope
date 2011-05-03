@@ -13,7 +13,7 @@ import kernel.JxBaseSimulator;
  */
 public class JxScaleFreeSimuApplication {
 
-	ArrayList<JxScaleFreeNode> JoinInNetNode ;  //已加入网络的节点（组成的链表）
+	ArrayList<JxScaleFreeNode> JoinInNetNode;  //已加入网络的节点（组成的链表）
 	/** 
 	 * This is a static reference to a Random instance.
 	 * This makes experiments repeatable, all you have to do is to set
@@ -38,7 +38,7 @@ public class JxScaleFreeSimuApplication {
 	
 	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合
 	
-	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();
+	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构
 	
 	void init()  //初始化
 	{
@@ -46,30 +46,32 @@ public class JxScaleFreeSimuApplication {
 		generate( 10000 );
 	}
 	
-	void generate( int nodecount )   //产生拓扑
+	void generate( int nodecount ) //产生拓扑
 	{		
 		int i, x, y;
 		JxScaleFreeEdge edge;   //边
 		JxScaleFreeNode node;   //接点
 		
 		
-		for (i=0; i<10000; i++){
+		for (i=0; i< nodecount; i++){
+			
 			x = random.nextInt(100);
 			y = random.nextInt(100);
-			m_nodes.add( new JxScaleFreeNode( x, y, 100 ));//添加新节点（100——容量）			
+			m_nodes.add( new JxScaleFreeNode( x, y, 100 ));//添加新节点（100——容量）
+			
 		}
 	
-        // Create edge and add them into the edge collection.
+        // 创建边并将边加入到边集中
 		
 		    node = m_nodes.get(0);  //第一个点(作为初始点)                
 	        JoinInNetNode.add(node);   
-	        node.setDegree(1);      //（实时更新接点的度）
+	        node.setDegree(1);      
 		
-	    for (i = 1; i<m_nodes.count(); i++)//(将节点号为1-9999的节点依次加入网络)
+	    for (i = 1; i<m_nodes.count(); i++) //(将节点号为1-9999的节点依次加入网络)
 		{   
 			
-	    	JxScaleFreeNode cur_node=new JxScaleFreeNode();
-			JxScaleFreeNode select_node=new JxScaleFreeNode();
+	    	JxScaleFreeNode cur_node;
+			JxScaleFreeNode select_node;
 		  
 			
 		    cur_node = m_nodes.get(i);       //当前节点
@@ -77,19 +79,18 @@ public class JxScaleFreeSimuApplication {
 			select_node =selectnodeto(i-1);  //选择下一节点
             
 			JoinInNetNode.add(cur_node);     //当前点加入网络
-			cur_node.setDegree(cur_node.degree()+1);//当前点的度加1
+			cur_node.setDegree(cur_node.degree()+1);   //当前点的度加1
 			
-			JoinInNetNode.add(select_node); //选中点加入网络
-			select_node.setDegree(select_node.degree()+1);//选中点的度加1
+			JoinInNetNode.add(select_node);            //选中点加入网络
+			select_node.setDegree(select_node.degree()+1);   //选中点的度加1
 			
-			edge = new JxScaleFreeEdge( cur_node.get_nodeid(),select_node.get_nodeid(), 10, 0 ); //新边(起点，终点，带宽，权值)
+			edge = new JxScaleFreeEdge( i,cur_node.get_nodeid(),select_node.get_nodeid(), 10, 0 ); //新边(边号，起点，终点，带宽，权值)
 			m_edges.add(edge);
 		}
 	}
 	
-	protected JxScaleFreeNode selectnodeto(int b) { //a=0,b=i-1,p
-		
-		int i; 
+	protected JxScaleFreeNode selectnodeto(int b) {  //选择边的末节点
+	
 		int p = random.nextInt(JoinInNetNode.size());//生成在0——列表长度之间的整数值
 	   
 		return JoinInNetNode.get(p); //返回选中点
@@ -98,19 +99,34 @@ public class JxScaleFreeSimuApplication {
 	
 	
 	
-	void evolve()
+	void evolve()//每一时刻同一边上的相邻节点交换包（包的个数随机）
 	{
 		int i;
+		JxScaleFreeEdge edge;
 		JxScaleFreeNode node1, node2;
-		
-		for (i=0; i<m_nodes.count(); i++)
+		JxScaleFreeNode  sender=new JxScaleFreeNode();  
+		JxScaleFreeNode  receiver=new JxScaleFreeNode(); 
+
+		for (i=0; i<m_edges.count(); i++)
 		{
-			node1 = m_nodes.get(i);
-			node2 = select_neighbor( node1 );
+			edge = m_edges.get_edge(i);
+			node1=m_nodes.get_node(edge.get_nodefrom());  //(得到相应的点(起点id号))
+			node2 = m_nodes.get_node(edge.get_nodeto());  //得到相应的点(终点id号)
 			
-			// move some packets from node1 to node2
-			
-			// trace
+			int r=random.nextInt(2);     //随机选择发送方向
+			      if(r==0){
+			          sender=node1;
+				      receiver=node2;
+			      }
+			      if(r==1){
+			    	  sender=node2;
+			    	  receiver=node1;
+			      }
+			 
+		   int packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),
+				   edge.get_bandwidth());//得到传递的包数量
+		   sender.set_length(sender.get_length()-packet_num); 
+		   receiver.set_length(receiver.get_length()+packet_num);
 		}
 	}
 	
@@ -221,5 +237,14 @@ public class JxScaleFreeSimuApplication {
 	public JxBaseEventQueue getEventQueue() { //得到事件队列
 		return eventQueue;
 	}	
+	public int  Minimum(int sender_length,int receiver_capacity,int band_with){ //发送包的个数要小于这三个值
+		int minimum=sender_length;
+		if(receiver_capacity<minimum)
+			minimum=receiver_capacity;
+		if(band_with<minimum)
+			minimum=band_with;
+		minimum=random.nextInt(minimum);
+		return minimum;
+	}
 }
 
