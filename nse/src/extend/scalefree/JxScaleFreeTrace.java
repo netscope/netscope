@@ -136,12 +136,14 @@ public class JxScaleFreeTrace {
     			e.printStackTrace();
     		}
     	}	
-	
-	public void load_nodetopo()  //下载节点结构
-	{
+	public void Load_Nodetopo()	{  //下载节点结构
+
 		
+	
 	}
-	public void load_edgetopo()  //下载边结构
+	
+	
+	public void Load_Edgetopo()  //下载边结构
 	{
 	  	
 	}

@@ -27,8 +27,6 @@ public class JxScaleFreeSimuApplication {
 	Statement sta=null;
 	
 	Connection con=null;
-	
-	
 		
 	//初始化
 	void init()  
@@ -36,7 +34,7 @@ public class JxScaleFreeSimuApplication {
 
 		String database=null;
        
-	    generate( 10000 );                      //chanshengyiwanged
+	    generate( 10000 );                     
 		
 	}
 	
@@ -170,15 +168,15 @@ public class JxScaleFreeSimuApplication {
 		
 	}
 	
-	void load()       //数据库——内存
+	void load()  //数据库——内存
 	{
 		// load edges;
-		m_trace.load_edgetopo();
+		m_trace.Load_Edgetopo();
 		// load nodes
-		m_trace.load_nodetopo();
+		m_trace.Load_Nodetopo();
 	}
 	
-	void save()      //内存——数据库
+	void save()  //内存——数据库
 	{
 		String database=null;   //初始化
 		
