@@ -2,11 +2,12 @@
  * 
  */
 package extend.scalefree;
+import java.sql.Connection;
 import java.util.*;
-import java.util.Random;
 import kernel.JxBaseEvent;
 import kernel.JxBaseEventQueue;
 import kernel.JxBaseSimulator;
+import java.sql.Statement;
 /**
  * @author Allen
  *
@@ -22,13 +23,21 @@ public class JxScaleFreeSimuApplication {
 	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合
 	
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构
+	
+	Statement sta=null;
+	
+	Connection con=null;
+	
+	
 		
 	//初始化
 	void init()  
 	{
-        m_trace.opendatabase(); //打开数据库
+
+		String database=null;
+       
+	    generate( 10000 );                      //chanshengyiwanged
 		
-        generate( 10000 );
 	}
 	
 	void generate( int nodecount ) //产生拓扑
@@ -171,14 +180,19 @@ public class JxScaleFreeSimuApplication {
 	
 	void save()      //内存——数据库
 	{
-		// save edges;
-		m_trace.save_edgetopo();
-		// save nodes	
-		m_trace.save_nodetopo();
+		String database=null;   //初始化
+		
+		con=m_trace.Open_Database( database );  //打开数据库
+		   
+		m_trace.Save_NodeTopo(con,m_nodes);    //保存节点结构
+			
+		m_trace.Save_EdgeTopo(con,m_edges);    //保存边结构
 	}
  
 	void run( int duration )  //运行
 	{
+		
+		
 		for (int t=0; t<duration; t++)
 		{
 			evolve();
