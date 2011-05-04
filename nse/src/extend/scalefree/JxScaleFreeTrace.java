@@ -8,114 +8,134 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class JxScaleFreeTrace {
-
-    //打开数据库
-	public void opendatabase(){
-		
-		Connection con = null;
-		Statement sta = null;
-		//System.out.println("dbconnect.createnodetable() is ok");
-		try {
-			if (con != null)
-				con.close();
-			Class.forName("org.hsqldb.jdbc.JDBCDriver"); // 添加驱动 
-
-			con = DriverManager.getConnection(url, "sa", "");
-			sta = con.createStatement();
-		} catch (SQLException e) {
-			con = null;
-			sta = null;
-		} catch (ClassNotFoundException e) {
-			con = null;
-			sta = null;
-		}
-	}
-	
-	//关闭数据库
-    public void CloseDatabase() 
-    	{
-    	    Connection con = null;
-    		Statement sta = null;
-    		try {
-    			if (sta != null) {
-    				sta.executeUpdate("SHUTDOWN"); // SHUTDOWN用法 
-    				sta.close();
-    			}
-    			if (con != null) {
-    				con.close();
-    			}
-    		} catch (SQLException e) {
-    			sta = null;
-    			con = null;
-    		}
-    	}
-    	
     
-    //创建数据库
-    	public void CreateDataBase() 
+	Connection con=null;
+	
+	Statement node_sta=null;
+	
+	Statement edge_sta=null;
+    
+	//打开数据库
+	public Connection Open_Database(String database)
+	{
+		try{
+			 Class.forName("org.hsqldb.jdbc.JDBCDriver");  //添加驱动 
+
+			 con= DriverManager.getConnection("jdbc:hsqldb:mem:score", "sa", "");
+	       } 
+		     catch (SQLException e){
+              
+		       e.printStackTrace();
+	       }
+		     catch (ClassNotFoundException e){
+              
+		    	 e.printStackTrace();
+           }     
+		return con;     
+	}
+
+    	
+     //创建节点表并保存节点结构
+    
+      public void Save_NodeTopo(Connection con,JxScaleFreeNodeCollection m_nodes)
+      {   
+    	   try{
+    			 node_sta=con.createStatement();
+    	    		
+	                     // assert ((con!= null) && !(con.isClosed())); //非空且未关闭
+    	     	         // assert (node_sta != null); //非空
+    			
+    			long cur_time = System.currentTimeMillis();
+     			
+     			String str_time=String.valueOf(cur_time);  
+     			
+     			String node_tablename = "nodetable" + str_time;  
+    			
+    			String create_node = "create table" + node_tablename + "(NODEID INTERGER,LOC_X INTERGER,LOC_Y INTEGER)";
+    			
+    			node_sta.executeUpdate(create_node);       //创建节点结构表         
+    			
+    			   int i;
+    			
+    			   JxScaleFreeNode node;       //未实例化？？？？
+    			
+    			   for(i=0;i<m_nodes.count();i++){
+    				
+    				    node= m_nodes.get(i);
+    				
+    			        String node_id=Integer.toString(node.get_nodeid()); //转换为字符串
+    			
+    			        String loc_x= Integer.toString(node.get_x());    
+    			  
+    			        String loc_y= Integer.toString(node.get_y());     
+    			
+    		          //（插入节点结构）
+    			       
+    			        String insert_nodetable = "Insert into"+ node_tablename +"(NODEID,LOC_X,LOC_Y) VALUES ("+node_id+","+loc_x+","+loc_y+")";  
+    		
+    			        node_sta.executeUpdate(insert_nodetable);	        
+    		    }
+    			 
+    			   node_sta.close();
+			        
+			       con.close();
+    		} 
+    		catch (Exception e) {
+    			
+    			e.printStackTrace();
+    		}
+    	
+    	}
+    
+     //创建边表并保存
+    	
+    	public void Save_EdgeTopo(Connection con,JxScaleFreeEdgeCollection m_edges) 
     	{  
-    		Connection con=null;
-            Statement sta=null;
-    		try {
+    	  try {
+    			edge_sta=con.createStatement();
+    	     /**		
     			assert ((con != null) && !(con.isClosed())); // 非空且未关闭
     			assert (sta != null); // 非空
-    			Date   date=new   Date(); 
-    			String   newdatabase=date.toString(); 
-    			String sql1 = "create   database"+newdatabase;
-    			sta.executeUpdate(sql1);
+    	     */
+
+    			long cur_time = System.currentTimeMillis();
+     			
+     			String str_time=String.valueOf(cur_time);  
+     			
+     			String edge_tablename = "edgetable" + str_time;  
+    			
+    			String create_edge = "create table" + edge_tablename + "(EDGEID INTERGER,NODE_FROM INTERGER,NODE_TO INTEGER)";
+    			
+    			node_sta.executeUpdate(create_edge);       //创建边结构表      
+    			
+    			int i;
+    			
+    			JxScaleFreeEdge edge= new JxScaleFreeEdge();
+    			
+    			for(i=0;i<m_edges.count();i++){	
+    				
+    			     edge=m_edges.get(i);	
+    				
+    			     String edge_id=Integer.toString(edge.get_edgeid());  //转换为字符串
+    			
+    			     String node_from=Integer.toString(edge.get_nodefrom());    
+    			
+    			     String node_to=Integer.toString(edge.get_nodeto()); 
+    			
+    			     String insert_edgetable = "Insert into"+ edge_tablename +"(EDGEID,NODE_FROM,NODE_TO) VALUES ("+ edge_id +"," + node_from + "," + node_to+ ")";  
+    				
+    			     edge_sta.executeUpdate(insert_edgetable);	
+    			}
+    			 
+    			edge_sta.close();
+    		
+    			con.close();
+    			
     		} catch (Exception e) {
+    			
     			e.printStackTrace();
     		}
-    	}
-    	
- 
-     //创建节点表
-    	public void CreateNodeTable()
-    	{   
-    		Connection con=null;
-            Statement sta=null;
-    		try{
-    			assert ((con!= null) && !(con.isClosed())); //非空且未关闭
-    			assert (sta != null); //非空
-    			String sql2 = "create table Node_topology((int node_id,int loc_x,int loc_y,int tx.power)";// 创建节点表
-    			sta.executeUpdate(sql2);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    	}
-    
-     // 创建边表
-    	public void CreateEdgeTable() 
-    	{  
-    		Connection con=null;
-            Statement sta=null;
-    		try {
-    			assert ((con != null) && !(con.isClosed())); // 非空且未关闭
-    			assert (sta != null); // 非空
-    			String sql3 = "create table Edge_topology((int edge_id,int node_from,int node_to)";// 创建边表
-    			sta.executeUpdate(sql3);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    	}
-	
-	
-	public void save_nodetopo()  //保存点结构
-	{
-	   	
-	}
-	public void save_edgetopo()  //保存边结构
-	{
-	 	
-	}
-	public void trace_node()     //记录点包长度(数据分析)
-	{
-		 
-	}
-	public void trace_edge()     //记录边发送包的数量(数据分析)
-	{
-		 
-	}
+    	}	
 	
 	public void load_nodetopo()  //下载节点结构
 	{
