@@ -2,13 +2,15 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
-	int m_nodefrom;
-	int m_nodeto;
-	int m_bandwidth;
-	int m_weight;
-	int m_distance;
+	private int m_edgeid;      
+	private int m_nodefrom;   
+	private int m_nodeto;     
+	private int m_bandwidth;  
+	private int m_weight;        
+	private int m_distance;   
 	
-	public JxScaleFreeEdge() {//构造函数1
+	
+	public JxScaleFreeEdge(){//构造函数1 
 		
 		super();
 		this.m_nodefrom = 0;
@@ -17,9 +19,10 @@ public class JxScaleFreeEdge {
 		this.m_weight = 0;
 	}
 
-	public JxScaleFreeEdge(int m_nodefrom, int m_nodeto, int m_bandwidth, int m_weight) {//构造函数2
+	public JxScaleFreeEdge(int m_edgeid,int m_nodefrom, int m_nodeto, int m_bandwidth, int m_weight){//构造函数2
 		
 		super();
+		this.m_edgeid=m_edgeid;
 		this.m_nodefrom = m_nodefrom;
 		this.m_nodeto = m_nodeto;
 		this.m_bandwidth = m_bandwidth;
@@ -27,7 +30,7 @@ public class JxScaleFreeEdge {
 	}
 
 	@Override //重载
-	public int hashCode() { //哈希码 
+	public int hashCode() {   //哈希码 （默认调用）
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + m_nodefrom;
@@ -36,8 +39,8 @@ public class JxScaleFreeEdge {
 	}
 
 	@Override
-	public boolean equals(Object obj) { //
-		if (this == obj)
+	public boolean equals(Object obj) { //默认调用
+		if (this == obj) //是否指向
 			return true;
 		if (obj == null)
 			return false;
@@ -52,7 +55,7 @@ public class JxScaleFreeEdge {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() { //默认调用
 		return "JxScaleFreeEdge [m_nodefrom=" + m_nodefrom + ", m_nodeto=" + m_nodeto
 				+ "]";
 	}
@@ -67,7 +70,21 @@ public class JxScaleFreeEdge {
 		
 	}
 */	
-	public int distance() {   
+	public int get_edgeid() {  
+		return m_edgeid;
+	}
+	public int get_nodefrom(){
+		return m_nodefrom;
+	}
+	public int get_nodeto(){
+		return m_nodeto;
+	}
+	public int get_bandwidth() {        
+		return m_bandwidth;
+	}
+	
+	
+	public int distance() {        //
 		return m_distance;
 	}
 
