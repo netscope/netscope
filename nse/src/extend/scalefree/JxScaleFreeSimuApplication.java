@@ -29,6 +29,7 @@ public class JxScaleFreeSimuApplication {
 	Connection con=null;
 		
 	//初始化
+	
 	void init()  
 	{
 
@@ -137,6 +138,10 @@ public class JxScaleFreeSimuApplication {
 			 
 		   int packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),
 				   edge.get_bandwidth());  //得到传递的包数量
+		   
+		   packet_num+=packet_num;
+		   
+		   edge.set_packetsum(packet_num); //记录边上包的流量
 		   
 		   sender.set_length(sender.get_length()-packet_num); 
 		   

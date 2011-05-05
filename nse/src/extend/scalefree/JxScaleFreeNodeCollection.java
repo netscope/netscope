@@ -12,6 +12,7 @@ public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
 //private static final long serialVersionUID = 6512692821729075017L; 
     //ArrayList<JxScaleFreeNode> nodelist; 
 	int count() {  //返回节点数
+		
 		return super.size();
 	}
 	

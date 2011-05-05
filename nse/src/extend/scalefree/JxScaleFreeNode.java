@@ -82,6 +82,9 @@ public class JxScaleFreeNode {
 	public int get_nodeid() { 
 		return m_nodeid;
 	}
+	public void set_nodeid(int id) { 
+		this.m_nodeid=id;
+	}
 	
 	public int get_x() { 
 		return m_loc_x;
@@ -127,19 +130,14 @@ public class JxScaleFreeNode {
 		return m_edgelist;
 	}
 	public ArrayList<JxScaleFreeNode> neighborhood(){
-		return  
+		return null;  
 	} 
-
+	
    public int degree() {
 		return m_edgelist.size(); //接点的度
 	}
    
-	public float degree_ratio_sum(){
-		
-	}  
-	
 	int setDegree(int number)	{   //设置节点的度？为何？
-  
 	    return 0 ;
 	}
 }
