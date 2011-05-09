@@ -63,7 +63,7 @@ public class JxScaleFreeSimuApplication {
 	       
 		    JoinInNetNode.add(node); //加入到网络中
 	        
-		    node.setDegree(1);      
+		    node.set_degree(1);      
 		
 	    for (i = 1; i<m_nodes.count(); i++) //(将节点号为1-9999的节点依次加入网络)
 		{   
@@ -78,13 +78,13 @@ public class JxScaleFreeSimuApplication {
             
 			JoinInNetNode.add(cur_node);     //当前点加入网络
 			
-			cur_node.setDegree(cur_node.degree()+1);   //当前点的度加1
+			cur_node.set_degree(cur_node.degree()+1);   //当前点的度加1
 			
 			JoinInNetNode.add(select_node);            //选中点加入网络
 			
-			select_node.setDegree(select_node.degree()+1);   //选中点的度加1
+			select_node.set_degree(select_node.degree()+1);   //选中点的度加1
 			
-			edge = new JxScaleFreeEdge( i,cur_node.get_nodeid(),select_node.get_nodeid(), 10, 0 ); //新边(边号，起点，终点，带宽，权值)
+			edge = new JxScaleFreeEdge( i,cur_node.id(),select_node.id(), 10, 0 ); //新边(边号，起点，终点，带宽，权值)
 			
 			m_edges.add(edge);
 		}
@@ -117,9 +117,9 @@ public class JxScaleFreeSimuApplication {
 		{
 			edge = m_edges.get_edge(i);
 			
-			node1=m_nodes.get_node(edge.get_nodefrom());  //(得到相应的点(起点id号))
+			node1=m_nodes.get_node(edge.nodefrom());  //(得到相应的点(起点id号))
 			
-			node2 = m_nodes.get_node(edge.get_nodeto());  //得到相应的点(终点id号)
+			node2 = m_nodes.get_node(edge.nodeto());  //得到相应的点(终点id号)
 			
 			int r=random.nextInt(2);     //随机选择发送方向
 			     
@@ -136,16 +136,16 @@ public class JxScaleFreeSimuApplication {
 			    	  receiver=node1;
 			      }
 			 
-		   int packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),
-				   edge.get_bandwidth());  //得到传递的包数量
+		   int packet_num=Minimum(sender.length(),(receiver.capacity()-receiver.length()),
+				   edge.bandwidth());  //得到传递的包数量
 		   
 		   packet_num+=packet_num;
 		   
 		   edge.set_packetsum(packet_num); //记录边上包的流量
 		   
-		   sender.set_length(sender.get_length()-packet_num); 
+		   sender.set_length(sender.length()-packet_num); 
 		   
-		   receiver.set_length(receiver.get_length()+packet_num);
+		   receiver.set_length(receiver.length()+packet_num);
 		}
 	}
 	

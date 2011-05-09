@@ -1,5 +1,10 @@
 package extend.scalefree;
 import java.util.ArrayList;
+
+/**
+ * This class maintains the collection of all nodes. 
+ * @author Allen
+ */
 public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
 	/**
 	 * 
