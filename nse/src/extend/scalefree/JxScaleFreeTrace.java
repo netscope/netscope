@@ -55,11 +55,11 @@ public class JxScaleFreeTrace {
     				
     				    node= m_nodes.get(i);
     				
-    			        String node_id=Integer.toString(node.get_nodeid()); //转换为字符串
+    			        String node_id=Integer.toString(node.id()); //转换为字符串
     			
-    			        String loc_x= Integer.toString(node.get_x());    
+    			        String loc_x= Integer.toString(node.x());    
     			  
-    			        String loc_y= Integer.toString(node.get_y());     
+    			        String loc_y= Integer.toString(node.y());     
     			
     		          //（插入节点结构）
     			       
@@ -99,11 +99,11 @@ public class JxScaleFreeTrace {
     				
     			     edge=m_edges.get(i);	
     				
-    			     String edge_id=Integer.toString(edge.get_edgeid());  //转换为字符串
+    			     String edge_id=Integer.toString(edge.id());  //转换为字符串
     			
-    			     String node_from=Integer.toString(edge.get_nodefrom());    
+    			     String node_from=Integer.toString(edge.nodefrom());    
     			
-    			     String node_to=Integer.toString(edge.get_nodeto()); 
+    			     String node_to=Integer.toString(edge.nodeto()); 
     			
     			     String insert_edgetable = "Insert into"+ edge_tablename +"(EDGEID,NODE_FROM,NODE_TO) VALUES ("+ edge_id +"," + node_from + "," + node_to+ ")";  
     				
@@ -132,7 +132,11 @@ public class JxScaleFreeTrace {
   
        while(r.next()){
         
+<<<<<<< HEAD
     	   m_nodes.get(i).set_nodeid(Integer.parseInt(r.getString(1)));  //得到节点 标号
+=======
+    	   m_nodes.get(i).set_id(Integer.parseInt(r.getString(1))); //得到节点 标号
+>>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
     	   
     	   m_nodes.get(i).set_x((Integer.parseInt(r.getString(1))));     //得到节点X坐标
     	   
@@ -159,7 +163,11 @@ public class JxScaleFreeTrace {
 		  
 		       while(r.next()){
 		        
+<<<<<<< HEAD
 		    	   m_edges.get(i++).set_edgeid((Integer.parseInt(r.getString(1)))); //得到节点 标号
+=======
+		    	   m_edges.get(i).set_id((Integer.parseInt(r.getString(1)))); //得到节点 标号
+>>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
 		    	   
 		    	   m_edges.get(i++).set_nodefrom((Integer.parseInt(r.getString(1))));    //得到节点X坐标
 		    	   
@@ -206,9 +214,9 @@ public class JxScaleFreeTrace {
 				
 				    node= m_nodes.get(i);
 				
-			        String node_id=Integer.toString(node.get_nodeid()); //转换为字符串(节点号)
+			        String node_id=Integer.toString(node.id()); //转换为字符串(节点号)
 			
-			        String length= Integer.toString(node.get_length()); //(包的长度)
+			        String length= Integer.toString(node.length()); //(包的长度)
 			     
 		          //（插入节点数据）
 			       
@@ -255,7 +263,7 @@ public class JxScaleFreeTrace {
  				
  			     edge=m_edges.get(i);	
  				
- 			     String edge_id=Integer.toString(edge.get_edgeid());  //转换为字符串
+ 			     String edge_id=Integer.toString(edge.id());  //转换为字符串
  			
  			     String packet_sum=Integer.toString(edge.get_packetsum());    
  			

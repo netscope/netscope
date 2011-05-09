@@ -2,63 +2,64 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
-	private int edgeid;      
-	private int nodefrom;   
-	private int nodeto;     
-	private int bandwith;  
-	private int weight;        
-	private int distance; 
+	private int m_id;      
+	private int m_nodefrom;   
+	private int m_nodeto;     
+	private int m_bandwith;  
+	private int m_weight;        
+	private int m_distance; 
+
+	// @todo what does it used for?
 	private int packetsum;
 	
 	
-	public JxScaleFreeEdge(){//构造函数1 
+	public JxScaleFreeEdge(){
 		
 		super();
-		this.nodefrom = 0;
-		this.nodeto = 0;
-		this.bandwith = 0;
-		this.weight = 0;
+		this.m_nodefrom = 0;
+		this.m_nodeto = 0;
+		this.m_bandwith = 0;
+		this.m_weight = 0;
 	}
 
-	public JxScaleFreeEdge(int edgeid,int nodefrom, int nodeto, int bandwith, int weight){//构造函数2
-		
+	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwith, int weight){
 		super();
-		this.edgeid=edgeid;
-		this.nodefrom =nodefrom;
-		this.nodeto = nodeto;
-		this.bandwith = bandwith;
-		this.weight = weight;
+		this.m_id=edgeid;
+		this.m_nodefrom =nodefrom;
+		this.m_nodeto = nodeto;
+		this.m_bandwith = bandwith;
+		this.m_weight = weight;
 	}
 
-	@Override //重载
-	public int hashCode() {   //哈希码 （默认调用）
+	@Override
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result +nodefrom;
-		result = prime * result + nodeto;
+		result = prime * result +m_nodefrom;
+		result = prime * result + m_nodeto;
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) { //默认调用
-		if (this == obj) //是否指向
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		JxScaleFreeEdge other = (JxScaleFreeEdge) obj;
-		if (nodefrom != other.nodefrom)
+		if (m_nodefrom != other.m_nodefrom)
 			return false;
-		if (nodeto != other.nodeto)
+		if (m_nodeto != other.m_nodeto)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() { //默认调用
-		return "JxScaleFreeEdge [m_nodefrom=" +nodefrom + ", nodeto=" + nodeto
-				+ "]";
+		return "JxScaleFreeEdge [m_nodefrom=" +m_nodefrom + ", nodeto=" + m_nodeto
+			+ "]";
 	}
 /*
 	double distance()
@@ -71,39 +72,43 @@ public class JxScaleFreeEdge {
 		
 	}
 */	
-	public int get_edgeid() {  
-		return edgeid;
+	public int id() {  
+		return m_id;
 	}
-	public void set_edgeid(int id) {  
-		 edgeid=id;
+	public void set_id(int id) {  
+		 m_id=id;
 	}
-	public int get_nodefrom(){
-		return nodefrom;
+	public int nodefrom(){
+		return m_nodefrom;
 	}
-	public void  set_nodefrom(int node_from){
-		 nodefrom=node_from;
+	public void  set_nodefrom(int nodefrom){
+		 m_nodefrom=nodefrom;
 	}
-	public int get_nodeto(){
-		return nodefrom;
+	public int nodeto(){
+		return m_nodefrom;
 	}
 	public int set_nodeto(int node_to){
-		return nodeto=node_to;
+		return m_nodeto=node_to;
 	}
-	public int get_bandwidth() {        
-		return bandwith;
+	public int bandwidth() {        
+		return m_bandwith;
 	}
 	
-	
-	public int distance() {        //
-		return distance;
+	public int distance() {  
+		return m_distance;
 	}
 
-	public void setDistance(int distance) {
-		this.distance = distance;
+	public void set_distance(int distance) {
+		this.m_distance = distance;
 	}
+	
+	// @todo Why add this function 
+	// that's the meaning of this function?
     public int get_packetsum(){
 		return packetsum;
 	}
+    
+	// @todo Why add this function 
     public void  set_packetsum(int sum){
     	packetsum=sum;
     }

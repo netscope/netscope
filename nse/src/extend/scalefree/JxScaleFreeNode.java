@@ -1,21 +1,21 @@
 package extend.scalefree;
+
 import java.util.ArrayList;
+
 /** 
- * @author Allen
+ * @author Allen, LiPengfei (TongJi University)
  *
  */
 /**
  * JxScaleFreeNode represents a single node in the network.
  */
 public class JxScaleFreeNode {
-	
+	private int m_id;
 	private int m_loc_x;
-	
 	private int m_loc_y;
-	
 	private int m_length;
-	
 	private int m_capacity;
+<<<<<<< HEAD
 	 
 	private int degree;
 	
@@ -25,29 +25,39 @@ public class JxScaleFreeNode {
 	
 	 public JxScaleFreeNode() {//构造函数1
 		
+=======
+
+	/* edge list enables the developer can find all neighbor nodes rapidly */
+	private ArrayList<JxScaleFreeEdge> m_edgelist;
+
+	public JxScaleFreeNode() {
+>>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
 		super();
 		this.m_loc_x = 0;
 		this.m_loc_y = 0;
 		this.m_capacity = 0;
 	}
 
-	public JxScaleFreeNode(int x, int y, int capacity) {//构造函数2
-		
+	public JxScaleFreeNode(int x, int y, int capacity) {
 		super();
 		this.m_loc_x = x;
 		this.m_loc_y = y;
 		this.m_capacity = capacity;
 	}
 
-	@Override//覆盖
-	public String toString() { //输出接点x,y坐标
-		return "JxScaleFreeNode [m_loc_x=" + m_loc_x + ", m_loc_y=" + m_loc_y + "]";//注意引号用法
+	@Override
+	public String toString() { 
+		return "JxScaleFreeNode [m_loc_x=" + m_loc_x + ", m_loc_y=" + m_loc_y
+			+ "]";
 	}
 
-	@Override//覆盖
-	public int hashCode() {    //hash函数(需要对比开源程序看明白)
-		
-		final int prime = 31; //素数
+	/**
+	 * Generate an nearly unique identifier of current object for hashing operations. 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31; // 素数
 		int result = 1;
 		result = prime * result + m_capacity;
 		result = prime * result + ((m_edgelist == null) ? 0 : m_edgelist.hashCode());
@@ -57,19 +67,19 @@ public class JxScaleFreeNode {
 	}
 
 	@Override
-	public boolean equals(Object obj) {  //判断是否相等
-		if (this == obj)   
-			return true;   
-		if (obj == null)   
-			return false; 
-		if (getClass()!= obj.getClass())
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		JxScaleFreeNode other = (JxScaleFreeNode) obj;
 		if (m_capacity != other.m_capacity)
 			return false;
 		if (m_edgelist == null) {
 			if (other.m_edgelist != null)
-			return false;
+				return false;
 		} else if (!m_edgelist.equals(other.m_edgelist))
 			return false;
 		if (m_length != other.m_length)
@@ -81,14 +91,15 @@ public class JxScaleFreeNode {
 		return true;
 	}
 
-	public int get_nodeid() { 
-		return m_nodeid;
+	public int id() {
+		return m_id;
 	}
-	public void set_nodeid(int id) { 
-		this.m_nodeid=id;
+
+	public void set_id(int id) {
+		this.m_id = id;
 	}
-	
-	public int get_x() { 
+
+	public int x() {
 		return m_loc_x;
 	}
 
@@ -96,7 +107,7 @@ public class JxScaleFreeNode {
 		this.m_loc_x = loc_x;
 	}
 
-	public int get_y() {
+	public int y() {
 		return m_loc_y;
 	}
 
@@ -104,7 +115,7 @@ public class JxScaleFreeNode {
 		this.m_loc_y = loc_y;
 	}
 
-	public int get_length() {  
+	public int length() {
 		return m_length;
 	}
 
@@ -112,22 +123,20 @@ public class JxScaleFreeNode {
 		this.m_length = length;
 	}
 
-	public int get_capacity() {  
+	public int capacity() {
 		return m_capacity;
 	}
 
-    /*public int get_weight() {
-		return m_weight;
-	  } 
- 
-	  public void set_weight(int weight) {
-		this.m_weight = weight;
-	  }
-      */
+	/*
+	 * public int get_weight() { return m_weight; }
+	 * 
+	 * public void set_weight(int weight) { this.m_weight = weight; }
+	 */
 	public void set_capacity(int capacity) {
 		this.m_capacity = capacity;
 	}
 
+<<<<<<< HEAD
  /*  public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
 		
 		return m_edgelist;
@@ -147,5 +156,41 @@ public class JxScaleFreeNode {
 	   
 		this.degree=number ;
 	
+=======
+	/**
+	 * @return An array list containing the references to all neighbor edges.
+	 */
+	public ArrayList<JxScaleFreeEdge> edgelist() {
+		return m_edgelist;
+	}
+
+	/**
+	 * @return An array list containing the reference to all neighbor nodes.
+	 */
+	public ArrayList<JxScaleFreeNode> neighborhood() {
+		return null;
+	}
+
+	/** 
+	 * The degree of current node.
+	 * @return
+	 */
+	public int degree() {
+		return m_edgelist.size(); 
+	}
+	
+	public boolean add_neighbor( JxScaleFreeNode neighbornode )
+	{
+		boolean ret = false;
+		
+		/*
+		search whether the edge existed.
+		add the edge of <current node, neighbor node> into the edge list
+		
+		if 
+		m_edgelist
+		*/
+		return ret;
+>>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
 	}
 }
