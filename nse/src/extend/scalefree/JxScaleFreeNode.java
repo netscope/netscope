@@ -16,6 +16,8 @@ public class JxScaleFreeNode {
 	private int m_length;
 	
 	private int m_capacity;
+	 
+	private int degree;
 	
 	private ArrayList<JxScaleFreeEdge>  m_edgelist; //注意用法???
 	
@@ -126,18 +128,24 @@ public class JxScaleFreeNode {
 		this.m_capacity = capacity;
 	}
 
-	public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
+ /*  public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
+		
 		return m_edgelist;
 	}
 	public ArrayList<JxScaleFreeNode> neighborhood(){
+		
 		return null;  
+		
 	} 
-	
-   public int degree() {
-		return m_edgelist.size(); //接点的度
+*/
+     public int degree() {
+	   
+		return degree; //接点的度
 	}
-   
-	int setDegree(int number)	{   //设置节点的度？为何？
-	    return 0 ;
+ 
+	public void setDegree(int number)	{   //设置节点的度？为何？
+	   
+		this.degree=number ;
+	
 	}
 }

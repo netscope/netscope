@@ -12,32 +12,29 @@ public class JxScaleFreeTrace {
 	
 	Statement sta=null;
 	
-    
 	//打开数据库
 	public Statement Open_Database(String database)
 	{
 		try{
-			 Class.forName("org.hsqldb.jdbc.JDBCDriver");  //添加驱动 
+			 Class.forName("org.hsqldb.jdbc.JDBCDriver"); //添加驱动 
 
-			 con= DriverManager.getConnection("jdbc:hsqldb:mem:score", "sa", "");
+			 con= DriverManager.getConnection("jdbc:hsqldb:mem:netscope", "sa", ""); //建立netscope的数据库
 			 
 			 sta=con.createStatement();  
 	       } 
 		     catch (SQLException e){
               
-		       e.printStackTrace();
+		      e.printStackTrace();
 	       }
 		     catch (ClassNotFoundException e){
               
 		      e.printStackTrace();
            }     
 		return sta;     
-	}
-
-    	
+	}    	
     //创建节点表并保存节点结构  
     public void Save_NodeTopo(Statement sta)
-      {   
+    {   
 
 		JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection(); 
     	   try{
@@ -52,11 +49,9 @@ public class JxScaleFreeTrace {
     			
     			sta.executeUpdate(create_node);       //创建节点结构表         
     			
-    			   int i;
+    			JxScaleFreeNode node;       //未实例化？？？？
     			
-    			   JxScaleFreeNode node;       //未实例化？？？？
-    			
-    			   for(i=0;i<m_nodes.count();i++){
+    			   for(int i=0;i<m_nodes.count();i++){
     				
     				    node= m_nodes.get(i);
     				
@@ -70,19 +65,21 @@ public class JxScaleFreeTrace {
     			       
     			        String insert_nodetable = "Insert into"+ node_tablename +"(NODEID,LOC_X,LOC_Y) VALUES ("+node_id+","+loc_x+","+loc_y+")";  
     		
-    			        sta.executeUpdate(insert_nodetable);	        
+    			        sta.executeUpdate(insert_nodetable);	
+    			        
+    			        sta.close();
     			   }
 		   } 
-    		catch (Exception e) {
-    			
-    			e.printStackTrace();
-    		}
-    	}
-    
+    	   catch (SQLException e){
+               
+           	e.printStackTrace();
+           
+           }
+      }
+  
      //创建边表并保存
-    public void Save_EdgeTopo(Statement sta) 
-
-    	{  
+    public void Save_EdgeTopo(Statement sta)
+    {  
     	  try {
     			long sys_time = System.currentTimeMillis();
      			
@@ -94,13 +91,11 @@ public class JxScaleFreeTrace {
     			
     			sta.executeUpdate(create_edge);       //创建边结构表      
     			
-    			int i;
-    			
     			JxScaleFreeEdge edge= new JxScaleFreeEdge();
     			
     			JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection(); 
     			
-    			for(i=0;i<m_edges.count();i++){	
+    			for(int i=0;i<m_edges.count();i++){	
     				
     			     edge=m_edges.get(i);	
     				
@@ -113,15 +108,17 @@ public class JxScaleFreeTrace {
     			     String insert_edgetable = "Insert into"+ edge_tablename +"(EDGEID,NODE_FROM,NODE_TO) VALUES ("+ edge_id +"," + node_from + "," + node_to+ ")";  
     				
     			     sta.executeUpdate(insert_edgetable);	
+    			     
+    			     sta.close();
     			}
     			
-    		} catch (Exception e) {
-    			
-    			e.printStackTrace();
-    		}
+    		}  catch (SQLException e){
+                
+            	e.printStackTrace();    
+            }    
     	}	
 	
-    public void Load_Nodetopo(Statement sta,String tablename) {  //下载节点结构
+    public void Load_Nodetopo(Statement sta, String tablename) {  //下载节点结构
    
    try{
     	
@@ -135,9 +132,9 @@ public class JxScaleFreeTrace {
   
        while(r.next()){
         
-    	   m_nodes.get(i).set_nodeid(Integer.parseInt(r.getString(1))); //得到节点 标号
+    	   m_nodes.get(i).set_nodeid(Integer.parseInt(r.getString(1)));  //得到节点 标号
     	   
-    	   m_nodes.get(i).set_x((Integer.parseInt(r.getString(1))));    //得到节点X坐标
+    	   m_nodes.get(i).set_x((Integer.parseInt(r.getString(1))));     //得到节点X坐标
     	   
     	   m_nodes.get(i).set_y((Integer.parseInt(r.getString(1))));     //得到节点y坐标
     	
@@ -162,18 +159,22 @@ public class JxScaleFreeTrace {
 		  
 		       while(r.next()){
 		        
-		    	   m_edges.get(i).set_edgeid((Integer.parseInt(r.getString(1)))); //得到节点 标号
+		    	   m_edges.get(i++).set_edgeid((Integer.parseInt(r.getString(1)))); //得到节点 标号
 		    	   
-		    	   m_edges.get(i).set_nodefrom((Integer.parseInt(r.getString(1))));    //得到节点X坐标
+		    	   m_edges.get(i++).set_nodefrom((Integer.parseInt(r.getString(1))));    //得到节点X坐标
 		    	   
-		    	   m_edges.get(i).set_nodeto((Integer.parseInt(r.getString(1))));     //得到节点y坐标
+		    	   m_edges.get(i++).set_nodeto((Integer.parseInt(r.getString(1))));     //得到节点y坐标
 		    	
+		    	   sta.close();
 		      }
 		      }catch(Exception e){
+		    	 
 		    	  e.printStackTrace();
+		    	  
 		      }   
 	}
-	public void trace_node(Statement sta,JxScaleFreeNodeCollection m_nodes,int time){//保存点数据
+	
+	public void Trace_Node(Statement sta,JxScaleFreeNodeCollection m_nodes,int time){// 保存点数据( time: 运 行 次 数 )
 	   
 		try{
 			  //可以考虑返回sta作为参数
@@ -196,14 +197,12 @@ public class JxScaleFreeTrace {
 				       
 				        tracenode_table=false;
 			      }
-	  			
-			   int i;
 			
 			   JxScaleFreeNode node;        //未实例化？？？？
 			   
 			   String cur_time= String.valueOf(time); 
 			
-			   for(i=0;i<m_nodes.count();i++){				
+			   for(int i=0;i<m_nodes.count();i++){				
 				
 				    node= m_nodes.get(i);
 				
@@ -215,7 +214,9 @@ public class JxScaleFreeTrace {
 			       
 			        String trace_node = "Insert into"+ tracenode_tablename +"(CUR_TIME,NODEID,LENGTH) VALUES ("+cur_time+","+node_id+","+length+")";  
 		
-			        sta.executeUpdate(trace_node);	        
+			        sta.executeUpdate(trace_node);	  
+			        
+			        sta.close();
 			   }
 		} 
 		catch (Exception e) {
@@ -224,8 +225,7 @@ public class JxScaleFreeTrace {
 		}
 	} 
 	
-	public void trace_edge(Statement sta,JxScaleFreeEdgeCollection m_edges,int time){   //保存边数据
-  	
+	public void Trace_Edge(Statement sta,JxScaleFreeEdgeCollection m_edges,int time){//保存边数	
 	try {
  					 
  			boolean traceedge_table = true;
@@ -246,14 +246,12 @@ public class JxScaleFreeTrace {
 				    	
 				        traceedge_table = false;
 			      }
- 			
- 			int i;
  			  
  			String cur_time= String.valueOf(time); 
  				
  			JxScaleFreeEdge edge= new JxScaleFreeEdge();
  			
- 			for(i=0;i<m_edges.count();i++){	
+ 			for(int i=0;i<m_edges.count();i++){	
  				
  			     edge=m_edges.get(i);	
  				
@@ -264,13 +262,32 @@ public class JxScaleFreeTrace {
  			     String insert_edgetable = "Insert into"+ traceedge_tablename +"(CUR_TIME,EDGEID,PACKETSUM) VALUES ("+cur_time+"," + edge_id+ "," + packet_sum+ ")";  
  				
  			     sta.executeUpdate(insert_edgetable);	
+ 			     
+ 			     sta.close();
  			}
  			
  		} catch (Exception e) {
  			
  			e.printStackTrace();
- 		}
-	
+ 		}		
 	}
+	
+    public void CloseDatabase(Connection c) //关闭数据库
+	{   
+	   try {
+				/* if (sta != null) 
+				 sta.executeUpdate("SHUTDOWN"); // SHUTDOWN用法 
+				 sta.close();
+				}if (con != null)*/
+			 
+		       con.close();  
+				
+			} catch (SQLException e) {
+				
+				// sta = null;
+				
+				con = null;
+			}
+		}
 		
 }

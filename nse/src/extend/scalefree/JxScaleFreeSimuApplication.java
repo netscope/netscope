@@ -14,28 +14,34 @@ import java.sql.Statement;
  */
 public class JxScaleFreeSimuApplication {
 
-	ArrayList<JxScaleFreeNode> JoinInNetNode;  //已加入网络的节点（组成的链表）
+	ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>();  //已加入网络的节点（组成的链表）
 	
 	public static Random random = new Random();
 
-	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();  //点集合
+	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();  //点集合(创建，保存)
 	
-	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合
+	JxScaleFreeNodeCollection m_nodesload = new JxScaleFreeNodeCollection();//(下载节点拓扑)
+	
+	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合(创建，保存)
+	
+	JxScaleFreeNodeCollection m_edgesload = new JxScaleFreeNodeCollection();//(下载边拓扑)
 	
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构
 	
 	Statement sta=null;
 	
 	Connection con=null;
+	
+	String str;
 		
 	//初始化
 	
-	void init()  
+	void init()  //初始化（产生拓扑结构）
 	{
-
-		String database=null;
        
-	    generate( 10000 );                     
+	    generate( 10000 );     
+	    
+	    save();
 		
 	}
 	
@@ -98,12 +104,9 @@ public class JxScaleFreeSimuApplication {
 		return JoinInNetNode.get(p); //返回选中点
 	    
 	}
-	
-	
 	//每一时刻同一边上的相邻节点交换包（包的个数随机）
 	void evolve()
 	{
-		int i;
 		
 		JxScaleFreeEdge edge;
 		
@@ -113,7 +116,7 @@ public class JxScaleFreeSimuApplication {
 		
 		JxScaleFreeNode  receiver=new JxScaleFreeNode(); 
 
-		for (i=0; i<m_edges.count(); i++)
+		for (	int i=0; i<m_edges.count(); i++)
 		{
 			edge = m_edges.get_edge(i);
 			
@@ -137,7 +140,8 @@ public class JxScaleFreeSimuApplication {
 			      }
 			 
 		   int packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),
-				   edge.get_bandwidth());  //得到传递的包数量
+			 
+		   edge.get_bandwidth());  //得到传递的包数量
 		   
 		   packet_num+=packet_num;
 		   
@@ -150,7 +154,7 @@ public class JxScaleFreeSimuApplication {
 	}
 	
 	//求三个值中的最小值
-	public int  Minimum(int sender_length,int receiver_capacity,int band_with){ //发送包的个数要小于这三个值
+	public int  Minimum(int sender_length,int receiver_capacity,int band_width){ //发送包的个数要小于这三个值
 		
 		int minimum=sender_length;
 		
@@ -158,49 +162,56 @@ public class JxScaleFreeSimuApplication {
 		
 			minimum=receiver_capacity;
 		
-		if(band_with<minimum)
+		if(band_width<minimum)
 		
-			minimum=band_with;
+			minimum=band_width;
 		
 		minimum=random.nextInt(minimum);  //可能有问题（？？）
 		
 		return minimum;
 	}
 	
-	void trace()
+	void trace(int time)
 	{
-	//save this step into trace file(保存的日志文件中)
+		
+	    m_trace.Trace_Node(sta, m_nodes, time); //time为试验次数
+	    
+	    m_trace.Trace_Edge(sta, m_edges, time); 
 		
 	}
 	
 	void load()  //数据库——内存
 	{
 		// load edges;
-		m_trace.Load_Edgetopo();
+		
+		m_trace.Load_Edgetopo(sta,str);
+		
 		// load nodes
-		m_trace.Load_Nodetopo();
+		
+		m_trace.Load_Nodetopo(sta,str);
 	}
 	
 	void save()  //内存——数据库
 	{
-		String database=null;   //初始化
+		String database=null;   //初始化???
 		
-		con=m_trace.Open_Database( database );  //打开数据库
+		sta=m_trace.Open_Database( database );  //打开数据库
 		   
-		m_trace.Save_NodeTopo(con,m_nodes);    //保存节点结构
+		m_trace.Save_NodeTopo(sta);    //保存节点结构
 			
-		m_trace.Save_EdgeTopo(con,m_edges);    //保存边结构
+		m_trace.Save_EdgeTopo(sta);    //保存边结构
 	}
  
 	void run( int duration )  //运行
-	{
-		
-		
-		for (int t=0; t<duration; t++)
-		{
+	{	
+		for (int time=0; time<duration; time++)
+		{ 
 			evolve();
+			
+			trace(time);  //保存实验结果		
 		}
 	}
+	
 	
 
 	/**
@@ -281,8 +292,6 @@ public class JxScaleFreeSimuApplication {
 	    }
 	}
 */
-	
-
 	/**
 	 * Clears the List of nodes.
 	 */
@@ -298,7 +307,14 @@ public class JxScaleFreeSimuApplication {
 	/*public JxBaseEventQueue getEventQueue() { //得到事件队列
 		return eventQueue;
 	}*/	
-	
+	public static void main(String[] args){
+		
+		JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication();
+		 
+		app.init();
+		
+		app.run(1000);		
+	}
 	
 }
 
