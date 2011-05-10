@@ -15,23 +15,18 @@ public class JxScaleFreeNode {
 	private int m_loc_y;
 	private int m_length;
 	private int m_capacity;
-<<<<<<< HEAD
+
 	 
 	private int degree;
 	
-	private ArrayList<JxScaleFreeEdge>  m_edgelist; //注意用法???
 	
 	private int m_nodeid;
 	
-	 public JxScaleFreeNode() {//构造函数1
-		
-=======
-
+	
 	/* edge list enables the developer can find all neighbor nodes rapidly */
 	private ArrayList<JxScaleFreeEdge> m_edgelist;
 
 	public JxScaleFreeNode() {
->>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
 		super();
 		this.m_loc_x = 0;
 		this.m_loc_y = 0;
@@ -115,7 +110,7 @@ public class JxScaleFreeNode {
 		this.m_loc_y = loc_y;
 	}
 
-	public int length() {
+	public int  get_length() {
 		return m_length;
 	}
 
@@ -123,7 +118,7 @@ public class JxScaleFreeNode {
 		this.m_length = length;
 	}
 
-	public int capacity() {
+	public int get_capacity() {
 		return m_capacity;
 	}
 
@@ -136,7 +131,6 @@ public class JxScaleFreeNode {
 		this.m_capacity = capacity;
 	}
 
-<<<<<<< HEAD
  /*  public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
 		
 		return m_edgelist;
@@ -149,14 +143,13 @@ public class JxScaleFreeNode {
 */
      public int degree() {
 	   
-		return degree; //接点的度
+		return this.degree; //接点的度
 	}
  
-	public void setDegree(int number)	{   //设置节点的度？为何？
+	public void set_degree(int number)	{   //设置节点的度？为何？
 	   
-		this.degree=number ;
-	
-=======
+		this.degree=number;
+	}
 	/**
 	 * @return An array list containing the references to all neighbor edges.
 	 */
@@ -175,9 +168,9 @@ public class JxScaleFreeNode {
 	 * The degree of current node.
 	 * @return
 	 */
-	public int degree() {
+/*	public int degree() {
 		return m_edgelist.size(); 
-	}
+	} */
 	
 	public boolean add_neighbor( JxScaleFreeNode neighbornode )
 	{
@@ -191,6 +184,5 @@ public class JxScaleFreeNode {
 		m_edgelist
 		*/
 		return ret;
->>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
 	}
 }

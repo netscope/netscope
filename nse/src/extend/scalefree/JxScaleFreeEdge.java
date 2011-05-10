@@ -90,7 +90,7 @@ public class JxScaleFreeEdge {
 	public int set_nodeto(int node_to){
 		return m_nodeto=node_to;
 	}
-	public int bandwidth() {        
+	public int get_bandwidth() {        
 		return m_bandwith;
 	}
 	

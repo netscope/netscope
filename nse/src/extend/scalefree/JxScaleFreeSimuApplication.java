@@ -16,27 +16,23 @@ public class JxScaleFreeSimuApplication {
 
 	ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>();  //已加入网络的节点（组成的链表）
 	
-	public static Random random = new Random();
-
 	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();  //点集合(创建，保存)
-	
-	JxScaleFreeNodeCollection m_nodesload = new JxScaleFreeNodeCollection();//(下载节点拓扑)
 	
 	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合(创建，保存)
 	
-	JxScaleFreeNodeCollection m_edgesload = new JxScaleFreeNodeCollection();//(下载边拓扑)
-	
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构
+	
+	public static Random random = new Random();
 	
 	Statement sta=null;
 	
 	Connection con=null;
 	
-	String str;
+	String str=null;
 		
 	//初始化
 	
-	void init()  //初始化（产生拓扑结构）
+	public void init()  //初始化（产生拓扑结构）
 	{
        
 	    generate( 10000 );     
@@ -45,7 +41,7 @@ public class JxScaleFreeSimuApplication {
 		
 	}
 	
-	void generate( int nodecount ) //产生拓扑
+	public void generate( int nodecount ) //产生拓扑
 	{		
 		  int i, x, y;
 		
@@ -105,7 +101,7 @@ public class JxScaleFreeSimuApplication {
 	    
 	}
 	//每一时刻同一边上的相邻节点交换包（包的个数随机）
-	void evolve()
+	public void evolve()
 	{
 		
 		JxScaleFreeEdge edge;
@@ -116,8 +112,8 @@ public class JxScaleFreeSimuApplication {
 		
 		JxScaleFreeNode  receiver=new JxScaleFreeNode(); 
 
-		for (	int i=0; i<m_edges.count(); i++)
-		{
+		for (	int i=0; i<m_edges.count(); i++){
+			
 			edge = m_edges.get_edge(i);
 			
 			node1=m_nodes.get_node(edge.nodefrom());  //(得到相应的点(起点id号))
@@ -138,76 +134,67 @@ public class JxScaleFreeSimuApplication {
 			    	  
 			    	  receiver=node1;
 			      }
-			 
-<<<<<<< HEAD
-		   int packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),
-			 
-		   edge.get_bandwidth());  //得到传递的包数量
-=======
-		   int packet_num=Minimum(sender.length(),(receiver.capacity()-receiver.length()),
-				   edge.bandwidth());  //得到传递的包数量
->>>>>>> 857ef8b932c8f84087fa4faeed2b5e7d5f871d84
+		    
+		   int packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),edge.get_bandwidth());  //得到传递的包数量
 		   
 		   packet_num+=packet_num;
 		   
 		   edge.set_packetsum(packet_num); //记录边上包的流量
 		   
-		   sender.set_length(sender.length()-packet_num); 
+		   sender.set_length(sender.get_length()-packet_num); 
 		   
-		   receiver.set_length(receiver.length()+packet_num);
+		   receiver.set_length(receiver.get_length()+packet_num);
 		}
 	}
 	
 	//求三个值中的最小值
 	public int  Minimum(int sender_length,int receiver_capacity,int band_width){ //发送包的个数要小于这三个值
 		
+		int mini=0;
+		
 		int minimum=sender_length;
 		
 		if(receiver_capacity<minimum)
 		
-			minimum=receiver_capacity;
+		 minimum=receiver_capacity;
 		
 		if(band_width<minimum)
 		
 			minimum=band_width;
 		
-		minimum=random.nextInt(minimum);  //可能有问题（？？）
-		
-		return minimum;
+		 mini=random.nextInt(minimum);
+		 
+		 return mini;
 	}
 	
-	void trace(int time)
+    public	void trace(int time)
 	{
 		
-	    m_trace.Trace_Node(sta, m_nodes, time); //time为试验次数
+	    m_trace.Trace_Node( time ); //time为试验次数
 	    
-	    m_trace.Trace_Edge(sta, m_edges, time); 
+	    m_trace.Trace_Edge( time ); 
 		
 	}
 	
-	void load()  //数据库——内存
+	public void load()  //数据库——内存
 	{
 		// load edges;
 		
-		m_trace.Load_Edgetopo(sta,str);
+		m_trace.Load_Edgetopo(str);
 		
 		// load nodes
 		
-		m_trace.Load_Nodetopo(sta,str);
+		m_trace.Load_Nodetopo(str);
 	}
 	
-	void save()  //内存——数据库
-	{
-		String database=null;   //初始化???
-		
-		sta=m_trace.Open_Database( database );  //打开数据库
-		   
-		m_trace.Save_NodeTopo(sta);    //保存节点结构
+	public void save()  //内存——数据库
+	{  
+		m_trace.Save_NodeTopo();    //保存节点结构
 			
-		m_trace.Save_EdgeTopo(sta);    //保存边结构
+		m_trace.Save_EdgeTopo();    //保存边结构
 	}
  
-	void run( int duration )  //运行
+	public void run( int duration )  //运行
 	{	
 		for (int time=0; time<duration; time++)
 		{ 
@@ -312,7 +299,7 @@ public class JxScaleFreeSimuApplication {
 	/*public JxBaseEventQueue getEventQueue() { //得到事件队列
 		return eventQueue;
 	}*/	
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		
 		JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication();
 		 
