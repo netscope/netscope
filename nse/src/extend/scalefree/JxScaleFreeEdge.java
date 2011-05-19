@@ -2,11 +2,11 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
-	private int m_id;      
+	private int m_edgeid;
 	private int m_nodefrom;   
 	private int m_nodeto;     
 	private int m_bandwith;  
-	private int m_weight;        
+    private int m_weight;        
 	private int m_distance; 
 
 	// @todo what does it used for?
@@ -24,7 +24,7 @@ public class JxScaleFreeEdge {
 
 	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwith, int weight){
 		super();
-		this.m_id=edgeid;
+		this.m_edgeid=edgeid;
 		this.m_nodefrom =nodefrom;
 		this.m_nodeto = nodeto;
 		this.m_bandwith = bandwith;
@@ -73,10 +73,10 @@ public class JxScaleFreeEdge {
 	}
 */	
 	public int id() {  
-		return m_id;
+		return m_edgeid;
 	}
 	public void set_id(int id) {  
-		 m_id=id;
+		 m_edgeid=id;
 	}
 	public int nodefrom(){
 		return m_nodefrom;
@@ -85,7 +85,7 @@ public class JxScaleFreeEdge {
 		 m_nodefrom=nodefrom;
 	}
 	public int nodeto(){
-		return m_nodefrom;
+		return m_nodeto;
 	}
 	public int set_nodeto(int node_to){
 		return m_nodeto=node_to;

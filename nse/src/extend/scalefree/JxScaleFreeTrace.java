@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 
 public class JxScaleFreeTrace {
 	
-	JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();//(用于保存点的结果) 
+	JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
 	
-	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection(); //(用于保存边的结果)
+	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
     
 	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
 	
-	 JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
+	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
 	
 	JxScaleFreeNode node= null; 
 		
@@ -25,6 +25,14 @@ public class JxScaleFreeTrace {
 	Statement sta=null;
 	
 	ResultSet res =null;
+	
+	Boolean evertra_node=false;  //一定要做成成员变量
+	
+	boolean  evertra_edge=false;
+	
+   String tracenode_tablename=null;
+	 
+   String traceedge_tablename=null; 
 	
 	//打开数据库
 	public Statement Open_Database()
@@ -48,6 +56,7 @@ public class JxScaleFreeTrace {
 	}    	
     
 	//创建节点表并保存节点结构  
+	
     public void Save_NodeTopo()
     {   
     	try{
@@ -180,15 +189,15 @@ public class JxScaleFreeTrace {
 		      }   
 	}
 	
-	public void Trace_Node(int time){// 保存点数据( time: 运 行 次 数 )	   
-	
+	public void Trace_Node(int time){ //保存点数据( time: 运 行 次 数 )	   	
 	try{
 			  //可以考虑返回sta作为参数
-			  
-			  String tracenode_tablename = null;  //一定要赋初值！
+			 
+			 // String tracenode_tablename = null;  //一定要赋初值！
 			 
 			   //保证只建立一次节点数据表
-			      
+			      if( evertra_node==false){  //保证每次节点表建立一次
+			    	  
 				        long sys_time = System.currentTimeMillis();
 		 			
 	 			        String str_time=String.valueOf(sys_time);  
@@ -197,7 +206,10 @@ public class JxScaleFreeTrace {
 				
 				        String create_node = "create table" +tracenode_tablename + "(CUR_TIME INTERGER, NODEID INTERGER,LENGTH INTEGER)";
 				
-				        sta.executeUpdate(create_node);  //创建节点结构表             
+				        sta.executeUpdate(create_node);  //创建节点结构表       
+				        
+			            evertra_node = true;
+			      }     
 			   
 			   String cur_time= String.valueOf(time); 
 			
@@ -224,11 +236,11 @@ public class JxScaleFreeTrace {
 		}
 	} 
 	
-	public void Trace_Edge(int time){//保存边数	
+	public void Trace_Edge(int time){ //保存边数	
 	try {
-			  
-		    String traceedge_tablename = null;  //一定要赋初值！！！！
-			 
+		
+			if(evertra_node==false) { 
+			
 	       //保证只建立一次节点数据表
 				        long sys_time = System.currentTimeMillis();
 		 			
@@ -238,7 +250,11 @@ public class JxScaleFreeTrace {
 				
 				        String trace_edge = "create table" +traceedge_tablename + "(CUR_TIME INTERGER, EDGEID INTERGER,PACKETSUM INTEGER)";
 				
-				        sta.executeUpdate(trace_edge);  //创建节点结构表    
+				        sta.executeUpdate(trace_edge);//创建节点结构表 
+				        
+				        evertra_node=true;
+			}
+			
  			  
  			String cur_time= String.valueOf(time); 
  			
@@ -256,12 +272,12 @@ public class JxScaleFreeTrace {
  			     
  			     sta.close();
  			}
- 			
  		} catch (Exception e) {
  			
  			e.printStackTrace();
  		}		
 	}
+	
 	
     public void CloseDatabase(Connection c) //关闭数据库
 	{   
