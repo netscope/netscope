@@ -17,7 +17,7 @@ public class JxMeshSimuApplication {
 			if (con != null)
 				con.close();
 			Class.forName("org.hsqldb.jdbc.JDBCDriver"); // Ìí¼ÓÇý¶¯ 
-
+            String url="";
 			con = DriverManager.getConnection(url, "sa", "");
 			sta = con.createStatement();
 		} catch (SQLException e) {

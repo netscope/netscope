@@ -10,26 +10,35 @@ import java.util.ArrayList;
  * JxScaleFreeNode represents a single node in the network.
  */
 public class JxScaleFreeNode {
+	
 	private int m_id;
 	private int m_loc_x;
 	private int m_loc_y;
 	private int m_length;
-	private int m_capacity;
-
+	private int m_capacity; 
+	private int degree;
+	
 	/* edge list enables the developer can find all neighbor nodes rapidly */
 	private ArrayList<JxScaleFreeEdge> m_edgelist;
 
 	public JxScaleFreeNode() {
+		
 		super();
 		this.m_loc_x = 0;
 		this.m_loc_y = 0;
 		this.m_capacity = 0;
 	}
 
-	public JxScaleFreeNode(int x, int y, int capacity) {
-		super();
-		this.m_loc_x = x;
-		this.m_loc_y = y;
+	public JxScaleFreeNode(int node_id,int loc_x,int loc_y, int m_length,int capacity) {
+		//super();
+		this.m_id =node_id;
+		
+		this.m_loc_x = loc_x;
+		
+		this.m_loc_y = loc_y;
+		
+		this.m_length = m_length;  //网络负载量的大小
+		
 		this.m_capacity = capacity;
 	}
 
@@ -103,7 +112,7 @@ public class JxScaleFreeNode {
 		this.m_loc_y = loc_y;
 	}
 
-	public int length() {
+	public int  get_length() {
 		return m_length;
 	}
 
@@ -111,7 +120,7 @@ public class JxScaleFreeNode {
 		this.m_length = length;
 	}
 
-	public int capacity() {
+	public int get_capacity() {
 		return m_capacity;
 	}
 
@@ -124,6 +133,25 @@ public class JxScaleFreeNode {
 		this.m_capacity = capacity;
 	}
 
+ /*  public ArrayList<JxScaleFreeEdge> edgelist() {//（函数）边列表（邻集列表）？？？
+		
+		return m_edgelist;
+	}
+	public ArrayList<JxScaleFreeNode> neighborhood(){
+		
+		return null;  
+		
+	} 
+*/
+     public int degree() {
+	   
+		return this.degree; //接点的度
+	}
+ 
+	public void set_degree(int number)	{   //设置节点的度？为何？
+	   
+		this.degree=number;
+	}
 	/**
 	 * @return An array list containing the references to all neighbor edges.
 	 */
@@ -142,9 +170,9 @@ public class JxScaleFreeNode {
 	 * The degree of current node.
 	 * @return
 	 */
-	public int degree() {
+/*	public int degree() {
 		return m_edgelist.size(); 
-	}
+	} */
 	
 	public boolean add_neighbor( JxScaleFreeNode neighbornode )
 	{

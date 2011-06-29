@@ -8,11 +8,16 @@ public class JxScaleFreeEdgeCollection extends ArrayList<JxScaleFreeEdge>{
 	public int count() {
 		return super.size();
 	}
+<<<<<<< HEAD
 	
 	public boolean add( int nodefrom, int nodeto )
 	{
 		JxScaleFreeEdge edge = new JxScaleFreeEdge(nodefrom, nodeto);
 		return super.this.add( edge );
+=======
+	public JxScaleFreeEdge get_edge(int id){ //得到相应的边
+		return super.get(id); 
+>>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
 	}
 	
 	/** get JxScaleFreeEdge object at specified position with index */
