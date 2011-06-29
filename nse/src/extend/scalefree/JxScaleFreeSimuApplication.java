@@ -19,13 +19,9 @@ public class JxScaleFreeSimuApplication {
 	public static Random random = new Random();
 
 	JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();  //点集合
-	
-	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合
-	
-	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构
-	
-	Statement sta=null;
-	
+	JxScaleFreeEdgeCollection m_edges = new JxScaleFreeEdgeCollection();  //边集合	
+	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构	
+	Statement sta=null;	
 	Connection con=null;
 		
 	//初始化
@@ -185,7 +181,7 @@ public class JxScaleFreeSimuApplication {
 	{
 		String database=null;   //初始化
 		
-		con=m_trace.Open_Database( database );  //打开数据库
+		con=m_trace.openDatabase( database );  //打开数据库
 		   
 		m_trace.Save_NodeTopo(con,m_nodes);    //保存节点结构
 			
@@ -194,14 +190,12 @@ public class JxScaleFreeSimuApplication {
  
 	void run( int duration )  //运行
 	{
-		
-		
 		for (int t=0; t<duration; t++)
 		{
 			evolve();
 		}
 	}
-	
+
 
 	/**
 	 * This defines the time resolution. Every time and time interval

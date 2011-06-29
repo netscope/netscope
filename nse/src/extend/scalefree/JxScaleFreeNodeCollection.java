@@ -6,44 +6,68 @@ import java.util.ArrayList;
  * @author Allen
  */
 public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-//private static final long serialVersionUID = 6512692821729075017L; 
-    //ArrayList<JxScaleFreeNode> nodelist; 
-	int count() {  //返回节点数
-		
+	private static final long serialVersionUID = 1L;
+    
+	//ArrayList<JxScaleFreeNode> nodelist; 
+	
+	/** Node count in the collection */
+	int count() {  
 		return super.size();
 	}
 	
-	public JxScaleFreeNode get_node(int index) //得到索引号为index的节点
+	/** Get the node with specified index */
+	public JxScaleFreeNode get(int index)
 	{
 		return super.get(index);
 	}
 	
-	public void add(int index, JxScaleFreeNode node )//添加节点
+	public void add(int index, JxScaleFreeNode node )
 	{
 		super.add(index,node); 
 	}
 	
-	public int indexOf(JxScaleFreeNode node)//指定字符第一次出现时的索引
+	public boolean add( JxScaleFreeNode node )
+	{
+		return super.add(node);
+	}
+	
+	/*
+	public int add( JxScaleFreeNode node )
+	{
+		// @todo
+		return -1;
+	}
+	*/
+	
+	public int indexOf(JxScaleFreeNode node)
 	{
 		return super.indexOf(node);
 	}
 	
 	public JxScaleFreeNode search( int id )
 	{
-	  
-		return null;
+		boolean found = false;
+		JxScaleFreeNode node = null;
+		for (int i=0; i<super.size(); i++)
+		{
+			node = this.get(i);
+			if (node.id() == id)
+			{
+				found = true;
+				break;
+			}
+		}
+		return (found ? node : null);
 	}
 	
-	public void clear()  //清除节点
+	/** Clear all the nodes and release resources allocate for them */
+	public void clear() 
 	{
+		for (int i=0; i<super.size(); i++)
+		{
+			super.set(i, null);
+		}
 		super.clear();
 	}
 }
