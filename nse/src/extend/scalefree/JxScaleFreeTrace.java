@@ -7,9 +7,31 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class JxScaleFreeTrace {
-<<<<<<< HEAD
 
-	Connection con = null;
+JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
+	
+	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
+    
+	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
+	
+	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
+	
+	JxScaleFreeNode node= null; 
+		
+	JxScaleFreeEdge edge= null;
+	
+	
+	ResultSet res =null;
+	
+	Boolean evertra_node=false;  //一定要做成成员变量
+	
+	boolean  evertra_edge=false;
+	
+   String tracenode_tablename=null;
+	 
+   String traceedge_tablename=null; 
+	
+   Connection con = null;
 
 	Statement sta = null;
 
@@ -281,34 +303,6 @@ public class JxScaleFreeTrace {
 		}
 
 	}
-
-=======
-	
-	JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
-	
-	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
-    
-	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
-	
-	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
-	
-	JxScaleFreeNode node= null; 
-		
-	JxScaleFreeEdge edge= null;
-	
-	Connection con=null;
-	
-	Statement sta=null;
-	
-	ResultSet res =null;
-	
-	Boolean evertra_node=false;  //一定要做成成员变量
-	
-	boolean  evertra_edge=false;
-	
-   String tracenode_tablename=null;
-	 
-   String traceedge_tablename=null; 
 	
 	//打开数据库
 	public Statement Open_Database()
@@ -567,6 +561,4 @@ public class JxScaleFreeTrace {
 				con = null;
 			}
 		}
-		
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
 }

@@ -7,25 +7,11 @@ import java.util.ArrayList;
  */
 public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
 
-<<<<<<< HEAD
-	private static final long serialVersionUID = 1L;
     
-	//ArrayList<JxScaleFreeNode> nodelist; 
-	
-	/** Node count in the collection */
-	int count() {  
-=======
-	/**
-	 * 
-	 */
-//private static final long serialVersionUID = 6512692821729075017L; 
-    //ArrayList<JxScaleFreeNode> nodelist; 
-	/**
+	/** Node count in the collection 
 	 * @return
 	 */
 	int count() {  //返回节点数
-		
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
 		return super.size();
 	}
 	

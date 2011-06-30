@@ -11,7 +11,6 @@ import java.sql.Statement;
  */
 public class JxScaleFreeSimuApplication {
 
-<<<<<<< HEAD
 	ArrayList<JxScaleFreeNode> JoinInNetNode;  //已加入网络的节点（组成的链表）
 	
 	public static Random random = new Random();
@@ -21,22 +20,7 @@ public class JxScaleFreeSimuApplication {
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构	
 	Statement sta=null;	
 	Connection con=null;
-=======
-	ArrayList<JxScaleFreeNode> JoinInNetNode;
-	 
-	JxScaleFreeNodeCollection m_nodes;   
-	
-	JxScaleFreeEdgeCollection m_edges; 
-	
-	JxScaleFreeTrace m_trace; 
-	
-	 Random random ;
-	   
-     Statement sta ;
-		
-	 Connection con ;
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
-		
+
 	 String str;
 	 
 	int packet_num ;
@@ -159,9 +143,9 @@ public class JxScaleFreeSimuApplication {
 			
 			edge = m_edges.get_edge(randomrank(m_edges.count()).get(i)); //随机得到一条边
 			
-			sender = m_nodes.get_node(edge.nodefrom());  //(得到相应的点(起点id号))
+			sender = m_nodes.search(edge.nodefrom()); 
 			
-			receiver = m_nodes.get_node(edge.nodeto());  //得到相应的点(终点id号)
+			receiver = m_nodes.search(edge.nodeto()); 
 			
 			int r = random.nextInt(2); //随机选择发送方向
      		     
@@ -239,39 +223,25 @@ public class JxScaleFreeSimuApplication {
 	
 	public void init()  //初始化（产生拓扑结构）
 	{
-<<<<<<< HEAD
 		String database=null;   //初始化
-		
+		/* todo
 		con=m_trace.openDatabase( database );  //打开数据库
 		   
 		m_trace.Save_NodeTopo(con,m_nodes);    //保存节点结构
-=======
+		*/
 	      
-	  generate( 10 );     
-		    
+	  generate( 10 );     	    
 	  save(); 
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
-			
 	}
-<<<<<<< HEAD
- 
-	void run( int duration )  //运行
-	{
-		for (int t=0; t<duration; t++)
-		{
-=======
 
-	public void run(int duration){  //运行
+	public void run(int duration)
+	{  //运行
 		
 		for (int time=0; time<duration; time++){ 
-		
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
 			evolve();
-			
 			trace(time);  //保存实验结果		
 		}	
 	}
-<<<<<<< HEAD
 
 
 	/**
@@ -330,17 +300,14 @@ public class JxScaleFreeSimuApplication {
 		for( int i=0; i<n; ++i )
 			step();        
 	}*/
-=======
   
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		
 		JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication();
 		 
 		app.init();
 		
 		app.run(10);
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
-
 	}
 }
 
