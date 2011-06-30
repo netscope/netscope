@@ -234,7 +234,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 
 				String node_id = Integer.toString(node.id()); // ×ª»»Îª×Ö·û´®(½ÚµãºÅ)
 
-				String length = Integer.toString(node.length()); // (°üµÄ³¤¶È)
+				String length = Integer.toString(node.get_length()); // (°üµÄ³¤¶È)
 
 				// £¨²åÈë½ÚµãÊý¾Ý£©
 

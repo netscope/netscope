@@ -1,5 +1,7 @@
 package experiment;
 
+import extend.wireless.JxNetworkSimulator;
+
 public class JxAppMain {
 
 	/**
@@ -17,7 +19,8 @@ public class JxAppMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		// JxNetworkSimulator ns = new JxNetworkSimulator();
+		// ns.add( new JxMeshTopology );
 	}
 
 	

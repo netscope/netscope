@@ -39,6 +39,7 @@ public class JxScaleFreeTopology {
 	    for (i=0; i< nodecount; i++){
 			x = random.nextInt(100);
 			y = random.nextInt(100);
+			
 			m_nodeset.add( new JxScaleFreeNode( x, y, 100 ));			
 		}
 	    
@@ -46,7 +47,8 @@ public class JxScaleFreeTopology {
 	    for (i=0; i< edgecount; i++){
 			nodefrom = random.nextInt(nodecount);
 			nodeto = random.nextInt(nodecount);
-			m_edgeset.add( new JxScaleFreeEdge( m_edgeset, nodefrom, nodeto, 100 ));			
+			// todo
+			//m_edgeset.add( new JxScaleFreeEdge( m_edgeset, nodefrom, nodeto, 100 ));			
 		}
 	}
 	
@@ -68,7 +70,7 @@ public class JxScaleFreeTopology {
 		}
 	    
 	    // generate edges and place them into the nodeset
-	
+/* todo	
 	    initnode = random.nextInt( nodecount );
 	    ArrayList<int> addedset = new ArrayList<int>();
 	    ArrayList<int> leftset = new ArrayList<int>();
@@ -106,6 +108,7 @@ public class JxScaleFreeTopology {
 			
 			m_edges.add(edge);
 		}
+		*/ // todo
 	}	
 	void load()
 	{
