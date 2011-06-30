@@ -2,7 +2,8 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
-	private int m_edgeid;
+	private int m_id;
+	private Object owner;
 	private int m_nodefrom;   
 	private int m_nodeto;     
 	private int m_bandwith;  
@@ -12,10 +13,18 @@ public class JxScaleFreeEdge {
 	// @todo what does it used for?
 	private int packetsum;
 	
-	
 	public JxScaleFreeEdge(){
-		
 		super();
+		this.owner = null;
+		this.m_nodefrom = 0;
+		this.m_nodeto = 0;
+		this.m_bandwith = 0;
+		this.m_weight = 0;
+	}
+	
+	public JxScaleFreeEdge( Object owner ){
+		super();
+		this.owner = owner;
 		this.m_nodefrom = 0;
 		this.m_nodeto = 0;
 		this.m_bandwith = 0;
@@ -24,7 +33,8 @@ public class JxScaleFreeEdge {
 
 	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwith, int weight){
 		super();
-		this.m_edgeid=edgeid;
+		this.owner = null; // todo
+		this.m_id=edgeid;
 		this.m_nodefrom =nodefrom;
 		this.m_nodeto = nodeto;
 		this.m_bandwith = bandwith;
