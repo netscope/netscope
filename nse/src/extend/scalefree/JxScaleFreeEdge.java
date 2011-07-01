@@ -11,7 +11,7 @@ public class JxScaleFreeEdge {
 	private int m_distance; 
 
 	// @todo what does it used for?
-	private int packetsum;
+	private int packetsum;  //count the packet-traffics on each edge 
 	
 	public JxScaleFreeEdge(){
 		
@@ -101,7 +101,7 @@ public class JxScaleFreeEdge {
 	public void set_id(int id) {  
 		 m_edgeid=id;
 	}
-	public int nodefrom(){
+	public int nodefrom() {
 		return m_nodefrom;
 	}
 	public void  set_nodefrom(int nodefrom){
