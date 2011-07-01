@@ -2,11 +2,11 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
-	private int m_id;
+	private int m_edgeid;
 	private Object owner;
 	private int m_nodefrom;   
 	private int m_nodeto;     
-	private int m_bandwith;  
+	private int m_bandwidth;  
     private int m_weight;        
 	private int m_distance; 
 
@@ -14,35 +14,58 @@ public class JxScaleFreeEdge {
 	private int packetsum;
 	
 	public JxScaleFreeEdge(){
+		
 		super();
 		this.owner = null;
 		this.m_nodefrom = 0;
 		this.m_nodeto = 0;
-		this.m_bandwith = 0;
+		this.m_bandwidth = 0;
 		this.m_weight = 0;
 	}
 	
 	public JxScaleFreeEdge( Object owner ){
+		
 		super();
 		this.owner = owner;
 		this.m_nodefrom = 0;
 		this.m_nodeto = 0;
-		this.m_bandwith = 0;
+		this.m_bandwidth = 0;
 		this.m_weight = 0;
 	}
-
-	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwith, int weight){
+    public JxScaleFreeEdge(int nodefrom,int nodeto){
+    	
+    	super();
+    	this.m_nodefrom = nodefrom;
+		this.m_nodeto = nodeto;
+    	
+    }
+    
+    public JxScaleFreeEdge(int nodefrom,int  nodeto, int bandwidth){
+    	
+    	super();
+    	
+    	this.m_nodefrom=nodefrom;
+    	
+    	this.m_nodeto=nodeto;
+    	
+    	this.m_bandwidth=bandwidth;
+    	
+    	
+    }
+	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwidth, int weight){
+		
 		super();
 		this.owner = null; // todo
-		this.m_id=edgeid;
+		this.m_edgeid=edgeid;
 		this.m_nodefrom =nodefrom;
 		this.m_nodeto = nodeto;
-		this.m_bandwith = bandwith;
+		this.m_bandwidth = bandwidth;
 		this.m_weight = weight;
 	}
 
 	@Override
 	public int hashCode() {
+		
 		final int prime = 31;
 		int result = 1;
 		result = prime * result +m_nodefrom;
@@ -71,17 +94,7 @@ public class JxScaleFreeEdge {
 		return "JxScaleFreeEdge [m_nodefrom=" +m_nodefrom + ", nodeto=" + m_nodeto
 			+ "]";
 	}
-/*
-	double distance()
-	{
-		JxScaleFreeNode node1 = JxScaleFreeNodeCollection.search(m_nodefrom);
-		JxScaleFreeNode node2 = JxScaleFreeNodeCollection.search(nodeto);
-		
-		return Math.sqrt(((node1.x() - node2.x()) * (node1.x() - node2.x())
-				+ (node1.y() - node2.y()) * (node1.y() - node2.y())));
-		
-	}
-*/	
+
 	public int id() {  
 		return m_edgeid;
 	}
@@ -101,7 +114,7 @@ public class JxScaleFreeEdge {
 		return m_nodeto=node_to;
 	}
 	public int get_bandwidth() {        
-		return m_bandwith;
+		return m_bandwidth;
 	}
 	
 	public int distance() {  

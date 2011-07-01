@@ -1,26 +1,43 @@
 package extend.scalefree;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
-
 import java.sql.SQLException;
-
 import java.sql.Statement;
-
 import java.sql.ResultSet;
-
 import java.util.*;
-
 import java.text.*;
 
 public class JxScaleFreeTrace {
-<<<<<<< HEAD
-
-	Connection con = null;
-
-	Statement sta = null;
-
+	
+    JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
+    
+    ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>(); // 已加入网络的节点（组成的链表）
+	
+    JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
+    
+	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
+	
+	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
+	
+	ArrayList<Integer> m_array = new ArrayList<Integer>();
+ 	
+	JxScaleFreeNode node= null; 
+	
+	JxScaleFreeEdge edge= null;
+	
+	Connection con=null;
+	
+	Statement sta=null;
+	
+	ResultSet res =null;
+	
+    Boolean evertra_node =false;  
+	
+	Boolean evertra_edge =false;
+	
+	Random random= new Random();
+	
 	// 打开数据库
 	public Statement openDatabase(String database) {
 		try {
@@ -38,7 +55,7 @@ public class JxScaleFreeTrace {
 	}
 
 	// 创建节点表并保存节点结构
-	public void Save_NodeTopo(Statement sta) {
+	public void Save_NodeTopo(Connection con,JxScaleFreeNodeCollection m_nodes1) {
 
 		JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
 		try {
@@ -56,7 +73,7 @@ public class JxScaleFreeTrace {
 
 			int i;
 
-			JxScaleFreeNode node; // 未实例化？？？？
+			JxScaleFreeNode node; //
 
 			for (i = 0; i < m_nodes.count(); i++) {
 
@@ -84,7 +101,6 @@ public class JxScaleFreeTrace {
 
 	// 创建边表并保存
 	public void Save_EdgeTopo(Statement sta)
-
 	{
 		try {
 			long sys_time = System.currentTimeMillis();
@@ -220,7 +236,7 @@ public class JxScaleFreeTrace {
 
 				String node_id = Integer.toString(node.id()); // 转换为字符串(节点号)
 
-				String length = Integer.toString(node.length()); // (包的长度)
+				String length = Integer.toString(node.get_length()); // (包的长度)
 
 				// （插入节点数据）
 
@@ -289,91 +305,7 @@ public class JxScaleFreeTrace {
 		}
 
 	}
-
-=======
 	
-    JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
-    
-    ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>(); // 已加入网络的节点（组成的链表）
-	
-    JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
-    
-	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
-	
-	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
-	
-	ArrayList<Integer> m_array = new ArrayList<Integer>();
- 	
-	JxScaleFreeNode node= null; 
-	
-	JxScaleFreeEdge edge= null;
-	
-	Connection con=null;
-	
-	Statement sta=null;
-	
-	ResultSet res =null;
-	
-    Boolean evertra_node =false;  
-	
-	Boolean evertra_edge =false;
-	
-	Random random= new Random();
-	
-	public void generate( int nodecount ){ //产生拓扑
-		
-	    int i,x,y;   
-		
-        JxScaleFreeEdge edge=new JxScaleFreeEdge(); //边   
-		
-	    for (i=0; i< nodecount; i++){  //产生指定数量的点
-			
-			x=random.nextInt(100);
-			
-		    y=random.nextInt(100);
-			
-			m_nodes.add(new JxScaleFreeNode(i,x,y,30,100));//添加新节点（30-初始负载，100——容量）   
-		}  
-	    
-	 // System.out.println(" m_nodesize is "+m_nodes.size());		
-     // 创建边并将边加入到边集中       
-		
-	    for (i = 0; i< nodecount; i++){ //(将节点号为1-9999的节点依次加入网络)
-		   
-	    	JxScaleFreeNode cur_node = new JxScaleFreeNode(); 
-	    	
-			JxScaleFreeNode select_node = new JxScaleFreeNode();
-			
-			ArrayList<Integer> node_array =Randomrank(m_nodes.count());
-		 
-		    if(i==0){  //第一次直接将第一个节点加入网络
-		       
-		    	cur_node=m_nodes.get(node_array.get(i));
-		    	
-		    	JoinInNetNode.add(cur_node); 
-		    	 
-		    	cur_node.set_degree(cur_node.degree()+1); 
-		    }
-		    else {
-		    	
-			cur_node = m_nodes.get(node_array.get(i));
-		    
-		    JoinInNetNode.add(cur_node);    //当前点加入网络
-		    
-			cur_node.set_degree(cur_node.degree()+1);  //当前点的度加1
-		  
-			select_node = selectnodeto();    //选择从已加入网络的点中选择与之相连的节点
-			
-			JoinInNetNode.add(select_node);  //选中点加入网络
-		
-			select_node.set_degree(select_node.degree()+1);  //选中点的度加1
-			
-			edge = new JxScaleFreeEdge(i-1,cur_node.id(),select_node.id(), 10, 0); //新边(边号，起点，终点，带宽，权值)
-      
-            m_edges.add(edge);//(边号从0开始)
-		   }    	  
-		}
-	}
     //选择边的末节点
 	protected JxScaleFreeNode selectnodeto() {  
 		
@@ -458,7 +390,7 @@ public class JxScaleFreeTrace {
 	 
 	 int num=0;
 	 
-	 if(m_array.size()>0) { //每次重新生成时，要保证m_array中是空的。
+	 if(m_array.size()>0) { // 每次重新生成时，要保证m_array中是空的。
 		 
 		 m_array.clear();
 	 }
@@ -563,6 +495,7 @@ public class JxScaleFreeTrace {
     			   System.out.println("saveedge success!"); 
     			
     			   sta.close();
+    			   
     		}  catch (SQLException e){
                 
             	e.printStackTrace();    
@@ -729,6 +662,6 @@ public class JxScaleFreeTrace {
     	 return cur_time;
     	 
     }
-		
->>>>>>> d8348f5646ad0060ddd73b7a91004eb6ffbecfb1
+
+	
 }
