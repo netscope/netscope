@@ -2,8 +2,13 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
+<<<<<<< HEAD
+	private int m_id;
+	private Object m_owner;
+=======
 	private int m_edgeid;
 	private Object owner;
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	private int m_nodefrom;   
 	private int m_nodeto;     
 	private int m_bandwidth;  
@@ -16,7 +21,7 @@ public class JxScaleFreeEdge {
 	public JxScaleFreeEdge(){
 		
 		super();
-		this.owner = null;
+		this.m_owner = null;
 		this.m_nodefrom = 0;
 		this.m_nodeto = 0;
 		this.m_bandwidth = 0;
@@ -26,7 +31,7 @@ public class JxScaleFreeEdge {
 	public JxScaleFreeEdge( Object owner ){
 		
 		super();
-		this.owner = owner;
+		this.m_owner = owner;
 		this.m_nodefrom = 0;
 		this.m_nodeto = 0;
 		this.m_bandwidth = 0;
@@ -55,8 +60,13 @@ public class JxScaleFreeEdge {
 	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwidth, int weight){
 		
 		super();
+<<<<<<< HEAD
+		this.m_owner = null; // todo
+		this.m_id=edgeid;
+=======
 		this.owner = null; // todo
 		this.m_edgeid=edgeid;
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 		this.m_nodefrom =nodefrom;
 		this.m_nodeto = nodeto;
 		this.m_bandwidth = bandwidth;
@@ -96,10 +106,10 @@ public class JxScaleFreeEdge {
 	}
 
 	public int id() {  
-		return m_edgeid;
+		return m_id;
 	}
 	public void set_id(int id) {  
-		 m_edgeid=id;
+		 m_id=id;
 	}
 	public int nodefrom() {
 		return m_nodefrom;

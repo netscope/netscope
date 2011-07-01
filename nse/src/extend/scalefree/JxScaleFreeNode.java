@@ -39,6 +39,14 @@ public class JxScaleFreeNode {
 		this.m_capacity = capacity;
   }
 
+	public JxScaleFreeNode(int node_id,int loc_x,int loc_y ) {
+		this.m_id =node_id;
+		this.m_loc_x = loc_x;
+		this.m_loc_y = loc_y;
+		this.m_length = 0;
+		this.m_capacity = 0;
+	}
+	
 	public JxScaleFreeNode(int node_id,int loc_x,int loc_y, int m_length,int capacity) {
 		
 		this.m_id =node_id;
@@ -122,7 +130,7 @@ public class JxScaleFreeNode {
 		this.m_loc_y = loc_y;
 	}
 
-	public int  get_length() {
+	public int get_length() {
 		return m_length;
 	}
 

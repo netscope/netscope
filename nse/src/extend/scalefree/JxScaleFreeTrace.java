@@ -9,17 +9,45 @@ import java.util.*;
 import java.text.*;
 
 public class JxScaleFreeTrace {
+<<<<<<< HEAD
+
+JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
+	
+	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
+=======
 	
     JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(用于保存点的结果) 
     
     ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>(); // 已加入网络的节点（组成的链表）
 	
     JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(用于保存边的结果)
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
     
 	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
 	
 	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
 	
+<<<<<<< HEAD
+	JxScaleFreeNode node= null; 
+		
+	JxScaleFreeEdge edge= null;
+	
+	
+	ResultSet res =null;
+	
+	Boolean evertra_node=false;  //一定要做成成员变量
+	
+	boolean  evertra_edge=false;
+	
+   String tracenode_tablename=null;
+	 
+   String traceedge_tablename=null; 
+	
+   Connection con = null;
+
+	Statement sta = null;
+
+=======
 	ArrayList<Integer> m_array = new ArrayList<Integer>();
  	
 	JxScaleFreeNode node= null; 
@@ -38,6 +66,7 @@ public class JxScaleFreeTrace {
 	
 	Random random= new Random();
 	
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	// 打开数据库
 	public Statement openDatabase(String database) {
 		try {
@@ -305,6 +334,8 @@ public class JxScaleFreeTrace {
 		}
 
 	}
+<<<<<<< HEAD
+=======
 	
     //选择边的末节点
 	protected JxScaleFreeNode selectnodeto() {  
@@ -409,6 +440,7 @@ public class JxScaleFreeTrace {
     } 
 	 return m_array;
   }
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	
 	//打开数据库
 	public Statement Open_Database()
@@ -650,6 +682,8 @@ public class JxScaleFreeTrace {
 			   con = null;
 			}
 		}
+<<<<<<< HEAD
+=======
   
     public String currenttime() {
     	
@@ -664,4 +698,5 @@ public class JxScaleFreeTrace {
     }
 
 	
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 }

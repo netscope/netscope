@@ -53,16 +53,29 @@ public class JxScaleFreeTopology {
 
 		// generate nodes and place them into the node set
 	    for (i=0; i< nodecount; i++){
+<<<<<<< HEAD
+			x = random.nextInt(100);
+			y = random.nextInt(100);
+			
+			m_nodeset.add( new JxScaleFreeNode( x, y, 100 ));			
+=======
 		
 	    	x = random.nextInt(100);
 			
 	    	y = random.nextInt(100);
 			
 			m_nodeset.add( new JxScaleFreeNode(x, y, 100));			
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 		}
 	    
 	    // generate edges and place them into the nodeset
 	    for (i=0; i< edgecount; i++){
+<<<<<<< HEAD
+			nodefrom = random.nextInt(nodecount);
+			nodeto = random.nextInt(nodecount);
+			// todo
+			//m_edgeset.add( new JxScaleFreeEdge( m_edgeset, nodefrom, nodeto, 100 ));			
+=======
 			
 	    	nodefrom = random.nextInt(nodecount);
 			
@@ -71,6 +84,7 @@ public class JxScaleFreeTopology {
 	    	m_edgeset.add(new JxScaleFreeEdge(nodefrom, nodeto, 100));
 	    	
 	    	//m_edgeset.add( new JxScaleFreeEdge( m_edgeset, nodefrom, nodeto, 100 ));			
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 		}
 	}
 	
@@ -93,8 +107,16 @@ public class JxScaleFreeTopology {
 		}
 	    
 	    // generate edges and place them into the nodeset
+<<<<<<< HEAD
+/* todo	
+	    initnode = random.nextInt( nodecount );
+	    ArrayList<int> addedset = new ArrayList<int>();
+	    ArrayList<int> leftset = new ArrayList<int>();
+	    
+=======
 	
 	    int initnode = random.nextInt( nodecount );
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	    
 	    ArrayList<Integer> addedset = new ArrayList<Integer>();
 	    
@@ -128,8 +150,14 @@ public class JxScaleFreeTopology {
 			
 			edge = new JxScaleFreeEdge( i,cur_node.id(),select_node.id(), 10, 0 ); //新边(边号，起点，终点，带宽，权值)
 			
+<<<<<<< HEAD
+			m_edges.add(edge);
+		}
+		*/ // todo
+=======
 			m_edgeset.add(edge);
 		}    
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	}	
 	protected JxScaleFreeNode selectnodeto() {  
 		

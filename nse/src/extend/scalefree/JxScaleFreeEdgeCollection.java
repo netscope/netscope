@@ -10,6 +10,19 @@ public class JxScaleFreeEdgeCollection extends ArrayList<JxScaleFreeEdge>{
 		return super.size();
 		
 	}
+<<<<<<< HEAD
+
+	public boolean add( int nodefrom, int nodeto )
+	{
+		// todo: how to get the edge id? 
+		int id = 9;
+		JxScaleFreeEdge edge = new JxScaleFreeEdge(id,nodefrom, nodeto,0,0);
+		//return super.add( edge );
+		// todo
+		return false;
+	}
+
+=======
 	
 	public boolean  add( int nodefrom, int nodeto ){
 		
@@ -17,6 +30,7 @@ public class JxScaleFreeEdgeCollection extends ArrayList<JxScaleFreeEdge>{
 		
 		return super.add( edge );
 	}
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	public JxScaleFreeEdge get_edge(int id){ //得到相应的边
 		return super.get(id); 
 	}
