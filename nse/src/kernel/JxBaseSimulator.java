@@ -112,7 +112,7 @@ public class JxBaseSimulator {
 	 * This function runs the simulation with the display.
 	 * The user of the simulator must first add all the nodes used in the 
 	 * experiment!
-	 * 带显示的仿真
+	 * 
 	 */
 	public void runWithTrace(JiBaseTrace trace) {
 		//JiDisplayTrace trace = new JxBaseTrace( this, maxCoordinate );

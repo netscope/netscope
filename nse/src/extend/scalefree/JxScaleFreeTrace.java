@@ -5,17 +5,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.*;
+import java.text.*;
 
 public class JxScaleFreeTrace {
+<<<<<<< HEAD
 
 JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµãµÄ½á¹û) 
 	
 	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(ÓÃÓÚ±£´æ±ßµÄ½á¹û)
+=======
+	
+    JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµãµÄ½á¹û) 
+    
+    ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>(); // ÒÑ¼ÓÈëÍøÂçµÄ½Úµã£¨×é³ÉµÄÁ´±í£©
+	
+    JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(ÓÃÓÚ±£´æ±ßµÄ½á¹û)
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
     
 	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
 	
 	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
 	
+<<<<<<< HEAD
 	JxScaleFreeNode node= null; 
 		
 	JxScaleFreeEdge edge= null;
@@ -35,6 +47,26 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 
 	Statement sta = null;
 
+=======
+	ArrayList<Integer> m_array = new ArrayList<Integer>();
+ 	
+	JxScaleFreeNode node= null; 
+	
+	JxScaleFreeEdge edge= null;
+	
+	Connection con=null;
+	
+	Statement sta=null;
+	
+	ResultSet res =null;
+	
+    Boolean evertra_node =false;  
+	
+	Boolean evertra_edge =false;
+	
+	Random random= new Random();
+	
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	// ´ò¿ªÊý¾Ý¿â
 	public Statement openDatabase(String database) {
 		try {
@@ -52,7 +84,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 	}
 
 	// ´´½¨½Úµã±í²¢±£´æ½Úµã½á¹¹
-	public void Save_NodeTopo(Statement sta) {
+	public void Save_NodeTopo(Connection con,JxScaleFreeNodeCollection m_nodes1) {
 
 		JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
 		try {
@@ -70,7 +102,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 
 			int i;
 
-			JxScaleFreeNode node; // Î´ÊµÀý»¯£¿£¿£¿£¿
+			JxScaleFreeNode node; //
 
 			for (i = 0; i < m_nodes.count(); i++) {
 
@@ -98,7 +130,6 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 
 	// ´´½¨±ß±í²¢±£´æ
 	public void Save_EdgeTopo(Statement sta)
-
 	{
 		try {
 			long sys_time = System.currentTimeMillis();
@@ -303,6 +334,113 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 		}
 
 	}
+<<<<<<< HEAD
+=======
+	
+    //Ñ¡Ôñ±ßµÄÄ©½Úµã
+	protected JxScaleFreeNode selectnodeto() {  
+		
+		int p = random.nextInt(JoinInNetNode.size()); //Éú³ÉÔÚ0¡ª¡ªÁÐ±í³¤¶ÈÖ®¼äµÄÕûÊýÖµ
+		
+		return JoinInNetNode.get(p);  //·µ»ØÑ¡ÖÐ½Úµã
+    }
+  
+	//Ã¿Ò»Ê±¿ÌÍ¬Ò»±ßÉÏµÄÏàÁÚ½Úµã½»»»°ü£¨°üµÄ¸öÊýËæ»ú£©   
+	public void evolve(){
+	try{
+			JxScaleFreeEdge edge;
+			
+			JxScaleFreeNode sender, receiver;
+			
+			int packet_num=0;  //¼ÇÂ¼±ßÉÏµÄ°üÁ÷Á¿
+			
+			ArrayList<Integer> edge_array=Randomrank(m_edges.count());
+
+			for (int i=0; i<m_edges.count(); i++){
+				
+				edge = m_edges.get_edge(edge_array.get(i));  //Ëæ»úµÃµ½Ò»Ìõ±ß
+				
+				sender = m_nodes.get_node(edge.nodefrom());  //(µÃµ½ÏàÓ¦µÄµã(ÆðµãidºÅ)
+				
+				receiver = m_nodes.get_node(edge.nodeto());  //µÃµ½ÏàÓ¦µÄµã(ÖÕµãidºÅ)
+				
+				int r = random.nextInt(2); //Ëæ»úÑ¡Ôñ·¢ËÍ·½Ïò
+	     		     
+				      if(r==0){  //´Ó½Úµã1-½Úµã2
+				    	  
+				    	packet_num=Minimum(sender.get_length(),(receiver.get_capacity()-receiver.get_length()),edge.get_bandwidth());
+				    	  
+					    sender.set_length(sender.get_length()-packet_num); 
+					    
+					    receiver.set_length(receiver.get_length()+packet_num);
+				      }
+			         if(r==1){  //´Ó½Úµã2-½Úµã1
+			        	 
+			    	     packet_num=Minimum(receiver.get_length(),(sender.get_capacity()-sender.get_length()),edge.get_bandwidth());
+					    
+					     sender.set_length(sender.get_length()+packet_num);
+			    	     
+			    	     receiver.set_length(receiver.get_length()-packet_num); 
+				      }
+			         
+			         packet_num+=packet_num;
+					   
+					 edge.set_packetsum(packet_num); //¼ÇÂ¼±ßÉÏ°üµÄÁ÷Á¿    
+	        }
+	    } catch(Exception e){
+			    	
+			e.printStackTrace();
+			
+		  }	   
+	 }
+	//ÇóÈý¸öÖµÖÐµÄ×îÐ¡Öµ
+	public int  Minimum(int sender_length,int receiver_capacity,int band_width) { //·¢ËÍ°üµÄ¸öÊýÒªÐ¡ÓÚÕâÈý¸öÖµ		
+		
+		   int mini=0;
+		
+		   int minimum=sender_length;
+		
+		   if(receiver_capacity<minimum)
+		
+		    minimum=receiver_capacity;
+		
+		    if(band_width<minimum)
+		
+		    minimum=band_width;
+	 
+		    mini=random.nextInt(minimum);
+	 
+	  return  mini;  
+   }
+	//²úÉú1-n¸öËæ»úÅÅÁÐ²»ÖØ¸´µÄÊý×Ö
+    public ArrayList<Integer> Randomrank(int nodecount){
+   
+	 boolean[] bool =new boolean [nodecount];
+      
+	 int i;
+	 
+	 int num=0;
+	 
+	 if(m_array.size()>0) { // Ã¿´ÎÖØÐÂÉú³ÉÊ±£¬Òª±£Ö¤m_arrayÖÐÊÇ¿ÕµÄ¡£
+		 
+		 m_array.clear();
+	 }
+	 
+	 for(i=0;i<nodecount;i++){ 
+		 
+     do{
+		 
+	    num = random.nextInt(nodecount); 
+	  	
+	 }while(bool[num]);
+	 
+	    m_array.add(num);
+	  
+	    bool[num]=true;
+    } 
+	 return m_array;
+  }
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	
 	//´ò¿ªÊý¾Ý¿â
 	public Statement Open_Database()
@@ -310,9 +448,11 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 		try{
 			 Class.forName("org.hsqldb.jdbcDriver"); //Ìí¼ÓÇý¶¯ 
 
-			 con= DriverManager.getConnection("jdbc:hsqldb:file:netscope;shutdown=true", "sa", ""); //½¨Á¢ÃûÎªnetscopeµÄÊý¾Ý¿â
+			 con= DriverManager.getConnection("jdbc:hsqldb:file:netscope2;shutdown=true", "sa", ""); //½¨Á¢ÃûÎªnetscopeµÄÊý¾Ý¿â
 			 
 			 sta=con.createStatement();  //´´½¨ÈÝÆ÷
+			 
+		     System.out.println("con is ok");
 	       } 
 		     catch (SQLException e){
               
@@ -324,23 +464,17 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
            }     
 		return sta;    //·µ»ØÈÝÆ÷ 
 	}    	
-    
 	//´´½¨½Úµã±í²¢±£´æ½Úµã½á¹¹  
-	
-    public void Save_NodeTopo()
+    public void Save_NodeTopo(int m_nodeslength)
     {   
-    	try{
-    			long sys_time = System.currentTimeMillis();
-     			
-     			String str_time=String.valueOf(sys_time);  
-     			
-     			String node_topo = "nodetopo" + str_time;  
+    	try{	        
+     			   String node_topo = "node_topo" +currenttime();  //(Êý¾Ý±íÃûÖÐ²»ÄÜÓÐ¿Õ¸ñ)
     			
-    			String create_node = "create table" + node_topo + "(NODEID INTERGER,LOC_X INTERGER,LOC_Y INTEGER)";
+    			   String str1 ="create table " + node_topo + "(NODEID INTEGER,LOC_X INTEGER,LOC_Y INTEGER)";
+    		
+    		       sta.executeUpdate(str1);         //´´½¨½Úµã½á¹¹±í         
     			
-    			sta.executeUpdate(create_node);       //´´½¨½Úµã½á¹¹±í         
-    			
-    			   for(int i=0;i<m_nodes.count();i++){
+    			   for(int i=0;i<m_nodeslength;i++){
     				
     				    node= m_nodes.get(i);
     				
@@ -350,33 +484,30 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
     			  
     			        String loc_y= Integer.toString(node.y());     
     			   			       
-    			        String insert_nodetable = "Insert into"+ node_topo +"(NODEID,LOC_X,LOC_Y) VALUES ("+node_id+","+loc_x+","+loc_y+")";  
+    			        String insert_nodetable = "Insert into  people(NODEID,LOC_X,LOC_Y) VALUES ("+node_id+","+loc_x+","+loc_y+")";  
     		
     			        sta.executeUpdate(insert_nodetable);	
     			        
     			        sta.close();
+    			        
+    			        System.out.println("savenode success!");
     			   }
 		   } 
     	   catch (SQLException e){
                
            	e.printStackTrace();
-           
+           	
            }
       }
-  
-     //´´½¨±ß±í²¢±£´æ
+    //´´½¨±ß±í²¢±£´æ
     public void Save_EdgeTopo()
     {  
-    	  try {
-    			long sys_time = System.currentTimeMillis();
-     			
-     			String str_time=String.valueOf(sys_time);  
-     			
-     			String edge_topo = "edgetopo" + str_time;  
+          try { 
+     			String edge_topo = "edge_topo" + currenttime();  
     			
-    			String create_edge = "create table" + edge_topo + "(EDGEID INTERGER,NODE_FROM INTERGER,NODE_TO INTEGER)";
+    			String str2 = "create table "+ edge_topo + "(EDGEID INTEGER,NODE_FROM INTEGER,NODE_TO INTEGER)";
     			
-    			sta.executeUpdate(create_edge);       //´´½¨±ß½á¹¹±í      
+    			sta.executeUpdate(str2);       //´´½¨±ß½á¹¹±í      
     				
     			for(int i=0;i<m_edges.count();i++){	
     				
@@ -388,24 +519,25 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
     			
     			     String node_to=Integer.toString(edge.nodeto()); 
     			
-    			     String insert_edgetable = "Insert into"+ edge_topo +"(EDGEID,NODE_FROM,NODE_TO) VALUES ("+ edge_id +"," + node_from + "," + node_to+ ")";  
-    				
-    			     sta.executeUpdate(insert_edgetable);	
+    			     String insert_edgetable = "Insert into " +edge_topo +"(EDGEID,NODE_FROM,NODE_TO) VALUES ("+ edge_id +"," + node_from + "," + node_to+ ")";  
+    				     
+    			     sta.executeUpdate(insert_edgetable); 
     			     
-    			     sta.close();
     			}
+    			   System.out.println("saveedge success!"); 
     			
+    			   sta.close();
+    			   
     		}  catch (SQLException e){
                 
             	e.printStackTrace();    
             }    
     	}	
 	
-    public void Load_Nodetopo(String node_tablename) {  //ÏÂÔØ½Úµã½á¹¹
-   
-   try{
+    public void Load_Nodetopo(String node_tablename) {  //ÏÂÔØ½Úµã½á¹¹ 
+    try{
     	
-	   String select_nodetopo="select * from"+ node_tablename ; 
+	   String select_nodetopo="select * from "+ node_tablename ; 
     		
        res =sta.executeQuery(select_nodetopo);
        
@@ -419,7 +551,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
     	   
     	   m_nodesload.get(i++).set_y((Integer.parseInt(res.getString(2))));     //µÃµ½½Úµãy×ø±ê
     	
-      }
+        }
        res.close();
        
        sta.close();
@@ -431,10 +563,9 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 	}
 	
 	public void Load_Edgetopo(String edge_tablename)  {//ÏÂÔØ±ß½á¹¹
-
-		try{
+	try{
 	    	
-			   String select_edgetopo="select * from"+edge_tablename ; 
+			   String select_edgetopo="select * from "+edge_tablename; 
 		    		
 		       res =sta.executeQuery(select_edgetopo);
 		       
@@ -461,27 +592,18 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 	
 	public void Trace_Node(int time){ //±£´æµãÊý¾Ý( time: ÔË ÐÐ ´Î Êý )	   	
 	try{
-			  //¿ÉÒÔ¿¼ÂÇ·µ»Østa×÷Îª²ÎÊý
-			 
-			 // String tracenode_tablename = null;  //Ò»¶¨Òª¸³³õÖµ£¡
-			 
-			   //±£Ö¤Ö»½¨Á¢Ò»´Î½ÚµãÊý¾Ý±í
-			      if( evertra_node==false){  //±£Ö¤Ã¿´Î½Úµã±í½¨Á¢Ò»´Î
-			    	  
-				        long sys_time = System.currentTimeMillis();
-		 			
-	 			        String str_time=String.valueOf(sys_time);  
+		         String tracenode_table ="tra_node"+currenttime(); //½ÚµãÊý¾Ý±íÃû	      
+		
+		           if( evertra_node==false){  //±£Ö¤Ã¿´Î½Úµã±í½¨Á¢Ò»´Î 
 	 			
-	 			        tracenode_tablename = "trace node packet" + str_time; //½ÚµãÊý¾Ý±íÃû
+				        String str3 = "create table " + tracenode_table + "(EXP_TIME INTEGER,NODEID INTEGER,LENGTH INTEGER)";
 				
-				        String create_node = "create table" +tracenode_tablename + "(CUR_TIME INTERGER, NODEID INTERGER,LENGTH INTEGER)";
-				
-				        sta.executeUpdate(create_node);  //´´½¨½Úµã½á¹¹±í       
+				        sta.executeUpdate(str3);  //´´½¨½Úµã½á¹¹±í //
 				        
 			            evertra_node = true;
 			      }     
 			   
-			   String cur_time= String.valueOf(time); 
+			   String exp_time= String.valueOf(time); 
 			
 			   for(int i=0;i<m_nodes.count();i++){				
 				
@@ -493,11 +615,13 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 			     
 		          //£¨²åÈë½ÚµãÊý¾Ý£©
 			       
-			        String trace_node = "Insert into"+ tracenode_tablename +"(CUR_TIME,NODEID,LENGTH) VALUES ("+cur_time+","+node_id+","+length+")";  
+			        String trace_node = "Insert into " + tracenode_table  + "(EXP_TIME,NODEID,LENGTH) VALUES ("+exp_time+","+node_id+","+length+")";  
 		
 			        sta.executeUpdate(trace_node);	  
 			        
 			        sta.close();
+			        
+			        System.out.println("tracenode success!");
 			   }
 		} 
 		catch (Exception e) {
@@ -512,21 +636,17 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 			if(evertra_node==false) { 
 			
 	       //±£Ö¤Ö»½¨Á¢Ò»´Î½ÚµãÊý¾Ý±í
-				        long sys_time = System.currentTimeMillis();
-		 			
-	 			        String str_time=String.valueOf(sys_time);  
-	 			
-	 			        traceedge_tablename = "trace edge packet" + str_time;   //±ßÊý¾Ý±íÃû
+				       
+	 			       String traceedge_table = "tra_edge"+ currenttime(); //±ßÊý¾Ý±íÃû
 				
-				        String trace_edge = "create table" +traceedge_tablename + "(CUR_TIME INTERGER, EDGEID INTERGER,PACKETSUM INTEGER)";
+				        String str4= "create table " + traceedge_table+"(EXP_TIME INTEGER, EDGEID INTEGER,PACKETSUM INTEGER)";
 				
-				        sta.executeUpdate(trace_edge);//´´½¨½Úµã½á¹¹±í 
+				        sta.executeUpdate(str4);//´´½¨½Úµã½á¹¹±í   //
 				        
 				        evertra_node=true;
 			}
-			
  			  
- 			String cur_time= String.valueOf(time); 
+ 			String exp_time= String.valueOf(time); //ÊÔÑé´ÎÊý
  			
  			for(int i=0;i<m_edges.count();i++){	
  				
@@ -536,11 +656,13 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
  			
  			     String packet_sum=Integer.toString(edge.get_packetsum());    
  			
- 			     String insert_edgetable = "Insert into"+ traceedge_tablename +"(CUR_TIME,EDGEID,PACKETSUM) VALUES ("+cur_time+"," + edge_id+ "," + packet_sum+ ")";  
+ 			     String insert_edgetable = "Insert into trace_edge(EXP_TIME,EDGEID,PACKETSUM) VALUES ("+exp_time+"," +edge_id+ "," + packet_sum+ ")";  
  				
  			     sta.executeUpdate(insert_edgetable);	
  			     
  			     sta.close();
+ 			     
+ 			    System.out.println("trace edge success!");
  			}
  		} catch (Exception e) {
  			
@@ -548,8 +670,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
  		}		
 	}
 	
-	
-    public void CloseDatabase(Connection c) //¹Ø±ÕÊý¾Ý¿â
+    public void CloseDatabase() //¹Ø±ÕÊý¾Ý¿â
 	{   
 	   try {
 		       sta.close();
@@ -558,7 +679,24 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 				
 			} catch (SQLException e) {
 						
-				con = null;
+			   con = null;
 			}
 		}
+<<<<<<< HEAD
+=======
+  
+    public String currenttime() {
+    	
+    	 Date date = new Date();
+    	
+    	 SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm");//ÉèÖÃÈÕÆÚ¸ñÊ½(Êý¾Ý±í¸ñÊ½ÓÐÒªÇó)
+    	 
+    	 String cur_time =sdf.format(date);
+    	 
+    	 return cur_time;
+    	 
+    }
+
+	
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 }

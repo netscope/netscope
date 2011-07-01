@@ -7,14 +7,27 @@ import java.util.ArrayList;
  */
 public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
 
+<<<<<<< HEAD
     
 	/** Node count in the collection 
 	 * @return
 	 */
 	int count() {  //返回节点数
+=======
+	private static final long serialVersionUID = 1L;
+	
+	/** Node count in the collection */
+	int count() {  //返回节点数
+		
+>>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 		return super.size();
 	}
 	
+	JxScaleFreeNode get_node(int i) {
+		
+	return super.get(i);
+ 		
+	}
 	/** Get the node with specified index */
 	public JxScaleFreeNode get(int index)
 	{
@@ -31,14 +44,6 @@ public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
 		return super.add(node);
 	}
 	
-	/*
-	public int add( JxScaleFreeNode node )
-	{
-		// @todo
-		return -1;
-	}
-	*/
-	
 	public int indexOf(JxScaleFreeNode node)
 	{
 		return super.indexOf(node);
@@ -47,13 +52,17 @@ public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
 	public JxScaleFreeNode search( int id )
 	{
 		boolean found = false;
+		
 		JxScaleFreeNode node = null;
+		
 		for (int i=0; i<super.size(); i++)
 		{
 			node = this.get(i);
+			
 			if (node.id() == id)
 			{
 				found = true;
+				
 				break;
 			}
 		}
