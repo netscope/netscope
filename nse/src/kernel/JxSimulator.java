@@ -7,29 +7,23 @@ public class JxSimulator {
 	JiNode node;
 	JiRelation rel;
 	JiInteraction interact;
+	JiTrace trace;
 	
-	ArrayList<JiNode> m_nodeset;
-	ArrayList<JiRelation> m_relationset;
+	JxNodeCollection node_collection;
+	JxEdgeCollection edge_collection;
 	
-	JxSimulator(){
-		
-		m_nodeset = new JxNetNode();
-		m_relationset = topology_generater( m_nodeset );
-		
-		for (m_relationset)
-		{
+	
+	JxSimulator(){	
+		for (m_relationset){
 			interact( m_relationset.current());
-		}
+		}	
+	}
+	
+	void step()	{
 		
 	}
 	
-	void step()
-	{
-		
-	}
-	
-	void run()
-	{
+	void run(){
 		
 	}
 }

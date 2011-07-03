@@ -1,5 +1,5 @@
 package kernel;
-
-public class JxEdgeCollection {
+import java.util.ArrayList;
+public class JxEdgeCollection extends ArrayList<JiRelation>{
 
 }

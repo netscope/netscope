@@ -1,5 +1,5 @@
 package kernel;
-
-public class JxNodeCollection {
+import java.util.ArrayList;
+public class JxNodeCollection extends ArrayList<JiNode> {
 
 }
