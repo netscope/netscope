@@ -24,6 +24,13 @@ public class JxSimulator {
 	}
 	
 	void run(){
-		
+		generate();
+		interact();
+		save_node();
+		save_edge();
+		trace_node();
+		trace_edge();
+		load_node();
+		load_edge();
 	}
 }

@@ -92,17 +92,16 @@ public class JxEdgeCollection extends ArrayList<JiRelation>{
 		
 		for(int i=0;i<super.size();i++){
 		   relation=this.get(i);
-		   if(relation.getNodeFrom()==nodefrom){
+		   if(relation.getNodeFrom()==nodefrom||relation.getNodeTo()==nodeto){
 			  edge_list.add(relation);
 		   }   	 
 		}
 		return edge_list;
 	}
 	
-	public ArrayList<JxScaleFreeNode> neighbors_of( int nodefrom )
-	{
+	public ArrayList<JiNode> neighbors_of( int nodeid ){
 	
-		return null;
+		
 	}
 	
 

@@ -57,6 +57,8 @@ public class JxStdRelation implements JiRelation {
 		this.m_weight = weight;
 	}
 	
+	
+	
 	public int getId(){
 	  return m_relation_id;
    }
@@ -102,7 +104,10 @@ public class JxStdRelation implements JiRelation {
 		result = prime * result + m_weight;
 		return result;
 	}
-
+    public JiRelation generate(){
+	   
+	   return null;
+   }
 	
 	@Override
 	public boolean equals(Object obj) {
