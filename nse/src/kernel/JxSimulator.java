@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class JxSimulator {
 
 	JiNode node;
-	JiRelation rel;
-	JiInteraction interact;
-	JiTrace trace;
+	JiRelation relation=new JxStdRelation();
+	JiInteraction interact=new JxStdInteraction();
+	JiTrace trace=new JxStdTrace();
 	
-	JxNodeCollection node_collection;
-	JxEdgeCollection edge_collection;
+	JxNodeCollection nodeCollection;
+	JxEdgeCollection edgeCollection;
+	
 	
 	
 	JxSimulator(){	
@@ -24,13 +25,13 @@ public class JxSimulator {
 	}
 	
 	void run(){
-		generate();
+		relation.generate();
 		interact();
-		save_node();
-		save_edge();
-		trace_node();
-		trace_edge();
-		load_node();
-		load_edge();
+		saveNode();
+		saveEdge();
+		traceNode();
+		traceEdge();
+		loadNode();
+		loadEdge();
 	}
 }

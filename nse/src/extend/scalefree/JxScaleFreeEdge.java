@@ -2,13 +2,13 @@ package extend.scalefree;
 
 public class JxScaleFreeEdge {
 	
-<<<<<<< HEAD
+
 	private int m_id;
 	private Object m_owner;
-=======
+
 	private int m_edgeid;
 	private Object owner;
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	private int m_nodefrom;   
 	private int m_nodeto;     
 	private int m_bandwidth;  
@@ -60,13 +60,13 @@ public class JxScaleFreeEdge {
 	public JxScaleFreeEdge(int edgeid, int nodefrom, int nodeto, int bandwidth, int weight){
 		
 		super();
-<<<<<<< HEAD
+
 		this.m_owner = null; // todo
 		this.m_id=edgeid;
-=======
+
 		this.owner = null; // todo
 		this.m_edgeid=edgeid;
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 		this.m_nodefrom =nodefrom;
 		this.m_nodeto = nodeto;
 		this.m_bandwidth = bandwidth;

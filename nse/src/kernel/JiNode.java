@@ -1,4 +1,5 @@
 package kernel;
+
 public interface JiNode {
 	
 	public int getId();

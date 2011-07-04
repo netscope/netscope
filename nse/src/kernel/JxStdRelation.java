@@ -1,7 +1,7 @@
 package kernel;
-
+import java.util.Random;
 import extend.scalefree.JxScaleFreeEdge;
-
+import extend.scalefree.JxScaleFreeNode;
 public class JxStdRelation implements JiRelation {
 	
 	
@@ -12,7 +12,7 @@ public class JxStdRelation implements JiRelation {
 	private int m_nodeto;
 	private int m_bandwidth;
 	private int m_weight;
-	
+	Random random= new Random();
 	
     public JxStdRelation(){
 		this.m_owner = null;
@@ -30,22 +30,19 @@ public class JxStdRelation implements JiRelation {
 		this.m_bandwidth = 0;
 		this.m_weight = 0;
 	}
-	
-	
+
     public JxStdRelation (int nodefrom,int nodeto){
      	super();
     	this.m_nodefrom = nodefrom;
 		this.m_nodeto = nodeto;	
     }
-    
-    
+
     public JxStdRelation(int nodefrom,int  nodeto, int bandwidth){
     	super();
     	this.m_nodefrom=nodefrom;
     	this.m_nodeto=nodeto;
     	this.m_bandwidth=bandwidth;	
     }
-    
     
 	public JxStdRelation(int relationid, int nodefrom, int nodeto, int bandwidth, int weight){
 		super();
@@ -57,15 +54,12 @@ public class JxStdRelation implements JiRelation {
 		this.m_weight = weight;
 	}
 	
-	
-	
 	public int getId(){
 	  return m_relation_id;
    }
 	public void setId(int id){
 		m_relation_id=id; 	
    }
-	
 	
 	public JiRelationType getType(){
 		return  m_type;
@@ -104,6 +98,27 @@ public class JxStdRelation implements JiRelation {
 		result = prime * result + m_weight;
 		return result;
 	}
+	
+	void generate_random_graph( int nodecount, int edgecount ){
+		
+		int i, x, y;
+		JxScaleFreeEdge edge; 
+		JxScaleFreeNode node;
+		int nodefrom, nodeto;
+		
+		// generate nodes and place them into the node set
+
+			x = random.nextInt(100);
+			y = random.nextInt(100);
+			m_nodeset.add( new JxScaleFreeNode( x, y, 100 ));	
+		
+		}
+protected JxScaleFreeNode selectnodeto() {  
+		
+		int p = random.nextInt(JoinInNetNode.size()); //生成在0——列表长度之间的整数值
+		
+		return JoinInNetNode.get(p);  //返回选中节点
+    }
     public JiRelation generate(){
 	   
 	   return null;

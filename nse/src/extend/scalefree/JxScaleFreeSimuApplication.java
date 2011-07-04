@@ -20,12 +20,12 @@ public class JxScaleFreeSimuApplication {
 	JxScaleFreeTopology m_topo= new JxScaleFreeTopology();
 	
 	JxScaleFreeTrace m_trace = new JxScaleFreeTrace();   //保存结构	
-<<<<<<< HEAD
+
 	Statement sta=null;	
 	Connection con=null;
 
 	 String str;
-=======
+
 	
 	public static Random random = new Random();
 	
@@ -34,7 +34,7 @@ public class JxScaleFreeSimuApplication {
 	Connection con=null;
 		
 	String str;
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	 
 	int packet_num;
 	//初始化
@@ -48,7 +48,7 @@ public class JxScaleFreeSimuApplication {
    	     
    		 random = new Random();
 			
-<<<<<<< HEAD
+
 			edge = m_edges.get_edge(randomrank(m_edges.count()).get(i)); //随机得到一条边
 			
 			sender = m_nodes.search(edge.nodefrom()); 
@@ -100,7 +100,7 @@ public class JxScaleFreeSimuApplication {
 		    minimum=band_width;
 	 
 		    mini=random.nextInt(minimum);
-=======
+
 		 str = null;
 >>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
 	 
@@ -128,7 +128,7 @@ public class JxScaleFreeSimuApplication {
 	}
 	public void init() {  //初始化（产生拓扑结构）
 	
-<<<<<<< HEAD
+
 	public void init()  //初始化（产生拓扑结构）
 	{
 		String database=null;   //初始化
@@ -140,7 +140,7 @@ public class JxScaleFreeSimuApplication {
 	      
 	  generate( 10 );     	    
 	  save(); 
-=======
+
 		String database=null;   //初始化
 		
 		sta=m_trace.openDatabase( database );  //打开数据库
@@ -150,14 +150,14 @@ public class JxScaleFreeSimuApplication {
 	    topo.generate( 10 );     
 		    
 	    topo.save(); 	
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	}
 
 	public void run(int duration)
 	{  //运行
 		
 		for (int time=0; time<duration; time++){ 
-<<<<<<< HEAD
+
 			evolve();
 			trace(time);  //保存实验结果		
 		}	
@@ -222,7 +222,7 @@ public class JxScaleFreeSimuApplication {
 	}*/
   
 	public static void main2(String[] args) {
-=======
+
 
 		    m_trace.evolve();
 
@@ -231,18 +231,18 @@ public class JxScaleFreeSimuApplication {
 	}
 
 	public static void main(String[] args) {
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 		
 		JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication();
 		 
 		app.init();
 		
 		app.run(10);
-<<<<<<< HEAD
-=======
+
+
 		
 		System.out.println("success !");
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	}
 }
 

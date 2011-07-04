@@ -15,6 +15,8 @@ public interface JiRelation {
 	public int getNodeTo();
 	public void setNodeTo( int nodeto);
 	
+	
+	
 	// public ArrayList<int> getAllNodesTo();
 	// public ArrayList<int> getNeighborNodes();
 	// public ArrayList<int> getAllNodes();
