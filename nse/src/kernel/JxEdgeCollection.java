@@ -5,26 +5,33 @@ import extend.scalefree.JxScaleFreeEdge;
 import extend.scalefree.JxScaleFreeNode;
 public class JxEdgeCollection extends ArrayList<JiRelation>{
 	
+	private static final long serialVersionUID = 1L;
 
+	
 	public int count() {		
 		return super.size();		
 	}
 	
-	
-   	public boolean  add( int nodefrom, int nodeto ){	
+	  
+	public boolean add(JiRelation relation){
+	 return	super.add(relation);
+	}
+   	public boolean add( int nodefrom, int nodeto ){	
 		JiRelation relation = new JxStdRelation(nodefrom, nodeto);
 		return super.add( relation );
 	}
-   	
+   	 
     
 	public JiRelation get_edge(int id){ //得到相应的边
 		return super.get(id); 
 	}
 	
+	
 	/** get JxScaleFreeEdge object at specified position with index */
 	public JiRelation get(int index){ 
 		return super.get(index); 
 	}
+	
 	
 	public JiRelation search(int id){
 		boolean found = false;
@@ -99,10 +106,9 @@ public class JxEdgeCollection extends ArrayList<JiRelation>{
 		return edge_list;
 	}
 	
-	public ArrayList<JiNode> neighbors_of( int nodeid ){
+	
+	/*public ArrayList<JiNode> neighbors_of( int nodeid ){
 	
 		
-	}
-	
-
+	}*/
 }

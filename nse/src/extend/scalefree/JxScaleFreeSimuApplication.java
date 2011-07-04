@@ -102,7 +102,7 @@ public class JxScaleFreeSimuApplication {
 		    mini=random.nextInt(minimum);
 
 		 str = null;
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	 
 	}	
 	

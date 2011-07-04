@@ -1,5 +1,5 @@
 package kernel;
-import java.util.Random;
+import java.util.*;
 import extend.scalefree.JxScaleFreeEdge;
 import extend.scalefree.JxScaleFreeNode;
 public class JxStdRelation implements JiRelation {
@@ -12,8 +12,13 @@ public class JxStdRelation implements JiRelation {
 	private int m_nodeto;
 	private int m_bandwidth;
 	private int m_weight;
-	Random random= new Random();
 	
+
+	Random random= new Random();
+    JxEdgeCollection edgeCollection=new JxEdgeCollection();
+    JxNodeCollection nodeCollection=new JxNodeCollection();
+    JiNode node=new JxStdNode();
+    
     public JxStdRelation(){
 		this.m_owner = null;
 		this.m_nodefrom = 0;
@@ -22,7 +27,6 @@ public class JxStdRelation implements JiRelation {
 		this.m_weight = 0;
 	}
 	
-    
 	public JxStdRelation( Object owner ){
 		this.m_owner = owner;
 		this.m_nodefrom = 0;
@@ -99,21 +103,55 @@ public class JxStdRelation implements JiRelation {
 		return result;
 	}
 	
-	void generate_random_graph( int nodecount, int edgecount ){
+	void generate_graph( int nodecount, int edgecount ){
 		
-		int i, x, y;
-		JxScaleFreeEdge edge; 
-		JxScaleFreeNode node;
-		int nodefrom, nodeto;
+		int i, loc_x, loc_y;  
 		
-		// generate nodes and place them into the node set
+	    for (i=0; i< nodecount; i++) {
+	       loc_x = random.nextInt(100);
+		   loc_y = random.nextInt(100);
+	       nodeCollection.add(new JxStdNode( loc_x, loc_y, 100 ));			
+	    }
+	  
+	    ArrayList<Integer> addedset = new ArrayList<Integer>();
+	    ArrayList<Integer> leftset = new ArrayList<Integer>();
+	    
+	    int firstnode = random.nextInt( nodecount ); //随机选择初始点
+	
+		    JoinInNetNode.add(node); //加入到网络中
+	        
+		    node.set_degree(1);      
+		
+	    for (i = 1; i<m_nodeset.count(); i++){ //(将节点号为1-9999的节点依次加入网络 
+			
+	    	JxScaleFreeNode cur_node; 
+	    	
+			JxScaleFreeNode select_node;
+		  
+		    cur_node = m_nodeset.get(i);     //当前节点
+		  
+			select_node =selectnodeto();  //选择与之相连的节点
+            
+			JoinInNetNode.add(cur_node);     //当前点加入网络
+			
+			cur_node.set_degree(cur_node.degree()+1);  //当前点的度加1
+			
+			JoinInNetNode.add(select_node);            //选中点加入网络
+			
+			select_node.set_degree(select_node.degree()+1);   //选中点的度加1
+			
+			edge = new JxScaleFreeEdge( i,cur_node.id(),select_node.id(), 10, 0 ); //新边(边号，起点，终点，带宽，权值)
+			
 
-			x = random.nextInt(100);
-			y = random.nextInt(100);
-			m_nodeset.add( new JxScaleFreeNode( x, y, 100 ));	
-		
+			m_edges.add(edge);
 		}
-protected JxScaleFreeNode selectnodeto() {  
+	
+
+			m_edgeset.add(edge);
+		}    
+
+	}	
+  protected JxScaleFreeNode selectnodeto() {  
 		
 		int p = random.nextInt(JoinInNetNode.size()); //生成在0——列表长度之间的整数值
 		
