@@ -23,13 +23,11 @@ public class JxNodeCollection extends ArrayList<JiNode> {
 		return super.get(index);
 	}
 	
-	public void add(int index, JiNode node )
-	{
+	public void add(int index, JiNode node ){
 		super.add(index,node); 
 	}
 	
-	public boolean add( JiNode node )
-	{
+	public boolean add( JiNode node ){
 		return super.add(node);
 	}
 	

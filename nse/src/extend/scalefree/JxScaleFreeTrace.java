@@ -654,7 +654,6 @@ public class JxScaleFreeTrace {
 		  }
    }
 
-  
     public String currenttime() {	
     	 Date date = new Date();
     	 SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm");//设置日期格式(数据表格式有要求)

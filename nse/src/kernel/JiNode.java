@@ -12,4 +12,5 @@ public interface JiNode {
 	public void setDegree(int i);
 	
 	public int getCapacity();
+
 }
