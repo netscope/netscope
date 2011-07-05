@@ -11,15 +11,13 @@ public class JxStdNode implements JiNode {
 	
 	private JxEdgeCollection edgecollection;
 
-    public  JxStdNode() {
-    	
+    public  JxStdNode() {	
     this.m_loc_x = 0;
 	this.m_loc_y = 0;
 	this.m_capacity = 0;
    }
     
-   public JxStdNode(int loc_x,int loc_y,int capacity ) {
-		
+   public JxStdNode(int loc_x,int loc_y,int capacity ) {	
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
 		this.m_capacity = capacity;
@@ -35,7 +33,6 @@ public class JxStdNode implements JiNode {
 	
    
    public JxStdNode(int node_id,int loc_x,int loc_y, int m_length,int capacity) {
-		
 		this.m_id =node_id;
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
@@ -111,6 +108,9 @@ public class JxStdNode implements JiNode {
 	
 	public int getDegree(){
 		return degree;	
+	}
+	public void setDegree(int degree){
+		 this.degree=degree;	
 	}
 	
 }

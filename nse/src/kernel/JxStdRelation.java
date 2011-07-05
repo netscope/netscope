@@ -1,5 +1,6 @@
 package kernel;
 import java.util.*;
+
 import extend.scalefree.JxScaleFreeEdge;
 import extend.scalefree.JxScaleFreeNode;
 public class JxStdRelation implements JiRelation {
@@ -18,6 +19,7 @@ public class JxStdRelation implements JiRelation {
     JxEdgeCollection edgeCollection=new JxEdgeCollection();
     JxNodeCollection nodeCollection=new JxNodeCollection();
     JiNode node=new JxStdNode();
+    JiRelation relation= new JxStdRelation();
     
     public JxStdRelation(){
 		this.m_owner = null;
@@ -105,8 +107,9 @@ public class JxStdRelation implements JiRelation {
 	
 	void generate_graph( int nodecount, int edgecount ){
 		
-		int i, loc_x, loc_y;  
-		
+		/**产生节点，并将其加入到网络中
+        */
+		int i, loc_x, loc_y; 
 	    for (i=0; i< nodecount; i++) {
 	       loc_x = random.nextInt(100);
 		   loc_y = random.nextInt(100);
@@ -116,19 +119,16 @@ public class JxStdRelation implements JiRelation {
 	    ArrayList<Integer> addedset = new ArrayList<Integer>();
 	    ArrayList<Integer> leftset = new ArrayList<Integer>();
 	    
-	    int firstnode = random.nextInt( nodecount ); //随机选择初始点
-	
-		    JoinInNetNode.add(node); //加入到网络中
-	        
-		    node.set_degree(1);      
+	    int [] randomNodeSerial =new int[nodecount];	 //随机选择节点加入网络
+	    
+	  
+	    node.setDegree(1);      
 		
-	    for (i = 1; i<m_nodeset.count(); i++){ //(将节点号为1-9999的节点依次加入网络 
+	    for (i = 1; i<nodeCollection.count(); i++){ //(将节点号为1-9999的节点依次加入网络 
 			
-	    	JxScaleFreeNode cur_node; 
-	    	
-			JxScaleFreeNode select_node;
-		  
-		    cur_node = m_nodeset.get(i);     //当前节点
+	    	int cur_node_id; 
+			int select_node_id;
+		    cur_node_id = m_nodeset.get(i);     //当前节点
 		  
 			select_node =selectnodeto();  //选择与之相连的节点
             
@@ -161,7 +161,25 @@ public class JxStdRelation implements JiRelation {
 	   
 	   return null;
    }
-	
+   
+    public  int[] randomSerial(){
+		  
+		  int end=10; 
+		  int result[]=new int [end];	
+	      for(int i=0;i<end;i++){
+	    	  result[i]=i;
+	      }	 
+	      
+	      Random random=new Random();
+	      for(int i=end-1; i>0; i--){
+	    	  int r= random.nextInt(i);
+	    	  int temp =result[i];
+	      	  result[i]=result[r];
+	    	  result[r]=temp;
+	      }
+	     return result;   	
+	} 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -191,15 +209,11 @@ public class JxStdRelation implements JiRelation {
 		return true;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "JxStdRelation [m_type=, m_nodefrom=" + m_nodefrom
 				+ ", m_nodeto=" + m_nodeto + ", m_bandwidth=" + m_bandwidth
 				+ ", m_weight=" + m_weight + "]";
 	}
-	
-	
-	
 	
 }
