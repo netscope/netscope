@@ -106,11 +106,16 @@ public class JxStdNode implements JiNode {
 	}
 	
 	
-	public int getDegree(){
+	public int getDegree(){ 
 		return degree;	
 	}
 	public void setDegree(int degree){
 		 this.degree=degree;	
+	}
+	
+	
+	public  int getCapacity(){
+	  return m_capacity;	
 	}
 	
 }

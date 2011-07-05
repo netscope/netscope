@@ -2,8 +2,9 @@ package kernel;
 import java.util.ArrayList;
 public interface JiRelation {
 	
+	
 	public enum JiRelationType{BI_DIRECTION, SINGLE_DIRECTIOIN, BROADCAST_RELATION, GROUP_RELATION;};
-
+    
 	
 	public int getId();
 	public void setId( int id );
@@ -21,6 +22,10 @@ public interface JiRelation {
 	public void setNodeTo( int nodeto);
 	
 	
+	public int getBandWidth();
+	
+	public int getPacketSum();
+	public void setPacketSum(int sum);
 	
 	// public ArrayList<int> getAllNodesTo();
 	// public ArrayList<int> getNeighborNodes();

@@ -10,10 +10,10 @@ public class JxStdRelation implements JiRelation {
 	private int m_relation_id; 
 	private JiRelationType m_type;
 	private int m_nodefrom;
-	private int m_nodeto;
+	private int  m_nodeto;
 	private int m_bandwidth;
 	private int m_weight;
-	
+	private int m_packetsum;
 
 	Random random= new Random();
     JxEdgeCollection edgeCollection=new JxEdgeCollection();
@@ -93,9 +93,18 @@ public class JxStdRelation implements JiRelation {
 		this.m_nodeto=nodeto;	
 	}
 	
+	public int getBandWidth(){
+		return m_bandwidth;
+	}
 	
+	public int getPacketSum(){
+       return m_packetsum;		
+	}
+	public void setPacketSum(int sum){
+		m_packetsum=sum;
+	}
 	@Override
-	public int hashCode() {
+  	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + m_bandwidth;
@@ -120,7 +129,7 @@ public class JxStdRelation implements JiRelation {
 	    }
 	    
 	    int[] randomNodeSerial =new int[nodecount]; //随机选择节点加入网络  
-	    randomNodeSerial =this.randomSerial();
+	    randomNodeSerial =JxStdRelation.randomSerial(nodecount);
 	    
 	    for (i = 0; i<nodecount; i++){ //(将节点号为1-9999的节点依次加入网络 
 	    	
@@ -160,16 +169,15 @@ public class JxStdRelation implements JiRelation {
 		return addedSet.get(p);  //返回选中
     }
 
-    public  int[] randomSerial(){
-		  
-		  int end=10; 
-		  int result[]=new int [end];	
-	      for(int i=0;i<end;i++){
+    public static int[] randomSerial(int count){
+		   
+		  int result[]=new int [count];	
+	      for(int i=0;i<count;i++){
 	    	  result[i]=i;
 	      }	 
 	      
 	      Random random=new Random();
-	      for(int i=end-1; i>0; i--){
+	      for(int i=count-1; i>0; i--){
 	    	  int r= random.nextInt(i);
 	    	  int temp =result[i];
 	      	  result[i]=result[r];
@@ -213,5 +221,4 @@ public class JxStdRelation implements JiRelation {
 				+ ", m_nodeto=" + m_nodeto + ", m_bandwidth=" + m_bandwidth
 				+ ", m_weight=" + m_weight + "]";
 	}
-	
 }

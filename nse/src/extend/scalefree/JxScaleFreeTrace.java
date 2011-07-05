@@ -9,30 +9,21 @@ import java.util.*;
 import java.text.*;
 
 public class JxScaleFreeTrace {
-<<<<<<< HEAD
-
-JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµãµÄ½á¹û) 
-	
-	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(ÓÃÓÚ±£´æ±ßµÄ½á¹û)
-=======
 	
     JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµãµÄ½á¹û) 
-    
-    ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>(); // ÒÑ¼ÓÈëÍøÂçµÄ½Úµã£¨×é³ÉµÄÁ´±í£©
 	
-    JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(ÓÃÓÚ±£´æ±ßµÄ½á¹û)
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
-    
+	JxScaleFreeEdgeCollection m_edges=new JxScaleFreeEdgeCollection();  //(ÓÃÓÚ±£´æ±ßµÄ½á¹û)
+	
+    ArrayList<JxScaleFreeNode> JoinInNetNode=new ArrayList<JxScaleFreeNode>(); // ÒÑ¼ÓÈëÍøÂçµÄ½Úµã£¨×é³ÉµÄÁ´±í£©
+
 	JxScaleFreeNodeCollection m_nodesload=new JxScaleFreeNodeCollection(); 
 	
 	JxScaleFreeEdgeCollection m_edgesload=new JxScaleFreeEdgeCollection();
 	
-<<<<<<< HEAD
 	JxScaleFreeNode node= null; 
 		
 	JxScaleFreeEdge edge= null;
-	
-	
+
 	ResultSet res =null;
 	
 	Boolean evertra_node=false;  //Ò»¶¨Òª×ö³É³ÉÔ±±äÁ¿
@@ -47,26 +38,11 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 
 	Statement sta = null;
 
-=======
 	ArrayList<Integer> m_array = new ArrayList<Integer>();
  	
-	JxScaleFreeNode node= null; 
-	
-	JxScaleFreeEdge edge= null;
-	
-	Connection con=null;
-	
-	Statement sta=null;
-	
-	ResultSet res =null;
-	
-    Boolean evertra_node =false;  
-	
-	Boolean evertra_edge =false;
-	
 	Random random= new Random();
 	
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	// ´ò¿ªÊý¾Ý¿â
 	public Statement openDatabase(String database) {
 		try {
@@ -334,8 +310,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
 		}
 
 	}
-<<<<<<< HEAD
-=======
+
 	
     //Ñ¡Ôñ±ßµÄÄ©½Úµã
 	protected JxScaleFreeNode selectnodeto() {  
@@ -440,7 +415,7 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
     } 
 	 return m_array;
   }
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+
 	
 	//´ò¿ªÊý¾Ý¿â
 	public Statement Open_Database()
@@ -670,33 +645,20 @@ JxScaleFreeNodeCollection m_nodes=new JxScaleFreeNodeCollection();  //(ÓÃÓÚ±£´æµ
  		}		
 	}
 	
-    public void CloseDatabase() //¹Ø±ÕÊý¾Ý¿â
-	{   
-	   try {
+    public void CloseDatabase(){   //¹Ø±ÕÊý¾Ý¿â
+	 try {
 		       sta.close();
-		       
 		       con.close();  
-				
-			} catch (SQLException e) {
-						
-			   con = null;
-			}
-		}
-<<<<<<< HEAD
-=======
-  
-    public String currenttime() {
-    	
-    	 Date date = new Date();
-    	
-    	 SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm");//ÉèÖÃÈÕÆÚ¸ñÊ½(Êý¾Ý±í¸ñÊ½ÓÐÒªÇó)
-    	 
-    	 String cur_time =sdf.format(date);
-    	 
-    	 return cur_time;
-    	 
-    }
+		} catch (SQLException e) {
+			  con = null;
+		  }
+   }
 
-	
->>>>>>> 5132d5ba41ba3e385b1f5813952847a36767b779
+  
+    public String currenttime() {	
+    	 Date date = new Date();
+    	 SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm");//ÉèÖÃÈÕÆÚ¸ñÊ½(Êý¾Ý±í¸ñÊ½ÓÐÒªÇó)
+    	 String cur_time =sdf.format(date);
+    	 return cur_time;	 
+    }
 }
