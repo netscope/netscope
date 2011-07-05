@@ -8,5 +8,6 @@ public interface JiNode {
 	public int getValue();    //数据包个数
 	public void setValue(int value);
 
+	public int getDegree();
 	public void setDegree(int i);
 }
