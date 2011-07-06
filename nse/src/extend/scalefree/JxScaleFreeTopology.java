@@ -5,17 +5,13 @@ import java.util.*;
 public class JxScaleFreeTopology {
 	
 	Object m_owner;
-	
 	JxScaleFreeNodeCollection m_nodeset;
-	
 	JxScaleFreeEdgeCollection m_edgeset; 
-	
 	ArrayList<JxScaleFreeNode>  JoinInNetNode;
 	
 	public static Random random = new Random();
 	
 	JxScaleFreeTopology( Object owner ){
-		
 		m_nodeset = new JxScaleFreeNodeCollection();
 		
 		m_edgeset = new JxScaleFreeEdgeCollection();
@@ -83,12 +79,9 @@ public class JxScaleFreeTopology {
 		JxScaleFreeNode node;  
 
 		// generate nodes and place them into the node set
-	    for (i=0; i< nodecount; i++){
-	    	
+	    for (i=0; i< nodecount; i++){	
 			x = random.nextInt(100);
-			
-			y = random.nextInt(100);
-			
+			y = random.nextInt(100);	
 			m_nodeset.add( new JxScaleFreeNode( x, y, 100 ));			
 		}
 	    
@@ -144,7 +137,7 @@ public class JxScaleFreeTopology {
 			m_edgeset.add(edge);
 		}    
 
-	}	
+	
 	protected JxScaleFreeNode selectnodeto() {  
 		
 		int p = random.nextInt(JoinInNetNode.size()); //生成在0——列表长度之间的整数值

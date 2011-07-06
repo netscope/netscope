@@ -1,11 +1,10 @@
 package kernel;
 
 import java.util.ArrayList;
-import java.sql.Connection;
 import java.sql.Statement;
 import extend.scalefree.JxScaleFreeNodeCollection;
 public class JxSimulator {
-
+   
 	JiNode node;
 	JiRelation relation=new JxStdRelation();
 	JiInteraction interact=new JxStdInteraction();
@@ -21,23 +20,17 @@ public class JxSimulator {
 	JxNodeCollection nodeCollection;
 	JxEdgeCollection edgeCollection;
 	 
-	int nodecount;
+	int nodecount=10;
 	
-	Connection con=null;
-	
-	
-	
-	JxSimulator(){	
-		for (m_relationset){
+	/** JxSimulator(){	
+		for (int i;i<edgeCollection.count();i++){
 			interact( m_relationset.current());
 		}	
-	}
-	
-	void step()	{
-		
-	}
+	} */
+
 	
 	void run(){
+		
 		stdRelation.generateGraph(nodecount);
 		stdInteraction.interact();
 		
@@ -51,8 +44,16 @@ public class JxSimulator {
 		stdTrace.traceNode(sta,time);
 		stdTrace.traceEdge(sta,time);
 		
+	   /**	
 		String tablename=null;
 		stdTrace.loadNode(sta,tablename);
 		stdTrace.loadEdge(sta,tablename);
+		*/
+		System.out.println("everything is ok");
 	}
+	public static void main(String []args){
+		JxSimulator simulator=new JxSimulator();
+		simulator.run();
+	}
+	
 }

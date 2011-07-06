@@ -9,20 +9,20 @@ public class JxStdRelation implements JiRelation {
 	private Object m_owner;
 	private int m_relation_id; 
 	private JiRelationType m_type;
-	private int m_nodefrom;
+	private int  m_nodefrom;
 	private int  m_nodeto;
-	private int m_bandwidth;
-	private int m_weight;
-	private int m_packetsum;
+	private int  m_bandwidth;
+	private int  m_weight;
+	private int  m_packetsum;
 
 	Random random= new Random();
+	
     JxEdgeCollection edgeCollection=new JxEdgeCollection();
     JxNodeCollection nodeCollection=new JxNodeCollection();
+    
     JiNode node=new JxStdNode();
-    JiRelation relation= new JxStdRelation();
     
     ArrayList<Integer> addedSet = new ArrayList<Integer>();
-    ArrayList<Integer> leftset = new ArrayList<Integer>();
     
     public JxStdRelation(){
 		this.m_owner = null;
@@ -120,47 +120,45 @@ public class JxStdRelation implements JiRelation {
 	void generateGraph( int nodecount){
 		
 		/**产生节点，并将其加入到网络中
+		 * 如何保证产生的节点坐标不重复（重复的概率为1/10000）
         */
-		int i, loc_x, loc_y; 
-	    for (i=0; i< nodecount; i++) {
-	       loc_x = random.nextInt(100);
-		   loc_y = random.nextInt(100);
-	       nodeCollection.add(new JxStdNode( loc_x, loc_y, 100 ));			
+	    for (int i=0; i< nodecount; i++) {
+	    	int loc_x = random.nextInt(100);
+	    	int loc_y = random.nextInt(100);
+	       nodeCollection.add(new JxStdNode(loc_x, loc_y, 100));			
 	    }
 	    
-	    int[] randomNodeSerial =new int[nodecount]; //随机选择节点加入网络  
+	    int[] randomNodeSerial =new int[nodecount]; //从点集中随机选择节点
 	    randomNodeSerial =JxStdRelation.randomSerial(nodecount);
 	    
-	    for (i = 0; i<nodecount; i++){ //(将节点号为1-9999的节点依次加入网络 
+	    for (int i = 0; i<nodecount; i++){ //(将节点号依次加入网络 
 	    	
+	    	/** 随机得到第一个节点并加入addedSet中*/
 	    	if(i==0){
 	    	 int firstNodeId = randomNodeSerial[i];
 	    	 addedSet.add(firstNodeId);
 	    }
 	        
-	    	/**产生边,并将边加入边集中
-	    	 */
-	    	JiNode currentNode=new JxStdNode(); 
-	    	JiNode selectNode =new JxStdNode();
-	    	 
-		    currentNode= nodeCollection.get(i);
-	    	
-		    int cur_node_id = currentNode.getId(); //当前节点ID 
-			int select_node_id =selectnodeto();    //选择与之相连的节点ID
-            
-			selectNode=nodeCollection.get(select_node_id);
-			
-			edgeCollection.add(select_node_id, cur_node_id);
+	    	/**产生边,并将边加入边集中 */
+	    else{
+	        int currentNodeId=randomNodeSerial[i]; 
+			int selectNodeId =selectnodeto();    //选择与之相连的节点ID
+         	edgeCollection.add(selectNodeId, currentNodeId); //添加边的属性不全
 			
 			/**将当前点的编号及选中点的编号加入到addedSet中  */
-			
+         	addedSet.add(currentNodeId);
+         	addedSet.add(selectNodeId);
+
+			JiNode currentNode=nodeCollection.get(currentNodeId);
+			JiNode selectNode=nodeCollection.get(selectNodeId);
 			
 			/** 将当前点与选中点的度分别加1 */
 			int currentNodeDegree =currentNode.getDegree();
 			currentNode.setDegree(currentNodeDegree+1);
 			
 			int selectNodeDegree=selectNode.getDegree();
-			selectNode.setDegree(selectNodeDegree+1);		
+			selectNode.setDegree(selectNodeDegree+1);
+	      }   	
 		}		
    }    
 	
@@ -174,8 +172,7 @@ public class JxStdRelation implements JiRelation {
 		  int result[]=new int [count];	
 	      for(int i=0;i<count;i++){
 	    	  result[i]=i;
-	      }	 
-	      
+	      }	      
 	      Random random=new Random();
 	      for(int i=count-1; i>0; i--){
 	    	  int r= random.nextInt(i);

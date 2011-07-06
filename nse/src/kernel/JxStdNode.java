@@ -108,8 +108,7 @@ public class JxStdNode implements JiNode {
 	public void setDegree(int degree){
 		 this.degree=degree;	
 	}
-	
-	
+
 	public  int getCapacity(){
 	  return m_capacity;	
 	}
