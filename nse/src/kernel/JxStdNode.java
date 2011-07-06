@@ -1,5 +1,4 @@
 package kernel;
-import extend.scalefree.JxScaleFreeNode;
 public class JxStdNode implements JiNode {
 	
 	private int m_id;
@@ -16,7 +15,6 @@ public class JxStdNode implements JiNode {
 	this.m_loc_y = 0;
 	this.m_capacity = 0;
    }
-    
    public JxStdNode(int loc_x,int loc_y,int capacity ) {	
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
@@ -30,8 +28,6 @@ public class JxStdNode implements JiNode {
 		this.m_length = 0;
 		this.m_capacity = 0;
 	} */
-	
-   
    public JxStdNode(int node_id,int loc_x,int loc_y, int m_length,int capacity) {
 		this.m_id =node_id;
 		this.m_loc_x = loc_x;
@@ -116,6 +112,20 @@ public class JxStdNode implements JiNode {
 	
 	public  int getCapacity(){
 	  return m_capacity;	
+	}
+	
+	public int getLocx(){
+		return m_loc_x;
+	}
+	public void setLocx(int loc_x){
+		m_loc_x=loc_x;
+	}
+	
+	public int getLocy(){
+		return m_loc_y;
+	}
+	public void setLocy(int loc_y){
+		m_loc_y=loc_y;
 	}
 	
 }

@@ -27,6 +27,7 @@ public interface JiRelation {
 	public int getPacketSum();
 	public void setPacketSum(int sum);
 	
+	
 	// public ArrayList<int> getAllNodesTo();
 	// public ArrayList<int> getNeighborNodes();
 	// public ArrayList<int> getAllNodes();

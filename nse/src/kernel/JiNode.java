@@ -12,5 +12,11 @@ public interface JiNode {
 	public void setDegree(int i);
 	
 	public int getCapacity();
+	
+    public int getLocx();
+    public void setLocx(int loc_x);
+  
+    public int getLocy();
+    public void setLocy(int loc_y);
 
 }

@@ -1,4 +1,6 @@
 package kernel;
 public interface JiInteraction {
-	public void interact( JiRelation rel );
+	
+	/**所有的边相互作用一次*/
+	public void interact();
 }
