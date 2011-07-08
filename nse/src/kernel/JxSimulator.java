@@ -2,7 +2,7 @@ package kernel;
 
 import java.util.ArrayList;
 import java.sql.Statement;
-import extend.scalefree.JxScaleFreeNodeCollection;
+
 public class JxSimulator {
    
 	JiNode node;
