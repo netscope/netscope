@@ -1,10 +1,6 @@
 package kernel;
 
-import java.sql.Connection;
 import java.sql.Statement;
-
-import extend.scalefree.JxScaleFreeEdgeCollection;
-import extend.scalefree.JxScaleFreeNodeCollection;
 
 public interface JiTrace {
   
