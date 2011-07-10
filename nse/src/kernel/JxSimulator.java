@@ -1,10 +1,8 @@
 package kernel;
-
-import java.util.ArrayList;
 import java.sql.Statement;
-
 public class JxSimulator {
-   
+    
+	
 	JiNode node;
 	JiRelation relation=new JxStdRelation();
 	JiInteraction interact=new JxStdInteraction();
@@ -19,15 +17,10 @@ public class JxSimulator {
 	
 	JxNodeCollection nodeCollection;
 	JxEdgeCollection edgeCollection;
-	 
-	int nodecount=10;
 	
-	/** JxSimulator(){	
-		for (int i;i<edgeCollection.count();i++){
-			interact( m_relationset.current());
-		}	
-	} */
-
+	
+	int nodecount=10;
+    
 	
 	void run(){
 		
@@ -44,11 +37,6 @@ public class JxSimulator {
 		stdTrace.traceNode(sta,time);
 		stdTrace.traceEdge(sta,time);
 		
-	   /**	
-		String tablename=null;
-		stdTrace.loadNode(sta,tablename);
-		stdTrace.loadEdge(sta,tablename);
-		*/
 		System.out.println("everything is ok");
 	}
 	public static void main(String []args){

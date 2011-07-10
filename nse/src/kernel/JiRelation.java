@@ -1,7 +1,5 @@
 package kernel;
-import java.util.ArrayList;
 public interface JiRelation {
-	
 	
 	public enum JiRelationType{BI_DIRECTION, SINGLE_DIRECTIOIN, BROADCAST_RELATION, GROUP_RELATION;};
     
@@ -23,6 +21,7 @@ public interface JiRelation {
 	
 	
 	public int getBandWidth();
+	
 	
 	public int getPacketSum();
 	public void setPacketSum(int sum);

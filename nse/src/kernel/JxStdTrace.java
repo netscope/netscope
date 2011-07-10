@@ -26,15 +26,14 @@ public class JxStdTrace implements JiTrace {
 	Random random = new Random();
 
 	boolean tracenode_table = false;
-	boolean traceedge_table;
+	boolean traceedge_table=false;
 
 	/** 打开数据库 */
 	public Statement openDatabase(String database) 
 	{
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			con = DriverManager
-					.getConnection("jdbc:hsqldb:mem:score", "sa", "");
+			con = DriverManager.getConnection("jdbc:hsqldb:mem:score", "sa", "");
 			sta = con.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -44,7 +43,6 @@ public class JxStdTrace implements JiTrace {
 		return sta;
 	}
 	
-	public boolean saveNode( 
 
 	// 创建节点表并保存节点结构
 	public void saveNode(Statement sta) 
@@ -219,10 +217,8 @@ public class JxStdTrace implements JiTrace {
 			}
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
-
 	}
 
 	public void CloseDatabase() { // 关闭数据库

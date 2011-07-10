@@ -65,8 +65,7 @@ public class JxStdInteraction implements JiInteraction {
 			   
 		public int  Minimum(int a,int b,int c) { //发送包的个数要小于这三个值		
 			   
-			   int mini;
-                
+			   int mini; 
 			   int minimum=a;
 			   
 			   if(b<minimum)
@@ -76,7 +75,6 @@ public class JxStdInteraction implements JiInteraction {
 			    minimum=c;
 		        
 			    mini=random.nextInt(minimum);
-
 	            return mini;	 
 		}	
 }
