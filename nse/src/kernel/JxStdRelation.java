@@ -7,6 +7,10 @@ import extend.scalefree.JxScaleFreeNode;
 public class JxStdRelation implements JiRelation {
 	
 	
+	public interface JiRelation {
+
+	}
+
 	private Object m_owner;
 	private int m_relation_id; 
 	private JiRelationType m_type;

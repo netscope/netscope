@@ -1,6 +1,5 @@
 package kernel;
 import java.util.ArrayList;
-
 import extend.scalefree.JxScaleFreeEdge;
 import extend.scalefree.JxScaleFreeNode;
 public class JxEdgeCollection extends ArrayList<JiRelation>{
