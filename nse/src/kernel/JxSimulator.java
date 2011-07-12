@@ -3,6 +3,7 @@ package kernel;
 import java.util.ArrayList;
 import java.sql.Statement;
 
+// public class JxSimuApplication
 public class JxSimulator {
    
 	JiNode node;
@@ -28,6 +29,11 @@ public class JxSimulator {
 		}	
 	} */
 
+	JxSimulator(class NodeClass, class RelationClass, class InteractionClass)
+	{
+		// Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+	
+	}
 	
 	void run(){
 		
@@ -51,8 +57,18 @@ public class JxSimulator {
 		*/
 		System.out.println("everything is ok");
 	}
-	public static void main(String []args){
-		JxSimulator simulator=new JxSimulator();
+	public static void test(String []args){
+		
+		nodes = new JxNodeCollection();
+		relations = new JxRelationCollection();
+		interaction = new JxInteraction ;
+		
+		nodes.deploy(1000, 1000);
+		relations.generate( nodes )
+		
+		JxSimulator simulator=new JxSimulator(nodes, relations, interaction);
+		for (i=0; i<500; i++)
+			
 		simulator.run();
 	}
 	
