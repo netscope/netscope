@@ -14,8 +14,13 @@ public class JxStdRelation implements JiRelation {
 
 	Random random= new Random();
 	
+<<<<<<< HEAD
    static  JxNodeCollection nodeCollection=new JxNodeCollection();
    static  JxEdgeCollection edgeCollection=new JxEdgeCollection();
+=======
+    JxRelationCollection edgeCollection=new JxRelationCollection();
+    JxNodeCollection nodeCollection=new JxNodeCollection();
+>>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
     
     JiNode node=new JxStdNode();
     

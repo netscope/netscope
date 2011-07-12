@@ -2,7 +2,7 @@ package kernel;
 import java.util.ArrayList;
 import extend.scalefree.JxScaleFreeEdge;
 import extend.scalefree.JxScaleFreeNode;
-public class JxEdgeCollection extends ArrayList<JiRelation>{
+public class JxRelationCollection extends ArrayList<JiRelation>{
 	
 	private static final long serialVersionUID = 1L;
 

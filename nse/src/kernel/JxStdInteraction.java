@@ -9,8 +9,13 @@ public class JxStdInteraction implements JiInteraction {
     
     
     /** 得到 已存储的边集合和点集合*/
+<<<<<<< HEAD
     JxEdgeCollection edgeCollection=JxStdRelation.edgeCollection;
 	JxNodeCollection nodeCollection=JxStdRelation.nodeCollection;
+=======
+    JxRelationCollection edgeCollection=stdrelation.edgeCollection;
+	JxNodeCollection nodeCollection=stdrelation.nodeCollection;
+>>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
 	
 	int packetsum=0;
 	Random random=new Random();

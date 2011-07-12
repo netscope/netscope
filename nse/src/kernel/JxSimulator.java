@@ -40,7 +40,17 @@ public class JxSimulator {
 >>>>>>> 861510d5ddf29c4cf3735e7d308c902e7e15ae2e
 	
 	void run(){
+<<<<<<< HEAD
 		/**²úÉúÍØÆË */
+=======
+		
+		nodes = new JxNodeCollection();
+		relations = new JxRelationCollection();
+		
+		nodes.generate( 10000 );
+		relations.generate( 20000 );
+		
+>>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
 		stdRelation.generateGraph(nodecount);
 	
 		Statement sta=stdTrace.openDatabase();

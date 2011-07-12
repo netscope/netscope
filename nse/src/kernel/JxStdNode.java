@@ -8,8 +8,13 @@ public class JxStdNode implements JiNode {
 	private int m_capacity; 
 	private int m_degree;
 	
+<<<<<<< HEAD
 	private JxEdgeCollection edgecollection;
     
+=======
+	private JxRelationCollection edgecollection;
+
+>>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
     public  JxStdNode() {	
     this.m_loc_x = 0;
 	this.m_loc_y = 0;
