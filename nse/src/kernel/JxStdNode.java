@@ -6,28 +6,29 @@ public class JxStdNode implements JiNode {
 	private int m_loc_y;
 	private int m_length;
 	private int m_capacity; 
-	private int degree;
+	private int m_degree;
 	
 	private JxEdgeCollection edgecollection;
-
+    
     public  JxStdNode() {	
     this.m_loc_x = 0;
 	this.m_loc_y = 0;
 	this.m_capacity = 0;
    }
+    
    public JxStdNode(int loc_x,int loc_y,int capacity ) {	
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
 		this.m_capacity = capacity;
     }
    
-  /* public JxStdNode(int node_id,int loc_x,int loc_y ) {
+   public JxStdNode(int node_id,int loc_x,int loc_y,int capacity) {
 		this.m_id =node_id;
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
-		this.m_length = 0;
-		this.m_capacity = 0;
-	} */
+		this.m_capacity = capacity;
+	} 
+   
    public JxStdNode(int node_id,int loc_x,int loc_y, int m_length,int capacity) {
 		this.m_id =node_id;
 		this.m_loc_x = loc_x;
@@ -36,8 +37,7 @@ public class JxStdNode implements JiNode {
 		this.m_capacity = capacity;
 	}
    public String toString() { 
-		return "JxScaleFreeNode [m_loc_x=" + m_loc_x + ", m_loc_y=" + m_loc_y
-			+ "]";
+		return "JxStdNode [m_id="+ m_id +",m_loc_x= " + m_loc_x + ", m_loc_y=" + m_loc_y+",m_length="+m_length+"]";
 	}
 
 	/**
@@ -103,10 +103,10 @@ public class JxStdNode implements JiNode {
 	
 	
 	public int getDegree(){ 
-		return degree;	
+		return m_degree;	
 	}
 	public void setDegree(int degree){
-		 this.degree=degree;	
+		 this.m_degree=degree;	
 	}
 
 	public  int getCapacity(){

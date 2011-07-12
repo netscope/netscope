@@ -9,12 +9,12 @@ public class JxStdInteraction implements JiInteraction {
     
     
     /** 得到 已存储的边集合和点集合*/
-    JxEdgeCollection edgeCollection=stdrelation.edgeCollection;
-	JxNodeCollection nodeCollection=stdrelation.nodeCollection;
+    JxEdgeCollection edgeCollection=JxStdRelation.edgeCollection;
+	JxNodeCollection nodeCollection=JxStdRelation.nodeCollection;
 	
-	
-	Random random=new Random();
 	int packetsum=0;
+	Random random=new Random();
+
 	
 	/**对所有的边做一次包交换*/
 	public void interact(){
@@ -50,32 +50,36 @@ public class JxStdInteraction implements JiInteraction {
 			   receiver=nodeCollection.get(nodefrom);	
 		    }
 			
+		    /**发送点的包的个数*/
 		    int senderValue=sender.getValue();
+		    
+		    /**接收点的剩余空间*/
 		    int receiverVolume=receiver.getCapacity()-receiver.getValue();
+	
+		   /**边的带宽*/
 		    int bandwidth=relation.getBandWidth();
 		    
-			packetsum=Minimum(senderValue,receiverVolume,bandwidth);	    	  
-	        sender.setValue(senderValue-packetsum);     
-	        receiver.setValue(receiverVolume+packetsum);
-	        
-	        packetsum+=packetsum;
+		    
+			int packet=Minimum(senderValue,receiverVolume,bandwidth);	    	  
+	        sender.setValue(senderValue-packet);     
+	        receiver.setValue(receiverVolume+packet);
+	     
+	        packetsum +=packet;
 	        }
 			relation.setPacketSum(packetsum); //记录边上包的流量    
         }
 			   
-		public int  Minimum(int a,int b,int c) { //发送包的个数要小于这三个值		
+		public int  Minimum(int a,int b,int c) { //发送包的个数要小于这三个值				   
 			   
-			   int mini; 
-			   int minimum=a;
-			   
-			   if(b<minimum)
-			    minimum=b;
-			    
-			   if(c<minimum)
-			    minimum=c;
-		        
-			    mini=random.nextInt(minimum);
-	            return mini;	 
+			   int minimum=0;
+			   int mini=a;
+			   if(b<mini)
+			    mini=b;   
+			   if(c<mini)
+			    mini=c;
+	          
+			  minimum=random.nextInt(mini);  
+	          return minimum;	 
 		}	
 }
 			

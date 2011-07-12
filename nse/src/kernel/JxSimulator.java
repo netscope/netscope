@@ -4,6 +4,7 @@ public class JxSimulator {
     
 	
 	JiNode node;
+     
 	JiRelation relation=new JxStdRelation();
 	JiInteraction interact=new JxStdInteraction();
 	JiTrace trace=new JxStdTrace();
@@ -15,33 +16,31 @@ public class JxSimulator {
 	JxStdTrace stdTrace=new JxStdTrace();
 	
 	
-	JxNodeCollection nodeCollection;
-	JxEdgeCollection edgeCollection;
-	
-	
 	int nodecount=10;
     
 	
 	void run(){
-		
+		/**产生拓扑 */
 		stdRelation.generateGraph(nodecount);
-		stdInteraction.interact();
+	
+		Statement sta=stdTrace.openDatabase();
 		
-		String database=null;
-		Statement sta=stdTrace.openDatabase(database);
-		
+		/** 保存边和节点结构 */
 		stdTrace.saveNode(sta);
 		stdTrace.saveEdge(sta);
 		
-		int time=0;
-		stdTrace.traceNode(sta,time);
-		stdTrace.traceEdge(sta,time);
+		int experienttime=1;
 		
+		for(int i=0;i<experienttime;i++){
+			stdInteraction.interact();
+			stdTrace.traceNode(sta,i);
+			stdTrace.traceEdge(sta,i);
+		}
+		stdTrace.CloseDatabase();
 		System.out.println("everything is ok");
 	}
 	public static void main(String []args){
 		JxSimulator simulator=new JxSimulator();
 		simulator.run();
-	}
-	
+	}		
 }

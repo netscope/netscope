@@ -23,15 +23,15 @@ public class JxNodeCollection extends ArrayList<JiNode> {
 		return super.get(index);
 	}
 	
-	public void add(int index, JiNode node ){
-		super.add(index,node); 
-	}
-	
 	public boolean add( JiNode node ){
 		return super.add(node);
 	}
 	
-	public int indexOf(JxScaleFreeNode node){
+	public void add(int index, JiNode node ){
+		super.add(index,node); 
+	}
+	
+	public int indexOf(JiNode node){
 		return super.indexOf(node);
 	}
 	

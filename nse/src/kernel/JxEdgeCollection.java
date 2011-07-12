@@ -7,21 +7,19 @@ public class JxEdgeCollection extends ArrayList<JiRelation>{
 	private static final long serialVersionUID = 1L;
 
 	
-	public int count() {		
+	public int count() 
+	{		
 		return super.size();		
 	}
 	
 	  
-	public boolean add(JiRelation relation){
+	public boolean add(JiRelation relation)
+	{
 	 return	super.add(relation);
 	}
-   	public boolean add( int nodefrom, int nodeto ){	
-		JiRelation relation = new JxStdRelation(nodefrom, nodeto);
-		return super.add( relation );
-	}
-   	 
-    
-	public JiRelation get_edge(int id){ //得到相应的边
+   
+	public JiRelation get_edge(int id)//得到相应的边
+	{ 
 		return super.get(id); 
 	}
 	
@@ -46,17 +44,22 @@ public class JxEdgeCollection extends ArrayList<JiRelation>{
 	}
 	
 	
-	public JxScaleFreeEdge search(int nodefrom, int nodeto){
+	public JiRelation search(int nodefrom, int nodeto){
+		
 		boolean found = false;
-		JxScaleFreeEdge edge = null;
+		
+		JiRelation relation = new JxStdRelation();
+		
 		for (int i=0; i<super.size(); i++){
-			edge = (JxScaleFreeEdge)this.get(i);
-			if ((edge.nodefrom() == nodefrom) && (edge.nodeto() == nodeto)){
+			
+			relation = this.get(i);
+			
+			 if ((relation.getNodeFrom() == nodefrom) && (relation.getNodeTo() == nodeto)){
 				found = true;
 				break;
 			}
 		}
-		return (found ? edge: null);
+		return (found ? relation: null);
 	}	
 	
 	
@@ -105,9 +108,4 @@ public class JxEdgeCollection extends ArrayList<JiRelation>{
 		return edge_list;
 	}
 	
-	
-	/*public ArrayList<JiNode> neighbors_of( int nodeid ){
-	
-		
-	}*/
 }

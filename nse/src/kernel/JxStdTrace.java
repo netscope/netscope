@@ -12,9 +12,9 @@ import java.util.*;
  * The most fundamental implementation of Trace object.
  */
 public class JxStdTrace implements JiTrace {
-
-	JxNodeCollection nodecollection = new JxNodeCollection();
-	JxEdgeCollection edgecollection = new JxEdgeCollection();
+  
+	JxNodeCollection nodecollection = JxStdRelation.nodeCollection;
+	JxEdgeCollection edgecollection = JxStdRelation.edgeCollection;
 	
 	JiNode node = new JxStdNode();
 	ResultSet res = null;
@@ -27,13 +27,16 @@ public class JxStdTrace implements JiTrace {
 
 	boolean tracenode_table = false;
 	boolean traceedge_table=false;
+	
+	String tracenode_tablename=null;
 
 	/** 打开数据库 */
-	public Statement openDatabase(String database) 
+	public Statement openDatabase()
 	{
-		try {
-			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-			con = DriverManager.getConnection("jdbc:hsqldb:mem:score", "sa", "");
+	  try {
+			Class.forName("org.hsqldb.jdbcDriver");
+			String databasename=currenttime();
+			con = DriverManager.getConnection("jdbc:hsqldb:file:"+databasename+";shutdown=true", "sa", "");
 			sta = con.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,8 +51,7 @@ public class JxStdTrace implements JiTrace {
 	public void saveNode(Statement sta) 
 	{
 		try{
-			long sys_time = System.currentTimeMillis();
-			String str_time = String.valueOf(sys_time);
+			String str_time =currenttime();
 			String node_tablename = "nodetable" + str_time;
 			String create_node = "create table " + node_tablename
 					+ "(NODEID INTEGER,LOC_X INTEGER,LOC_Y INTEGER)";
@@ -61,7 +63,7 @@ public class JxStdTrace implements JiTrace {
 				String loc_x = Integer.toString(node.getLocx());
 				String loc_y = Integer.toString(node.getLocy());
 
-				String insert_nodetable = "Insert into" + node_tablename
+				String insert_nodetable = "Insert into " + node_tablename
 						+ "(NODEID,LOC_X,LOC_Y) VALUES (" + node_id + ","
 						+ loc_x + "," + loc_y + ")";
 				sta.executeUpdate(insert_nodetable);
@@ -72,18 +74,17 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
+	
 	// 创建边表并保存
 	public void saveEdge(Statement sta) {
-		try {
-			long sys_time = System.currentTimeMillis();
-			String str_time = String.valueOf(sys_time);
+    try {
+			String str_time = currenttime();
 
 			String edge_tablename = "edgetable" + str_time;
 			String create_edge = "create table " + edge_tablename
 					+ "(EDGEID integer,NODE_FROM integer,NODE_TO INTEGER)";
 
-			sta.executeUpdate(create_edge); // 创建边结构表
-
+			sta.executeUpdate(create_edge); // 创建边结构
 			for (int i = 0; i < edgecollection.count(); i++) {
 
 				JiRelation relation = edgecollection.get(i);
@@ -92,7 +93,7 @@ public class JxStdTrace implements JiTrace {
 				String node_from = Integer.toString(relation.getNodeFrom());
 				String node_to = Integer.toString(relation.getNodeTo());
 
-				String insert_edgetable = "Insert into" + edge_tablename
+				String insert_edgetable = "Insert into " + edge_tablename
 						+ "(EDGEID,NODE_FROM,NODE_TO) VALUES (" + relation_id
 						+ "," + node_from + "," + node_to + ")";
 
@@ -105,8 +106,9 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
+	
 	public void loadNode(Statement sta, String tablename) { // 下载节点结
-		try {
+	try {
 			String select_node = "select * from " + tablename;
 			ResultSet r = sta.executeQuery(select_node);
 
@@ -129,7 +131,7 @@ public class JxStdTrace implements JiTrace {
 	}
 
 	public void loadEdge(Statement sta, String tablename) {// 下载边结构
-		try {
+    try {
 			String select_edge = "select * from " + tablename;
 			ResultSet r = sta.executeQuery(select_edge);
 
@@ -151,14 +153,12 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	public void traceNode(Statement sta, int time) {// 保存点数据
-		try {
-			String tracenode_tablename = null;
-
+	
+	public void traceNode(Statement sta, int experienttime) {// 保存点数据
+	try {
 			if (tracenode_table == false) { // 保证只建立一次节点数据表
-
-				long sys_time = System.currentTimeMillis();
-				String str_time = String.valueOf(sys_time);
+				
+				String str_time = currenttime();
 				tracenode_tablename = "tracenode" + str_time; // 节点数据表名
 				String create_node = "create table " + tracenode_tablename
 						+ "(CUR_TIME integer, NODEID integer,LENGTH integer)";
@@ -171,9 +171,9 @@ public class JxStdTrace implements JiTrace {
 				String node_id = Integer.toString(node.getId()); // 转换为字符串(节点号)
 				String length = Integer.toString(node.getValue()); // (包的长度)
 
-				String cur_time = Integer.toString(time);
+				String cur_time = Integer.toString(experienttime);
 
-				String trace_node = "Insert into" + tracenode_tablename
+				String trace_node = "Insert into " + tracenode_tablename
 						+ "(CUR_TIME,NODEID,LENGTH) VALUES (" + cur_time + ","
 						+ node_id + "," + length + ")";
 
@@ -185,14 +185,13 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	public void traceEdge(Statement sta, int time) { // 保存边数据
-		try {
+	public void traceEdge(Statement sta, int experienttime) { // 保存边数据
+  try {
 			String traceedge_tablename = null;
 
 			if (traceedge_table == false) { // 保证只建立一次节点数据表
 
-				long sys_time = System.currentTimeMillis();
-				String str_time = String.valueOf(sys_time);
+				String str_time =currenttime();
 				traceedge_tablename = "traceedge" + str_time; // 边数据表名
 				String trace_edge = "create table "
 						+ traceedge_tablename
@@ -203,14 +202,14 @@ public class JxStdTrace implements JiTrace {
 			}
 
 			for (int i = 0; i < edgecollection.count(); i++) {
-
+                
 				JiRelation relation = edgecollection.get(i);
-
-				String cur_time = String.valueOf(time);
+                
+				String cur_time = String.valueOf(experienttime);
 				String edge_id = Integer.toString(relation.getId()); // 转换为字符串
 				String packet_sum = Integer.toString(relation.getPacketSum());
-
-				String insert_edgetable = "Insert into" + traceedge_tablename
+                
+				String insert_edgetable = "Insert into " + traceedge_tablename
 						+ "(CUR_TIME,EDGEID,PACKETSUM) VALUES (" + cur_time
 						+ "," + edge_id + "," + packet_sum + ")";
 				sta.executeUpdate(insert_edgetable);
@@ -230,9 +229,10 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	public String currenttime() {
+	public String currenttime()
+	{
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm");// 设置日期格式(数据表格式有要求)
+		SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm_ss");// 设置日期格式(数据表格式有要求)
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
