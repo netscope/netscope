@@ -37,6 +37,12 @@ public class JxSimulator {
 	
 	void run(){
 		
+		nodes = new JxNodeCollection();
+		relations = new JxRelationCollection();
+		
+		nodes.generate( 10000 );
+		relations.generate( 20000 );
+		
 		stdRelation.generateGraph(nodecount);
 		stdInteraction.interact();
 		

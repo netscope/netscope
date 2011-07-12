@@ -9,7 +9,7 @@ public class JxStdInteraction implements JiInteraction {
     
     
     /** 得到 已存储的边集合和点集合*/
-    JxEdgeCollection edgeCollection=stdrelation.edgeCollection;
+    JxRelationCollection edgeCollection=stdrelation.edgeCollection;
 	JxNodeCollection nodeCollection=stdrelation.nodeCollection;
 	
 	
