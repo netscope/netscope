@@ -13,14 +13,10 @@ public class JxStdRelation implements JiRelation {
 	private int  m_packetsum;
 
 	Random random= new Random();
-	
-<<<<<<< HEAD
-   static  JxNodeCollection nodeCollection=new JxNodeCollection();
-   static  JxEdgeCollection edgeCollection=new JxEdgeCollection();
-=======
-    JxRelationCollection edgeCollection=new JxRelationCollection();
-    JxNodeCollection nodeCollection=new JxNodeCollection();
->>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
+
+   static  JxNodeCollection nodeSet=new JxNodeCollection();
+   static  JxRelationCollection relationSet=new JxRelationCollection();
+
     
     JiNode node=new JxStdNode();
     
@@ -32,6 +28,7 @@ public class JxStdRelation implements JiRelation {
 		this.m_nodeto = 0;
 		this.m_bandwidth = 0;
 		this.m_weight = 0;
+		this.m_packetsum=0;
 	}
 	
 	public JxStdRelation( Object owner ){
@@ -40,12 +37,14 @@ public class JxStdRelation implements JiRelation {
 		this.m_nodeto = 0;
 		this.m_bandwidth = 0;
 		this.m_weight = 0;
+		this.m_packetsum=0;
 	}
 
     public JxStdRelation (int nodefrom,int nodeto){
      	super();
     	this.m_nodefrom = nodefrom;
 		this.m_nodeto = nodeto;	
+		this.m_packetsum=0;
     }
     
 	public JxStdRelation(int relationid, int nodefrom, int nodeto,int bandwidth){
@@ -112,83 +111,6 @@ public class JxStdRelation implements JiRelation {
 		result = prime * result + m_weight;
 		return result;
 	}
-	
-	void generateGraph( int nodecount){
-		
-		/**产生节点，并将其加入到网络中
-		 * 如何保证产生的节点坐标不重复（重复的概率为1/10000）
-        */
-	    for (int id=0; id< nodecount; id++) {
-	    	int loc_x = random.nextInt(100);
-	    	int loc_y = random.nextInt(100);
-	    	
-	    	/**添加节点-初始负载量50，容量100 */
-	    	JxStdNode node=new JxStdNode(id,loc_x,loc_y,50,100);
-	        nodeCollection.add(node);
-	    }
-	    
-	    int[] randomNodeSerial =new int[nodecount]; //从点集中随机选择节点
-	    randomNodeSerial =JxStdRelation.randomSerial(nodecount);
-	    
-	   
-	    for (int i = 0; i<nodecount; i++){ //(将节点号依次加入网络 	
-	    	
-	    	/** 随机得到第一条边并加入addedSet中*/
-	                                                //偏向连接算法可能有问题！！！
-	    	if(i==0)
-	    	{
-	    	  int firstNodeId = randomNodeSerial[i];
-	    	  addedSet.add(firstNodeId);
-	        }
-	    	/**产生边,并将边加入边集中 */
-	 	    else {
-	        int currentNodeId=randomNodeSerial[i]; 
-	        
-	        /**选择与之相连的节点ID*/
-			int selectNodeId =selectnodeto();
-			
-			/**将产生的边加入边集中 */
-			JxStdRelation relation=new JxStdRelation(i-1,selectNodeId, currentNodeId,20);
-         	edgeCollection.add(relation); 
-			
-			/**将当前点的编号及选中点的编号加入到addedSet中  */
-         	addedSet.add(currentNodeId);
-         	addedSet.add(selectNodeId);         //最后一次会多加一次
-
-			JiNode currentNode=nodeCollection.get(currentNodeId);
-			JiNode selectNode=nodeCollection.get(selectNodeId);
-			
-			/** 将当前点与选中点的度分别加1 */
-			int currentNodeDegree =currentNode.getDegree();
-			currentNode.setDegree(currentNodeDegree+1);
-			
-			int selectNodeDegree=selectNode.getDegree();
-			selectNode.setDegree(selectNodeDegree+1);
-	      }     	
-		}	
-	    System.out.println("checking is over!");
-   }    
-	
-     protected int selectnodeto() {  	
-		int p = random.nextInt(addedSet.size()); //生成在0——列表长度之间的整数值
-		return addedSet.get(p);  //返回选中
-    }
-
-    public static int[] randomSerial(int count){
-		   
-		  int result[]=new int [count];	
-	      for(int i=0;i<count;i++){
-	    	  result[i]=i;
-	      }	      
-	      Random random=new Random();
-	      for(int i=count-1; i>0; i--){
-	    	  int r= random.nextInt(i);
-	    	  int temp =result[i];
-	      	  result[i]=result[r];
-	    	  result[r]=temp;
-	      }
-	     return result;   	
-	} 
 
 	@Override
 	public boolean equals(Object obj) {
@@ -223,7 +145,7 @@ public class JxStdRelation implements JiRelation {
 	public String toString() {
 		return "JxStdRelation [m_type="+m_type+",m_relation_id="+ m_relation_id +",m_nodefrom=" + m_nodefrom
 				+ ", m_nodeto=" + m_nodeto + ", m_bandwidth=" + m_bandwidth
-				+ ", m_weight=" + m_weight + ",m_bandwidth="+m_bandwidth+"]";
+				+ ", m_packetsum=" + m_packetsum+"]";
 	}
    /** 最后一个点不用加如到addedset中
        if(i==nodecount-1)

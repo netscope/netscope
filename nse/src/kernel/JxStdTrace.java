@@ -11,27 +11,31 @@ import java.util.*;
 /*
  * The most fundamental implementation of Trace object.
  */
-public class JxStdTrace implements JiTrace {
+   public class JxStdTrace implements JiTrace {
   
-	JxNodeCollection nodecollection = JxStdRelation.nodeCollection;
-	JxEdgeCollection edgecollection = JxStdRelation.edgeCollection;
+	JxNodeCollection nodeSet =JxRelationCollection.nodeSet;
+	JxRelationCollection  relationSet=JxRelationCollection.relationSet;
 	
 	JiNode node = new JxStdNode();
+	
 	ResultSet res = null;
+	
+	boolean evertra_node = false;
 	boolean evertra_edge = false;
+	
+	String tracenode_tablename=null;
+	String traceedge_tablename=null;
 
 	Connection con = null;
 	Statement sta = null;
-	ArrayList<Integer> m_array = new ArrayList<Integer>();
-	Random random = new Random();
-
-	boolean tracenode_table = false;
-	boolean traceedge_table=false;
 	
-	String tracenode_tablename=null;
+	Random random = new Random();
+	ArrayList<Integer> m_array = new ArrayList<Integer>();
+	
+	
 
 	/** 打开数据库 */
-	public Statement openDatabase()
+	public void openDatabase()
 	{
 	  try {
 			Class.forName("org.hsqldb.jdbcDriver");
@@ -42,13 +46,11 @@ public class JxStdTrace implements JiTrace {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-		return sta;
+		}		
 	}
 	
-
 	// 创建节点表并保存节点结构
-	public void saveNode(Statement sta) 
+	public void saveNode() 
 	{
 		try{
 			String str_time =currenttime();
@@ -57,8 +59,8 @@ public class JxStdTrace implements JiTrace {
 					+ "(NODEID INTEGER,LOC_X INTEGER,LOC_Y INTEGER)";
 			sta.executeUpdate(create_node); // 创建节点结构表
 
-			for (int i = 0; i < nodecollection.count(); i++) {
-				node = nodecollection.get(i);
+			for (int i = 0; i < nodeSet.count(); i++) {
+				node = nodeSet.get(i);
 				String node_id = Integer.toString(node.getId()); // 转换为字符串
 				String loc_x = Integer.toString(node.getLocx());
 				String loc_y = Integer.toString(node.getLocy());
@@ -74,9 +76,8 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	
 	// 创建边表并保存
-	public void saveEdge(Statement sta) {
+	public void saveEdge() {
     try {
 			String str_time = currenttime();
 
@@ -85,9 +86,9 @@ public class JxStdTrace implements JiTrace {
 					+ "(EDGEID integer,NODE_FROM integer,NODE_TO INTEGER)";
 
 			sta.executeUpdate(create_edge); // 创建边结构
-			for (int i = 0; i < edgecollection.count(); i++) {
+			for (int i = 0; i < relationSet.count(); i++) {
 
-				JiRelation relation = edgecollection.get(i);
+				JiRelation relation = relationSet.get(i);
 
 				String relation_id = Integer.toString(relation.getId()); // 转换为字符串
 				String node_from = Integer.toString(relation.getNodeFrom());
@@ -105,9 +106,9 @@ public class JxStdTrace implements JiTrace {
 			e.printStackTrace();
 		}
 	}
-
+    
 	
-	public void loadNode(Statement sta, String tablename) { // 下载节点结
+	public void loadNode(String tablename) { // 下载节点结
 	try {
 			String select_node = "select * from " + tablename;
 			ResultSet r = sta.executeQuery(select_node);
@@ -115,7 +116,7 @@ public class JxStdTrace implements JiTrace {
 			while (r.next()) {
 
 				int i = 0;
-				JiNode node = nodecollection.get(i++);
+				JiNode node = nodeSet.get(i++);
 
 				int nodeId = Integer.parseInt(r.getString(1));
 				int nodeLocx = Integer.parseInt(r.getString(2));
@@ -130,7 +131,7 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	public void loadEdge(Statement sta, String tablename) {// 下载边结构
+	public void loadEdge(String tablename) {// 下载边结构
     try {
 			String select_edge = "select * from " + tablename;
 			ResultSet r = sta.executeQuery(select_edge);
@@ -138,7 +139,7 @@ public class JxStdTrace implements JiTrace {
 			while (r.next()) {
 
 				int i = 0;
-				JiRelation relation = edgecollection.get(i);
+				JiRelation relation = relationSet.get(i);
 
 				int relationId = Integer.parseInt(r.getString(1));
 				int nodeFrom = Integer.parseInt(r.getString(2));
@@ -153,21 +154,20 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	
-	public void traceNode(Statement sta, int experienttime) {// 保存点数据
+	public void traceNode(int experienttime) {// 保存点数据
 	try {
-			if (tracenode_table == false) { // 保证只建立一次节点数据表
+			if (evertra_node == false) { // 保证只建立一次节点数据表
 				
 				String str_time = currenttime();
 				tracenode_tablename = "tracenode" + str_time; // 节点数据表名
 				String create_node = "create table " + tracenode_tablename
 						+ "(CUR_TIME integer, NODEID integer,LENGTH integer)";
 				sta.executeUpdate(create_node); // 创建节点结构表
-				tracenode_table = true;
+				evertra_node = true;
 			}
 
-			for (int i = 0; i < nodecollection.count(); i++) {
-				node = nodecollection.get(i);
+			for (int i = 0; i < nodeSet.count(); i++) {
+				node = nodeSet.get(i);
 				String node_id = Integer.toString(node.getId()); // 转换为字符串(节点号)
 				String length = Integer.toString(node.getValue()); // (包的长度)
 
@@ -185,11 +185,10 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	public void traceEdge(Statement sta, int experienttime) { // 保存边数据
-  try {
-			String traceedge_tablename = null;
+	public void traceEdge(int experienttime) { // 保存边数据
+    try {
 
-			if (traceedge_table == false) { // 保证只建立一次节点数据表
+			if (evertra_edge== false) { // 保证只建立一次节点数据表
 
 				String str_time =currenttime();
 				traceedge_tablename = "traceedge" + str_time; // 边数据表名
@@ -198,12 +197,12 @@ public class JxStdTrace implements JiTrace {
 						+ "(CUR_TIME integer, EDGEID integer,PACKETSUM integer)";
 
 				sta.executeUpdate(trace_edge); // 创建节点结构表
-				traceedge_table = true;
+				evertra_edge = true;
 			}
 
-			for (int i = 0; i < edgecollection.count(); i++) {
+			for (int i = 0; i < relationSet.count(); i++) {
                 
-				JiRelation relation = edgecollection.get(i);
+				JiRelation relation = relationSet.get(i);
                 
 				String cur_time = String.valueOf(experienttime);
 				String edge_id = Integer.toString(relation.getId()); // 转换为字符串
@@ -220,7 +219,7 @@ public class JxStdTrace implements JiTrace {
 		}
 	}
 
-	public void CloseDatabase() { // 关闭数据库
+	public void closeDatabase() { // 关闭数据库
 		try {
 			sta.close();
 			con.close();
