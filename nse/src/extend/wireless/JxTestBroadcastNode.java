@@ -28,7 +28,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import kernel.JiBaseTrace;
-import kernel.JxBaseEvent;
+import kernel.JxBaseEvent2;
 
 /**
  * This is a sample application, it shows a way of utilizing the Prowler 
@@ -170,7 +170,7 @@ public class JxTestBroadcastNode extends JxMica2Node{
         else
         {
             // run as fast as possible and measure dump execution time
-            JxBaseEvent event = new JxBaseEvent()
+            JxBaseEvent2 event = new JxBaseEvent2()
             {
                 public void execute()
                 {

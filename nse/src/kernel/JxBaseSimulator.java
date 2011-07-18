@@ -24,7 +24,7 @@ public class JxBaseSimulator {
 	public static final int ONE_SECOND = 40000;
 	
 	/** Holds the events */
-	private JxBaseEventQueue eventQueue = new JxBaseEventQueue();
+	private JxBaseEventQueue2 eventQueue = new JxBaseEventQueue2();
 	
 	/** The time of the last event using the given resolution */
 	long lastEventTime = 0;
@@ -33,7 +33,7 @@ public class JxBaseSimulator {
 	 * The nodes of the Simulator are linked together in a single linked list. 
 	 * This points to the first, and then {@link JxNode#nextNode} to the next. 
 	 */
-	public JxBaseNode firstNode = null;
+	public JxBaseNode2 firstNode = null;
 	/**
 	 * Display to show the simulation progress. 
 	 */
@@ -64,7 +64,7 @@ public class JxBaseSimulator {
 	 *  
 	 * @param e the event to be added to the queue
 	 */
-	public void addEvent(JxBaseEvent e) {
+	public void addEvent(JxBaseEvent2 e) {
 		getEventQueue().add( e );        
 	}
 
@@ -72,7 +72,7 @@ public class JxBaseSimulator {
 	 * Processes and executes the next event. 
 	 */
 	public void step() {
-		JxBaseEvent event = (JxBaseEvent)getEventQueue().getAndRemoveFirst();
+		JxBaseEvent2 event = (JxBaseEvent2)getEventQueue().getAndRemoveFirst();
 		if( event != null ){
 			lastEventTime = event.time;//事件的时间
 			event.execute();  //???
@@ -98,7 +98,7 @@ public class JxBaseSimulator {
 		long tmax = lastEventTime + (int)(JxBaseSimulator.ONE_SECOND * timeInSec);                 
 		while( lastEventTime < tmax )
 	    {
-	        JxBaseEvent event = (JxBaseEvent)getEventQueue().getAndRemoveFirst();
+	        JxBaseEvent2 event = (JxBaseEvent2)getEventQueue().getAndRemoveFirst();
 	        if( event != null ){
 	            lastEventTime = event.time;
 	            event.execute(); //
@@ -194,7 +194,7 @@ public class JxBaseSimulator {
 	 * @param disp the Display on which to draw Nodes
 	 */
 	public void trace(JiBaseTrace trace) {
-		JxBaseNode tempNode = firstNode;
+		JxBaseNode2 tempNode = firstNode;
 		while (tempNode != null){
 			tempNode.trace(trace);
 			tempNode = tempNode.nextNode;
@@ -206,7 +206,7 @@ public class JxBaseSimulator {
 	 * 
 	 * @param app the Node to be added
 	 */
-	protected void addNode(JxBaseNode node) {
+	protected void addNode(JxBaseNode2 node) {
 		
 		node.nextNode = firstNode;
 		firstNode = node;
@@ -222,7 +222,7 @@ public class JxBaseSimulator {
 	public void addNodes(List nodes) {
 		Iterator nodeIterator = nodes.iterator();
 		while (nodeIterator.hasNext()){
-			addNode((JxBaseNode)nodeIterator.next()); 
+			addNode((JxBaseNode2)nodeIterator.next()); 
 		}
 	}
 
@@ -237,11 +237,11 @@ public class JxBaseSimulator {
 	 * Get the event queue
 	 * @return eventQueue in the simulator.
 	 */
-	public JxBaseEventQueue getEventQueue() {
+	public JxBaseEventQueue2 getEventQueue() {
 		return eventQueue;
 	}
 	
-	public JxBaseNode firstNode(){   
+	public JxBaseNode2 firstNode(){   
 		return firstNode;
 	}
 }

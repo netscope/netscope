@@ -32,7 +32,7 @@ public class JxDbTrace implements JiBaseTrace {
 	{
 	}
 	
-	public boolean onNodeChanged( JxBaseNode node )
+	public boolean onNodeChanged( JxBaseNode2 node )
 	{
 		return true;
 	}

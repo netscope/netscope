@@ -25,7 +25,7 @@
 package extend.wireless;
 
 import kernel.JxBaseSimulator;
-import kernel.JxBaseEvent;
+import kernel.JxBaseEvent2;
 import extend.wireless.JxNode;
 import extend.wireless.JxRadioModel;
 
@@ -246,7 +246,7 @@ public class JxRayleighRadioModel extends JxRadioModel {
 	/**
 	 * Inner class ClockTickEvent. Represents a given time resolution needed.
 	 */
-	public class ClockTickEvent extends JxBaseEvent{
+	public class ClockTickEvent extends JxBaseEvent2{
     	
 		public ClockTickEvent(int time){
 			super(time);

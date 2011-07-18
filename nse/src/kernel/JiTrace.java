@@ -2,6 +2,10 @@ package kernel;
 
 import java.sql.Statement;
 
+/** 
+ * Trace 
+ * @author Allen
+ */
 public interface JiTrace {
   
 	public void saveNode(Statement sta);

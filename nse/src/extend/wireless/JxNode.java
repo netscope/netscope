@@ -24,7 +24,7 @@
  
 package extend.wireless;
 
-import kernel.JxBaseNode;
+import kernel.JxBaseNode2;
 import kernel.JiBaseTrace;
 import extend.wireless.JxRadioModel.JxNeighborhood;
 
@@ -36,7 +36,7 @@ import extend.wireless.JxRadioModel.JxNeighborhood;
  * 
  * @author Gabor Pap, Gyorgy Balogh, Miklos Maroti
  */
-public abstract class JxNode extends JxBaseNode {
+public abstract class JxNode extends JxBaseNode2 {
 	/**
 	 * The applications of the TinyOs node are linked together
 	 * in a single linked list. This points to the first,
