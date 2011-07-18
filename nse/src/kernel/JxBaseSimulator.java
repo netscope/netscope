@@ -40,7 +40,7 @@ public class JxBaseSimulator {
 	JiBaseTrace m_trace = null;
 
 	public JxBaseSimulator() {
-		super();  //≥¨¿‡£ø£ø£ø
+		super();  
 	}
 
 	/**

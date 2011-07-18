@@ -1,42 +1,30 @@
 package kernel;
 import java.util.*;
 public class JxStdInteraction implements JiInteraction {
-    
 	
 	/**定义relation对象，并转换为JxStdRelation */
-	JiRelation relation=new JxStdRelation();
-    JxStdRelation stdrelation=(JxStdRelation)relation;
-    
-    
-    /** 得到 已存储的边集合和点集合*/
-<<<<<<< HEAD
-    JxEdgeCollection edgeCollection=JxStdRelation.edgeCollection;
-	JxNodeCollection nodeCollection=JxStdRelation.nodeCollection;
-=======
-    JxRelationCollection edgeCollection=stdrelation.edgeCollection;
-	JxNodeCollection nodeCollection=stdrelation.nodeCollection;
->>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
+	JiRelation relation=new JxStdRelation();   
 	
-	int packetsum=0;
-	Random random=new Random();
-
-	
+   /** 得到 已存储的边集合和点集合*/
+   JxRelationCollection relationSet=JxRelationCollection.relationSet;
+   JxNodeCollection nodeSet=JxRelationCollection.nodeSet;
+     
+   Random random=new Random();
+     
 	/**对所有的边做一次包交换*/
-	public void interact(){
-		
-		int edgeCount=edgeCollection.count();
-		
-		for(int i=0;i<edgeCount;i++){
-			
-			int []randomSerial=new int[edgeCount];
-			
-			/** 得到随机排列的边集 */
-			randomSerial=JxStdRelation.randomSerial(edgeCount);
-			
-			/** 随机得到一条边 */
-			int relationId=randomSerial[i];
-			relation = edgeCollection.get(relationId);
-			
+	public void interact()
+	{ 	
+	   /**定义随机序列*/	
+       int edgeCount=relationSet.count();
+	   int []randomSerial=new int[edgeCount];
+	   randomSerial=JxRelationCollection.randomSerial(edgeCount);
+	  
+	    for(int i=0;i<edgeCount;i++){			
+
+          /** 随机得到一条边 */ 
+		  int relationId=randomSerial[i];
+		  relation = relationSet.get(relationId);
+		  
 		    int nodefrom=relation.getNodeFrom();
 		    int nodeto=relation.getNodeTo();
 		  
@@ -44,35 +32,41 @@ public class JxStdInteraction implements JiInteraction {
 			JiNode sender =new JxStdNode();
 		    JiNode receiver=new JxStdNode();
 		    
+		    /**随机确定发送方向*/
 		    int temp=random.nextInt(2);
-		    
 		    if(temp==0){
-		       sender=nodeCollection.get(nodefrom);	
-		       receiver=nodeCollection.get(nodeto);	
+		       sender=nodeSet.get(nodefrom);	
+		       receiver=nodeSet.get(nodeto);	
 		    }
 		    else{
-		       sender=nodeCollection.get(nodeto);	
-			   receiver=nodeCollection.get(nodefrom);	
-		    }
-			
-		    /**发送点的包的个数*/
-		    int senderValue=sender.getValue();
+		       sender=nodeSet.get(nodeto);	
+			   receiver=nodeSet.get(nodefrom);	
+		    }			
+		     /**发送点的包个数*/
+		     int senderValue=sender.getValue();  
+		 		
 		    
-		    /**接收点的剩余空间*/
-		    int receiverVolume=receiver.getCapacity()-receiver.getValue();
-	
-		   /**边的带宽*/
+		 	 /**接收点的剩余空间*/
+		     int receiverVolume=receiver.getCapacity()-receiver.getValue();
+		 
+		     /**边的带宽*/
 		    int bandwidth=relation.getBandWidth();
-		    
-		    
-			int packet=Minimum(senderValue,receiverVolume,bandwidth);	    	  
-	        sender.setValue(senderValue-packet);     
-	        receiver.setValue(receiverVolume+packet);
-	     
-	        packetsum +=packet;
-	        }
-			relation.setPacketSum(packetsum); //记录边上包的流量    
-        }
+		       
+		   	int packet=Minimum(senderValue,receiverVolume,bandwidth);
+		 	
+			sender.setValue(senderValue-packet); 
+			
+			int receiverValue =receiver.getValue();
+	        receiver.setValue(receiverValue+packet);
+	        
+	        int packetsum =relation.getPacketSum()+packet;
+	        relation.setPacketSum(packetsum); //记录边上包的流量  	        
+	        }	
+	       for(int i=0;i<nodeSet.count();i++)
+		   {
+			  System.out.println("nodeId：" +nodeSet.get(i).getId()+" loc_x "+nodeSet.get(i).getLocx()+" loc_y "+ nodeSet.get(i).getLocy()+" nodelength "+nodeSet.get(i).getValue());
+		   }
+	}
 			   
 		public int  Minimum(int a,int b,int c) { //发送包的个数要小于这三个值				   
 			   
@@ -82,10 +76,19 @@ public class JxStdInteraction implements JiInteraction {
 			    mini=b;   
 			   if(c<mini)
 			    mini=c;
-	          
-			  minimum=random.nextInt(mini);  
+	          if(mini==0)
+	          {
+	        	minimum=0;
+	          }
+	          else
+	          {
+	        	minimum=random.nextInt(mini);
+	          }  
 	          return minimum;	 
 		}	
+
+
+		
 }
 			
 

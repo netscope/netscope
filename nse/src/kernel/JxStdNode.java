@@ -8,13 +8,10 @@ public class JxStdNode implements JiNode {
 	private int m_capacity; 
 	private int m_degree;
 	
-<<<<<<< HEAD
-	private JxEdgeCollection edgecollection;
-    
-=======
-	private JxRelationCollection edgecollection;
+	
+	private JxRelationCollection relationCollection;
 
->>>>>>> f7dd2920cbc8f6be9964d882446f0dca27b6d6f5
+
     public  JxStdNode() {	
     this.m_loc_x = 0;
 	this.m_loc_y = 0;
@@ -54,7 +51,7 @@ public class JxStdNode implements JiNode {
 		final int prime = 31; // ËØÊý
 		int result = 1;
 		result = prime * result + m_capacity;
-		result = prime * result + ((edgecollection == null) ? 0 : edgecollection.hashCode());
+		result = prime * result + ((relationCollection == null) ? 0 : relationCollection.hashCode());
 		result = prime * result + m_loc_x;
 		result = prime * result + m_loc_y;
 		return result;
@@ -75,11 +72,11 @@ public class JxStdNode implements JiNode {
 		if (m_capacity != other.m_capacity)
 			return false;
 		
-		if (edgecollection == null) {
-			if (other.edgecollection != null)
+		if (relationCollection == null) {
+			if (other.relationCollection != null)
 				return false;
 			
-		} else if (!edgecollection.equals(other.edgecollection))
+		} else if (!relationCollection.equals(other.relationCollection))
 			return false;
 		if (m_length != other.m_length)
 			return false;

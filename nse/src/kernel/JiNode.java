@@ -27,12 +27,12 @@ public interface JiNode {
 	public int getValue();
 	public void setValue(int value);
    
-	//public int getDegree();
-	//public void setDegree(int i);
+	public int getDegree();
+	public void setDegree(int i);
 	
 	public int getCapacity();
 	
-    public int x();  
+    public int getLocx();  
     public void setLocx(int loc_x);
   
     public int getLocy();

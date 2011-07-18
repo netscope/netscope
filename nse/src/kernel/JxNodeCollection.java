@@ -5,9 +5,8 @@ import extend.scalefree.JxScaleFreeNode;
 public class JxNodeCollection extends ArrayList<JiNode> {
 
 	/** Node count in the collection 
-	 * @return
+	 *  @return
 	 */
-
 	private static final long serialVersionUID = 1L;
 	
 	/** Node count in the collection */
@@ -15,9 +14,6 @@ public class JxNodeCollection extends ArrayList<JiNode> {
 	 return super.size();
 	}
 	
-    public JiNode get_node(int i) {	
-	  return super.get(i);	
-	}
 	/** Get the node with specified index */
 	public JiNode get(int index){
 		return super.get(index);
