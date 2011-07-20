@@ -10,7 +10,8 @@ public class JxNodeCollection extends ArrayList<JiNode> {
 	private static final long serialVersionUID = 1L;
 	
 	/** Node count in the collection */
-	int count() {  //返回节点数
+	int count() 
+	{
 	 return super.size();
 	}
 	

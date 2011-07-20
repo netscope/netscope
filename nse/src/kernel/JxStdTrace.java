@@ -100,7 +100,6 @@ import java.util.*;
 
 				sta.executeUpdate(insert_edgetable);
 			}
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -185,6 +184,7 @@ import java.util.*;
 		}
 	}
 
+	
 	public void traceEdge(int experienttime) { // 保存边数据
     try {
 
@@ -219,6 +219,7 @@ import java.util.*;
 		}
 	}
 
+	
 	public void closeDatabase() { // 关闭数据库
 		try {
 			sta.close();
@@ -228,6 +229,7 @@ import java.util.*;
 		}
 	}
 
+	
 	public String currenttime()
 	{
 		Date date = new Date();

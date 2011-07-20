@@ -4,14 +4,19 @@ public class JxSimulator {
     
 	/**点*/
     JiNode node= new JxStdNode(); 
+  
     /**边*/
 	JiRelation relation=new JxStdRelation();
+	
 	/**相互作用*/
 	JiInteraction interaction=new JxStdInteraction();
+	
 	/**输出*/
 	JiTrace trace=new JxStdTrace();
+	
 	int nodecount=10;
-    /**点集*/
+   
+	/**点集*/
 	JxNodeCollection nodeset = new JxNodeCollection();
 	
 	/**边集*/
@@ -49,6 +54,7 @@ public class JxSimulator {
 		trace.closeDatabase();
 		System.out.println("everything is ok");
 	}
+	
 	public static void main(String []args){	
 		JxSimulator simulator=new JxSimulator();	
 		simulator.run();

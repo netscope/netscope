@@ -55,7 +55,7 @@ public class JxRelationCollection extends ArrayList<JiRelation>{
     	
 	    for (int i = 0; i<nodecount; i++){ //(将节点号依次加入网络 	
 	    
-	    	/** 随机得到第一条边并加入addedSet中*/   //偏向连接算法可能有问题！！！                                             
+	    	/** 随机得到第一条边并加入addedSet中*/                                         
 	    	if(i==0)
 	    	{
 	    	  currentNodeId = randomNodeSerial[0];
