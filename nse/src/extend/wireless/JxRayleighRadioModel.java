@@ -24,7 +24,7 @@
  
 package extend.wireless;
 
-import kernel.JxBaseSimulator;
+import kernel.JxBaseSimulator2;
 import kernel.JxBaseEvent2;
 import extend.wireless.JxNode;
 import extend.wireless.JxRadioModel;
@@ -44,20 +44,20 @@ public class JxRayleighRadioModel extends JxRadioModel {
 	 * The simulator, it is needed to access nodes, so that the radio model can
 	 * do operations on them.
 	 */
-	private JxBaseSimulator sim = null;
+	private JxBaseSimulator2 sim = null;
 
 	/**
 	 * This defines the period after which the dynamic fading is recalculated
 	 * for the nodes in the neighborhood. 
 	 */
-	public static int COHERENCE_TIME = JxBaseSimulator.ONE_SECOND;
+	public static int COHERENCE_TIME = JxBaseSimulator2.ONE_SECOND;
 	
 	/**
 	 * We need to have a clock event so that we can use the 
 	 * {@link JxNetworkSimulator#getLastEventTime} method. This variable defines the 
 	 * frequency of the timer.
 	 */
-	private long clockTickTime = JxBaseSimulator.ONE_SECOND / 100;	
+	private long clockTickTime = JxBaseSimulator2.ONE_SECOND / 100;	
 
 	/**
 	 * The exhibitor of the radio signal degradation, typically it is 2/2 if the
@@ -79,9 +79,9 @@ public class JxRayleighRadioModel extends JxRadioModel {
 	 * 
 	 * @param sim
 	 */
-	public JxRayleighRadioModel(JxBaseSimulator sim){
+	public JxRayleighRadioModel(JxBaseSimulator2 sim){
 		this.sim = sim;
-		sim.addEvent( new JxRayleighRadioModel.ClockTickEvent((int)(JxBaseSimulator.random.nextDouble() * clockTickTime)) );		
+		sim.addEvent( new JxRayleighRadioModel.ClockTickEvent((int)(JxBaseSimulator2.random.nextDouble() * clockTickTime)) );		
 	}
 
 	/**
@@ -104,8 +104,8 @@ public class JxRayleighRadioModel extends JxRadioModel {
 	 * @return The signal strength at the receiver.
 	 */
 	protected double getDynamicStrength(double signalStrength, double staticFading){
-		double gaussian1 = JxBaseSimulator.random.nextGaussian();
-		double gaussian2 = JxBaseSimulator.random.nextGaussian();
+		double gaussian1 = JxBaseSimulator2.random.nextGaussian();
+		double gaussian2 = JxBaseSimulator2.random.nextGaussian();
 		return signalStrength * staticFading * (gaussian1*gaussian1+gaussian2*gaussian2) / 2;
 	}
 

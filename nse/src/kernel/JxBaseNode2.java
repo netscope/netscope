@@ -40,7 +40,7 @@ public abstract class JxBaseNode2 {
 	public JxBaseNode2 nextNode = null;
 	
 	/** A reference to the simulator in which the Node exists. */
-	public JxBaseSimulator simulator;
+	public JxBaseSimulator2 simulator;
 
 	/**
 	 * The id of the node. It is allowed that two nodes have
@@ -56,7 +56,7 @@ public abstract class JxBaseNode2 {
 	 * @param radioModel the RadioModel used to create the nodes neighborhood
 	 */
 	//public JxBaseNode(JxBaseSimulator sim, JxRadioModel radioModel){
-	public JxBaseNode2(JxBaseSimulator sim ){
+	public JxBaseNode2(JxBaseSimulator2 sim ){
 		this.simulator = sim;
 	} 
 	
@@ -77,7 +77,7 @@ public abstract class JxBaseNode2 {
 	/**
 	 * @return simply returns the simulator in which this Node exists
 	 */
-	public JxBaseSimulator getSimulator(){
+	public JxBaseSimulator2 getSimulator(){
 		return simulator;
 	}
 	

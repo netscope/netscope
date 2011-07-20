@@ -25,7 +25,7 @@
 package extend.wireless;
 
 import java.lang.reflect.Constructor;
-import kernel.JxBaseSimulator;
+import kernel.JxBaseSimulator2;
 
 /**
  * This class is the heart of Prowler, as this is the event based scheduler, or
@@ -33,7 +33,7 @@ import kernel.JxBaseSimulator;
  * 
  * @author Gyorgy Balogh, Miklos Maroti, Gabor Pap (gabor.pap@vanderbilt.edu)
  */
-public class JxNetworkSimulator extends JxBaseSimulator{
+public class JxNetworkSimulator extends JxBaseSimulator2{
 	
 	/** Needed for the display, stores the maximum of both the x and y coordinates */
 	double maxCoordinate = 0;
