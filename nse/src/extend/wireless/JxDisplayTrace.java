@@ -34,7 +34,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import kernel.JiBaseTrace;
-import kernel.JxBaseSimulator;
+import kernel.JxBaseSimulator2;
 
 /**
  * Inherited from java.awt.Frame this class controls the graphical output of our
@@ -49,7 +49,7 @@ public class JxDisplayTrace extends Frame implements JiBaseTrace{
 	 * The display holds a reference to the simulator, so that it can call its
 	 * display function. 
 	 */
-    protected JxBaseSimulator  sim    = null;
+    protected JxBaseSimulator2  sim    = null;
     
     /** The convas on which we draw. */
     protected DispCanvas canvas = null;        
@@ -113,7 +113,7 @@ public class JxDisplayTrace extends Frame implements JiBaseTrace{
      * @param sim 
      * @param width the size of the area in meters
      */
-    public JxDisplayTrace( JxBaseSimulator sim, double width ){
+    public JxDisplayTrace( JxBaseSimulator2 sim, double width ){
         super();
         this.width = width;
         setSize( 800, 800 );
