@@ -34,6 +34,7 @@ public class JxBaseSimulator {
 	 * This points to the first, and then {@link JxNode#nextNode} to the next. 
 	 */
 	public JxBaseNode2 firstNode = null;
+	
 	/**
 	 * Display to show the simulation progress. 
 	 */
@@ -181,7 +182,6 @@ public class JxBaseSimulator {
 						}
 					}
 				}
-				
 			}            
 		};
 		t.start();
