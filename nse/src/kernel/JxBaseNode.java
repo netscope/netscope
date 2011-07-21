@@ -4,10 +4,10 @@ public class JxBaseNode implements JiBaseNode {
 	private int m_id;
 	private int m_loc_x;
 	private int m_loc_y;
+	private int m_loc_z;
 	private int m_length;
 	private int m_capacity; 
 	private int m_degree;
-	
 	
 	private JxBaseRelationCollection relationCollection;
 
@@ -15,12 +15,14 @@ public class JxBaseNode implements JiBaseNode {
     public  JxBaseNode() {	
     this.m_loc_x = 0;
 	this.m_loc_y = 0;
+	this.m_loc_z = 0;
 	this.m_capacity = 0;
    }
     
    public JxBaseNode(int loc_x,int loc_y,int capacity ) {	
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
+		this.m_loc_z = 0;
 		this.m_capacity = capacity;
     }
    
@@ -28,6 +30,7 @@ public class JxBaseNode implements JiBaseNode {
 		this.m_id =node_id;
 		this.m_loc_x = loc_x;
 		this.m_loc_y = loc_y;
+		// this.m_loc_z = ;
 		this.m_capacity = capacity;
 	} 
    
