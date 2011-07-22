@@ -16,11 +16,11 @@ public enum JiRelationType{BI_DIRECTION, SINGLE_DIRECTIOIN, BROADCAST_RELATION, 
 	
 	
 	public int getNodeFrom();
-	public void setNodeFrom( int nodefrom);
+	public void setNodeFrom(int nodefrom);
     
 	
 	public int getNodeTo();
-	public void setNodeTo( int nodeto);
+	public void setNodeTo(int nodeto);
 	
 	
 	public int getBandWidth();

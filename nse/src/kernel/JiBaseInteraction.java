@@ -6,6 +6,7 @@ package kernel;
  * @author Allen
  *
  */
+
 public interface JiBaseInteraction {
 	
 	/** 

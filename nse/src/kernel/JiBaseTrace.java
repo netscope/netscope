@@ -18,8 +18,8 @@ public interface JiBaseTrace {
 	public void traceNode(int time);
 	public void traceEdge(int time);
 	
-	public void loadNode( String tablename);
-    public void loadEdge( String tablename);
+	public void loadNode(String tablename);
+    public void loadEdge(String tablename);
     
     //public void update();
     //public void show();

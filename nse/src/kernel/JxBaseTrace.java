@@ -8,13 +8,19 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/*
+/**
  * The most fundamental implementation of Trace object.
  */
 public class JxBaseTrace implements JiBaseTrace {
-
-	private Object m_owner = null;
+    
+	
+	private Object m_owner = null; 
 	private String m_datadir = null;
+	
+	
+	private Connection con = null;
+	private Statement sta = null;
+	
 	
 	JxBaseTrace(Object owner) {
 		m_owner = owner;
@@ -25,6 +31,26 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_owner = owner;
 		m_datadir = datadir;
 	}
+	
+	public Object getOwner()
+	{
+		
+	};
+	
+	public Object setOwner()
+	{
+		
+	};
+
+	public void openDatabase()
+	{
+		
+	};
+	
+	public void closeDatabase()
+	{
+		
+	};	
 	
 	void open(String datadir)
 	{
@@ -51,7 +77,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 		//if (database is still open)
 		{
-			try {
+			try{
 				sta.close();
 				con.close();
 			} catch (SQLException e) {
@@ -61,7 +87,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 	
 	/*
-	 * finalize() will be called by JVM automatically. But JVM cannot guarante
+	 * finalize() will be called by JVM automatically. But JVM cannot guarantee
 	 * when to call it. So We call system.runFinalization() in the engine to force
 	 * the JVM to call finalize() of each revoked objects.
 	 * 
@@ -77,11 +103,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		
 	}
 
-	// 创建节点表并保存节点结构
-	public void save( JiBaseNodeCollection nodes ) 
+	/** save nodes */
+	public void save( JxBaseNodeCollection nodes ) 
 	{
-		
-		
 		try {
 			String str_time = currenttime();
 			String node_tablename = "nodetable" + str_time;
@@ -104,12 +128,13 @@ public class JxBaseTrace implements JiBaseTrace {
 			e.printStackTrace();
 		}
 	}
+	/** save relation */
 	public void save( JiBaseRelation relation ){
 		
 	}
 
-	// 创建边表并保存
-	public void save( JiBaseRelationCollection relations ){
+	/** save relations */
+	public void save( JxBaseRelationCollection relations ){
 		try {
 			String str_time = currenttime();
 
@@ -139,12 +164,14 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 	
-	public void load( JiBaseNodeCollection nodes )
+	
+	
+	public void load( JxBaseNodeCollection nodes )
 	{
 		
 	}
 	
-	public void load( JiBaseRelationCollection nodes )
+	public void load( JxBaseRelationCollection relations )
 	{
 		
 	}
@@ -178,14 +205,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		
 	}
 	
-	public ArrayList<JxBaseNode> load( int starttime, endtime )
-	{
-		
-	}
 	
 	
-	
-
+    
 	JxBaseNodeCollection nodeSet = JxBaseRelationCollection.nodeSet;
 	JxBaseRelationCollection relationSet = JxBaseRelationCollection.relationSet;
 
@@ -199,15 +221,13 @@ public class JxBaseTrace implements JiBaseTrace {
 	String tracenode_tablename = null;
 	String traceedge_tablename = null;
 
-	Connection con = null;
-	Statement sta = null;
 
 	Random random = new Random();
 	ArrayList<Integer> m_array = new ArrayList<Integer>();
 
 
-	public void loadNode(String tablename) { // 下载节点结
-		try {
+	public void loadNode(String tablename) { // 下载节点结构
+	try {
 			String select_node = "select * from " + tablename;
 			ResultSet r = sta.executeQuery(select_node);
 
