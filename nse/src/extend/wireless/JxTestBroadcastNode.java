@@ -28,7 +28,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import kernel.JiBaseTrace;
-import kernel.JxBaseEvent2;
 
 /**
  * This is a sample application, it shows a way of utilizing the Prowler 

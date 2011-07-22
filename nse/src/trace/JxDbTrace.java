@@ -1,6 +1,6 @@
 package trace;
 
-import kernel.JiBaseTrace;
+import extend.wireless.JxBaseNode2;
 import kernel.*;
 
 public class JxDbTrace implements JiBaseTrace {

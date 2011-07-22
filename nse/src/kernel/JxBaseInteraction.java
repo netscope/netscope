@@ -10,6 +10,17 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		m_owner = owner;
 	}
 
+	@Override
+	public Object getOwner() {
+		return m_owner;
+	}
+
+	@Override
+	public void setOwner(Object owner) {
+		m_owner = owner;
+	}
+
+	@Override
 	public void interact(JiBaseRelation relation) {
 		JxBaseEngine engine = (JxBaseEngine) m_owner;
 
@@ -30,6 +41,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		relation.trace(nodeto);
 	}
 
+	// to be deleted
 	/** 对所有的边做一次包交换 */
 	public void interact() {
 		/** 定义随机序列 */

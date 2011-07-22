@@ -1,14 +1,20 @@
 package kernel;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-import extend.scalefree.JxScaleFreeEdge;
-import extend.scalefree.JxScaleFreeNode;
+// import extend.scalefree.JxScaleFreeEdge;
+// import extend.scalefree.JxScaleFreeNode;
+
+/**
+ * This class maintains a list of JiBaseRelation object. You can add/remove a relation
+ * object into/from this collection.
+ *
+ * @author Allen
+ *
+ */
 public class JxBaseRelationCollection extends ArrayList<JiBaseRelation>{
 	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
     static  JxBaseNodeCollection nodeSet=new JxBaseNodeCollection();

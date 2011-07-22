@@ -19,7 +19,7 @@ public interface JiBaseNode {
 	public void setId(int id);	
 	
 	public Object getOwner();
-	public Object setOwner();
+	public void setOwner(Object owner);
 	
 	/**
 	 * Return the value of the current node object. The semantic of the value is 
@@ -30,11 +30,6 @@ public interface JiBaseNode {
 	public int getValue();
 	public void setValue(int value);
    
-	// public int getDegree();
-	// public void setDegree(int i);
-	
-	public int getCapacity();
-	
     public int getX();  
     public void setX(int x);
   

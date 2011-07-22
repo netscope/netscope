@@ -20,7 +20,7 @@ public interface JiBaseInteraction {
 	 * Set the owner of this interaction rule object.
 	 * @return
 	 */
-	public Object setOwner( Object owner );
+	public void setOwner( Object owner );
 	
 	/**
 	 * Perform interaction among some nodes describe by the relation object.

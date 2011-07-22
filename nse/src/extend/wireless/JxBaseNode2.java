@@ -22,7 +22,9 @@
  * Date last modified: 02/09/04
  */
  
-package kernel;
+package extend.wireless;
+
+import kernel.JiBaseTrace;
 
 /**
  * This class is the base class of all nodes. Nodes are entities in a simulator

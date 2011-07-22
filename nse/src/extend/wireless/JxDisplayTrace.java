@@ -34,7 +34,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import kernel.JiBaseTrace;
-import kernel.JxBaseSimulator2;
 
 /**
  * Inherited from java.awt.Frame this class controls the graphical output of our

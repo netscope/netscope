@@ -1,4 +1,4 @@
-package kernel;
+package extend.wireless;
 import java.util.TreeSet;
 /** 
  * As the simulator is event based there is a need for a queue to handle 

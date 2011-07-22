@@ -1,16 +1,22 @@
 package kernel;
+
+import java.util.ArrayList;
 import java.util.*;
 
 public class JxBaseRelation implements JiBaseRelation {
 	
-	private Object m_owner;
-	private int m_relation_id; 
-	private JiRelationType m_type;
-	private int  m_nodefrom;
-	private int  m_nodeto;
-	private int  m_bandwidth;
-	private int  m_weight;
-	private int  m_packetsum;
+	protected int m_id = 0; 
+	protected Object m_owner = null;
+	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
+	protected ArrayList<JiBaseNode> m_nodelist = new ArrayList<JiBaseNode>;
+
+	protected int  m_nodefrom;
+	protected int  m_nodeto;
+	protected int  m_bandwidth;
+	protected int  m_weight;
+	protected int  m_packetsum;
+	
+	
 
 	Random random= new Random();
 
@@ -23,71 +29,164 @@ public class JxBaseRelation implements JiBaseRelation {
     ArrayList<Integer> addedSet = new ArrayList<Integer>();
     
     public JxBaseRelation(){
-		this.m_owner = null;
-		this.m_nodefrom = 0;
-		this.m_nodeto = 0;
-		this.m_bandwidth = 0;
-		this.m_weight = 0;
-		this.m_packetsum=0;
+    	m_id = 0;
+		m_owner = null;
+		m_nodefrom = 0;
+		m_nodeto = 0;
+		m_bandwidth = 0;
+		m_weight = 0;
+		m_packetsum=0;
 	}
 	
-	public JxBaseRelation( Object owner ){
-		this.m_owner = owner;
-		this.m_nodefrom = 0;
-		this.m_nodeto = 0;
-		this.m_bandwidth = 0;
-		this.m_weight = 0;
-		this.m_packetsum=0;
+    public JxBaseRelation( int id ){
+    	m_id = id;
+		m_owner = null;
+		m_nodefrom = 0;
+		m_nodeto = 0;
+		m_bandwidth = 0;
+		m_weight = 0;
+		m_packetsum=0;
+	}
+	
+	public JxBaseRelation( int id, Object owner ){
+		m_id = id;
+		m_owner = owner;
+		m_nodefrom = 0;
+		m_nodeto = 0;
+		m_bandwidth = 0;
+		m_weight = 0;
+		m_packetsum=0;
 	}
 
-    public JxBaseRelation (int nodefrom,int nodeto){
+    public JxBaseRelation ( int id, Object owner, int nodefrom,int nodeto ){
      	super();
-    	this.m_nodefrom = nodefrom;
-		this.m_nodeto = nodeto;	
-		this.m_packetsum=0;
+     	m_id = id;
+     	m_owner = owner;
+     	m_type = JiRelationType.BI_DIRECTION_RELATION;
+    	m_nodefrom = nodefrom;
+		m_nodeto = nodeto;	
+		m_packetsum=0;
     }
     
-	public JxBaseRelation(int relationid, int nodefrom, int nodeto,int bandwidth){
-		super();
-		this.m_owner = null;
-		this.m_relation_id=relationid;
-        this.m_nodefrom =nodefrom;
-		this.m_nodeto = nodeto;
-		this.m_bandwidth=bandwidth;
+	@Override
+	public int getId(){
+	  return m_id;
+   }
+
+	@Override
+	public void setId(int id){
+		m_id=id; 	
+   }
+	
+	@Override
+	public Object getOwner() {
+		return m_owner;
+	}
+
+	@Override
+	public void setOwner(Object owner) {
+		m_owner = owner;
 	}
 	
-	
-	public int getId(){
-	  return m_relation_id;
-   }
-	public void setId(int id){
-		m_relation_id=id; 	
-   }
-	
-	
+	@Override
 	public JiRelationType getType(){
 		return  m_type;
 	}
-	public void setType(JiRelationType m_type){
-		this.m_type=m_type;	
+	
+	@Override
+	public void setType(JiRelationType type){
+		m_type = type;	
 	}
 	
-	
-	public int getNodeFrom(){
-		return  m_nodefrom;
+	@Override
+	public ArrayList<JiBaseNode> nodelist() {
+		return m_nodelist;
 	}
-	public void setNodeFrom (int nodefrom){
-		this.m_nodefrom=nodefrom;
+		
+	public void setBiDirRelation( JiBaseNode node1, JiBaseNode node2 )
+	{
+		m_nodelist.clear();
+		m_nodelist.add( node1 );
+		m_nodelist.add( node2 );
+		m_type = JiRelationType.BI_DIRECTION_RELATION;
 	}
 	
-	
-	public int getNodeTo(){
-		return m_nodeto;
+	public void setSingleDirRelation( JiBaseNode nodefrom, JiBaseNode nodeto )
+	{
+		m_nodelist.clear();
+		m_nodelist.add( nodefrom );
+		m_nodelist.add( nodeto );
+		m_type = JiRelationType.SINGLE_DIRECTIOIN_RELATION;
 	}
+	
+	public void setBroadcastRelation( ArrayList<JiBaseNode> nodelist )
+	{
+		m_nodelist.clear();
+		m_nodelist.addAll(nodelist);
+		m_type = JiRelationType.BROADCAST_RELATION;
+	}
+	
+	public void setGroupRelation( ArrayList<JiBaseNode> nodelist )
+	{
+		m_nodelist.clear();
+		m_nodelist.addAll(nodelist);
+		m_type = JiRelationType.GROUP_RELATION;
+	}
+	
+	public int count()
+	{
+		return m_nodelist.size();
+	}
+	
+	public void add( JiBaseNode node )
+	{
+		m_nodelist.add( node );
+	}
+	
+	public void remove( JiBaseNode node )
+	{
+		m_nodelist.remove( node );
+	}
+	
+	public JiBaseNode first()
+	{
+		//
+		return null;
+	}
+	
+	public JiBaseNode next()
+	{
+		//
+		return null;
+	}
+	
+	/**
+	 * Returns the first one in the node list of the current relation object.
+	 *  
+	 * @return
+	 */
+	public JiBaseNode nodefrom(){
+		return  m_nodelist.get(0);
+	}
+	/*
+	public void setNodeFrom(int nodefrom){
+		m_nodefrom=nodefrom;
+	}
+	*/
+	
+	/**
+	 * Returns the second one in the node list of the current relation object.
+	 *   
+	 * @param nodefrom
+	 */
+	public int nodeto(){
+		return  m_nodelist.get(1);
+	}
+	/*
 	public void setNodeTo(int nodeto){
-		this.m_nodeto=nodeto;	
+		m_nodeto=nodeto;	
 	}
-	
+	*/
 	public int getBandWidth(){
 		return m_bandwidth;
 	}
@@ -98,6 +197,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	public void setPacketSum(int sum){
 		m_packetsum=sum;
 	}
+	
 	@Override
   	public int hashCode() {
 		final int prime = 31;
@@ -106,7 +206,7 @@ public class JxBaseRelation implements JiBaseRelation {
 		result = prime * result + m_nodefrom;
 		result = prime * result + m_nodeto;
 		result = prime * result + ((m_owner == null) ? 0 : m_owner.hashCode());
-		result = prime * result + m_relation_id;
+		result = prime * result + m_id;
 		result = prime * result + ((m_type == null) ? 0 : m_type.hashCode());
 		result = prime * result + m_weight;
 		return result;
@@ -116,34 +216,37 @@ public class JxBaseRelation implements JiBaseRelation {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
+		
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		JxBaseRelation other = (JxBaseRelation) obj;
 		if (m_bandwidth != other.m_bandwidth)
 			return false;
-		if (m_nodefrom != other.m_nodefrom)
-			return false;
-		if (m_nodeto != other.m_nodeto)
+		if (!m_nodelist.equals(other)) // todo ???
 			return false;
 		if (m_owner == null) {
 			if (other.m_owner != null)
 				return false;
-		} else if (!m_owner.equals(other.m_owner))
+		} 
+		else if (!m_owner.equals(other.m_owner))
 			return false;
-		if (m_relation_id != other.m_relation_id)
+		
+		if (m_id != other.m_id)
 			return false;
 		if (m_type != other.m_type)
 			return false;
 		if (m_weight != other.m_weight)
 			return false;
+		
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "JxStdRelation [m_type="+m_type+",m_relation_id="+ m_relation_id +",m_nodefrom=" + m_nodefrom
+		return "JxStdRelation [m_type="+m_type+",m_relation_id="+ m_id +",m_nodefrom=" + m_nodefrom
 				+ ", m_nodeto=" + m_nodeto + ", m_bandwidth=" + m_bandwidth
 				+ ", m_packetsum=" + m_packetsum+"]";
 	}
@@ -164,4 +267,5 @@ public class JxBaseRelation implements JiBaseRelation {
 		int selectNodeDegree=selectNode.getDegree();
 		selectNode.setDegree(selectNodeDegree+1);
 	}  */
+
 }

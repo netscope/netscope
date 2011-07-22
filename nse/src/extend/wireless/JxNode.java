@@ -24,7 +24,6 @@
  
 package extend.wireless;
 
-import kernel.JxBaseNode2;
 import kernel.JiBaseTrace;
 import extend.wireless.JxRadioModel.JxNeighborhood;
 
