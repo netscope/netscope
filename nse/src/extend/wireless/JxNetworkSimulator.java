@@ -25,7 +25,6 @@
 package extend.wireless;
 
 import java.lang.reflect.Constructor;
-import kernel.JxBaseSimulator2;
 
 /**
  * This class is the heart of Prowler, as this is the event based scheduler, or

@@ -12,6 +12,7 @@ import java.util.*;
  * The most fundamental implementation of Trace object.
  */
 public class JxBaseTrace implements JiBaseTrace {
+<<<<<<< HEAD
     
 	
 	private Object m_owner = null; 
@@ -21,15 +22,28 @@ public class JxBaseTrace implements JiBaseTrace {
 	private Connection con = null;
 	private Statement sta = null;
 	
+=======
+
+	/** Owner of this object. It's usually the simulation engine object */
+	private Object m_owner = null;
+	
+	/** Where the trace data files are placed */
+	private String m_datadir = null;
+	
+	/** Current database name */ 
+	private String m_curdbname = null;
+>>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
 	
 	JxBaseTrace(Object owner) {
 		m_owner = owner;
 		m_datadir = "c:/temp/";
+		m_curdbname = "";
 	}
 
 	JxBaseTrace(Object owner, String datadir) {
 		m_owner = owner;
 		m_datadir = datadir;
+		m_curdbname = "";
 	}
 	
 	public Object getOwner()
@@ -97,7 +111,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 		close();
 	}
-
+	
 	public void save( JiBaseNode node )
 	{
 		
@@ -164,14 +178,27 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 	
+<<<<<<< HEAD
 	
 	
 	public void load( JxBaseNodeCollection nodes )
+=======
+	/** 
+	 * Load meta nodes data from database into an JiBaseNodeCollection object  
+	 * 
+	 * @param nodes An JiBaseNodeCollection object containing the nodes loaded.
+	 */
+	public void load( JiBaseNodeCollection nodes )
+>>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
 	{
 		
 	}
 	
+<<<<<<< HEAD
 	public void load( JxBaseRelationCollection relations )
+=======
+	public void load( JiBaseRelationCollection relations )
+>>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
 	{
 		
 	}
@@ -186,26 +213,23 @@ public class JxBaseTrace implements JiBaseTrace {
 		
 	}
 	
-	public ArrayList<JxBaseNode> loadnt( int duration )
-	{
-		
-	}
-	
-	public ArrayList<JxBaseNode> load( int starttime, endtime )
-	{
-		
-	}
-	
-	public ArrayList<JxBaseNode> loadat( int time )
-	{
-		
-	}
-	public ArrayList<JxBaseRelation> load( int duration )
+	/**
+	 * Take a snapshot at the whole network. All the current status of the network 
+	 * such as node queue length and relation transmission traffic will be saved
+	 * into trace data files.
+	 * 
+	 * This function is usually called when the simulation start. 
+	 *  
+	 * @param nodes
+	 * @param relations
+	 */
+	public void snapshot( JiBaseNodeCollection nodes, JiBaseRelationCollection relations )
 	{
 		
 	}
 	
 	
+	// all the following should be eliminated
 	
     
 	JxBaseNodeCollection nodeSet = JxBaseRelationCollection.nodeSet;

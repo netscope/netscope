@@ -1,43 +1,84 @@
 package kernel;
-import java.util.ArrayList;
 
-import extend.scalefree.JxScaleFreeNode;
+import java.util.ArrayList;
+//import extend.scalefree.JxScaleFreeNode;
+
+/**
+ * The JxBaseNodeCollection maintains a node set. You can add/remove node into/from 
+ * this set.
+ *  
+ * @author Allen
+ *
+ */
 public class JxBaseNodeCollection extends ArrayList<JiBaseNode> {
 
+	private static final long serialVersionUID = 1L;
+	
 	/** Node count in the collection 
 	 *  @return
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	/** Node count in the collection */
-	int count() {  //返回节点数
+	int count() 
+	{  
 	 return super.size();
 	}
 	
-	/** Get the node with specified index */
-	public JiBaseNode get(int index){
+	/** Get the node at specified index */
+	@Override
+	public JiBaseNode get(int index)
+	{
 		return super.get(index);
 	}
 	
+	//@Override
+	public JiBaseNode set( int idx, JiBaseNode node )
+	{
+		super.set( idx, node );
+	}
+	
+	@Override
 	public boolean add( JiBaseNode node ){
 		return super.add(node);
 	}
 	
+	@Override
 	public void add(int index, JiBaseNode node ){
 		super.add(index,node); 
 	}
 	
+	@Override
+	public JiBaseNode remove( int idx )
+	{
+		return super.remove(idx);
+	}
+	
+	public boolean remove( JiBaseNode node )
+	{
+		return super.remove(node);
+	}
+	
+	/**
+	 * Get the position of the specified node in the collection list.
+	 * @param node
+	 * @return
+	 */
 	public int indexOf(JiBaseNode node){
 		return super.indexOf(node);
 	}
 	
+	/** 
+	 * Searching for the node object with specified identifier in the collection 
+	 * list.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public JiBaseNode search( int id ){
 		
 		boolean found = false;
-		JiBaseNode node = new JxBaseNode();
+		JiBaseNode node = null;
 		for (int i=0; i<super.size(); i++){
 			node = this.get(i);
-			if (node.getId() == id){
+			if (this.get(i).getId() == id){
 				found = true;
 				break;
 			}
@@ -46,10 +87,47 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> {
 	}
 	
 	/** Clear all the nodes and release resources allocate for them */
+	@Override
 	public void clear() {
 	  for (int i=0; i<super.size(); i++){		
 	    super.set(i, null);
 	  }
 		super.clear();
 	}
+	
+	/**
+	 * Returns all the neighbor node around some node in a ArrayList. 
+	 * @param node
+	 * @return
+	 */
+	public ArrayList<JiBaseNode> neighborsof( JiBaseNode node )
+	{
+		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
+		
+		return neighbors;
+	}
+	
+	/**
+	 * Returns all the neighbor node around some node in a ArrayList. 
+	 * @param node
+	 * @return
+	 */
+	public ArrayList<JiBaseNode> neighborsof( JiBaseNode node, int distance )
+	{
+		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
+		
+		return neighbors;
+	}
+	
+	/**
+	 * Returns all the relation objects related to the specified node in a ArrayList.
+	 * @param node
+	 * @return
+	 */
+	public ArrayList<JiBaseRelation> relationsof( JiBaseNode node )
+	{
+		ArrayList<JiBaseRelation> relations = new ArrayList<JiBaseRelation>();
+		
+		return relations;
+	}	
 }

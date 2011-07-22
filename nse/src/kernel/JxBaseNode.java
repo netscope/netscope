@@ -1,45 +1,80 @@
 package kernel;
 public class JxBaseNode implements JiBaseNode {
 	
-	private int m_id;
-	private int m_loc_x;
-	private int m_loc_y;
-	private int m_length;
-	private int m_capacity; 
-	private int m_degree;
+	protected int m_id;
+	protected Object m_owner;
+	protected int m_loc_x;
+	protected int m_loc_y;
+	protected int m_loc_z;
+	protected int m_length = 0;
+	protected int m_capacity = 0; 
+	protected int m_degree = 0;
 	
-	
-	private JxBaseRelationCollection relationCollection;
-
-
-    public  JxBaseNode() {	
-    this.m_loc_x = 0;
-	this.m_loc_y = 0;
-	this.m_capacity = 0;
+    public JxBaseNode() {
+    	m_id = 0;
+    	m_loc_x = 0;
+    	m_loc_y = 0;
+    	m_loc_z = 0;
+    	m_length = 0;
+    	m_capacity = 0;
+    	m_degree = 0;
    }
     
-   public JxBaseNode(int loc_x,int loc_y,int capacity ) {	
-		this.m_loc_x = loc_x;
-		this.m_loc_y = loc_y;
-		this.m_capacity = capacity;
+    public JxBaseNode( int id ) {
+    	m_id = id;
+    	m_loc_x = 0;
+    	m_loc_y = 0;
+    	m_loc_z = 0;
+    	m_length = 0;
+    	m_capacity = 0;
+    	m_degree = 0;
+   }
+    
+    public JxBaseNode(int id, int x, int y ) {	
+    	m_id = id;
+    	m_loc_x = x;
+    	m_loc_y = y;
+    	m_loc_z = 0;
+     	m_length = 0;
+     	m_capacity = 0;
+     	m_degree = 0;
+     }
+    
+   public JxBaseNode(int id, int x, int y, int z ) {	
+	   m_id = id;
+   		m_loc_x = x;
+   		m_loc_y = y;
+   		m_loc_z = x;
+    	m_length = 0;
+    	m_capacity = 0;
+    	m_degree = 0;
     }
    
-   public JxBaseNode(int node_id,int loc_x,int loc_y,int capacity) {
-		this.m_id =node_id;
-		this.m_loc_x = loc_x;
-		this.m_loc_y = loc_y;
-		this.m_capacity = capacity;
+   public JxBaseNode(int id, int x, int y, int z, int capacity) {
+		m_id =id;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_z = x;
+    	m_length = 0;
+		m_capacity = capacity;
+    	m_degree = 0;
 	} 
    
-   public JxBaseNode(int node_id,int loc_x,int loc_y, int m_length,int capacity) {
-		this.m_id =node_id;
-		this.m_loc_x = loc_x;
-		this.m_loc_y = loc_y;
-		this.m_length = m_length;  //网络负载量的大小
-		this.m_capacity = capacity;
+   public JxBaseNode(int id, int x, int y, int z, int length,int capacity) {
+		m_id =id;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_z = x;
+   	m_length = length;
+		m_capacity = capacity;
+   	m_degree = 0;
 	}
+   
+	@Override
    public String toString() { 
-		return "JxStdNode [m_id="+ m_id +",m_loc_x= " + m_loc_x + ", m_loc_y=" + m_loc_y+",m_length="+m_length+"]";
+		return String.format( "JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d]", m_id, m_loc_x, m_loc_y,
+				m_loc_z, m_length );
+		// "JxBaseNode [id="+ m_id +", x= " + m_loc_x + ", y=" + m_loc_y +", length=" + m_length +"]";
 	}
 
 	/**
@@ -50,10 +85,12 @@ public class JxBaseNode implements JiBaseNode {
 	public int hashCode() {
 		final int prime = 31; // 素数
 		int result = 1;
-		result = prime * result + m_capacity;
-		result = prime * result + ((relationCollection == null) ? 0 : relationCollection.hashCode());
+		result = prime * result + m_id;
+		result = prime * result + m_owner.hashCode();
 		result = prime * result + m_loc_x;
 		result = prime * result + m_loc_y;
+		result = prime * result + m_loc_x;
+		result = prime * result + m_capacity;
 		return result;
 	}
 
@@ -72,38 +109,52 @@ public class JxBaseNode implements JiBaseNode {
 		if (m_capacity != other.m_capacity)
 			return false;
 		
-		if (relationCollection == null) {
-			if (other.relationCollection != null)
+		if (m_owner == null) {
+			if (other.m_owner != null)
 				return false;
-			
-		} else if (!relationCollection.equals(other.relationCollection))
-			return false;
+		}
+
 		if (m_length != other.m_length)
 			return false;
 		if (m_loc_x != other.m_loc_x)
 			return false;
 		if (m_loc_y != other.m_loc_y)
 			return false;
+		if (m_loc_z != other.m_loc_z)
+			return false;
+		
 		return true;
 	}
 
 	
+	@Override
 	public int getId(){
 		return m_id;
 	}
+	
+	@Override
 	public void setId(int id){
 		m_id=id;
 	}
 	
+	@Override
+	public Object getOwner() {
+		return m_owner;
+	}
+
+	@Override
+	public void setOwner(Object owner) {
+		m_owner = owner;
+	}
 	
 	public int getValue(){
 		return m_length;
 	}
+	
 	public void setValue(int value){
-		 m_length=value;
+		 m_length = value;
 	}
-	
-	
+		
 	public int getDegree(){ 
 		return m_degree;	
 	}
@@ -115,19 +166,34 @@ public class JxBaseNode implements JiBaseNode {
 	  return m_capacity;	
 	}
 	
-	public int getLocx(){
+	@Override
+	public int getX(){
 		return m_loc_x;
 	}
-	public void setLocx(int loc_x){
-		m_loc_x=loc_x;
+
+	@Override
+	public void setX(int x){
+		m_loc_x = x;
 	}
 	
+	@Override
 	public int getY(){
 		return m_loc_y;
 	}
-	public void setY(int loc_y){
-		m_loc_y=loc_y;
+
+	@Override
+	public void setY(int y){
+		m_loc_y = y;
 	}
-	
+
+	@Override
+	public int getZ() {
+		return m_loc_z;
+	}
+
+	@Override
+	public void setZ(int z) {
+		m_loc_z = z;
+	}	
 }
 

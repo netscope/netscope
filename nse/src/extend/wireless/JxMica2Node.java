@@ -23,7 +23,6 @@
  */
 package extend.wireless;
 
-import kernel.JxBaseEvent2;
 
 /**
  * This class represents a mote and all its properties important from the

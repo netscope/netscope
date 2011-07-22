@@ -24,8 +24,6 @@
  
 package extend.wireless;
 
-import kernel.JxBaseSimulator2;
-import kernel.JxBaseEvent2;
 import extend.wireless.JxNode;
 import extend.wireless.JxRadioModel;
 

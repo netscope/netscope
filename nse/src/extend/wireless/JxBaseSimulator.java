@@ -1,13 +1,17 @@
- package kernel;
+ package extend.wireless;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import kernel.JiBaseTrace;
+import kernel.JxBaseTrace;
+
+
 //import nse.ns.wireless.JxNetworkSimulator;
 //import nse.ns.wireless.JxRadioModel;
 
-public class JxBaseSimulator2 {
+public class JxBaseSimulator {
 
 	/** 
 	 * This is a static reference to a Random instance.
@@ -34,12 +38,13 @@ public class JxBaseSimulator2 {
 	 * This points to the first, and then {@link JxNode#nextNode} to the next. 
 	 */
 	public JxBaseNode2 firstNode = null;
+	
 	/**
 	 * Display to show the simulation progress. 
 	 */
 	JiBaseTrace m_trace = null;
 
-	public JxBaseSimulator2() {
+	public JxBaseSimulator() {
 		super();  
 	}
 
@@ -47,7 +52,7 @@ public class JxBaseSimulator2 {
 	 * 
 	 * @return Returns the time of the last event in 1/ONE_SECOND
 	 */
-	public long getSimulationTime() { //最后一个事件的时间
+	public long getSimulationTime() {
 		return lastEventTime;
 	}
 
@@ -55,8 +60,8 @@ public class JxBaseSimulator2 {
 	 * 
 	 * @return Returns the time of the last event in milliseconds.
 	 */
-	public long getSimulationTimeInMillisec() {     //？？
-		return (long)(1000 * lastEventTime / (double)JxBaseSimulator2.ONE_SECOND);
+	public long getSimulationTimeInMillisec() {     
+		return (long)(1000 * lastEventTime / (double)JxBaseSimulator.ONE_SECOND);
 	}
 
 	/**
@@ -74,7 +79,7 @@ public class JxBaseSimulator2 {
 	public void step() {
 		JxBaseEvent2 event = (JxBaseEvent2)getEventQueue().getAndRemoveFirst();
 		if( event != null ){
-			lastEventTime = event.time;//事件的时间
+			lastEventTime = event.time;
 			event.execute();  //???
 		}
 	}
@@ -95,13 +100,13 @@ public class JxBaseSimulator2 {
 	 * @param timeInSec the time in seconds until the simulation is to run
 	 */
 	public void run(double timeInSec) {         
-		long tmax = lastEventTime + (int)(JxBaseSimulator2.ONE_SECOND * timeInSec);                 
+		long tmax = lastEventTime + (int)(JxBaseSimulator.ONE_SECOND * timeInSec);                 
 		while( lastEventTime < tmax )
 	    {
 	        JxBaseEvent2 event = (JxBaseEvent2)getEventQueue().getAndRemoveFirst();
 	        if( event != null ){
 	            lastEventTime = event.time;
-	            event.execute(); //
+	            event.execute(); 
 	        }
 	        else
 	            break;
@@ -112,11 +117,11 @@ public class JxBaseSimulator2 {
 	 * This function runs the simulation with the display.
 	 * The user of the simulator must first add all the nodes used in the 
 	 * experiment!
-	 * 带显示的仿真
+	 * 
 	 */
 	public void runWithTrace(JiBaseTrace trace) {
 		//JiDisplayTrace trace = new JxBaseTrace( this, maxCoordinate );
-		trace.show();    //显示    
+		trace.show();    
 		while( true ){
 			step(100);
 			trace.update();
@@ -181,7 +186,6 @@ public class JxBaseSimulator2 {
 						}
 					}
 				}
-				
 			}            
 		};
 		t.start();
