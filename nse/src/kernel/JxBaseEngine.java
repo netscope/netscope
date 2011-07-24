@@ -48,7 +48,7 @@ public class JxBaseEngine {
 	public boolean open( JiBaseInteraction interaction, JiBaseTrace trace )
 	{
 		m_interaction = (JxBaseInteraction) interaction;
-		m_trace = (JxBaseTrace)trace;
+		m_trace = (JxBaseTrace) trace;
 		
 		m_trace.open();
 		
@@ -77,7 +77,7 @@ public class JxBaseEngine {
 	{
 		m_relations.randomize();
 		
-		// todo should be randomized sequence
+		// todo should be randomized sequence                                                                                                                        
 		Iterator it = m_relations.iterator();
 		while (it.hasNext())
 		{
@@ -93,11 +93,13 @@ public class JxBaseEngine {
 	public void execute( int stepcount, JiBaseTrace trace )
 	{
 		JiBaseInteraction interaction = new JxBaseInteraction();
+		
 		if (open(interaction, trace))
 		{
 			for (int i=0; i<stepcount; i++)
 				step();
-			close();
+			
+			    close();
 		}
 		
 		// So We call system.runFinalization() in the engine to force

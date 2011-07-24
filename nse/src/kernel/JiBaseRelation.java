@@ -14,7 +14,7 @@ public interface JiBaseRelation {
 	public void setOwner( Object owner );
 	
 	public JiRelationType getType();
-	public void setType(JiRelationType type );
+	public void setType(JiRelationType type);
 	
 	/**
 	 * Get all the nodes in the relation object.
@@ -30,7 +30,7 @@ public interface JiBaseRelation {
 	public ArrayList<JiBaseNode> nodelist();
 /*	
 	public int getNodeFrom();
-<<<<<<< HEAD
+
 	public void setNodeFrom(int nodefrom);
     
 	
@@ -43,7 +43,7 @@ public interface JiBaseRelation {
 	
 	public int getPacketSum();
 	public void setPacketSum(int sum);
-=======
+
 	public void setNodeFrom( int nodefrom );
 	
 	public int getNodeTo();
@@ -51,7 +51,7 @@ public interface JiBaseRelation {
 */	
 	// public int getBandWidth();
 	// public int setBandWidth( int bandwidth );
->>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
+
 	
 	// public int getPacketSum();
 	// public void setPacketSum(int sum);

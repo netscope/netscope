@@ -30,7 +30,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> {
 	}
 	
 	//@Override
-	public JiBaseNode set( int idx, JiBaseNode node )
+	public void set( int idx, JiBaseNode node )
 	{
 		super.set( idx, node );
 	}

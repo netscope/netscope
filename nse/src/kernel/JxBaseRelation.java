@@ -225,11 +225,11 @@ public class JxBaseRelation implements JiBaseRelation {
 		JxBaseRelation other = (JxBaseRelation) obj;
 		if (m_bandwidth != other.m_bandwidth)
 			return false;
-		if (!m_nodelist.equals(other)) // todo ???
+		if (!m_nodelist.equals(other)) 
 			return false;
 		if (m_owner == null) {
 			if (other.m_owner != null)
-				return false;
+			return false;
 		} 
 		else if (!m_owner.equals(other.m_owner))
 			return false;

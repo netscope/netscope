@@ -12,18 +12,12 @@ import java.util.*;
  * The most fundamental implementation of Trace object.
  */
 public class JxBaseTrace implements JiBaseTrace {
-<<<<<<< HEAD
     
-	
-	private Object m_owner = null; 
-	private String m_datadir = null;
-	
 	
 	private Connection con = null;
 	private Statement sta = null;
 	
-=======
-
+   
 	/** Owner of this object. It's usually the simulation engine object */
 	private Object m_owner = null;
 	
@@ -32,14 +26,13 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	/** Current database name */ 
 	private String m_curdbname = null;
->>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
 	
 	JxBaseTrace(Object owner) {
 		m_owner = owner;
 		m_datadir = "c:/temp/";
 		m_curdbname = "";
 	}
-
+    
 	JxBaseTrace(Object owner, String datadir) {
 		m_owner = owner;
 		m_datadir = datadir;
@@ -178,27 +171,24 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 	
-<<<<<<< HEAD
+
 	
 	
-	public void load( JxBaseNodeCollection nodes )
-=======
+
 	/** 
 	 * Load meta nodes data from database into an JiBaseNodeCollection object  
 	 * 
 	 * @param nodes An JiBaseNodeCollection object containing the nodes loaded.
 	 */
-	public void load( JiBaseNodeCollection nodes )
->>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
+	public void load( JxBaseNodeCollection nodes )
+
 	{
 		
 	}
 	
-<<<<<<< HEAD
+
 	public void load( JxBaseRelationCollection relations )
-=======
-	public void load( JiBaseRelationCollection relations )
->>>>>>> d4c6486c4d3827156e5972429fb3e6aedc389714
+
 	{
 		
 	}
