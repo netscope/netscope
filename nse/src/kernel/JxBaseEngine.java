@@ -6,6 +6,21 @@ import java.util.Random;
 /**
  * JxBaseEngine
  * @author Allen
+ * 
+ * The layer architecture of network netscope base network simulation:
+ * 
+ * - Top Layer: 
+ * 		Extended Layer (for user application)
+ * - Middle Layer: 
+ * 		JxBaseEngine: The developer can create there own simulators by extending this class,
+ * 			or build their own.   
+ * 		JxBaseNode, JxBaseNodeCollection, JxBaseRelation, JxBaseRelationCollection, JxBaseInteraction:
+ * 			They're the basic building blocks for a simulator. The JxBaseEngine is built on them.
+ * 		JiBaseNode, JiBaseNodeCollection, JiBaseRelation, JiBaseRelationCollection, JiBaseInteraction:
+ *			Provides fundamental interface for future extension. 
+ *	- Bottom Layer: 
+ *		JxFoundation: Provides the context and some commonly used components such as
+ *			simulation time, random number generator, events, event queue and event dispatcher.  
  *
  * reference
  * - White paper developmentor: Understanding Class.forName, Loading classes dynamically
@@ -21,13 +36,8 @@ import java.util.Random;
 public class JxBaseEngine {
 	
 	Object m_owner = null;
-
-	/** 
-	 * This is a static reference to a Random instance.
-	 * This makes experiments repeatable, all you have to do is to set
-	 * the seed of this Random class. 
-	 */
-	public static Random m_random = new Random();
+	
+	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance(); 
 
 	/** Node collection. It contains all the nodes */
 	private JiBaseNodeCollection m_nodes = null;
@@ -161,7 +171,7 @@ public class JxBaseEngine {
 	
 	public Random random()
 	{
-		return m_random;
+		return JxBaseFoundation.random();
 	}
   
 	public JiBaseNodeCollection getNodes()
@@ -213,7 +223,7 @@ public class JxBaseEngine {
 	 */
 	int nodecount()
 	{
-		return m_nodes.size();
+		return m_nodes.count();
 	}
 	
 	/**
@@ -251,10 +261,20 @@ public class JxBaseEngine {
 		relationsclass = "nse.kernel.JxBaseRelationsCollection";
 		interactionclass = "nse.kernel.JiBaseInteraction";
 		
-		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
-		JiBaseNodeCollection nodes = (JiBaseNodeCollection)createObject( nodesclass );
-		JiBaseRelationCollection relations = (JiBaseRelationCollection)createObject( relationsclass );
-		JiBaseInteraction = (JiBaseInteraction)createObject( interactionclass );
+		JiBaseTrace trace = null;
+		JiBaseNodeCollection nodes = null;
+		JiBaseRelationCollection relations = null;
+		JiBaseInteraction interaction = null;
+
+		try{
+			trace = (JiBaseTrace)JxBaseFoundation.createObject( traceclass );
+			nodes = (JiBaseNodeCollection)JxBaseFoundation.createObject( nodesclass );
+			relations = (JiBaseRelationCollection)JxBaseFoundation.createObject( relationsclass );
+			interaction = (JiBaseInteraction)JxBaseFoundation.createObject( interactionclass );
+		}
+		catch (Exception e){
+			
+		}
 		
 		this.setTrace( trace );
 		this.setNodes( nodes );
@@ -264,24 +284,4 @@ public class JxBaseEngine {
 		trace.restore( dbname, nodes, relations );
 	}
 
-	/**
-	 * Creates an object from class name.
-	 * 
-	 * @param className
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * 
-	 * @example
-	 * 	Class.forName("jdbc.DriverXYZ");
-	 * 	Connection con = DriverManager.getConnection(url, "myLogin", "myPassword");
-	 */
-	@SuppressWarnings("rawtypes")
-	public Object createObject(String className)  
-		throws ClassNotFoundException, InstantiationException, IllegalAccessException 
-	{
-		Class c = Class.forName(className);  
-		return c.newInstance();  
-	}  	
 }

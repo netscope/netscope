@@ -28,13 +28,13 @@ public interface JiBaseRelation {
 	 * @return
 	 */
 	public ArrayList<JiBaseNode> nodelist();
-/*	
+
 	public int getNodeFrom();
 	public void setNodeFrom( int nodefrom );
 	
 	public int getNodeTo();
 	public void setNodeTo( int nodeto );
-*/	
+	
 	// public int getBandWidth();
 	// public int setBandWidth( int bandwidth );
 	

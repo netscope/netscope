@@ -25,11 +25,10 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	{
 		JxBaseEngine engine = (JxBaseEngine) m_owner;
 
-		Random random = engine.getRandom();
-		JiBaseTrace = engine.getTrace();
+		Random random = JxBaseFoundation.random();
 
-		JiBaseNode nodefrom = relation.nodefrom();
-		JiBaseNode nodeto = relation.nodeto();
+		JiBaseNode nodefrom = relation.getNodeFrom();
+		JiBaseNode nodeto = relation.getNodeTo();
 
 		int len1, len2, cut;
 		len1 = nodefrom.length();
@@ -46,6 +45,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	/** 对所有的边做一次包交换 */
 	public void interact() {
 		/** 定义随机序列 */
+		JiBaseTrace trace = engine.getTrace();
 		int edgeCount = relationSet.count();
 		int[] randomSerial = new int[edgeCount];
 		randomSerial = JxBaseRelationCollection.randomSerial(edgeCount);
@@ -113,6 +113,12 @@ public class JxBaseInteraction implements JiBaseInteraction {
 			minimum = random.nextInt(mini);
 		}
 		return minimum;
+	}
+
+	@Override
+	public void setTrace(JiBaseTrace trace) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

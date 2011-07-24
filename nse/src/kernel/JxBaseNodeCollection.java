@@ -1,7 +1,7 @@
 package kernel;
 
 import java.util.ArrayList;
-//import extend.scalefree.JxScaleFreeNode;
+import java.util.Random;
 
 /**
  * The JxBaseNodeCollection maintains a node set. You can add/remove node into/from 
@@ -15,6 +15,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	private static final long serialVersionUID = 1L;
 	Object m_owner;
 	JiBaseTrace m_trace = null;
+	Random m_random = JxBaseFoundation.random();
 	
 	JxBaseNodeCollection( Object owner, int count )
 	{

@@ -1,6 +1,5 @@
 package kernel;
 
-import java.util.ArrayList;
 import java.util.*;
 
 public class JxBaseRelation implements JiBaseRelation {
@@ -8,33 +7,19 @@ public class JxBaseRelation implements JiBaseRelation {
 	protected int m_id = 0; 
 	protected Object m_owner = null;
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
-	protected ArrayList<JiBaseNode> m_nodes = new ArrayList<JiBaseNode>;
+	protected ArrayList<JiBaseNode> m_nodelist = new ArrayList<JiBaseNode>();
 
-	//protected int  m_nodefrom;
-	//protected int  m_nodeto;
 	protected int  m_bandwidth;
 	protected int  m_weight;
 	protected int  m_packetsum;
 	
 	protected Object m_value;
 	
-	
+	protected Random m_random = JxBaseFoundation.random();
 
-	Random random= new Random();
-
-   static  JxBaseNodeCollection nodeSet=new JxBaseNodeCollection();
-   static  JxBaseRelationCollection relationSet=new JxBaseRelationCollection();
-
-    
-    JiBaseNode node=new JxBaseNode();
-    
-    ArrayList<Integer> addedSet = new ArrayList<Integer>();
-    
     public JxBaseRelation(){
     	m_id = 0;
 		m_owner = null;
-		m_nodefrom = 0;
-		m_nodeto = 0;
 		m_bandwidth = 0;
 		m_weight = 0;
 		m_packetsum=0;
@@ -43,8 +28,6 @@ public class JxBaseRelation implements JiBaseRelation {
     public JxBaseRelation( int id ){
     	m_id = id;
 		m_owner = null;
-		m_nodefrom = 0;
-		m_nodeto = 0;
 		m_bandwidth = 0;
 		m_weight = 0;
 		m_packetsum=0;
@@ -53,8 +36,6 @@ public class JxBaseRelation implements JiBaseRelation {
 	public JxBaseRelation( int id, Object owner ){
 		m_id = id;
 		m_owner = owner;
-		m_nodefrom = 0;
-		m_nodeto = 0;
 		m_bandwidth = 0;
 		m_weight = 0;
 		m_packetsum=0;
@@ -65,8 +46,6 @@ public class JxBaseRelation implements JiBaseRelation {
      	m_id = id;
      	m_owner = owner;
      	m_type = JiRelationType.BI_DIRECTION_RELATION;
-    	m_nodefrom = nodefrom;
-		m_nodeto = nodeto;	
 		m_packetsum=0;
     }
     
@@ -205,8 +184,6 @@ public class JxBaseRelation implements JiBaseRelation {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + m_bandwidth;
-		result = prime * result + m_nodefrom;
-		result = prime * result + m_nodeto;
 		result = prime * result + ((m_owner == null) ? 0 : m_owner.hashCode());
 		result = prime * result + m_id;
 		result = prime * result + ((m_type == null) ? 0 : m_type.hashCode());
@@ -248,9 +225,13 @@ public class JxBaseRelation implements JiBaseRelation {
 
 	@Override
 	public String toString() {
+/*		
 		return "JxStdRelation [m_type="+m_type+",m_relation_id="+ m_id +",m_nodefrom=" + m_nodefrom
 				+ ", m_nodeto=" + m_nodeto + ", m_bandwidth=" + m_bandwidth
 				+ ", m_packetsum=" + m_packetsum+"]";
+*/
+		// to do: please use Format
+		return "";
 	}
    /** 最后一个点不用加如到addedset中
        if(i==nodecount-1)
