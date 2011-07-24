@@ -20,6 +20,16 @@ public class JxBaseNode implements JiBaseNode {
     	m_degree = 0;
    }
     
+    public JxBaseNode( Object owner, int id ) {
+    	m_id = id;
+    	m_loc_x = 0;
+    	m_loc_y = 0;
+    	m_loc_z = 0;
+    	m_length = 0;
+    	m_capacity = 0;
+    	m_degree = 0;
+   }
+    
     public JxBaseNode( int id ) {
     	m_id = id;
     	m_loc_x = 0;

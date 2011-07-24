@@ -23,9 +23,12 @@ public interface JiBaseInteraction {
 	 */
 	public void setOwner( Object owner );
 	
+	public void setTrace( JiBaseTrace trace );	
+	
 	/**
 	 * Perform interaction among some nodes describe by the relation object.
 	 * @param relation
 	 */
-	public void interact(JiBaseRelation relation);
+	//public void interact(JiBaseRelation relation);
+	public void interact(JiBaseRelation relation, JiBaseTrace trace);
 }

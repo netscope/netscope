@@ -10,14 +10,36 @@ import java.util.ArrayList;
  * @author Allen
  *
  */
-public class JxBaseNodeCollection extends ArrayList<JiBaseNode> {
+public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBaseNodeCollection {
 
 	private static final long serialVersionUID = 1L;
+	Object m_owner;
+	JiBaseTrace m_trace = null;
+	
+	JxBaseNodeCollection( Object owner, int count )
+	{
+		m_owner = owner;
+		this.generate( count );
+	}
+	
+	public void generate( int count )
+	{
+		// todo 
+		// generate count nodes and add them into the collection
+		
+		for (int i=0; i<count; i++)
+			super.add( new JxBaseNode(this, i) );		
+	}
+	
+	public void setTrace( JiBaseTrace trace )
+	{
+		m_trace = trace;
+	}
 	
 	/** Node count in the collection 
 	 *  @return
 	 */
-	int count() 
+	public int count() 
 	{  
 	 return super.size();
 	}
@@ -32,7 +54,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> {
 	//@Override
 	public void set( int idx, JiBaseNode node )
 	{
-		super.set( idx, node );
+		return super.set( idx, node );
 	}
 	
 	@Override
@@ -130,4 +152,9 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> {
 		
 		return relations;
 	}	
+	
+    public void randomize()
+    {
+    	// todo
+    }	
 }

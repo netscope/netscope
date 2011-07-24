@@ -21,7 +21,8 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	}
 
 	@Override
-	public void interact(JiBaseRelation relation) {
+	public void interact(JiBaseRelation relation, JiBaseTrace trace) 
+	{
 		JxBaseEngine engine = (JxBaseEngine) m_owner;
 
 		Random random = engine.getRandom();

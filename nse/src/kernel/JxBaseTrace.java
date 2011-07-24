@@ -39,6 +39,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_curdbname = "";
 	}
 	
+
 	public Object getOwner()
 	{
 		
@@ -60,10 +61,14 @@ public class JxBaseTrace implements JiBaseTrace {
 	};	
 	
 	void open(String datadir)
+
+	public void open(String datadir )
+
 	{
+		/*
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
-			String databasename = currenttime();
+			String databasename = getNextDatabaseDir();
 			con = DriverManager.getConnection("jdbc:hsqldb:file:"
 					+ databasename + ";shutdown=true", "sa", "");
 			sta = con.createStatement();
@@ -72,16 +77,20 @@ public class JxBaseTrace implements JiBaseTrace {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 	
-	void open()
+	public void open()
 	{
+		if (m_datadir == null)
+			m_datadir = getNextDatabaseDir();
 		open(m_datadir);
 	}
 
 	/** Free resources allocated to this object. */
-	void close()
+	public void close()
 	{
+/*		
 		//if (database is still open)
 		{
 			try{
@@ -91,6 +100,7 @@ public class JxBaseTrace implements JiBaseTrace {
 				con = null;
 			}
 		}
+*/		
 	}
 	
 	/*
@@ -105,16 +115,32 @@ public class JxBaseTrace implements JiBaseTrace {
 		close();
 	}
 	
+	/**
+	 * Save a sinle node into the database.
+	 * 
+	 * @param node
+	 */
 	public void save( JiBaseNode node )
 	{
 		
 	}
 
+
 	/** save nodes */
 	public void save( JxBaseNodeCollection nodes ) 
 	{
+
+	/**
+	 * Save the collection of all nodes into database.
+	 * @param nodes The collection of all nodes.
+	 */
+	public void save( JiBaseNodeCollection nodes ) 
+	{
+/*		
+		
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 		try {
-			String str_time = currenttime();
+			String str_time = getNextDatabaseName();
 			String node_tablename = "nodetable" + str_time;
 			String create_node = "create table " + node_tablename
 					+ "(NODEID INTEGER,LOC_X INTEGER,LOC_Y INTEGER)";
@@ -134,7 +160,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+*/		
 	}
+
 	/** save relation */
 	public void save( JiBaseRelation relation ){
 		
@@ -142,8 +170,29 @@ public class JxBaseTrace implements JiBaseTrace {
 
 	/** save relations */
 	public void save( JxBaseRelationCollection relations ){
+
+	
+	/**
+	 * Save a single relation object into the database.
+	 * 
+	 * @param relation
+	 */
+	public void save( JiBaseRelation relation )
+	{
+		
+	}
+
+	/**
+	 * Save the relation collection object into the database.
+	 * 
+	 * @param relations
+	 */
+	public void save( JiBaseRelationCollection relations )
+	{
+		/*
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 		try {
-			String str_time = currenttime();
+			String str_time = getNextDatabaseName();
 
 			String edge_tablename = "edgetable" + str_time;
 			String create_edge = "create table " + edge_tablename
@@ -169,6 +218,7 @@ public class JxBaseTrace implements JiBaseTrace {
 
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 
@@ -182,14 +232,21 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	public void load( JxBaseNodeCollection nodes )
 
+
+
+
 	{
-		
+		// todo
 	}
-	
+
+
+	public void load( JxBaseRelationCollection relations )
+
 
 	public void load( JxBaseRelationCollection relations )
 
 	{
+		// todo
 		
 	}
 
@@ -218,7 +275,15 @@ public class JxBaseTrace implements JiBaseTrace {
 		
 	}
 	
+	@Override
+    public void restore( String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
+	{		
+		this.open( datadir );
+		this.load( nodes );
+		this.load( relations );
+	}
 	
+/*	
 	// all the following should be eliminated
 	
     
@@ -239,9 +304,16 @@ public class JxBaseTrace implements JiBaseTrace {
 	Random random = new Random();
 	ArrayList<Integer> m_array = new ArrayList<Integer>();
 
+<<<<<<< HEAD
 
 	public void loadNode(String tablename) { // 下载节点结构
 	try {
+=======
+*/
+/*
+	public void loadNode(String tablename) { // 下载节点结
+		try {
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 			String select_node = "select * from " + tablename;
 			ResultSet r = sta.executeQuery(select_node);
 
@@ -287,10 +359,11 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 
 	public void traceNode(int experienttime) {// 保存点数据
+		
 		try {
 			if (evertra_node == false) { // 保证只建立一次节点数据表
 
-				String str_time = currenttime();
+				String str_time = getNextDatabaseName();
 				tracenode_tablename = "tracenode" + str_time; // 节点数据表名
 				String create_node = "create table " + tracenode_tablename
 						+ "(CUR_TIME integer, NODEID integer,LENGTH integer)";
@@ -316,13 +389,14 @@ public class JxBaseTrace implements JiBaseTrace {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	public void traceEdge(int experienttime) { // 保存边数据
+/*		
 		try {
 
 			if (evertra_edge == false) { // 保证只建立一次节点数据表
 
-				String str_time = currenttime();
+				String str_time = getNextDatabaseName();
 				traceedge_tablename = "traceedge" + str_time; // 边数据表名
 				String trace_edge = "create table "
 						+ traceedge_tablename
@@ -349,13 +423,41 @@ public class JxBaseTrace implements JiBaseTrace {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+*/		
 	}
-
-	public String currenttime() {
+	
+	public String getNextDatabaseDir() 
+	{
+		// todo
 		Date date = new Date();
 		//SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm_ss");// 设置日期格式(数据表格式有要求)
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd_hhmmss");// 设置日期格式(数据表格式有要求)
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
+
+	@Override
+	public Object getOwner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object setOwner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void load(JiBaseNodeCollection nodes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load(JiBaseRelationCollection relations) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

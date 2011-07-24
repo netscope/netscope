@@ -1,8 +1,26 @@
 package kernel;
 
+import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * JxBaseEngine
+ * @author Allen
+ *
+ * reference
+ * - White paper developmentor: Understanding Class.forName, Loading classes dynamically
+ *   from within extensions, 
+ *   http://media.techtarget.com/tss/static/articles/content/dm_classForname/DynLoad.pdf
+ * - JAVA反射机制的学习, 2007, http://hejianjie.iteye.com/blog/136205;
+ * - 读取XML动态创建Java类，并调用方法, 2010, http://blog.csdn.net/bjhecwq/article/details/5872960;
+ * - Java Class.forName(String className) and JDBC, 
+ *   http://cephas.net/blog/2005/07/31/java-classfornamestring-classname-and-jdbc/
+ * - 深入了解Java ClassLoader、Bytecode 、ASM、cglib, http://www.iteye.com/topic/98178
+ * - 如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721  
+ */
 public class JxBaseEngine {
+	
+	Object m_owner = null;
 
 	/** 
 	 * This is a static reference to a Random instance.
@@ -12,21 +30,32 @@ public class JxBaseEngine {
 	public static Random m_random = new Random();
 
 	/** Node collection. It contains all the nodes */
-	private JxBaseNodeCollection m_nodes = null;
+	private JiBaseNodeCollection m_nodes = null;
 
 	/** Relation collection. It contains all the relations between nodes */
-	private JxBaseRelationCollection m_relations = null;
+	private JiBaseRelationCollection m_relations = null;
 	
+<<<<<<< HEAD
 	/** Define the interactive rule between nodes. It's actually associate with the relation object */	
 	private JxBaseInteraction m_interaction = null;
+=======
+	/** Define the interactive rule between nodes. It's actually assicitate with the relation object */	
+	private JiBaseInteraction m_interaction = null;
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 	
 	/** For trace output */
 	private JxBaseTrace m_trace = null;
 
 	public JxBaseEngine()
 	{
+<<<<<<< HEAD
 		m_nodes = new JxBaseNodeCollection();
 		m_relations = new JxBaseRelationCollection();
+=======
+		m_owner = null;
+		m_nodes = null;
+		m_relations = null;
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 		m_interaction = null;
 		m_trace = null;		
     }
@@ -45,10 +74,18 @@ public class JxBaseEngine {
 	 * @return true indicate initialization success and false indicate failed. This
 	 * 		function should return true or else the later execute() will stop. 
 	 */
-	public boolean open( JiBaseInteraction interaction, JiBaseTrace trace )
+	public boolean open( JiBaseNodeCollection nodes, JiBaseRelationCollection relations,  
+		JiBaseInteraction interaction, JiBaseTrace trace )
 	{
+<<<<<<< HEAD
 		m_interaction = (JxBaseInteraction) interaction;
 		m_trace = (JxBaseTrace) trace;
+=======
+		m_nodes = nodes;
+		m_relations = relations;
+		m_interaction = interaction;
+		m_trace = trace;
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 		
 		m_trace.open();
 		
@@ -66,6 +103,43 @@ public class JxBaseEngine {
 	}
 	
 	/**
+	 * Initialize the base simulation engine with the default settings.
+	 * 
+	 * @param tracedir The folder used for saving trace record files.
+	 * @return
+	 * 
+	 * @example
+	 * 		if (open( "/temp/expr/" ))
+	 * 		{
+	 * 			do something here
+	 * 		}
+	 */
+	public boolean open( String datadir )
+	{
+/*		
+		// load class name from database 
+		String traceclass, nodesclass, relationsclass, interactionclass;
+		
+		traceclass = "nse.kernel.JxBaseTrace";
+		nodesclass = "nse.kernel.JxBaseNodesCollection";
+		relationsclass = "nse.kernel.JxBaseRelationsCollection";
+		interactionclass = "nse.kernel.JiBaseInteraction";
+		
+		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
+		JiBaseNodeCollection nodes = (JiBaseNodeCollection)createObject( nodesclass );
+		JiBaseRelationCollection relations = (JiBaseRelationCollection)createObject( relationsclass );
+		JiBaseInteraction = (JiBaseInteraction)createObject( interactionclass );
+*/
+		
+		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
+		JiBaseRelationCollection relations = new JxBaseRelationCollection(this, nodes);
+		JiBaseInteraction interaction = new JxBaseInteraction(this);
+		JiBaseTrace trace = new JxBaseTrace(this, datadir);
+				
+		return this.open( nodes, relations, interaction, trace );
+	}
+	
+	/**
 	 * @brief Release resources allocated in open() function.  
 	 */
 	public void close()
@@ -77,8 +151,13 @@ public class JxBaseEngine {
 	{
 		m_relations.randomize();
 		
+<<<<<<< HEAD
 		// todo should be randomized sequence                                                                                                                        
 		Iterator it = m_relations.iterator();
+=======
+		// todo should be randomized sequence
+		Iterator<JiBaseRelation> it = m_relations.iterator();
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 		while (it.hasNext())
 		{
 			JiBaseRelation relation = (JiBaseRelation)it.next();
@@ -90,8 +169,9 @@ public class JxBaseEngine {
 		}
 	}
 	
-	public void execute( int stepcount, JiBaseTrace trace )
+	public void execute( int stepcount )
 	{
+<<<<<<< HEAD
 		JiBaseInteraction interaction = new JxBaseInteraction();
 		
 		if (open(interaction, trace))
@@ -101,6 +181,12 @@ public class JxBaseEngine {
 			
 			    close();
 		}
+=======
+		m_trace.open();
+		for (int i=0; i<stepcount; i++)
+			step();
+		m_trace.close();
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 		
 		// So We call system.runFinalization() in the engine to force
 		// the JVM to call finalize() of each revoked objects.
@@ -112,24 +198,52 @@ public class JxBaseEngine {
 		return m_random;
 	}
   
+<<<<<<< HEAD
 	JxBaseNodeCollection getNodes()
+=======
+	public JiBaseNodeCollection getNodes()
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 	{
 		return m_nodes;
 	}
 	
+<<<<<<< HEAD
 	JxBaseRelationCollection getRelations()
+=======
+	public void setNodes( JiBaseNodeCollection nodes )
+	{
+		m_nodes = nodes;
+	}
+	
+	public JiBaseRelationCollection getRelations()
+>>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 	{
 		return m_relations;
 	}
 	
-	JiBaseInteraction getInteraction()
+	public void setRelations( JiBaseRelationCollection relations )
+	{
+		m_relations = relations;
+	}
+	
+	public JiBaseInteraction getInteraction()
 	{
 		return m_interaction;
 	}
 	
-	JiBaseTrace getTrace()
+	public void setInteraction( JiBaseInteraction interaction )
+	{
+		m_interaction = interaction;
+	}
+	
+	public JiBaseTrace getTrace()
 	{
 		return m_trace;
+	}
+	
+	public void setTrace( JiBaseTrace trace )
+	{
+		m_trace = trace;
 	}
 	
 	/** 
@@ -163,4 +277,53 @@ public class JxBaseEngine {
 		m_relations.add( relation );
 		m_trace.trace( relation );
 	}
+	
+	/**
+	 * Load nodes and relation configurations from database saved before.
+	 * 
+	 * @param dbname
+	 */
+	public void restore( String dbname )
+	{
+		// load class name from database 
+		String traceclass, nodesclass, relationsclass, interactionclass;
+		
+		traceclass = "nse.kernel.JxBaseTrace";
+		nodesclass = "nse.kernel.JxBaseNodesCollection";
+		relationsclass = "nse.kernel.JxBaseRelationsCollection";
+		interactionclass = "nse.kernel.JiBaseInteraction";
+		
+		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
+		JiBaseNodeCollection nodes = (JiBaseNodeCollection)createObject( nodesclass );
+		JiBaseRelationCollection relations = (JiBaseRelationCollection)createObject( relationsclass );
+		JiBaseInteraction = (JiBaseInteraction)createObject( interactionclass );
+		
+		this.setTrace( trace );
+		this.setNodes( nodes );
+		this.setRelations( relations );
+		this.setInteraction( interaction );
+
+		trace.restore( dbname, nodes, relations );
+	}
+
+	/**
+	 * Creates an object from class name.
+	 * 
+	 * @param className
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * 
+	 * @example
+	 * 	Class.forName("jdbc.DriverXYZ");
+	 * 	Connection con = DriverManager.getConnection(url, "myLogin", "myPassword");
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object createObject(String className)  
+		throws ClassNotFoundException, InstantiationException, IllegalAccessException 
+	{
+		Class c = Class.forName(className);  
+		return c.newInstance();  
+	}  	
 }
