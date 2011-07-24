@@ -18,6 +18,12 @@ public interface JiBaseNode {
 	public int getId();
 	public void setId(int id);	
 	
+	/**
+	 * Get the owner of the current node object. The owner of a node is always an
+	 * an node collection object (JxBaseNodeCollection object)
+	 * 
+	 * @return The owner of the current node object.
+	 */
 	public Object getOwner();
 	public void setOwner(Object owner);
 	

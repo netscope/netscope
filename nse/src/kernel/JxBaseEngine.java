@@ -1,7 +1,23 @@
 package kernel;
 
+import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * JxBaseEngine
+ * @author Allen
+ *
+ * reference
+ * - White paper developmentor: Understanding Class.forName, Loading classes dynamically
+ *   from within extensions, 
+ *   http://media.techtarget.com/tss/static/articles/content/dm_classForname/DynLoad.pdf
+ * - JAVA反射机制的学习, 2007, http://hejianjie.iteye.com/blog/136205;
+ * - 读取XML动态创建Java类，并调用方法, 2010, http://blog.csdn.net/bjhecwq/article/details/5872960;
+ * - Java Class.forName(String className) and JDBC, 
+ *   http://cephas.net/blog/2005/07/31/java-classfornamestring-classname-and-jdbc/
+ * - 深入了解Java ClassLoader、Bytecode 、ASM、cglib, http://www.iteye.com/topic/98178
+ * - 如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721  
+ */
 public class JxBaseEngine {
 
 	/** 
@@ -18,15 +34,15 @@ public class JxBaseEngine {
 	private JxBaseRelationCollection m_relations = null;
 	
 	/** Define the interactive rule between nodes. It's actually assicitate with the relation object */	
-	private JxBaseInteraction m_interaction = null;
+	private JiBaseInteraction m_interaction = null;
 	
 	/** For trace output */
 	private JiBaseTrace m_trace = null;
 
 	public JxBaseEngine()
 	{
-		m_nodes = new JxBaseNodeCollection();
-		m_relations = JxBaseRelationCollection();
+		m_nodes = null;
+		m_relations = null;
 		m_interaction = null;
 		m_trace = null;		
     }
@@ -45,8 +61,11 @@ public class JxBaseEngine {
 	 * @return true indicate initialization success and false indicate failed. This
 	 * 		function should return true or else the later execute() will stop. 
 	 */
-	public boolean open( JiBaseInteraction interaction, JiBaseTrace trace )
+	public boolean open( JxBaseNodeCollection nodes, JxBaseRelationCollection relations,  
+		JiBaseInteraction interaction, JiBaseTrace trace )
 	{
+		m_nodes = nodes;
+		m_relations = relations;
 		m_interaction = interaction;
 		m_trace = trace;
 		
@@ -64,11 +83,33 @@ public class JxBaseEngine {
 	}
 	
 	/**
+	 * Initialize the base simulation engine with the default settings.
+	 * 
+	 * @param tracedir The folder used for saving trace record files.
+	 * @return
+	 * 
+	 * @example
+	 * 		if (open( "/temp/expr/" ))
+	 * 		{
+	 * 			do something here
+	 * 		}
+	 */
+	public boolean open( String tracedir )
+	{
+		JxBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
+		JxBaseRelationCollection relations = new JxBaseRelationCollection(this, nodes);
+		JiBaseInteraction interaction = new JxBaseInteraction(this);
+		JiBaseTrace trace = new JxBaseTrace(this, "/temp/expr/");
+				
+		return this.open( nodes, relations, interaction, trace );
+	}
+	
+	/**
 	 * @brief Release resources allocated in open() function.  
 	 */
 	public void close()
 	{
-		trace.close();
+		m_trace.close();
 	}
 	
 	public void step()
@@ -76,7 +117,7 @@ public class JxBaseEngine {
 		m_relations.randomize();
 		
 		// todo should be randomized sequence
-		Iterator it = m_relations.iterator();
+		Iterator<JiBaseRelation> it = m_relations.iterator();
 		while (it.hasNext())
 		{
 			JiBaseRelation relation = (JiBaseRelation )it.next();
@@ -88,44 +129,61 @@ public class JxBaseEngine {
 		}
 	}
 	
-	public void execute( int stepcount, JiBaseTrace trace )
+	public void execute( int stepcount )
 	{
-		JiBaseInteraction interaction = new JxBaseInteraction();
-		if (open(interaction, trace))
-		{
-			for (int i=0; i<stepcount; i++)
-				step();
-			close();
-		}
+		trace.open();
+		for (int i=0; i<stepcount; i++)
+			step();
+		trace.close();
 		
 		// So We call system.runFinalization() in the engine to force
 		// the JVM to call finalize() of each revoked objects.
-		system.runFinalization();
+		System.runFinalization();
 	}	
 	
-	Random random()
+	public Random random()
 	{
 		return m_random;
 	}
   
-	JiBaseNodeCollection getNodes()
+	public JxBaseNodeCollection getNodes()
 	{
 		return m_nodes;
 	}
 	
-	JiBaseRelationCollection getRelations()
+	public void setNodes( JxBaseNodeCollection nodes )
+	{
+		m_nodes = nodes;
+	}
+	
+	public JxBaseRelationCollection getRelations()
 	{
 		return m_relations;
 	}
 	
-	JiBaseInteraction getInteraction()
+	public void setRelations( JxBaseRelationCollection relations )
+	{
+		m_relations = relations;
+	}
+	
+	public JiBaseInteraction getInteraction()
 	{
 		return m_interaction;
 	}
 	
-	JiBaseTrace getTrace()
+	public void setInteraction( JiBaseInteraction interaction )
+	{
+		m_interaction = interaction;
+	}
+	
+	public JiBaseTrace getTrace()
 	{
 		return m_trace;
+	}
+	
+	public void setTrace( JiBaseTrace trace )
+	{
+		m_trace = trace;
 	}
 	
 	/** 
@@ -159,4 +217,53 @@ public class JxBaseEngine {
 		m_relations.add( relation );
 		m_trace.trace( relation );
 	}
+	
+	/**
+	 * Load nodes and relation configurations from database saved before.
+	 * 
+	 * @param dbname
+	 */
+	public void restore( String dbname )
+	{
+		// load class name from database 
+		String traceclass, nodesclass, relationsclass, interactionclass;
+		
+		traceclass = "nse.kernel.JxBaseTrace";
+		nodesclass = "nse.kernel.JxBaseNodesCollection";
+		relationsclass = "nse.kernel.JxBaseRelationsCollection";
+		interactionclass = "nse.kernel.JxBaseInteraction";
+		
+		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
+		JxBaseNodeCollection nodes = (JxBaseNodeCollection)createObject( nodesclass );
+		JxBaseRelationCollection relations = (JxBaseRelationCollection)createObject( relationsclass );
+		JxBaseInteraction = (JxBaseInteraction)createObject( interactionclass );
+		
+		this.setTrace( trace );
+		this.setNodes( nodes );
+		this.setRelations( relations );
+		this.setInteraction( interaction );
+
+		trace.restore( dbname, nodes, relations );
+	}
+
+	/**
+	 * Creates an object from class name.
+	 * 
+	 * @param className
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * 
+	 * @example
+	 * 	Class.forName("jdbc.DriverXYZ");
+	 * 	Connection con = DriverManager.getConnection(url, "myLogin", "myPassword");
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object createObject(String className)  
+		throws ClassNotFoundException, InstantiationException, IllegalAccessException 
+	{
+		Class c = Class.forName(className);  
+		return c.newInstance();  
+	}  	
 }

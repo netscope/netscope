@@ -13,14 +13,18 @@ import java.util.Random;
  * @author Allen
  *
  */
-public class JxBaseRelationCollection extends ArrayList<JiBaseRelation>{
+public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implements JiBaseRelationCollection {
 	
-	private static final long serialVersionUID = 1L;
+	JxBaseNodeCollection m_nodes = null;
 
-    static  JxBaseNodeCollection nodeSet=new JxBaseNodeCollection();
-	static  JxBaseRelationCollection relationSet=new JxBaseRelationCollection();
-	ArrayList<Integer> addedSet=new ArrayList<Integer>(); 
-	Random random=new Random(); 
+	//ArrayList<Integer> addedSet=new ArrayList<Integer>(); 
+	//Random random=new Random();
+	
+	JxBaseRelationCollection( Object owner, JxBaseNodeCollection nodes  )
+	{
+		m_owner = owner;
+		m_nodes = nodes;
+	}
 	
     public int count() 
 	{		
@@ -44,7 +48,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation>{
 	 * may describe the network topology as a graph, but it's not mandatory to 
 	 * do so.
 	 */
-	public void generate()
+	public void generate( int count )
 	{
 		JxBaseEngine engine = (JxBaseEngine)m_owner;
 		Random random = engine.random();
