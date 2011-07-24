@@ -19,6 +19,8 @@ import java.util.Random;
  * - 如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721  
  */
 public class JxBaseEngine {
+	
+	Object m_owner = null;
 
 	/** 
 	 * This is a static reference to a Random instance.
@@ -28,10 +30,10 @@ public class JxBaseEngine {
 	public static Random m_random = new Random();
 
 	/** Node collection. It contains all the nodes */
-	private JxBaseNodeCollection m_nodes = null;
+	private JiBaseNodeCollection m_nodes = null;
 
 	/** Relation collection. It contains all the relations between nodes */
-	private JxBaseRelationCollection m_relations = null;
+	private JiBaseRelationCollection m_relations = null;
 	
 	/** Define the interactive rule between nodes. It's actually assicitate with the relation object */	
 	private JiBaseInteraction m_interaction = null;
@@ -41,6 +43,7 @@ public class JxBaseEngine {
 
 	public JxBaseEngine()
 	{
+		m_owner = null;
 		m_nodes = null;
 		m_relations = null;
 		m_interaction = null;
@@ -61,7 +64,7 @@ public class JxBaseEngine {
 	 * @return true indicate initialization success and false indicate failed. This
 	 * 		function should return true or else the later execute() will stop. 
 	 */
-	public boolean open( JxBaseNodeCollection nodes, JxBaseRelationCollection relations,  
+	public boolean open( JiBaseNodeCollection nodes, JiBaseRelationCollection relations,  
 		JiBaseInteraction interaction, JiBaseTrace trace )
 	{
 		m_nodes = nodes;
@@ -94,12 +97,27 @@ public class JxBaseEngine {
 	 * 			do something here
 	 * 		}
 	 */
-	public boolean open( String tracedir )
+	public boolean open( String datadir )
 	{
-		JxBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
-		JxBaseRelationCollection relations = new JxBaseRelationCollection(this, nodes);
+/*		
+		// load class name from database 
+		String traceclass, nodesclass, relationsclass, interactionclass;
+		
+		traceclass = "nse.kernel.JxBaseTrace";
+		nodesclass = "nse.kernel.JxBaseNodesCollection";
+		relationsclass = "nse.kernel.JxBaseRelationsCollection";
+		interactionclass = "nse.kernel.JiBaseInteraction";
+		
+		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
+		JiBaseNodeCollection nodes = (JiBaseNodeCollection)createObject( nodesclass );
+		JiBaseRelationCollection relations = (JiBaseRelationCollection)createObject( relationsclass );
+		JiBaseInteraction = (JiBaseInteraction)createObject( interactionclass );
+*/
+		
+		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
+		JiBaseRelationCollection relations = new JxBaseRelationCollection(this, nodes);
 		JiBaseInteraction interaction = new JxBaseInteraction(this);
-		JiBaseTrace trace = new JxBaseTrace(this, "/temp/expr/");
+		JiBaseTrace trace = new JxBaseTrace(this, datadir);
 				
 		return this.open( nodes, relations, interaction, trace );
 	}
@@ -125,16 +143,16 @@ public class JxBaseEngine {
 			// The relation object keeps a list of nodes. They interact together
 			// according to the regulation defined in the interaction object.
 			
-			m_interaction.interact( relation, trace );
+			m_interaction.interact( relation, m_trace );
 		}
 	}
 	
 	public void execute( int stepcount )
 	{
-		trace.open();
+		m_trace.open();
 		for (int i=0; i<stepcount; i++)
 			step();
-		trace.close();
+		m_trace.close();
 		
 		// So We call system.runFinalization() in the engine to force
 		// the JVM to call finalize() of each revoked objects.
@@ -146,22 +164,22 @@ public class JxBaseEngine {
 		return m_random;
 	}
   
-	public JxBaseNodeCollection getNodes()
+	public JiBaseNodeCollection getNodes()
 	{
 		return m_nodes;
 	}
 	
-	public void setNodes( JxBaseNodeCollection nodes )
+	public void setNodes( JiBaseNodeCollection nodes )
 	{
 		m_nodes = nodes;
 	}
 	
-	public JxBaseRelationCollection getRelations()
+	public JiBaseRelationCollection getRelations()
 	{
 		return m_relations;
 	}
 	
-	public void setRelations( JxBaseRelationCollection relations )
+	public void setRelations( JiBaseRelationCollection relations )
 	{
 		m_relations = relations;
 	}
@@ -231,12 +249,12 @@ public class JxBaseEngine {
 		traceclass = "nse.kernel.JxBaseTrace";
 		nodesclass = "nse.kernel.JxBaseNodesCollection";
 		relationsclass = "nse.kernel.JxBaseRelationsCollection";
-		interactionclass = "nse.kernel.JxBaseInteraction";
+		interactionclass = "nse.kernel.JiBaseInteraction";
 		
 		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
-		JxBaseNodeCollection nodes = (JxBaseNodeCollection)createObject( nodesclass );
-		JxBaseRelationCollection relations = (JxBaseRelationCollection)createObject( relationsclass );
-		JxBaseInteraction = (JxBaseInteraction)createObject( interactionclass );
+		JiBaseNodeCollection nodes = (JiBaseNodeCollection)createObject( nodesclass );
+		JiBaseRelationCollection relations = (JiBaseRelationCollection)createObject( relationsclass );
+		JiBaseInteraction = (JiBaseInteraction)createObject( interactionclass );
 		
 		this.setTrace( trace );
 		this.setNodes( nodes );

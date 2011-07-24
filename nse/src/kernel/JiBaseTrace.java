@@ -14,11 +14,11 @@ public interface JiBaseTrace {
 	public void close();
 	
 	public void save( JiBaseNode node );
-	//public void save( JiBaseNodeCollection nodes );
+	public void save( JiBaseNodeCollection nodes );
 	public void save( JiBaseRelation relation );
-	//public void save( JiBaseRelationCollection relations );
-	//public void load( JiBaseNodeCollection nodes );
-	//public void load( JiBaseRelationCollection relations );
+	public void save( JiBaseRelationCollection relations );
+	public void load( JiBaseNodeCollection nodes );
+	public void load( JiBaseRelationCollection relations );
 	public void trace( JiBaseNode node );
 	public void trace( JiBaseRelation relation );
 	

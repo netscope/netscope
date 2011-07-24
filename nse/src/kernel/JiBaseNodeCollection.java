@@ -2,5 +2,6 @@ package kernel;
 
 public interface JiBaseNodeCollection {
 	
-	void setTrace( JiBaseTrace trace );
+	public void setTrace( JiBaseTrace trace );
+    public void randomize();	
 }

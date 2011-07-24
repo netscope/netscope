@@ -15,15 +15,29 @@ import java.util.Random;
  */
 public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implements JiBaseRelationCollection {
 	
+	Object m_owner = null;
 	JxBaseNodeCollection m_nodes = null;
+	JxBaseTrace m_trace = null;
 
 	//ArrayList<Integer> addedSet=new ArrayList<Integer>(); 
 	//Random random=new Random();
 	
-	JxBaseRelationCollection( Object owner, JxBaseNodeCollection nodes  )
+	JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes, JiBaseTrace trace  )
 	{
 		m_owner = owner;
-		m_nodes = nodes;
+		m_nodes = (JxBaseNodeCollection)nodes;
+		m_trace = (JxBaseTrace)trace;
+	}
+	
+	JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes )
+	{
+		m_owner = owner;
+		m_nodes = (JxBaseNodeCollection)nodes;
+	}
+	
+	public void setTrace( JiBaseTrace trace )
+	{
+		m_trace = (JxBaseTrace)trace;
 	}
 	
     public int count() 
@@ -52,21 +66,26 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	{
 		JxBaseEngine engine = (JxBaseEngine)m_owner;
 		Random random = engine.random();
-		JxBaseTrace = engine.getTrace();
+		JxBaseTrace trace = (JxBaseTrace)engine.getTrace();
 		
 		// todo		
 	}
 	
-      public void generateGraph( int nodecount){
+	public void generate()
+	{
+		this.generate(1000);
+	}
+/*
+	public void generateGraph( int nodecount){
 		
-		/**产生节点，并将其加入到网络中
-		 * 如何保证产生的节点坐标不重复（重复的概率为1/10000）
-        */
+		// 产生节点，并将其加入到网络中
+		// 如何保证产生的节点坐标不重复（重复的概率为1/10000）
+        //
 	    for (int id=0; id< nodecount; id++) {
 	    	int loc_x = random.nextInt(100);
 	    	int loc_y = random.nextInt(100);
 	    	
-	    	/**添加节点-初始负载量50，容量100 */
+	    	// 添加节点-初始负载量50，容量100 
 	    	JxBaseNode node=new JxBaseNode(id,loc_x,loc_y,50,100);
 	        nodeSet.add(node);
 	    }
@@ -79,13 +98,13 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
     	
 	    for (int i = 0; i<nodecount; i++){ //(将节点号依次加入网络 	
 	    
-	    	/** 随机得到第一条边并加入addedSet中*/   //偏向连接算法可能有问题！！！                                             
+	    	// 随机得到第一条边并加入addedSet中   //偏向连接算法可能有问题！！！                                             
 	    	if(i==0)
 	    	{
 	    	  currentNodeId = randomNodeSerial[0];
 	    	  addedSet.add(currentNodeId); 
 	        }
-	    	/**前两个点组成一条边,并将其加入边集中 */
+	    	// 前两个点组成一条边,并将其加入边集中 
 	    	else if(i==1)
 	    	{ 
 	    	 currentNodeId = randomNodeSerial[1];
@@ -95,12 +114,12 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	    	 JxBaseRelation relation=new JxBaseRelation(0, currentNodeId,selectNodeId,20);
 	    	 relationSet.add(relation);
 	    	 
-	    	 /**得到当前的点及选中点*/
+	    	 // 得到当前的点及选中点
 	    	 JiNode currentNode=nodeSet.get(currentNodeId);
 			 JiNode selectNode=nodeSet.get(selectNodeId);
 				
 			 
-			/** 将当前点与选中点的度分别加1*/
+			// 将当前点与选中点的度分别加1
 			int currentNodeDegree =currentNode.getDegree();
 			currentNode.setDegree(currentNodeDegree+1);
 				
@@ -110,20 +129,20 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	   else{
 	         currentNodeId=randomNodeSerial[i]; 
 	         
-	        /**选择与之相连的节点ID*/
+	        // 选择与之相连的节点ID
 			 selectNodeId =selectnodeto();
-			/**将产生的边加入边集中 */
+			// 将产生的边加入边集中 
 			JxBaseRelation relation=new JxBaseRelation(i-1,selectNodeId, currentNodeId,20);
          	relationSet.add(relation); 
 			
-			/**将当前点的编号及选中点的编号加入到addedSet中  */
+			// 将当前点的编号及选中点的编号加入到addedSet中  
          	addedSet.add(currentNodeId);
          	addedSet.add(selectNodeId);         //最后一次会多加一次
 
 			JiNode currentNode=nodeSet.get(currentNodeId);
 			JiNode selectNode=nodeSet.get(selectNodeId);
 			
-			/** 将当前点与选中点的度分别加1*/
+			// 将当前点与选中点的度分别加1
 			int currentNodeDegree =currentNode.getDegree();
 			currentNode.setDegree(currentNodeDegree+1);
 			
@@ -137,15 +156,15 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		int p = random.nextInt(addedSet.size()); //生成在0——列表长度之间的整数值
 		return addedSet.get(p);  //返回选中
     }
-
+*/
     /**
-     * Make the relation order in the list randomized. 
+     * Make the sequence of all relation objects randomized in the collection. 
      */
     public void randomize()
     {
     	// todo
     }
-    
+/*    
     public static int[] randomSerial(int count){
 		   
 		  int result[]=new int [count];	
@@ -161,7 +180,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	      }
 	     return result;   	
 	} 
-	
+*/	
 	public JiBaseRelation search(int id){
 		boolean found = false;
 		JiBaseRelation  relation = new JxBaseRelation();
@@ -175,9 +194,15 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		return (found ? relation: null);
 	}
 	
+	public int search(JiBaseRelation relation){
+		// todo
+		return -1;
+	}
 	
-	public JiBaseRelation search(int nodefrom, int nodeto){
-		
+	//public JiBaseRelation search(int nodefrom, int nodeto){
+	public JiBaseRelation search(JiBaseNode nodefrom, JiBaseNode nodeto){
+		return null;
+/*		
 		boolean found = false;
 		
 		JiBaseRelation relation = new JxBaseRelation();
@@ -192,9 +217,28 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 			}
 		}
 		return (found ? relation: null);
+*/		
 	}	
 	
+	public ArrayList<JiBaseRelation> getNodeAllRelations( JiBaseNode node )
+	{
+		// todo
+		return null;
+	}
+
+	public ArrayList<JiBaseRelation> getNodeOutRelations( JiBaseNode node )
+	{
+		// todo
+		return null;
+	}
 	
+	public ArrayList<JiBaseRelation> getNodeInRelations( JiBaseNode node )
+	{
+		// todo
+		return null;
+	}
+	
+/*	
 	public ArrayList<JiBaseRelation> in_edges_of( int nodefrom ){
 		
 		ArrayList<JiBaseRelation> in_edge_list =new ArrayList<JiBaseRelation>();
@@ -224,8 +268,9 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		}
 		return out_edge_list;
 	}
-	
-	
+*/	
+
+/*
 	public ArrayList<JiBaseRelation> edges_of( int nodefrom,int nodeto ){
    
 		ArrayList<JiBaseRelation> edge_list =new ArrayList<JiBaseRelation>();
@@ -239,5 +284,5 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		}
 		return edge_list;
 	}
-	
+*/	
 }

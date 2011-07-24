@@ -10,8 +10,8 @@ public class JxBaseTest {
 		engine.setNodes(new JxBaseNodeCollection(engine, 10000));
 		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
 		engine.setInteraction(new JxBaseInteraction(engine));
-		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/"));
-		engine.execute(100000);
+		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
+		engine.execute(10000);
 	}
 
 	/**
@@ -21,6 +21,6 @@ public class JxBaseTest {
 		JxBaseEngine engine = new JxBaseEngine();
 		engine.restore( "/temp/expr/20110722-124512-01" );
 		engine.setInteraction(new JxBaseInteraction(engine));
-		engine.execute(100000);
+		engine.execute(10000);
 	}
 }

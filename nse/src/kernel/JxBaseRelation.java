@@ -8,13 +8,15 @@ public class JxBaseRelation implements JiBaseRelation {
 	protected int m_id = 0; 
 	protected Object m_owner = null;
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
-	protected ArrayList<JiBaseNode> m_nodelist = new ArrayList<JiBaseNode>;
+	protected ArrayList<JiBaseNode> m_nodes = new ArrayList<JiBaseNode>;
 
-	protected int  m_nodefrom;
-	protected int  m_nodeto;
+	//protected int  m_nodefrom;
+	//protected int  m_nodeto;
 	protected int  m_bandwidth;
 	protected int  m_weight;
 	protected int  m_packetsum;
+	
+	protected Object m_value;
 	
 	
 
@@ -165,7 +167,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	 *  
 	 * @return
 	 */
-	public JiBaseNode nodefrom(){
+	public JiBaseNode getNodeFrom(){
 		return  m_nodelist.get(0);
 	}
 	/*
@@ -179,7 +181,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	 *   
 	 * @param nodefrom
 	 */
-	public int nodeto(){
+	public JiBaseNode getNodeTo(){
 		return  m_nodelist.get(1);
 	}
 	/*

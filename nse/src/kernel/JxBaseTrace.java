@@ -36,9 +36,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public void open(String datadir )
 	{
+		/*
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
-			String databasename = getNextDatabaseName();
+			String databasename = getNextDatabaseDir();
 			con = DriverManager.getConnection("jdbc:hsqldb:file:"
 					+ databasename + ";shutdown=true", "sa", "");
 			sta = con.createStatement();
@@ -47,6 +48,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	public void open()
@@ -216,13 +218,12 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 	
 	@Override
-    public void restore( String datadir, JiBaseNodeCollection nodes nodes, JiBaseRelationCollection relations )
-    {
+    public void restore( String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
+	{		
 		this.open( datadir );
-		this.load( engine.getNodes() );
-		this.load( engine.getRelations() );
-
-    }
+		this.load( nodes );
+		this.load( relations );
+	}
 	
 /*	
 	// all the following should be eliminated
@@ -373,4 +374,29 @@ public class JxBaseTrace implements JiBaseTrace {
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
+
+	@Override
+	public Object getOwner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object setOwner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void load(JiBaseNodeCollection nodes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load(JiBaseRelationCollection relations) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

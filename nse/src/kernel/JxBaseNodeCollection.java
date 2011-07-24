@@ -152,4 +152,9 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		
 		return relations;
 	}	
+	
+    public void randomize()
+    {
+    	// todo
+    }	
 }
