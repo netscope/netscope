@@ -16,6 +16,15 @@ public interface JiBaseRelation {
 	public JiRelationType getType();
 	public void setType(JiRelationType type);
 	
+	public JiBaseNode getNodeFrom();
+	/**
+	public void setNodeFrom(int nodefrom);
+    */
+
+	public JiBaseNode getNodeTo();
+	/**
+	public void setNodeTo(int nodeto);
+	 */
 	/**
 	 * Get all the nodes in the relation object.
 	 * 
@@ -29,13 +38,6 @@ public interface JiBaseRelation {
 	 */
 	public ArrayList<JiBaseNode> nodelist();
 /*	
-	public int getNodeFrom();
-
-	public void setNodeFrom(int nodefrom);
-    
-	
-	public int getNodeTo();
-	public void setNodeTo(int nodeto);
 	
 	
 	public int getBandWidth();

@@ -11,20 +11,26 @@ import java.util.ArrayList;
  *
  */
 public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBaseNodeCollection {
-
+    
 	private static final long serialVersionUID = 1L;
+	
 	Object m_owner;
+	
 	JiBaseTrace m_trace = null;
+	
+	JxBaseNodeCollection( )
+	{
+		m_owner = null;
+	}
 	
 	JxBaseNodeCollection( Object owner, int count )
 	{
 		m_owner = owner;
-		this.generate( count );
+		generate( count );
 	}
 	
 	public void generate( int count )
 	{
-		// todo 
 		// generate count nodes and add them into the collection
 		
 		for (int i=0; i<count; i++)
@@ -52,7 +58,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	}
 	
 	//@Override
-	public void set( int idx, JiBaseNode node )
+	public JiBaseNode set( int idx, JiBaseNode node )
 	{
 		return super.set( idx, node );
 	}
@@ -127,7 +133,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
 		
 		return neighbors;
-	}
+	} 
 	
 	/**
 	 * Returns all the neighbor node around some node in a ArrayList. 
@@ -137,7 +143,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	public ArrayList<JiBaseNode> neighborsof( JiBaseNode node, int distance )
 	{
 		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
-		
+
 		return neighbors;
 	}
 	
@@ -155,6 +161,6 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	
     public void randomize()
     {
-    	// todo
+    
     }	
 }

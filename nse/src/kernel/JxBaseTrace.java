@@ -45,7 +45,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		
 	};
 	
-	public Object setOwner()
+	public void setOwner()
 	{
 		
 	};
@@ -60,7 +60,6 @@ public class JxBaseTrace implements JiBaseTrace {
 		
 	};	
 	
-	void open(String datadir)
 
 	public void open(String datadir )
 
@@ -116,7 +115,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 	
 	/**
-	 * Save a sinle node into the database.
+	 * Save a single node into the database.
 	 * 
 	 * @param node
 	 */
@@ -129,6 +128,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** save nodes */
 	public void save( JxBaseNodeCollection nodes ) 
 	{
+		
+	}
 
 	/**
 	 * Save the collection of all nodes into database.
@@ -163,13 +164,11 @@ public class JxBaseTrace implements JiBaseTrace {
 */		
 	}
 
-	/** save relation */
-	public void save( JiBaseRelation relation ){
+	/** save relations */
+	public void save( JxBaseRelationCollection relations )
+	{
 		
 	}
-
-	/** save relations */
-	public void save( JxBaseRelationCollection relations ){
 
 	
 	/**
@@ -221,30 +220,18 @@ public class JxBaseTrace implements JiBaseTrace {
 		*/
 	}
 	
-
-	
-	
-
 	/** 
 	 * Load meta nodes data from database into an JiBaseNodeCollection object  
 	 * 
 	 * @param nodes An JiBaseNodeCollection object containing the nodes loaded.
 	 */
 	public void load( JxBaseNodeCollection nodes )
-
-
-
-
 	{
 		// todo
 	}
 
 
 	public void load( JxBaseRelationCollection relations )
-
-
-	public void load( JxBaseRelationCollection relations )
-
 	{
 		// todo
 		
@@ -428,25 +415,12 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public String getNextDatabaseDir() 
 	{
-		// todo
 		Date date = new Date();
-		//SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_hh_mm_ss");// 设置日期格式(数据表格式有要求)
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd_hhmmss");// 设置日期格式(数据表格式有要求)
+		SimpleDateFormat sdf = new SimpleDateFormat("yymmdd_hhmmss");// 设置日期格式(数据表格式有要求)
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
 
-	@Override
-	public Object getOwner() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object setOwner() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void load(JiBaseNodeCollection nodes) {

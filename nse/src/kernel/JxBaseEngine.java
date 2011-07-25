@@ -8,7 +8,7 @@ import java.util.Random;
  * @author Allen
  *
  * reference
- * - White paper developmentor: Understanding Class.forName, Loading classes dynamically
+ * - White paper develop mentor: Understanding Class.forName, Loading classes dynamically
  *   from within extensions, 
  *   http://media.techtarget.com/tss/static/articles/content/dm_classForname/DynLoad.pdf
  * - JAVA反射机制的学习, 2007, http://hejianjie.iteye.com/blog/136205;
@@ -34,28 +34,23 @@ public class JxBaseEngine {
 
 	/** Relation collection. It contains all the relations between nodes */
 	private JiBaseRelationCollection m_relations = null;
-	
-<<<<<<< HEAD
+
 	/** Define the interactive rule between nodes. It's actually associate with the relation object */	
 	private JxBaseInteraction m_interaction = null;
-=======
-	/** Define the interactive rule between nodes. It's actually assicitate with the relation object */	
-	private JiBaseInteraction m_interaction = null;
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
 	
 	/** For trace output */
 	private JxBaseTrace m_trace = null;
 
 	public JxBaseEngine()
 	{
-<<<<<<< HEAD
+
 		m_nodes = new JxBaseNodeCollection();
 		m_relations = new JxBaseRelationCollection();
-=======
+
 		m_owner = null;
 		m_nodes = null;
 		m_relations = null;
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+
 		m_interaction = null;
 		m_trace = null;		
     }
@@ -77,15 +72,15 @@ public class JxBaseEngine {
 	public boolean open( JiBaseNodeCollection nodes, JiBaseRelationCollection relations,  
 		JiBaseInteraction interaction, JiBaseTrace trace )
 	{
-<<<<<<< HEAD
+
 		m_interaction = (JxBaseInteraction) interaction;
 		m_trace = (JxBaseTrace) trace;
-=======
+
 		m_nodes = nodes;
 		m_relations = relations;
-		m_interaction = interaction;
-		m_trace = trace;
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+		m_interaction = (JxBaseInteraction)interaction;
+		m_trace =(JxBaseTrace)trace;
+
 		
 		m_trace.open();
 		
@@ -150,14 +145,13 @@ public class JxBaseEngine {
 	public void step()
 	{
 		m_relations.randomize();
-		
-<<<<<<< HEAD
+
 		// todo should be randomized sequence                                                                                                                        
 		Iterator it = m_relations.iterator();
-=======
+
 		// todo should be randomized sequence
 		Iterator<JiBaseRelation> it = m_relations.iterator();
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+
 		while (it.hasNext())
 		{
 			JiBaseRelation relation = (JiBaseRelation)it.next();
@@ -171,7 +165,7 @@ public class JxBaseEngine {
 	
 	public void execute( int stepcount )
 	{
-<<<<<<< HEAD
+
 		JiBaseInteraction interaction = new JxBaseInteraction();
 		
 		if (open(interaction, trace))
@@ -181,42 +175,41 @@ public class JxBaseEngine {
 			
 			    close();
 		}
-=======
+
 		m_trace.open();
 		for (int i=0; i<stepcount; i++)
 			step();
 		m_trace.close();
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+
 		
 		// So We call system.runFinalization() in the engine to force
 		// the JVM to call finalize() of each revoked objects.
 		System.runFinalization();
 	}	
 	
-	public Random random()
+	public Random getRandom()
 	{
 		return m_random;
 	}
-  
-<<<<<<< HEAD
+
 	JxBaseNodeCollection getNodes()
-=======
+
 	public JiBaseNodeCollection getNodes()
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+
 	{
 		return m_nodes;
 	}
 	
-<<<<<<< HEAD
+
 	JxBaseRelationCollection getRelations()
-=======
+
 	public void setNodes( JiBaseNodeCollection nodes )
 	{
 		m_nodes = nodes;
 	}
 	
 	public JiBaseRelationCollection getRelations()
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+
 	{
 		return m_relations;
 	}

@@ -21,6 +21,7 @@ public class JxBaseNode implements JiBaseNode {
    }
     
     public JxBaseNode( Object owner, int id ) {
+    	m_owner=owner;
     	m_id = id;
     	m_loc_x = 0;
     	m_loc_y = 0;
