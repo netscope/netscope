@@ -5,6 +5,8 @@ import java.util.*;
 public class JxBaseInteraction implements JiBaseInteraction {
 
 	Object m_owner = null;
+	Random m_random = JxBaseFoundation.random();	
+	JxBaseTrace m_trace = null;
 
 	JxBaseInteraction(Object owner) {
 		m_owner = owner;
@@ -24,27 +26,28 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	public void interact(JiBaseRelation relation, JiBaseTrace trace) 
 	{
 		JxBaseEngine engine = (JxBaseEngine) m_owner;
+		// JxBaseTrace trace = (JxBaseTrace)engine.getTrace();
 
-		Random random = JxBaseFoundation.random();
-
-		JiBaseNode nodefrom = relation.getNodeFrom();
-		JiBaseNode nodeto = relation.getNodeTo();
+		JiBaseNode nodefrom = engine.getNodes().search(relation.getNodeFrom());
+		JiBaseNode nodeto = engine.getNodes().search(relation.getNodeTo());
 
 		int len1, len2, cut;
-		len1 = nodefrom.length();
-		len2 = nodeto.length();
-		cut = random.nextInt(len1 + len2);
-		nodefrom.setLength(cut);
-		nodeto.setLength(len1 + len2 - cut);
+		len1 = nodefrom.getValue();
+		len2 = nodeto.getValue();
+		cut = m_random.nextInt(len1 + len2);
+		nodefrom.setValue(cut);
+		nodeto.setValue(len1 + len2 - cut);
 
-		relation.trace(nodefrom);
-		relation.trace(nodeto);
+		trace.trace( nodefrom );
+		trace.trace( nodeto );
+		trace.trace( relation );
 	}
 
-	// to be deleted
-	/** 对所有的边做一次包交换 */
+/*	// to be deleted
+	// 对所有的边做一次包交换 
 	public void interact() {
-		/** 定义随机序列 */
+		
+		*//** 定义随机序列 *//*
 		JiBaseTrace trace = engine.getTrace();
 		int edgeCount = relationSet.count();
 		int[] randomSerial = new int[edgeCount];
@@ -52,18 +55,18 @@ public class JxBaseInteraction implements JiBaseInteraction {
 
 		for (int i = 0; i < edgeCount; i++) {
 
-			/** 随机得到一条边 */
+			*//** 随机得到一条边 *//*
 			int relationId = randomSerial[i];
 			relation = relationSet.get(relationId);
 
 			int nodefrom = relation.getNodeFrom();
 			int nodeto = relation.getNodeTo();
 
-			/** 发送节点-接收节点 */
+			*//** 发送节点-接收节点 *//*
 			JiBaseNode sender = new JxBaseNode();
 			JiBaseNode receiver = new JxBaseNode();
 
-			/** 随机确定发送方向 */
+			*//** 随机确定发送方向 *//*
 			int temp = random.nextInt(2);
 			if (temp == 0) {
 				sender = nodeSet.get(nodefrom);
@@ -72,13 +75,13 @@ public class JxBaseInteraction implements JiBaseInteraction {
 				sender = nodeSet.get(nodeto);
 				receiver = nodeSet.get(nodefrom);
 			}
-			/** 发送点的包个数 */
+			*//** 发送点的包个数 *//*
 			int senderValue = sender.getValue();
 
-			/** 接收点的剩余空间 */
+			*//** 接收点的剩余空间 *//*
 			int receiverVolume = receiver.getCapacity() - receiver.getValue();
 
-			/** 边的带宽 */
+			*//** 边的带宽 *//*
 			int bandwidth = relation.getBandWidth();
 
 			int packet = Minimum(senderValue, receiverVolume, bandwidth);
@@ -98,7 +101,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 					+ nodeSet.get(i).getValue());
 		}
 	}
-
+*/
 	public int Minimum(int a, int b, int c) { // 发送包的个数要小于这三个值
 
 		int minimum = 0;
@@ -110,7 +113,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		if (mini == 0) {
 			minimum = 0;
 		} else {
-			minimum = random.nextInt(mini);
+			minimum = m_random.nextInt(mini);
 		}
 		return minimum;
 	}
@@ -118,7 +121,6 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	@Override
 	public void setTrace(JiBaseTrace trace) {
 		// TODO Auto-generated method stub
-		
+		m_trace = trace;		
 	}
-
 }

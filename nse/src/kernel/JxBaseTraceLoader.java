@@ -44,11 +44,20 @@ public class JxBaseTraceLoader {
 		
 	}
 	
+	/**
+	 * Open an trace dataset for reading. 
+	 * 
+	 * @param datadir
+	 * @param dbname
+	 */
 	void open( String datadir, String dbname )
 	{
 		
 	}
 	
+	/**
+	 * Close an trace dataset opened before.
+	 */
 	void close()
 	{
 		
