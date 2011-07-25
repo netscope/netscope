@@ -23,4 +23,18 @@ public class JxBaseTest {
 		engine.setInteraction(new JxBaseInteraction(engine));
 		engine.execute(10000);
 	}
+	
+	void test3()
+	{
+		String traceclass, nodesclass, relationsclass, interactionclass;
+		
+		traceclass = "nse.kernel.JxBaseTrace";
+		nodesclass = "nse.kernel.JxBaseNodesCollection";
+		relationsclass = "nse.kernel.JxBaseRelationsCollection";
+		interactionclass = "nse.kernel.JiBaseInteraction";
+		
+		JxBaseEngine engine = new JxBaseEngine();
+		engine.open( nodesclass, relationsclass, interactionclass, traceclass );
+		engine.execute(10000);
+	}
 }

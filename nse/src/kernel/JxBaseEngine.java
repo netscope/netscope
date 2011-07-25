@@ -132,6 +132,31 @@ public class JxBaseEngine {
 		return this.open( nodes, relations, interaction, trace );
 	}
 	
+	void open( String nodesname, String relationsname, String interactionname, String tracename )
+	{
+		m_trace = null;
+		m_nodes = null;
+		m_relations = null;
+		m_interaction = null;
+
+		try{
+			m_trace = (JiBaseTrace)JxBaseFoundation.createObject( tracename );
+			m_nodes = (JiBaseNodeCollection)JxBaseFoundation.createObject( nodesname );
+			m_relations = (JiBaseRelationCollection)JxBaseFoundation.createObject( relationsname );
+			m_interaction = (JiBaseInteraction)JxBaseFoundation.createObject( interactionname );
+		}
+		catch (Exception e){
+			m_nodes = null;
+			m_relations = null;
+			m_interaction = null;
+			m_trace = null;
+		}
+		
+		m_nodes.setTrace(m_trace);
+		m_relations.setTrace(m_trace);
+		m_interaction.setTrace(m_trace);
+	}
+	
 	/**
 	 * @brief Release resources allocated in open() function.  
 	 */
