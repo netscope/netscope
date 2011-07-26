@@ -23,6 +23,8 @@ public class JxBaseRelation implements JiBaseRelation {
 	
 	protected Object m_value;
 	
+	protected Random m_random = JxBaseFoundation.random();
+
 	Random random= new Random();
 
     JiBaseNode node=new JxBaseNode();
@@ -32,8 +34,6 @@ public class JxBaseRelation implements JiBaseRelation {
     public JxBaseRelation(){
     	m_id = 0;
 		m_owner = null;
-		m_nodefrom = null;
-		m_nodeto = null;
 		m_bandwidth = 0;
 		m_weight = 0;
 		m_packetsum=0;
@@ -42,8 +42,6 @@ public class JxBaseRelation implements JiBaseRelation {
     public JxBaseRelation( int id ){
     	m_id = id;
 		m_owner = null;
-		m_nodefrom = null;
-		m_nodeto = null;
 		m_bandwidth = 0;
 		m_weight = 0;
 		m_packetsum=0;
@@ -52,8 +50,6 @@ public class JxBaseRelation implements JiBaseRelation {
 	public JxBaseRelation( int id, Object owner ){
 		m_id = id;
 		m_owner = owner;
-		m_nodefrom = null;
-		m_nodeto = null;
 		m_bandwidth = 0;
 		m_weight = 0;
 		m_packetsum=0;
@@ -64,8 +60,6 @@ public class JxBaseRelation implements JiBaseRelation {
      	m_id = id;
      	m_owner = owner;
      	m_type = JiRelationType.BI_DIRECTION_RELATION;
-    	m_nodefrom = nodefrom;
-	    m_nodeto = nodeto;	
 		m_packetsum=0;
     }
     
@@ -289,6 +283,9 @@ public class JxBaseRelation implements JiBaseRelation {
 				+ ", m_packetsum=" + m_packetsum + ", m_value=" + m_value
 				+ ", random=" + random + ", node=" + node + ", addedSet="
 				+ addedSet + "]";
+*/
+		// to do: please use Format
+		return "";
 	}
 
 	

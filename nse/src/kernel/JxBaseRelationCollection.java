@@ -18,6 +18,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	Object m_owner = null;
 	JxBaseNodeCollection m_nodes = null;
 	JxBaseTrace m_trace = null;
+	Random m_random = JxBaseFoundation.random();
 
 	//ArrayList<Integer> addedSet=new ArrayList<Integer>(); 
 	//Random random=new Random();
@@ -65,7 +66,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	public void generate( int count )
 	{
 		JxBaseEngine engine = (JxBaseEngine)m_owner;
-		Random random = engine.random();
+		Random random = JxBaseFoundation.random();
 		JxBaseTrace trace = (JxBaseTrace)engine.getTrace();
 		
 		// todo		
