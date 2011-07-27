@@ -13,12 +13,10 @@ import java.util.*;
  */
 public class JxBaseTrace implements JiBaseTrace {
     
-    
 	private Connection con = null;
 	
 	private Statement sta = null;
 	
-    
 	/** Owner of this object. It's usually the simulation engine object */
 	private Object m_owner = null;
 	
@@ -27,6 +25,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	/** Current database name */ 
 	private String m_curdbname = null;
+	
+	JxBaseNodeCollection  nodes=new JxBaseNodeCollection();
+	
+	JxBaseRelationCollection relations=new JxBaseRelationCollection();
 	
 	JxBaseTrace(){};
 	
@@ -89,8 +91,7 @@ public class JxBaseTrace implements JiBaseTrace {
 
 	/** Free resources allocated to this object. */
 	public void close()
-	{
-       /*		
+	{		
 		   //if (database is still open)
 		 {
 			try{
@@ -100,7 +101,7 @@ public class JxBaseTrace implements JiBaseTrace {
 				con = null;
 			}
 		 }
-      */		
+     		
 	}
 	
 	/*
@@ -124,8 +125,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 		
 	}
-
-
 	/** save nodes */
 	public void save( JxBaseNodeCollection nodes ) 
 	{
@@ -134,6 +133,7 @@ public class JxBaseTrace implements JiBaseTrace {
 
 	/**
 	 * Save the collection of all nodes into database.
+	 *
 	 * @param nodes The collection of all nodes.
 	 */
 	public void save( JiBaseNodeCollection nodes ) 
@@ -162,8 +162,6 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 */		
 	}
-
-
 	/**
 	 * Save a single relation object into the database.
 	 */
@@ -176,9 +174,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 		
 	}
-
-	
-
 	/**
 	 * Save the relation collection object into the database.
 	 * 
@@ -194,9 +189,9 @@ public class JxBaseTrace implements JiBaseTrace {
 					+ "(EDGEID integer,NODE_FROM integer,NODE_TO INTEGER)";
 
 			sta.executeUpdate(create_edge); // 创建边结构
-			for (int i = 0; i < relationSet.count(); i++) {
+			for (int i = 0; i < relations.count(); i++) {
 
-				JiBaseRelation relation = relationSet.get(i);
+				JiBaseRelation relation = relations.get(i);
 
 				String relation_id = Integer.toString(relation.getId()); // 转换为字符串
 				String node_from = Integer.toString(relation.getNodeFrom());
@@ -221,8 +216,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	 * @param nodes An JiBaseNodeCollection object containing the nodes loaded.
 	 */
 	public void load( JxBaseNodeCollection nodes )
-	{
-		
+	{		
 	}
 
 
@@ -371,7 +365,8 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 */
-	public void traceEdge(int experienttime) {    // 保存边数据
+	public void traceEdge(int experienttime)    // 保存边数据
+	{ 
 /*		
 		try {
 
@@ -416,14 +411,13 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 
 	@Override
-	public void load(JiBaseNodeCollection nodes) {
-		// TODO Auto-generated method stub
+	/** 下载所有点*/
+	public void load(JiBaseNodeCollection  nodes) {
 		
 	}
 
 	@Override
 	public void load(JiBaseRelationCollection relations) {
-		// TODO Auto-generated method stub
 		
 	}
 

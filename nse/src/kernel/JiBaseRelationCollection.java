@@ -10,8 +10,9 @@ public interface JiBaseRelationCollection {
 	
     public int count();
 	
-	
 	public void generate();
     public void randomize();	
+    
+    public JiBaseRelation get(int index); 
   
 }

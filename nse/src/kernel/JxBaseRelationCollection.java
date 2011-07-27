@@ -12,6 +12,8 @@ import java.util.Random;
  */
 public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implements JiBaseRelationCollection {
 	
+	private static final long serialVersionUID = 1L;
+	
 	Object m_owner = null;
 	JxBaseNodeCollection m_nodes = null;
 	JxBaseTrace m_trace = null;
@@ -78,7 +80,8 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		this.generate(1000);
 	}
 
-	public JiBaseRelation search(int id){
+	public JiBaseRelation search(int id)
+	{
 		boolean found = false;
 		JiBaseRelation  relation = new JxBaseRelation();
 		for (int i=0; i<super.size(); i++){
@@ -94,8 +97,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	public int search(JiBaseRelation relation){
 		return -1;
 	}
-	
-	//public JiBaseRelation search(int nodefrom, int nodeto){
+
 	public JiBaseRelation search(JiBaseNode nodefrom, JiBaseNode nodeto){
 		return null;
 /*		
@@ -116,11 +118,12 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 */		
 	}	
 	
+	/** 得到与节点相关的所有边*/
 	public ArrayList<JiBaseRelation> getNodeAllRelations( JiBaseNode node )
 	{
 		return null;
 	}
-
+	
 	public ArrayList<JiBaseRelation> getNodeOutRelations( JiBaseNode node )
 	{
 		return null;
@@ -131,51 +134,8 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		return null;
 	}
 	
-/*	
-	public ArrayList<JiBaseRelation> in_edges_of( int nodefrom ){
+    public void randomize()
+	{
 		
-		ArrayList<JiBaseRelation> in_edge_list =new ArrayList<JiBaseRelation>();
-		JiBaseRelation relation=new JxBaseRelation();
-		
-		for(int i=0;i<super.size();i++){
-		   relation=this.get(i);
-		   if(relation.getNodeFrom()==nodefrom){
-			  in_edge_list.add(relation);
-		   }   	 
-		}
-		return in_edge_list;
 	}
-	
-	
-	public ArrayList<JiBaseRelation> out_edges_of( int nodefrom ){
-		
-		ArrayList<JiBaseRelation> out_edge_list =new ArrayList<JiBaseRelation>();
-		
-		JiBaseRelation relation=new JxBaseRelation();
-		
-		for(int i=0;i<super.size();i++){
-		   relation=this.get(i);
-		   if(relation.getNodeFrom()==nodefrom){
-			  out_edge_list.add(relation);
-		   }   	 
-		}
-		return out_edge_list;
-	}
-*/	
-
-/*
-	public ArrayList<JiBaseRelation> edges_of( int nodefrom,int nodeto ){
-   
-		ArrayList<JiBaseRelation> edge_list =new ArrayList<JiBaseRelation>();
-		JiBaseRelation relation=new JxBaseRelation();
-		
-		for(int i=0;i<super.size();i++){
-		   relation=this.get(i);
-		   if(relation.getNodeFrom()==nodefrom||relation.getNodeTo()==nodeto){
-			  edge_list.add(relation);
-		   }   	 
-		}
-		return edge_list;
-	}
-*/	
-}
+ }

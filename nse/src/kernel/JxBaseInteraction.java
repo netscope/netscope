@@ -8,21 +8,24 @@ public class JxBaseInteraction implements JiBaseInteraction {
      Random m_random = JxBaseFoundation.random();	
      JxBaseTrace m_trace = null;
 	
-    JxBaseInteraction(){
+    JxBaseInteraction()
+    {
     	
-    }
-    
-	JxBaseInteraction(Object owner) {
+    } 
+	JxBaseInteraction(Object owner) 
+	{
 		m_owner = owner;
 	}
 
 	@Override
-	public Object getOwner() {
+	public Object getOwner()
+	{
 		return m_owner;
 	}
 
 	@Override
-	public void setOwner(Object owner) {
+	public void setOwner(Object owner)
+	{
 		m_owner = owner;
 	}
 
