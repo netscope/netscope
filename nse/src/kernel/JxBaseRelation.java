@@ -25,11 +25,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	
 	protected Random m_random = JxBaseFoundation.random();
 
-	Random random= new Random();
-
     JiBaseNode node=new JxBaseNode();
-    
-    ArrayList<Integer> addedSet = new ArrayList<Integer>();
     
     public JxBaseRelation(){
     	m_id = 0;
@@ -145,13 +141,11 @@ public class JxBaseRelation implements JiBaseRelation {
 	
 	public JiBaseNode first()
 	{
-		//
 		return null;
 	}
 	
 	public JiBaseNode next()
 	{
-		//
 		return null;
 	}
 	
@@ -169,31 +163,34 @@ public class JxBaseRelation implements JiBaseRelation {
 	 *   
 	 * @param nodefrom
 	 */
-	public JiBaseNode getNodeTo(){
-		return  m_nodes.get(1);
+	public JiBaseNode getNodeTo()
+	{
+		return m_nodes.get(1);
 	}
 	
-	public int getBandWidth(){
+	public int getBandWidth()
+	{
 		return m_bandwidth;
 	}
-	public int setBandWidth(int bandwidth){
+	public int setBandWidth(int bandwidth)
+	{
 		return m_bandwidth=bandwidth;
 	}
 	
 	
-	public int getPacketSum(){
+	public int getPacketSum()
+	{
        return m_packetsum;		
 	}
-	public void setPacketSum(int sum){
+	public void setPacketSum(int sum)
+	{
 		m_packetsum=sum;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((addedSet == null) ? 0 : addedSet.hashCode());
 		result = prime * result + m_bandwidth;
 		result = prime * result + m_id;
 		result = prime * result
@@ -203,17 +200,17 @@ public class JxBaseRelation implements JiBaseRelation {
 				+ ((m_nodeto == null) ? 0 : m_nodeto.hashCode());
 		result = prime * result + ((m_owner == null) ? 0 : m_owner.hashCode());
 		result = prime * result + m_packetsum;
+		result = prime * result
+				+ ((m_random == null) ? 0 : m_random.hashCode());
 		result = prime * result + ((m_type == null) ? 0 : m_type.hashCode());
 		result = prime * result + ((m_value == null) ? 0 : m_value.hashCode());
 		result = prime * result + m_weight;
 		result = prime * result + ((node == null) ? 0 : node.hashCode());
-		result = prime * result + ((random == null) ? 0 : random.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -221,11 +218,6 @@ public class JxBaseRelation implements JiBaseRelation {
 		if (getClass() != obj.getClass())
 			return false;
 		JxBaseRelation other = (JxBaseRelation) obj;
-		if (addedSet == null) {
-			if (other.addedSet != null)
-				return false;
-		} else if (!addedSet.equals(other.addedSet))
-			return false;
 		if (m_bandwidth != other.m_bandwidth)
 			return false;
 		if (m_id != other.m_id)
@@ -252,6 +244,11 @@ public class JxBaseRelation implements JiBaseRelation {
 			return false;
 		if (m_packetsum != other.m_packetsum)
 			return false;
+		if (m_random == null) {
+			if (other.m_random != null)
+				return false;
+		} else if (!m_random.equals(other.m_random))
+			return false;
 		if (m_type != other.m_type)
 			return false;
 		if (m_value == null) {
@@ -266,28 +263,9 @@ public class JxBaseRelation implements JiBaseRelation {
 				return false;
 		} else if (!node.equals(other.node))
 			return false;
-		if (random == null) {
-			if (other.random != null)
-				return false;
-		} else if (!random.equals(other.random))
-			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "JxBaseRelation [m_id=" + m_id + ", m_owner=" + m_owner
-				+ ", m_type=" + m_type + ", m_nodes=" + m_nodes
-				+ ", m_nodefrom=" + m_nodefrom + ", m_nodeto=" + m_nodeto
-				+ ", m_bandwidth=" + m_bandwidth + ", m_weight=" + m_weight
-				+ ", m_packetsum=" + m_packetsum + ", m_value=" + m_value
-				+ ", random=" + random + ", node=" + node + ", addedSet="
-				+ addedSet + "]";
-*/
-		// to do: please use Format
-		return "";
-	}
-
+	
 	
 	
    /** 最后一个点不用加如到addedset中

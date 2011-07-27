@@ -17,6 +17,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	Object m_owner;
 	
 	JiBaseTrace m_trace = null;
+	
 	Random m_random = JxBaseFoundation.random();
 	
 	JxBaseNodeCollection( )
@@ -48,7 +49,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	 */
 	public int count() 
 	{  
-	 return super.size();
+	   return super.size();
 	}
 	
 	/** Get the node at specified index */
@@ -101,8 +102,8 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	 * @param id
 	 * @return
 	 */
-	public JiBaseNode search( int id ){
-		
+	public JiBaseNode search( int id )
+	{
 		boolean found = false;
 		JiBaseNode node = null;
 		for (int i=0; i<super.size(); i++){

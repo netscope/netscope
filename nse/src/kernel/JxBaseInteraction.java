@@ -4,26 +4,29 @@ import java.util.*;
 
 public class JxBaseInteraction implements JiBaseInteraction {
 
+	 
 	 Object m_owner = null;
      Random m_random = JxBaseFoundation.random();	
      JxBaseTrace m_trace = null;
 	
-    JxBaseInteraction()
-    {
-    	
-    } 
+     
+     JxBaseInteraction()
+     {  	
+     } 
+    
+    
 	JxBaseInteraction(Object owner) 
 	{
 		m_owner = owner;
 	}
-
-	@Override
+	 
+	
 	public Object getOwner()
 	{
 		return m_owner;
 	}
 
-	@Override
+    
 	public void setOwner(Object owner)
 	{
 		m_owner = owner;
@@ -35,7 +38,8 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		JxBaseEngine engine = (JxBaseEngine) m_owner;
 		// JxBaseTrace trace = (JxBaseTrace)engine.getTrace();
 
-		JiBaseNode nodefrom = engine.getNodes().search(relation.getNodeFrom());
+		JiBaseNode nodefrom = engine.getNodes().search(relation.getNodeFrom().getId());
+		JiBaseNode nodeto = engine.getNodes().search(relation.getNodeTo());
 	 // JiBaseTrace trace = engine.getTrace();
 
 		int len1, len2, cut;

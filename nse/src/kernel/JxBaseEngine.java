@@ -192,42 +192,42 @@ public class JxBaseEngine {
 	{
 		return JxBaseFoundation.random();
 	}
+    
 
 	public JiBaseNodeCollection getNodes()
 	{
 		return m_nodes;
 	}
-	
 	public void setNodes( JiBaseNodeCollection nodes )
 	{
 		m_nodes = nodes;
 	}
 	
+	
 	public JiBaseRelationCollection getRelations()
 	{
 		return m_relations;
 	}
-	
 	public void setRelations( JiBaseRelationCollection relations )
 	{
 		m_relations = relations;
 	}
 	
+	
 	public JiBaseInteraction getInteraction()
 	{
 		return m_interaction;
 	}
-	
 	public void setInteraction( JiBaseInteraction interaction )
 	{
 		m_interaction = (JxBaseInteraction)interaction;
 	}
 	
+	
 	public JiBaseTrace getTrace()
 	{
 		return m_trace;
 	}
-	
 	public void setTrace( JiBaseTrace trace )
 	{
 		m_trace = (JxBaseTrace)trace;
@@ -247,6 +247,7 @@ public class JxBaseEngine {
 	/**
 	 * Add an node object in the node set in the simulated application.
 	 * @param node
+	 * 为何要trace！
 	 */
 	public void addNode( JiBaseNode node )
 	{
@@ -257,6 +258,7 @@ public class JxBaseEngine {
 	/**
 	 * Add an relation object in the relation set in the simulated application.
 	 * @param relation
+	 * 为何要trace！
 	 */
 	public void addRelation( JiBaseRelation relation )
 	{
@@ -292,11 +294,11 @@ public class JxBaseEngine {
 		}
 		catch (Exception e){			
 		}
-		this.setTrace( trace );
-		this.setNodes( nodes );
-		this.setRelations( relations );
-		this.setInteraction( interaction );
-		trace.restore( dbname, nodes, relations );
+		    this.setTrace( trace );
+		    this.setNodes( nodes );
+		    this.setRelations( relations );
+		    this.setInteraction( interaction );
+		    trace.restore( dbname, nodes, relations );
 	}
 
 }

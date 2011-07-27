@@ -8,9 +8,10 @@ public interface JiBaseRelationCollection {
 	public boolean add( JiBaseRelation relation );
     Iterator<JiBaseRelation> iterator();
 	
-    public int count();
+  
+    public int count();	
 	
-	public void generate();
+    public void generate();
     public void randomize();	
     
     public JiBaseRelation get(int index); 
