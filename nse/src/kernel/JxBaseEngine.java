@@ -37,8 +37,8 @@ public class JxBaseEngine {
 	
 	Object m_owner = null;
 	
-	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance(); 
-
+	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstandce(); 
+    
 	/** Node collection. It contains all the nodes */
 	private JiBaseNodeCollection m_nodes = null;
 
@@ -53,16 +53,11 @@ public class JxBaseEngine {
 
 	public JxBaseEngine()
 	{
-
 		m_nodes = new JxBaseNodeCollection();
 		m_relations = new JxBaseRelationCollection();
-
-		m_owner = null;
-		m_nodes = null;
-		m_relations = null;
-
-		m_interaction = null;
-		m_trace = null;		
+		m_interaction = new JxBaseInteraction();
+		m_trace =new JxBaseTrace();
+		m_owner = null;			
     }
 	
 	/**
@@ -81,69 +76,48 @@ public class JxBaseEngine {
 	 */
 	public boolean open( JiBaseNodeCollection nodes, JiBaseRelationCollection relations,  
 		JiBaseInteraction interaction, JiBaseTrace trace )
-	{
-
-		m_interaction = (JxBaseInteraction) interaction;
-		m_trace = (JxBaseTrace) trace;
-
-		m_nodes = nodes;
-		m_relations = relations;
-		m_interaction = (JxBaseInteraction)interaction;
-		m_trace =(JxBaseTrace)trace;
-
+	   {
+		  m_nodes = nodes;
+		  m_relations = relations;
+		  m_interaction = (JxBaseInteraction) interaction;
+		  m_trace = (JxBaseTrace) trace; 	
+		  m_trace.open();
 		
-		m_trace.open();
+	     /*	m_nodes.setTrace(trace);
+		    m_relations.setTrace(trace);
+		    m_interaction.setTrace(trace);
+         */	
 		
-	/*	m_nodes.setTrace(trace);
-		m_relations.setTrace(trace);
-		m_interaction.setTrace(trace);
-    */	
+		  m_relations.generate();
+		  m_trace.save( m_nodes );
+		  m_trace.save( m_relations );
 		
-		m_relations.generate();
-		
-		m_trace.save( m_nodes );
-		m_trace.save( m_relations );
-		
-		return true;
-	}
+		 return true;
+	  }
 	
 	/**
-	 * Initialize the base simulation engine with the default settings.
-	 * 
-	 * @param tracedir The folder used for saving trace record files.
-	 * @return
-	 * 
+	 * Initialize the base simulation  engine with the default settings.
+	 * @param tracedir The folder used for saving trace record files. 
 	 * @example
 	 * 		if (open( "/temp/expr/" ))
 	 * 		{
 	 * 			do something here
 	 * 		}
+	 * @return
 	 */
 	public boolean open( String datadir )
 	{
-/*		
-		// load class name from database 
-		String traceclass, nodesclass, relationsclass, interactionclass;
-		
-		traceclass = "nse.kernel.JxBaseTrace";
-		nodesclass = "nse.kernel.JxBaseNodesCollection";
-		relationsclass = "nse.kernel.JxBaseRelationsCollection";
-		interactionclass = "nse.kernel.JiBaseInteraction";
-		
-		JiBaseTrace trace = (JiBaseTrace)createObject( traceclass );
-		JiBaseNodeCollection nodes = (JiBaseNodeCollection)createObject( nodesclass );
-		JiBaseRelationCollection relations = (JiBaseRelationCollection)createObject( relationsclass );
-		JiBaseInteraction = (JiBaseInteraction)createObject( interactionclass );
-*/
-		
+		/** 产生10000个节点 */
 		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
 		JiBaseRelationCollection relations = new JxBaseRelationCollection(this, nodes);
 		JiBaseInteraction interaction = new JxBaseInteraction(this);
+		
 		JiBaseTrace trace = new JxBaseTrace(this, datadir);
 				
-		return this.open( nodes, relations, interaction, trace );
+		return open( nodes, relations, interaction, trace );
 	}
 	
+	/** 用处?? */
 	void open( String nodesname, String relationsname, String interactionname, String tracename )
 	{
 		m_trace = null;
@@ -180,34 +154,26 @@ public class JxBaseEngine {
 	public void step()
 	{
 		m_relations.randomize();
-
-		// todo should be randomized sequence                                                                                                                        
-		Iterator it = m_relations.iterator();
-
-		// todo should be randomized sequence
+		
 		Iterator<JiBaseRelation> it = m_relations.iterator();
 
 		while (it.hasNext())
 		{
 			JiBaseRelation relation = (JiBaseRelation)it.next();
 	
-			// The relation object keeps a list of nodes. They interact together
-			// according to the regulation defined in the interaction object.
-			
 			m_interaction.interact( relation, m_trace );
 		}
 	}
 	
 	public void execute( int stepcount )
 	{
-
 		JiBaseInteraction interaction = new JxBaseInteraction();
 		
-		if (open(interaction, trace))
+		if (open(interaction, m_trace))
 		{
 			for (int i=0; i<stepcount; i++)
+				
 				step();
-			
 			    close();
 		}
 
@@ -227,24 +193,17 @@ public class JxBaseEngine {
 		return JxBaseFoundation.random();
 	}
 
-	JxBaseNodeCollection getNodes()
-
 	public JiBaseNodeCollection getNodes()
-
 	{
 		return m_nodes;
 	}
 	
-
-	JxBaseRelationCollection getRelations()
-
 	public void setNodes( JiBaseNodeCollection nodes )
 	{
 		m_nodes = nodes;
 	}
 	
 	public JiBaseRelationCollection getRelations()
-
 	{
 		return m_relations;
 	}
@@ -261,7 +220,7 @@ public class JxBaseEngine {
 	
 	public void setInteraction( JiBaseInteraction interaction )
 	{
-		m_interaction = interaction;
+		m_interaction = (JxBaseInteraction)interaction;
 	}
 	
 	public JiBaseTrace getTrace()
@@ -271,14 +230,13 @@ public class JxBaseEngine {
 	
 	public void setTrace( JiBaseTrace trace )
 	{
-		m_trace = trace;
+		m_trace = (JxBaseTrace)trace;
 	}
 	
 	/** 
 	 * Returns the node count in the simulated application. Actually you can get
 	 * this information from the node collection object returned by getNodes().
-	 * 
-	 * @param None
+	 *
 	 * @return Node count in the simulated application.
 	 */
 	int nodecount()
@@ -332,15 +290,12 @@ public class JxBaseEngine {
 			relations = (JiBaseRelationCollection)JxBaseFoundation.createObject( relationsclass );
 			interaction = (JiBaseInteraction)JxBaseFoundation.createObject( interactionclass );
 		}
-		catch (Exception e){
-			
+		catch (Exception e){			
 		}
-		
 		this.setTrace( trace );
 		this.setNodes( nodes );
 		this.setRelations( relations );
 		this.setInteraction( interaction );
-
 		trace.restore( dbname, nodes, relations );
 	}
 

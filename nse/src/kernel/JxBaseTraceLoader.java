@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+   //数据库名+文件名的用法
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
@@ -22,17 +23,14 @@ public class JxBaseTraceLoader {
 		public JxBaseNode node;
 	}
 	
-	public class JxRelationTraceItem{
-		public int time;
-		public JxBaseNode node;
-	}
-	
 	public class JxNodeTrace{
-		JxNodeTrace( Object owner ){};
+		
+		JxNodeTrace( Object owner );
 		public loadmeta();
 		public loadtrace();
 		public selectnmode();
 		public selecttrace();
+		
 	}
 	
 	protected String m_datadir;
@@ -63,8 +61,7 @@ public class JxBaseTraceLoader {
 		
 	}
 	
-	/** Returns an standard ResultSet object assiciate with an SQL SELECT clause.
-	 * 
+	/** Returns an standard ResultSet object associate with an SQL SELECT clause.
 	 * @param sql An SQL SELECT clause.
 	 * @return
 	 */
@@ -103,7 +100,7 @@ public class JxBaseTraceLoader {
 		
 	}
 	
-	public ArrayList<JxBaseRelation> loadsat( int time )
+	public ArrayList<JxBaseRelation> loadrat( int time )
 	{
 		
 	}

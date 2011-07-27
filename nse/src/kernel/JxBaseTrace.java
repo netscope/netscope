@@ -13,11 +13,12 @@ import java.util.*;
  */
 public class JxBaseTrace implements JiBaseTrace {
     
-	
+    
 	private Connection con = null;
+	
 	private Statement sta = null;
 	
-   
+    
 	/** Owner of this object. It's usually the simulation engine object */
 	private Object m_owner = null;
 	
@@ -27,27 +28,30 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** Current database name */ 
 	private String m_curdbname = null;
 	
-	JxBaseTrace(Object owner) {
+	JxBaseTrace(){};
+	
+	JxBaseTrace(Object owner) 
+	{
 		m_owner = owner;
 		m_datadir = "c:/temp/";
 		m_curdbname = "";
 	}
     
-	JxBaseTrace(Object owner, String datadir) {
+	JxBaseTrace(Object owner, String datadir)
+	{
 		m_owner = owner;
 		m_datadir = datadir;
 		m_curdbname = "";
 	}
 	
-
 	public Object getOwner()
 	{
-		
+		return m_owner;
 	};
 	
-	public void setOwner()
-	{
-		
+	public void setOwner(Object owner)
+	{ 
+		m_owner=owner;
 	};
 
 	public void openDatabase()
@@ -61,22 +65,19 @@ public class JxBaseTrace implements JiBaseTrace {
 	};	
 	
 
-	public void open(String datadir )
-
+	public void openDataBase(String datadir)
 	{
-		/*
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 			String databasename = getNextDatabaseDir();
 			con = DriverManager.getConnection("jdbc:hsqldb:file:"
-					+ databasename + ";shutdown=true", "sa", "");
+					+ datadir + ";shutdown=true", "sa", "");
 			sta = con.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-		*/
+		}	
 	}
 	
 	public void open()
@@ -89,17 +90,17 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** Free resources allocated to this object. */
 	public void close()
 	{
-/*		
-		//if (database is still open)
-		{
+       /*		
+		   //if (database is still open)
+		 {
 			try{
 				sta.close();
 				con.close();
 			} catch (SQLException e) {
 				con = null;
 			}
-		}
-*/		
+		 }
+      */		
 	}
 	
 	/*
@@ -137,9 +138,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	public void save( JiBaseNodeCollection nodes ) 
 	{
-/*		
-		
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
+		/*		
 		try {
 			String str_time = getNextDatabaseName();
 			String node_tablename = "nodetable" + str_time;
@@ -164,6 +163,14 @@ public class JxBaseTrace implements JiBaseTrace {
 */		
 	}
 
+
+	/**
+	 * Save a single relation object into the database.
+	 */
+	public void save( JiBaseRelation relation )
+	{
+		
+	}
 	/** save relations */
 	public void save( JxBaseRelationCollection relations )
 	{
@@ -171,15 +178,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 
 	
-	/**
-	 * Save a single relation object into the database.
-	 * 
-	 * @param relation
-	 */
-	public void save( JiBaseRelation relation )
-	{
-		
-	}
 
 	/**
 	 * Save the relation collection object into the database.
@@ -188,10 +186,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	public void save( JiBaseRelationCollection relations )
 	{
-		/*
->>>>>>> 842e6dbd5390d2169129d0c47e51a3e149f1779d
-		try {
-			String str_time = getNextDatabaseName();
+	  try {
+			String str_time = getNextDatabaseDir();
 
 			String edge_tablename = "edgetable" + str_time;
 			String create_edge = "create table " + edge_tablename
@@ -217,7 +213,6 @@ public class JxBaseTrace implements JiBaseTrace {
 
 			e.printStackTrace();
 		}
-		*/
 	}
 	
 	/** 
@@ -227,13 +222,12 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	public void load( JxBaseNodeCollection nodes )
 	{
-		// todo
+		
 	}
 
 
 	public void load( JxBaseRelationCollection relations )
 	{
-		// todo
 		
 	}
 
@@ -377,7 +371,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 */
-	public void traceEdge(int experienttime) { // 保存边数据
+	public void traceEdge(int experienttime) {    // 保存边数据
 /*		
 		try {
 
@@ -416,11 +410,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	public String getNextDatabaseDir() 
 	{
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yymmdd_hhmmss");// 设置日期格式(数据表格式有要求)
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd_hhmmss");// 设置日期格式(数据表格式有要求)
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
-
 
 	@Override
 	public void load(JiBaseNodeCollection nodes) {

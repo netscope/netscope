@@ -156,7 +156,6 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	public ArrayList<JiBaseRelation> relationsof( JiBaseNode node )
 	{
 		ArrayList<JiBaseRelation> relations = new ArrayList<JiBaseRelation>();
-		
 		return relations;
 	}	
 	

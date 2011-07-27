@@ -4,10 +4,14 @@ import java.util.*;
 
 public class JxBaseInteraction implements JiBaseInteraction {
 
-	Object m_owner = null;
-	Random m_random = JxBaseFoundation.random();	
-	JxBaseTrace m_trace = null;
-
+	 Object m_owner = null;
+     Random m_random = JxBaseFoundation.random();	
+     JxBaseTrace m_trace = null;
+	
+    JxBaseInteraction(){
+    	
+    }
+    
 	JxBaseInteraction(Object owner) {
 		m_owner = owner;
 	}
@@ -120,7 +124,6 @@ public class JxBaseInteraction implements JiBaseInteraction {
 
 	@Override
 	public void setTrace(JiBaseTrace trace) {
-		// TODO Auto-generated method stub
-		m_trace = trace;		
+		m_trace = (JxBaseTrace)trace;		
 	}
 }
