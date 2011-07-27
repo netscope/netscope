@@ -149,6 +149,7 @@ public class JxBaseRelation implements JiBaseRelation {
 		return null;
 	}
 	
+	
 	/**
 	 * Returns the first one in the node list of the current relation object.
 	 *  
@@ -157,6 +158,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	public JiBaseNode getNodeFrom(){
 		return  m_nodes.get(0);
 	}
+	
 	
 	/**
 	 * Returns the second one in the node list of the current relation object.
@@ -167,6 +169,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	{
 		return m_nodes.get(1);
 	}
+	
 	
 	public int getBandWidth()
 	{
