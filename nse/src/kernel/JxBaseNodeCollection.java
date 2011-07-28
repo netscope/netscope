@@ -33,10 +33,8 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	
 	public void generate( int count )
 	{
-		// generate count nodes and add them into the collection
-		
-		for (int i=0; i<count; i++)
-			super.add( new JxBaseNode(this, i) );		
+	   for (int i=0; i<count; i++)
+		super.add( new JxBaseNode(this, i) );		
 	}
 	
 	public void setTrace( JiBaseTrace trace )
