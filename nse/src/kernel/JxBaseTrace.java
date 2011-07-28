@@ -25,9 +25,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	/** Current database name */ 
 	private String m_curdbname = null;
-	
 	JxBaseNodeCollection  nodes = new JxBaseNodeCollection();
-	
 	JxBaseRelationCollection relations = new JxBaseRelationCollection();
 	
 	

@@ -4,7 +4,6 @@ import java.util.*;
 
 public class JxBaseInteraction implements JiBaseInteraction {
      
-	 
 	 Object m_owner = null;
 	 
      Random m_random = JxBaseFoundation.random();	
@@ -34,7 +33,6 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	}
     
 	
-	@Override
 	public void interact(JiBaseRelation relation, JiBaseTrace trace) 
 	{
 		JxBaseEngine engine = (JxBaseEngine) m_owner;
@@ -54,7 +52,8 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		trace.trace( nodeto );
 		trace.trace( relation );
 	}
-
+    
+	
 	public int Minimum(int a, int b, int c) { // 发送包的个数要小于这三个值
 
 		int minimum = 0;

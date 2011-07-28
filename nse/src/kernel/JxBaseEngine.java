@@ -113,20 +113,32 @@ import java.util.Random;
 	 * @example if (open( "/temp/expr/" )) { do something here }
 	 * @return
 	 */
-	public boolean open(String datadir) {
+	public boolean open(String datadir)
+	{
 		/** 产生10000个节点  */
 		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
+		Class nodesclass=nodes.getClass();
+	    String nodesname=nodesclass.getName();
+	        
 		JiBaseRelationCollection relations = new JxBaseRelationCollection(this,nodes);
+		Class relationsclass=nodes.getClass();
+		String relationsname=relationsclass.getName();
+         
+		
 		JiBaseInteraction interaction = new JxBaseInteraction(this);
-
+	    Class interactionclass=nodes.getClass();
+	    String interactionname=relationsclass.getName();
+	    
 		JiBaseTrace trace = new JxBaseTrace(this, datadir);
-
+		Class traceclass=nodes.getClass();
+		String tracename=relationsclass.getName();
+		
 		/** 用处？？*/
-		return open(nodes, relations, interaction, trace);
+		return open( nodesname,  relationsname,interactionname, tracename);
 	}
 
 	/** 用处?? */
-	void open(String nodesname, String relationsname, String interactionname,String tracename)
+	boolean open(String nodesname, String relationsname, String interactionname,String tracename)
 	{
 		m_trace = null;
 		m_nodes = null;
@@ -134,11 +146,11 @@ import java.util.Random;
 		m_interaction = null;
 
 		try {
-			  m_trace = (JiBaseTrace) JxBaseFoundation.createObject(tracename);
+			  m_trace = (JxBaseTrace) JxBaseFoundation.createObject(tracename);
 			  m_nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesname);
 			
 			  m_relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsname);
-			  m_interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionname);
+			  m_interaction = (JxBaseInteraction) JxBaseFoundation.createObject(interactionname);
 		} catch (Exception e) 
 		{
 			 m_trace = null;
@@ -149,6 +161,8 @@ import java.util.Random;
 		   m_nodes.setTrace(m_trace);
 		   m_relations.setTrace(m_trace);
 		   m_interaction.setTrace(m_trace);
+		   
+		   return true;
 	}
 
 	/**
@@ -198,6 +212,7 @@ import java.util.Random;
 	}
 
 	public JiBaseNodeCollection getNodes() {
+
 		return m_nodes;
 	}
 
@@ -216,7 +231,6 @@ import java.util.Random;
 	public JiBaseInteraction getInteraction() {
 		return m_interaction;
 	}
-
 	public void setInteraction(JiBaseInteraction interaction) {
 		m_interaction = (JxBaseInteraction) interaction;
 	}
@@ -287,21 +301,18 @@ import java.util.Random;
 		JiBaseRelationCollection relations = null;
 		JiBaseInteraction interaction = null;
 
-		try {
+	 try {
 			trace = (JiBaseTrace) JxBaseFoundation.createObject(traceclass);
-			nodes = (JiBaseNodeCollection) JxBaseFoundation
-					.createObject(nodesclass);
-			relations = (JiBaseRelationCollection) JxBaseFoundation
-					.createObject(relationsclass);
-			interaction = (JiBaseInteraction) JxBaseFoundation
-					.createObject(interactionclass);
+			nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesclass);
+			relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsclass);
+			interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionclass);
 		} catch (Exception e) {
 		}
-		this.setTrace(trace);
-		this.setNodes(nodes);
-		this.setRelations(relations);
-		this.setInteraction(interaction);
-		trace.restore(dbname, nodes, relations);
+		  this.setTrace(trace);
+		  this.setNodes(nodes);
+		  this.setRelations(relations);
+		  this.setInteraction(interaction);
+		  trace.restore(dbname, nodes, relations);
 	 }
 
 }

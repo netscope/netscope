@@ -7,6 +7,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	
 	protected int m_id = 0; 
 	protected Object m_owner = null;
+	protected Object m_value;
 	
 	
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
@@ -21,13 +22,14 @@ public class JxBaseRelation implements JiBaseRelation {
 	protected int  m_weight;
 	protected int  m_packetsum;
 	
-	protected Object m_value;
 	
 	protected Random m_random = JxBaseFoundation.random();
 
+	
     JiBaseNode node=new JxBaseNode();
     
-    public JxBaseRelation(){
+    public JxBaseRelation()
+    {
     	m_id = 0;
 		m_owner = null;
 		m_bandwidth = 0;
@@ -117,6 +119,7 @@ public class JxBaseRelation implements JiBaseRelation {
 		m_type = JiRelationType.BROADCAST_RELATION;
 	}
 	
+	
 	public void setGroupRelation( ArrayList<JiBaseNode> nodelist )
 	{
 		m_nodes.clear();
@@ -124,26 +127,27 @@ public class JxBaseRelation implements JiBaseRelation {
 		m_type = JiRelationType.GROUP_RELATION;
 	}
 	
+	
 	public int count()
 	{
 		return m_nodes.size();
 	}
 	
+	
 	public void add( JiBaseNode node )
 	{
 		m_nodes.add( node );
 	}
-	
 	public void remove( JiBaseNode node )
 	{
 		m_nodes.remove( node );
 	}
 	
+	
 	public JiBaseNode first()
 	{
 		return null;
 	}
-	
 	public JiBaseNode next()
 	{
 		return null;
@@ -270,23 +274,5 @@ public class JxBaseRelation implements JiBaseRelation {
 	}
 	
 	
-	
-   /** 最后一个点不用加如到addedset中
-       if(i==nodecount-1)
-	   currentNodeId=randomNodeSerial[i]; 
-		   selectNodeId =selectnodeto();
-		  
-		   edgeCollection.add(selectNodeId, currentNodeId);
-
-		JiNode currentNode=nodeCollection.get(currentNodeId);
-		JiNode selectNode=nodeCollection.get(selectNodeId);
-		
-		/** 将当前点与选中点的度分别加1 
-		int currentNodeDegree =currentNode.getDegree();
-		currentNode.setDegree(currentNodeDegree+1);
-		
-		int selectNodeDegree=selectNode.getDegree();
-		selectNode.setDegree(selectNodeDegree+1);
-	}  */
 
 }
