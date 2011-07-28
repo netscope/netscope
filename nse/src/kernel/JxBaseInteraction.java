@@ -13,8 +13,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
      JxBaseInteraction()
      {  	
      } 
-    
-    
+     
 	JxBaseInteraction(Object owner) 
 	{
 		m_owner = owner;
@@ -39,7 +38,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		// JxBaseTrace trace = (JxBaseTrace)engine.getTrace();
 
 		JiBaseNode nodefrom = engine.getNodes().search(relation.getNodeFrom().getId());
-		JiBaseNode nodeto = engine.getNodes().search(relation.getNodeTo());
+		JiBaseNode nodeto = engine.getNodes().search(relation.getNodeTo().getId());
 	 // JiBaseTrace trace = engine.getTrace();
 
 		int len1, len2, cut;

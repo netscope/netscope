@@ -19,8 +19,6 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	JxBaseTrace m_trace = null;
 	Random m_random = JxBaseFoundation.random();
 
-	//ArrayList<Integer> addedSet=new ArrayList<Integer>(); 
-	//Random random=new Random();
 	JxBaseRelationCollection() 
 	{
 		m_owner = null;

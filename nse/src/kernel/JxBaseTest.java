@@ -24,8 +24,8 @@ public class JxBaseTest {
 		JxBaseEngine engine = new JxBaseEngine();
 
 		engine.setTrace( new JxBaseTrace(engine, "/temp/expr/"));
-		engine.m_trace.load( engine.getNodes() );
-		trace.load( engine.getRelations() );
+		engine.load( engine.getNodes() );
+		engine.load( engine.getRelations() );
 		engine.setInteraction( new JxBaseInteraction(engine) );
 		engine.execute( 100000 );
 

@@ -74,7 +74,7 @@ public class JxBaseEngine {
 	 * @return true indicate initialization success and false indicate failed. This
 	 * 		function should return true or else the later execute() will stop. 
 	 */
-	public boolean open( JiBaseNodeCollection nodes, JiBaseRelationCollection relations,  
+	public boolean init( JiBaseNodeCollection nodes, JiBaseRelationCollection relations,  
 		JiBaseInteraction interaction, JiBaseTrace trace )
 	   {
 		  m_nodes = nodes;
@@ -208,6 +208,7 @@ public class JxBaseEngine {
 	{
 		return m_relations;
 	}
+	
 	public void setRelations( JiBaseRelationCollection relations )
 	{
 		m_relations = relations;
@@ -247,7 +248,6 @@ public class JxBaseEngine {
 	/**
 	 * Add an node object in the node set in the simulated application.
 	 * @param node
-	 * 为何要trace！
 	 */
 	public void addNode( JiBaseNode node )
 	{
@@ -258,7 +258,6 @@ public class JxBaseEngine {
 	/**
 	 * Add an relation object in the relation set in the simulated application.
 	 * @param relation
-	 * 为何要trace！
 	 */
 	public void addRelation( JiBaseRelation relation )
 	{

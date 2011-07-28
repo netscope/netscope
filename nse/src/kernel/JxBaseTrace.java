@@ -30,15 +30,14 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	JxBaseRelationCollection relations = new JxBaseRelationCollection();
 	
-	JxBaseTrace(){};
 	
+	JxBaseTrace(){};	
 	JxBaseTrace(Object owner) 
 	{
 		m_owner = owner;
 		m_datadir = "c:/temp/";
 		m_curdbname = "";
 	}
-    
 	JxBaseTrace(Object owner, String datadir)
 	{
 		m_owner = owner;
@@ -46,40 +45,33 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_curdbname = "";
 	}
 	
+	
 	public Object getOwner()
 	{
 		return m_owner;
 	};
-	
 	public void setOwner(Object owner)
 	{ 
 		m_owner=owner;
 	};
 
-	public void openDatabase()
-	{
-		
-	};
-	
-	public void closeDatabase()
-	{
-		
-	};	
-	
-
 	public void open(String datadir)
 	{
 	  try {
 			Class.forName("org.hsqldb.jdbcDriver");
-			String databasename = getNextDatabaseDir();
 			con = DriverManager.getConnection("jdbc:hsqldb:file:"
 					+ datadir + ";shutdown=true", "sa", "");
 			sta = con.createStatement();
-		} catch (SQLException e) {
+	     } 
+	      catch (SQLException e) 
+	     {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+			
+	     } 
+	      catch (ClassNotFoundException e) 
+	     {
 			e.printStackTrace();
-		}	
+	     }	
 	}
 	
 	public void open()
@@ -92,16 +84,14 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** Free resources allocated to this object. */
 	public void close()
 	{		
-		   //if (database is still open)
-		 {
-			try{
-				sta.close();
-				con.close();
-			} catch (SQLException e) {
+		try{
+			 sta.close();
+			 con.close();
+		   } 
+		    catch (SQLException e) 
+		   {
 				con = null;
-			}
-		 }
-     		
+		   } 		
 	}
 	
 	/*
@@ -130,7 +120,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 		
 	}
-
 	/**
 	 * Save the collection of all nodes into database.
 	 *
@@ -176,7 +165,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 	/**
 	 * Save the relation collection object into the database.
-	 * 
 	 * @param relations
 	 */
 	public void save( JiBaseRelationCollection relations )
@@ -194,7 +182,7 @@ public class JxBaseTrace implements JiBaseTrace {
 
 				String relation_id = Integer.toString(relation.getId()); // ×ª»»Îª×Ö·û´®
 				String node_from = Integer.toString(relation.getNodeFrom().getId());
-				String node_to = Integer.toString(relation.getNodeTo());
+				String node_to = Integer.toString(relation.getNodeTo().getId());
 
 				String insert_edgetable = "Insert into " + edge_tablename
 						+ "(EDGEID,NODE_FROM,NODE_TO) VALUES (" + relation_id
@@ -214,6 +202,16 @@ public class JxBaseTrace implements JiBaseTrace {
 	 * 
 	 * @param nodes An JiBaseNodeCollection object containing the nodes loaded.
 	 */
+	
+	
+	public void load(JiBaseNodeCollection nodes)
+	{
+	     	
+	}
+	public void load(JiBaseRelationCollection relations)
+	{
+	  	
+	}
 
 	public void trace( JiBaseNode node )
 	{
