@@ -1,3 +1,0 @@
-libtrace4m
-
-This project will create a jar file(or class folder) for matlab. So that matlab can easily access the trace records of nsc/nse.

@@ -226,7 +226,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	 * such as node queue length and relation transmission traffic will be saved
 	 * into trace data files.
 	 * 
-	 * This function is usually called when the simulation start. 
+	 * This function is usually called when the simulation start.
+	 * 
+	 * Q: What's an snapshot?
+	 * R: ...
 	 *  
 	 * @param nodes
 	 * @param relations
@@ -238,6 +241,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	@Override
 	/** ×÷ÓÃ £¿£¿*/
+	// can add lastsnapshot time, default time 0
     public void restore( String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
 	{		
 		open( datadir );
