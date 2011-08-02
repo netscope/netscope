@@ -12,6 +12,12 @@ import java.util.*;
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
+ * Hierchical architecture:
+ * 
+ *  	App: MATLAB Based
+ *  	Middle: Trace Loader
+ *  	Low: Database
+ *  
  * @author Allen
  *
  */
