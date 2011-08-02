@@ -13,6 +13,7 @@ public class JxBaseTest {
 		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
 		engine.setInteraction(new JxBaseInteraction(engine));
 		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
+		
 		engine.execute(10000);
 	}
 
@@ -31,8 +32,8 @@ public class JxBaseTest {
        
 		/** restore 函数的作用 */
 		engine.restore( "/temp/expr/20110722-124512-01" );
-		engine.setInteraction(new JxBaseInteraction(engine));
-		engine.execute(10000);
+		//engine.setInteraction(new JxBaseInteraction(engine));
+		//engine.execute(10000);
 	}
 	
 	void test3()

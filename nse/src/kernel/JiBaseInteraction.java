@@ -29,6 +29,5 @@ public interface JiBaseInteraction {
 	 * Perform interaction among some nodes describe by the relation object.
 	 * @param relation
 	 */
-	//public void interact(JiBaseRelation relation);
 	public void interact(JiBaseRelation relation, JiBaseTrace trace);
 }

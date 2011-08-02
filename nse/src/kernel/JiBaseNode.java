@@ -8,7 +8,7 @@ package kernel;
  * @modified by Allen on 2011.07.08
  */
 
-public interface JiBaseNode {
+   public interface JiBaseNode {
 	
 	/**
 	 * Return the Id of the current node object. 

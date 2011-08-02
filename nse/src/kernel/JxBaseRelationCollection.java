@@ -67,15 +67,19 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	 * do so.
 	 */
 	public void generate( int count )
-	{
-		JxBaseEngine engine = (JxBaseEngine)m_owner;
-		Random random = JxBaseFoundation.random();
-		JxBaseTrace trace = (JxBaseTrace)engine.getTrace();	
+	{   
+	      for(int i=0;i<count;i++)
+	     {   
+	 		super.add( new JxBaseRelation() );	
+	     }
+	      
+	     // JxBaseEngine engine = (JxBaseEngine)m_owner;
+		//JxBaseTrace trace = (JxBaseTrace)engine.getTrace();	
 	}
 	
 	public void generate()
 	{
-		this.generate(1000);
+		this.generate(10000);
 	}
 
 	public JiBaseRelation search(int id)

@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-   //路径+数据库名+用法
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
@@ -109,12 +108,12 @@ public class JxBaseTraceLoader {
 	{	
 		return null;
 	}
-	
+	/**load the node topology information at a experiment */
 	public ArrayList<JxBaseNode> loadnat( int time )
 	{
 		return null;
 	}
-	
+    /**load the relation topology information at a experiment*/
 	public ArrayList<JxBaseRelation> loadrat( int time )
 	{
 		return null;

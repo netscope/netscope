@@ -11,6 +11,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	
 	
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
+	
 	protected ArrayList<JiBaseNode> m_nodes = new ArrayList<JiBaseNode>();
 	
 	

@@ -85,7 +85,6 @@ public class JxBaseNode implements JiBaseNode {
    public String toString() { 
 		return String.format( "JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d]", m_id, m_loc_x, m_loc_y,
 				m_loc_z, m_length );
-		// "JxBaseNode [id="+ m_id +", x= " + m_loc_x + ", y=" + m_loc_y +", length=" + m_length +"]";
 	}
 
 	/**

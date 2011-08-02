@@ -14,15 +14,15 @@ public interface JiBaseRelation {
 	public void setOwner( Object owner );
 	
 	public JiRelationType getType();
-	public void setType(JiRelationType type);
+	public void setType( JiRelationType type );
 	
 	
 	/**
 	 * Get all the nodes in the relation object.
-	 * 
+	 *  
 	 * The nodes relation depends on the relation type:
-	 * 	- If the relation type is BI_DIRECTION_RELATION, then "nodefrom" is the first
-	 * element in the list, and "nodeto" is the second element. 
+	 * 	- If the relation type is BI_DIRECTION_RELATION, then "node from" is the first
+	 * element in the list, and "node to" is the second element. 
 	 * 	- If the relation type is BROADCAST_RELATION, then the first node is the one 
 	 * doing broadcasting, and all other nodes are listeners.
 	 * 	

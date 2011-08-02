@@ -8,16 +8,18 @@ import java.util.Random;
  * 
  * @author Allen
  * 
- *         The layer architecture of network netscope base network simulation:
+ *         The layer architecture of network net scope base network simulation:
  * 
- *         - Top Layer: Extended Layer (for user application) - Middle Layer:
+ *         - Top Layer: Extended Layer (for user application) -
+ *          Middle Layer:
  *         JxBaseEngine: The developer can create there own simulators by
  *         extending this class, or build their own. JxBaseNode,
  *         JxBaseNodeCollection, JxBaseRelation, JxBaseRelationCollection,
  *         JxBaseInteraction: They're the basic building blocks for a simulator.
  *         The JxBaseEngine is built on them. JiBaseNode, JiBaseNodeCollection,
  *         JiBaseRelation, JiBaseRelationCollection, JiBaseInteraction: Provides
- *         fundamental interface for future extension. - Bottom Layer:
+ *         fundamental interface for future extension. 
+ *         - Bottom Layer:
  *         JxFoundation: Provides the context and some commonly used components
  *         such as simulation time, random number generator, events, event queue
  *         and event dispatcher.
@@ -82,21 +84,22 @@ import java.util.Random;
 	 *         This function should return true or else the later execute() will
 	 *         stop.
 	 */
-	public boolean init(JiBaseNodeCollection nodes,JiBaseRelationCollection relations, JiBaseInteraction interaction, JiBaseTrace trace)
+	public boolean open(JiBaseNodeCollection nodes,JiBaseRelationCollection relations, JiBaseInteraction interaction, JiBaseTrace trace)
 	{
 		m_nodes = nodes;
 		m_relations = relations;
 		m_interaction = (JxBaseInteraction)interaction;
 		m_trace = (JxBaseTrace)trace;
-	
+
+		m_nodes.setTrace(m_trace);
+		m_relations.setTrace(m_trace);
+		m_interaction.setTrace(m_trace);
+
 		//打开数据库
 		m_trace.open();
 
-		m_nodes.setTrace(trace);
-		m_relations.setTrace(trace);
-		m_interaction.setTrace(trace);
-
 		//生成边
+		m_nodes.generate(10000);
 		m_relations.generate();
 	    
 		/**保存点-边*/
@@ -134,7 +137,7 @@ import java.util.Random;
 		String tracename=relationsclass.getName();
 		
 		/** 用处？？*/
-		return open( nodesname,  relationsname,interactionname, tracename);
+		return open( nodesname,relationsname,interactionname, tracename );
 	}
 
 	/** 用处?? */
@@ -168,7 +171,8 @@ import java.util.Random;
 	/**
 	 * @brief Release resources allocated in open() function.
 	 */
-	public void close() {
+	public void close() 
+	{
 		m_trace.close();
 	}
     
@@ -176,13 +180,11 @@ import java.util.Random;
 	public void step() 
 	{
 		m_relations.randomize();
-		
 		Iterator<JiBaseRelation> it = m_relations.iterator();
 
 		while (it.hasNext())
 		{
 			JiBaseRelation relation = (JiBaseRelation) it.next();
-			// 为何要用trace
 			m_interaction.interact(relation, m_trace);
 		}
 	}
@@ -196,14 +198,11 @@ import java.util.Random;
 			    close();
 		}
 		else{
-		      m_trace.open();
-		      
+		      m_trace.open();	      
 		      for (int i = 0; i < stepcount; i++)
 			        step();
 		       m_trace.close();
 		}
-		// So We call system.runFinalization() in the engine to force
-		// the JVM to call finalize() of each revoked objects.
 		System.runFinalization();
 	}
 
@@ -215,15 +214,14 @@ import java.util.Random;
 
 		return m_nodes;
 	}
-
 	public void setNodes(JiBaseNodeCollection nodes) {
 		m_nodes = nodes;
 	}
 
+	
 	public JiBaseRelationCollection getRelations() {
 		return m_relations;
 	}
-
 	public void setRelations(JiBaseRelationCollection relations) {
 		m_relations = relations;
 	}
@@ -238,7 +236,6 @@ import java.util.Random;
 	public JiBaseTrace getTrace() {
 		return m_trace;
 	}
-
 	public void setTrace(JiBaseTrace trace) {
 		m_trace = (JxBaseTrace) trace;
 	}
@@ -249,7 +246,8 @@ import java.util.Random;
 	 * 
 	 * @return Node count in the simulated application.
 	 */
-	int nodecount() {
+	int nodecount() 
+	{
 		return m_nodes.count();
 	}
 
@@ -282,6 +280,7 @@ import java.util.Random;
 	{
 		
 	}
+	
 	public void load(JiBaseRelationCollection relations)
 	{
 		
@@ -301,18 +300,18 @@ import java.util.Random;
 		JiBaseRelationCollection relations = null;
 		JiBaseInteraction interaction = null;
 
-	 try {
+	   try {
 			trace = (JiBaseTrace) JxBaseFoundation.createObject(traceclass);
 			nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesclass);
 			relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsclass);
 			interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionclass);
 		} catch (Exception e) {
 		}
-		  this.setTrace(trace);
-		  this.setNodes(nodes);
-		  this.setRelations(relations);
-		  this.setInteraction(interaction);
+		  setTrace(trace);
+		  setNodes(nodes);
+		  setRelations(relations);
+		  setInteraction(interaction);
 		  trace.restore(dbname, nodes, relations);
-	 }
+    }
 
 }

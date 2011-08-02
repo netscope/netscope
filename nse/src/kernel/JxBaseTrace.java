@@ -53,6 +53,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_owner=owner;
 	};
 
+   /**打开数据库*/
 	public void open(String datadir)
 	{
 	  try {
@@ -61,15 +62,11 @@ public class JxBaseTrace implements JiBaseTrace {
 					+ datadir + ";shutdown=true", "sa", "");
 			sta = con.createStatement();
 	     } 
-	      catch (SQLException e) 
+	      catch (Exception e) 
 	     {
 			e.printStackTrace();
 			
-	     } 
-	      catch (ClassNotFoundException e) 
-	     {
-			e.printStackTrace();
-	     }	
+	     }
 	}
 	
 	public void open()
@@ -211,11 +208,11 @@ public class JxBaseTrace implements JiBaseTrace {
 	  	
 	}
 
+	/**单个节点保存*/
 	public void trace( JiBaseNode node )
 	{
 		
-	}
-		
+	}	
 	public void trace( JiBaseRelation relation )
 	{
 		
