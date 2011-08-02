@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public interface JiBaseNodeCollection {
 	
-	public void generate( int count );
+	
+	public void generate( int nodecount );
 	public void setTrace( JiBaseTrace trace );
 	
 	public int count();
 	public JiBaseNode get(int index);
-	public JiBaseNode set( int idx, JiBaseNode node );
+	public JiBaseNode set( int id, JiBaseNode node );
 
 	public boolean add( JiBaseNode node );
 	public void add(int index, JiBaseNode node );

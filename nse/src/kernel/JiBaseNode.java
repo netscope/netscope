@@ -35,7 +35,7 @@ public interface JiBaseNode {
 	 */
 	public int getValue();
 	public void setValue(int value);
-   
+	
     public int getX();  
     public void setX(int x);
   

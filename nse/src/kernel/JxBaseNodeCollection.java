@@ -11,25 +11,30 @@ import java.util.Random;
  *
  */
 public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBaseNodeCollection {
-
+    
 	private static final long serialVersionUID = 1L;
+	
 	Object m_owner;
+	
 	JiBaseTrace m_trace = null;
+	
 	Random m_random = JxBaseFoundation.random();
+	
+	JxBaseNodeCollection( )
+	{
+		m_owner = null;
+	}
 	
 	JxBaseNodeCollection( Object owner, int count )
 	{
 		m_owner = owner;
-		this.generate( count );
+		generate( count );
 	}
 	
 	public void generate( int count )
 	{
-		// todo 
-		// generate count nodes and add them into the collection
-		
-		for (int i=0; i<count; i++)
-			super.add( new JxBaseNode(this, i) );		
+	   for (int i=0; i<count; i++)
+		super.add( new JxBaseNode(this, i) );		
 	}
 	
 	public void setTrace( JiBaseTrace trace )
@@ -42,7 +47,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	 */
 	public int count() 
 	{  
-	 return super.size();
+	   return super.size();
 	}
 	
 	/** Get the node at specified index */
@@ -95,8 +100,8 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	 * @param id
 	 * @return
 	 */
-	public JiBaseNode search( int id ){
-		
+	public JiBaseNode search( int id )
+	{
 		boolean found = false;
 		JiBaseNode node = null;
 		for (int i=0; i<super.size(); i++){
@@ -128,7 +133,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
 		
 		return neighbors;
-	}
+	} 
 	
 	/**
 	 * Returns all the neighbor node around some node in a ArrayList. 
@@ -138,7 +143,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	public ArrayList<JiBaseNode> neighborsof( JiBaseNode node, int distance )
 	{
 		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
-		
+
 		return neighbors;
 	}
 	
@@ -150,12 +155,11 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	public ArrayList<JiBaseRelation> relationsof( JiBaseNode node )
 	{
 		ArrayList<JiBaseRelation> relations = new ArrayList<JiBaseRelation>();
-		
 		return relations;
 	}	
 	
     public void randomize()
     {
-    	// todo
+    
     }	
 }

@@ -5,11 +5,15 @@ import java.util.Iterator;
 public interface JiBaseRelationCollection {
 	
 	public void setTrace( JiBaseTrace trace );
-	
-    public int count();
-	public boolean add(JiBaseRelation relation);
-	
-	public void generate();
-    public void randomize();	
+	public boolean add( JiBaseRelation relation );
     Iterator<JiBaseRelation> iterator();
+	
+  
+    public int count();	
+	
+    public void generate();
+    public void randomize();	
+    
+    public JiBaseRelation get(int index); 
+  
 }

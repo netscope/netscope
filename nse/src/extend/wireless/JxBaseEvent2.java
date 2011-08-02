@@ -31,6 +31,8 @@ package extend.wireless;
  * the simulation.
  * 
  * @author Gyorgy Balogh, Gabor Pap, Miklos Maroti
+ * 
+ * 
  */
 public class JxBaseEvent2 implements Comparable{  //й╣ож
 
