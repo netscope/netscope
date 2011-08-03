@@ -1,4 +1,4 @@
-package kernel;
+package kernel.basetrace;
 
 import java.util.ArrayList;
 import java.sql.ResultSet;
@@ -10,11 +10,18 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import kernel.JiBaseNodeCollection;
+import kernel.JiBaseRelationCollection;
+import kernel.JxBaseNode;
+import kernel.JxBaseNodeCollection;
+import kernel.JxBaseRelation;
+import kernel.JxBaseRelationCollection;
+
    //路径+数据库名+用法
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
- * Hierchical architecture:
+ * Hierachical architecture:
  * 
  *  	App: MATLAB Based
  *  	Middle: Trace Loader
@@ -42,46 +49,17 @@ import java.util.*;
  */
 public class JxBaseTraceLoader {
 
-	public class JxBaseTraceNode extends JxBaseNode {};
-	public class JxBaseTraceRelation extends JxBaseRelation {};
-	
-	public class JxBaseTraceNodeRecord
-	{
-		public int time;
-		public JxBaseNode node;
-	}
-	
-	public class JxBaseRelationTraceRecord
-	{
-		public int time;
-		public JxBaseRelation relation;
-	}
-
-	public class JxBaseTraceNodeCollection{
-		JxBaseTraceLoader m_owner = null;
-		JxBaseTraceNodeCollection(JxBaseTraceLoader owner) {m_owner = owner;};
-		public ArrayList<JxBaseTraceNode> loadmeta()
-		{
-			
-		}
-		public ArrayList<JxBaseTraceNodeRecord> loadtrace()
-		{
-			
-		}
-	}
-	
-	
 	protected String m_datadir = "d:/data/netscope/";
 	protected String m_dbname = null;
 	java.sql.Connection m_connection = null;
-	JxBaseNodeCollection m_nodes;
-	JxBaseRelationCollection m_relations;
-	//protected JxNodeTrace m_nodetrace;
+
+	JxBaseTraceMetaSet m_metaset;  
+	JxBaseTraceDataSet m_dataset;
 	
 	JxBaseTraceLoader()
 	{
-		m_nodes = new JxBaseNodeCollection(this);
-		m_relations = new JxBaseRelationCollection(this);
+		m_metaset = new JxBaseTraceMetaSet(this);
+		m_dataset = new JxBaseTraceDataSet(this);
 	}
 	
 	/**
@@ -114,21 +92,23 @@ public class JxBaseTraceLoader {
 			m_connection.close();
 	}
 
-	JxBaseNodeCollection nodes()
+	JxBaseTraceMetaSet metaset()
 	{
-		return m_nodes;
+		return m_metaset;
 	}
 	
-	JxBaseNodeCollection relations()
+	JxBaseTraceDataSet dataset()
 	{
-		return m_relations;
-	}
-/*	
-	public ArrayList<JxBaseNode> loadNodeMeta( )
-	{
-		return null;		
+		return m_dataset;
 	}
 	
+	
+	public JxBaseNode[] loadNodeMeta( )
+	{
+		return m_metaset.loadnode();
+	}
+	
+	/*	
 	public ArrayList<JxBaseRelation> loadRelationMeta()
 	{
 		return null;
@@ -139,15 +119,11 @@ public class JxBaseTraceLoader {
 		
 	}
 	
-	public ArrayList<JxBaseRelationTraceRecord> loadRelationTracee( int begintime, int endtime )
+	public ArrayList<JxBaseRelationTraceRecord> loadRelationTrace( int begintime, int endtime )
 	{
 		
 	}
 */	
-	void loadSnapShot( int time, NODE|RELATIONS )
-	{
-		
-	}
 	
 	/** Returns an standard ResultSet object associate with an SQL SELECT clause.
 	 * @param sql An SQL SELECT clause.
@@ -158,46 +134,4 @@ public class JxBaseTraceLoader {
 		Statement sta = m_connection.createStatement();
 		return sta.execute(cmd);
 	}
-
-	
-	/** 
-	 * Load meta nodes data from database into an JiBaseNodeCollection object  
-	 * 
-	 * @param nodes An JiBaseNodeCollection object containing the nodes loaded.
-	 */
-	public void loadmeta( JiBaseNodeCollection nodes )
-	{
-		
-	}
-	
-	public void loadmeta( JiBaseRelationCollection relations )
-	{
-		
-	}
-/*
-	public ArrayList<JxNodeTraceRecord> loadntrace( int begintime, int endtime )
-	{
-		return null;
-	}
-	
-	public ArrayList<JxRelationTraceRecord> loadrtrace( int begintime, int endtime )
-	{	
-		return null;
-	}
-	
-	public ArrayList<JxBaseNode> loadnat( int time )
-	{
-		return null;
-	}
-	
-	public ArrayList<JxBaseRelation> loadrat( int time )
-	{
-		return null;
-	}
-	
-	public ArrayList<JxBaseNode> select( int begintime, int endtime, int filter )
-	{
-		return null;
-	}	
-*/
 }
