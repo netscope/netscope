@@ -44,35 +44,46 @@ public class JxBaseTraceLoader {
 	public class JxBaseTraceNode extends JxBaseNode {};
 	public class JxBaseTraceRelation extends JxBaseRelation {};
 	
+	
 	public class JxBaseTraceNodeRecord
 	{
 		public int time;
+		public int quelength;
 		public JxBaseNode node;
 	}
 	
 	public class JxBaseRelationTraceRecord
 	{
 		public int time;
+		public int queLength; 
 		public JxBaseRelation relation;
 	}
-
-	public class JxBaseTraceNodeCollection{
+    
+	public class JxBaseTraceNodeCollection
+	{
+		
 		JxBaseTraceLoader m_owner = null;
-		JxBaseTraceNodeCollection(JxBaseTraceLoader owner) {m_owner = owner;};
+		
+		JxBaseTraceNodeCollection(JxBaseTraceLoader owner)
+		{
+			m_owner = owner;
+		};
+		
 		public ArrayList<JxBaseTraceNode> loadmeta()
 		{
-			
+			return null;
 		}
+		
 		public ArrayList<JxBaseTraceNodeRecord> loadtrace()
 		{
-			
+			return null;
 		}
 	}
-	
 	
 	protected String m_datadir = "d:/data/netscope/";
 	protected String m_dbname = null;
 	java.sql.Connection m_connection = null;
+	
 	JxBaseNodeCollection m_nodes;
 	JxBaseRelationCollection m_relations;
 	//protected JxNodeTrace m_nodetrace;
@@ -109,8 +120,15 @@ public class JxBaseTraceLoader {
 	 */
 	void close()
 	{
-		if (m_connection != null)
-			m_connection.close();
+		if (m_connection != null)	
+	   
+		try{
+			 m_connection.close();
+		   }
+		    catch(Exception e)
+		   {
+		    	
+		   }
 	}
 
 	JxBaseNodeCollection nodes()
@@ -118,7 +136,7 @@ public class JxBaseTraceLoader {
 		return m_nodes;
 	}
 	
-	JxBaseNodeCollection relations()
+	JxBaseRelationCollection relations()
 	{
 		return m_relations;
 	}
@@ -138,24 +156,37 @@ public class JxBaseTraceLoader {
 		
 	}
 	
-	public ArrayList<JxBaseRelationTraceRecord> loadRelationTracee( int begintime, int endtime )
+	public ArrayList<JxBaseRelationTraceRecord> loadRelationTrace( int begintime, int endtime )
 	{
 		
 	}
 */	
-	void loadSnapShot( int time, NODE|RELATIONS )
+	void loadSnapShot( int time, JiBaseNode Node )
+	{
+		
+	}
+	
+
+	void loadSnapShot( int time, JiBaseRelation Relation )
 	{
 		
 	}
 	
 	/** Returns an standard ResultSet object associate with an SQL SELECT clause.
 	 * @param sql An SQL SELECT clause.
-	 * @return
+	 * @returndd
 	 */
 	public ResultSet select( String cmd )
 	{
-		Statement sta = m_connection.createStatement();
-		return sta.execute(cmd);
+	  ResultSet r=null;
+	  try{
+		    Statement sta = m_connection.createStatement();
+		    r=sta.executeQuery(cmd);
+	  }catch(Exception e){
+		  e.printStackTrace();
+	  }
+		
+		return  r ;
 	}
 
 	
@@ -198,5 +229,5 @@ public class JxBaseTraceLoader {
 	{
 		return null;
 	}	
-*/
+
 }

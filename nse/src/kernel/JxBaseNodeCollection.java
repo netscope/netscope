@@ -20,9 +20,14 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	
 	Random m_random = JxBaseFoundation.random();
 	
-	JxBaseNodeCollection( )
+	JxBaseNodeCollection()
 	{
 		m_owner = null;
+	}
+	
+	JxBaseNodeCollection(Object owner)
+	{
+		m_owner = owner;
 	}
 	
 	JxBaseNodeCollection( Object owner, int count )

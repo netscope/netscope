@@ -26,6 +26,14 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		m_trace = null;
 	}
 	
+
+	JxBaseRelationCollection(Object owner) 
+	{
+		m_owner = owner;
+		m_nodes = null;
+		m_trace = null;
+	}
+	
 	JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes, JiBaseTrace trace  )
 	{
 		m_owner = owner;
