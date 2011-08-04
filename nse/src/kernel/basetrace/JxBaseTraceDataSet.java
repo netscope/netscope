@@ -84,15 +84,11 @@ public class JxBaseTraceDataSet {
           int i = 0;
         
          while(r.next())
-         {    
-        	 String time=r.getString(1);
-    	     String nodeId=r.getString(2);
-    	     String str=time+nodeId;
-    	     int  id=Integer.parseInt(str);
-			 
-    	     int length = Integer.parseInt(r.getString(3));
+         {  
+			 int nodeId = Integer.parseInt(r.getString(2));
+			 int length = Integer.parseInt(r.getString(3));
     	     
-			 nodeSet[i++].setId(id);
+			 nodeSet[i++].setId(nodeId);
 			 nodeSet[i++].setValue(length);	
          }
       }catch(Exception e)
@@ -111,14 +107,10 @@ public class JxBaseTraceDataSet {
 	         
 	         while(r.next())
 	         {
-	        	 String time=r.getString(1);
-	        	 String nodeId=r.getString(2);
-	        	 String str=time+nodeId;
-	        	 int  id=Integer.parseInt(str);
-					
-	        	 int packet = Integer.parseInt(r.getString(3));
-	        	 
-				 relationSet[i++].setId(id);
+				 int relationId = Integer.parseInt(r.getString(2));
+				 int packet= Integer.parseInt(r.getString(3));
+					 
+				 relationSet[i++].setId(relationId);
 				 relationSet[i++].setPacket(packet);
 	         }
          }catch(Exception e)

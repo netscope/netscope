@@ -5,7 +5,6 @@ import java.util.Random;
 
 /**
  * JxBaseEngine
- * 
  * @author Allen
  * 
  *         The layer architecture of network net scope base network simulation:
@@ -43,7 +42,7 @@ import java.util.Random;
 	
 	String datadir=null;
  
-	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstandce();
+	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance();
 
 	/** Node collection. It contains all the nodes */
 	private JiBaseNodeCollection m_nodes = null;

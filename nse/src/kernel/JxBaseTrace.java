@@ -237,7 +237,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 	
 	@Override
-	/** ×÷ÓÃ £¿£¿*/
+	/** */
 	// can add lastsnapshot time, default time 0
     public void restore( String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
 	{		

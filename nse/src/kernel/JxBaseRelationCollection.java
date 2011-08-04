@@ -10,13 +10,17 @@ import java.util.Random;
  * @author Allen
  *
  */
-public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implements JiBaseRelationCollection {
+public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implements JiBaseRelationCollection 
+{
 	
 	private static final long serialVersionUID = 1L;
 	
 	Object m_owner = null;
 	JxBaseNodeCollection m_nodes = null;
+	JxBaseRelation m_relation=null;
+	
 	JxBaseTrace m_trace = null;
+	
 	Random m_random = JxBaseFoundation.random();
 
 	JxBaseRelationCollection() 
@@ -68,7 +72,10 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	{ 
 	  return super.get(index); 
 	}
-	
+	public JiBaseRelation set(int index,JiBaseRelation relation)
+	{
+		return super.set(index, relation);
+	}	
 	/** 
 	 * Generate relation objects into the relation collection. These objects 
 	 * may describe the network topology as a graph, but it's not mandatory to 
@@ -80,9 +87,6 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	     {   
 	 		super.add( new JxBaseRelation() );	
 	     }
-	      
-	     // JxBaseEngine engine = (JxBaseEngine)m_owner;
-		//JxBaseTrace trace = (JxBaseTrace)engine.getTrace();	
 	}
 	
 	public void generate()
@@ -145,7 +149,16 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	}
 	
     public void randomize()
-	{
-		
+	{  
+    	int count=this.count();
+    	
+		for(int i=0;i<count;i++)
+		{  
+			int temp=m_random.nextInt(count-i)+i;
+		    
+			JiBaseRelation tempRelation=this.get(temp);	
+			this.set(temp, this.get(i));	
+			this.set(i, tempRelation);
+		}	
 	}
  }

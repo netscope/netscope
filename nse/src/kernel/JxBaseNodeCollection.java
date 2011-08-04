@@ -15,9 +15,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	private static final long serialVersionUID = 1L;
 	
 	Object m_owner;
-	
 	JiBaseTrace m_trace = null;
-	
 	Random m_random = JxBaseFoundation.random();
 	
 	JxBaseNodeCollection()
@@ -164,7 +162,16 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	}	
 	
     public void randomize()
-    {
+    {int count=this.count();
+	
+	for(int i=0;i<count;i++)
+	{  
+		int temp=m_random.nextInt(count-i)+i;
+	    
+		JiBaseNode tempNode=this.get(temp);	
+		this.set(temp, this.get(i));	
+		this.set(i,tempNode);
+	}	
     
     }	
 }

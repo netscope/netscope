@@ -32,8 +32,6 @@ public class JxBaseTest {
        
 		/** restore 函数的作用 */
 		engine.restore( "/temp/expr/20110722-124512-01" );
-		//engine.setInteraction(new JxBaseInteraction(engine));
-		//engine.execute(10000);
 	}
 	
 	void test3()
