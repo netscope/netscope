@@ -1,6 +1,5 @@
 package kernel.basetrace;
 
-import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,20 +7,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.*;
+
 
 import kernel.JiBaseNodeCollection;
 import kernel.JiBaseRelationCollection;
+import kernel.JiBaseRelation;
 import kernel.JxBaseNode;
 import kernel.JxBaseNodeCollection;
-import kernel.JxBaseRelation;
+import kernel.JiBaseRelation;
 import kernel.JxBaseRelationCollection;
 
-   //路径+数据库名+用法
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
- * Hierachical architecture:
+ * Hierarchical architecture:
  * 
  *  	App: MATLAB Based
  *  	Middle: Trace Loader
@@ -51,7 +50,9 @@ public class JxBaseTraceLoader {
 
 	protected String m_datadir = "d:/data/netscope/";
 	protected String m_dbname = null;
-	java.sql.Connection m_connection = null;
+	
+	Connection m_connection = null;
+	Statement m_statement=null;
 
 	JxBaseTraceMetaSet m_metaset;  
 	JxBaseTraceDataSet m_dataset;
@@ -63,28 +64,31 @@ public class JxBaseTraceLoader {
 	}
 	
 	/**
-	 * Open an trace dataset for reading. 
+	 * Open an trace data set for reading. 
 	 * 
 	 * @param datadir
 	 * @param dbname
 	 */
 	void open(String datadir, String dbname) 
 	{
-		try {
+	   try {
 			Class.forName("org.hsqldb.jdbcDriver");
 			m_connection = DriverManager.getConnection("jdbc:hsqldb:file:" + datadir
 					+ ";shutdown=true", "sa", "");
-		} catch (SQLException e) {
+			m_statement=m_connection.createStatement();
+			
+		} catch (SQLException e) 
+		{
 			e.printStackTrace();
-
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) 
+		{
 			e.printStackTrace();
 			m_connection = null;
 		}
 	}
 	
 	/**
-	 * Close an trace dataset opened before.
+	 * Close an trace data set opened before.
 	 */
 	void close()
 	{
@@ -109,38 +113,9 @@ public class JxBaseTraceLoader {
 		return m_dataset;
 	}
 	
-	
-	public JxBaseNode[] loadNodeMeta( )
-	{
-		return m_metaset.loadnode();
-	}
-	
-	/*	
-	public ArrayList<JxBaseRelation> loadRelationMeta()
-	{
-		return null;
-	}
-	
-	public ArrayList<JxBaseNodeTraceRecord> loadNodeTrace( int begintime, int endtime )
-	{
-		
-	}
-	
-	public ArrayList<JxBaseRelationTraceRecord> loadRelationTrace( int begintime, int endtime )
-	{
-		
-	}
-*/	
-	
-
-	void loadSnapShot( int time, JiBaseRelation Relation )
-	{
-		
-	}
-	
 	/** Returns an standard ResultSet object associate with an SQL SELECT clause.
 	 * @param sql An SQL SELECT clause.
-	 * @returndd
+	 * @return
 	 */
 	public ResultSet select( String cmd )
 	{
@@ -148,10 +123,11 @@ public class JxBaseTraceLoader {
 	  try{
 		    Statement sta = m_connection.createStatement();
 		    r=sta.executeQuery(cmd);
-	  }catch(Exception e){
-		  e.printStackTrace();
 	  }
-		
+	  catch(Exception e)
+	  {
+		  e.printStackTrace();
+	  }	
 		return  r ;
 	}
 }

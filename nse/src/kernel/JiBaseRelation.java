@@ -32,8 +32,8 @@ public interface JiBaseRelation {
     
 	public int getBandWidth();
 	
-	public int getPacketSum();
-	public void setPacketSum(int sum);
+	public int getPacket();
+	public void setPacket(int sum);
 
 	public JiBaseNode getNodeFrom();
 	public JiBaseNode getNodeTo();

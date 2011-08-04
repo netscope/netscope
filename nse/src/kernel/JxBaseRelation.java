@@ -186,11 +186,11 @@ public class JxBaseRelation implements JiBaseRelation {
 	}
 	
 	
-	public int getPacketSum()
+	public int getPacket()
 	{
        return m_packetsum;		
 	}
-	public void setPacketSum(int sum)
+	public void setPacket(int sum)
 	{
 		m_packetsum=sum;
 	}

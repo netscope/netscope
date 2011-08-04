@@ -42,6 +42,4 @@ package kernel;
     public int getY();
     public void setY(int y);
 
-    public int getZ();
-    public void setZ(int z);
 }

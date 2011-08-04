@@ -5,7 +5,6 @@ public class JxBaseNode implements JiBaseNode {
 	protected Object m_owner;
 	protected int m_loc_x;
 	protected int m_loc_y;
-	protected int m_loc_z;
 	protected int m_length = 0;
 	protected int m_capacity = 0; 
 	protected int m_degree = 0;
@@ -14,7 +13,7 @@ public class JxBaseNode implements JiBaseNode {
     	m_id = 0;
     	m_loc_x = 0;
     	m_loc_y = 0;
-    	m_loc_z = 0;
+    
     	m_length = 0;
     	m_capacity = 0;
     	m_degree = 0;
@@ -25,7 +24,7 @@ public class JxBaseNode implements JiBaseNode {
     	m_id = id;
     	m_loc_x = 0;
     	m_loc_y = 0;
-    	m_loc_z = 0;
+   
     	m_length = 0;
     	m_capacity = 0;
     	m_degree = 0;
@@ -35,7 +34,7 @@ public class JxBaseNode implements JiBaseNode {
     	m_id = id;
     	m_loc_x = 0;
     	m_loc_y = 0;
-    	m_loc_z = 0;
+    
     	m_length = 0;
     	m_capacity = 0;
     	m_degree = 0;
@@ -45,7 +44,7 @@ public class JxBaseNode implements JiBaseNode {
     	m_id = id;
     	m_loc_x = x;
     	m_loc_y = y;
-    	m_loc_z = 0;
+    
      	m_length = 0;
      	m_capacity = 0;
      	m_degree = 0;
@@ -55,7 +54,7 @@ public class JxBaseNode implements JiBaseNode {
 	   m_id = id;
    		m_loc_x = x;
    		m_loc_y = y;
-   		m_loc_z = x;
+   	
     	m_length = 0;
     	m_capacity = 0;
     	m_degree = 0;
@@ -65,7 +64,7 @@ public class JxBaseNode implements JiBaseNode {
 		m_id =id;
 		m_loc_x = x;
 		m_loc_y = y;
-		m_loc_z = x;
+	
     	m_length = 0;
 		m_capacity = capacity;
     	m_degree = 0;
@@ -75,7 +74,7 @@ public class JxBaseNode implements JiBaseNode {
 		m_id =id;
 		m_loc_x = x;
 		m_loc_y = y;
-		m_loc_z = x;
+		
    	m_length = length;
 		m_capacity = capacity;
    	m_degree = 0;
@@ -83,8 +82,8 @@ public class JxBaseNode implements JiBaseNode {
    
 	@Override
    public String toString() { 
-		return String.format( "JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d]", m_id, m_loc_x, m_loc_y,
-				m_loc_z, m_length );
+		return String.format( "JxBaseNode [id=%d, x=%d, y=%d, length=%d]", m_id, m_loc_x, m_loc_y,
+				 m_length );
 	}
 
 	/**
@@ -93,7 +92,7 @@ public class JxBaseNode implements JiBaseNode {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31; // ËØÊý
+		final int prime = 31; 
 		int result = 1;
 		result = prime * result + m_id;
 		result = prime * result + m_owner.hashCode();
@@ -129,8 +128,6 @@ public class JxBaseNode implements JiBaseNode {
 		if (m_loc_x != other.m_loc_x)
 			return false;
 		if (m_loc_y != other.m_loc_y)
-			return false;
-		if (m_loc_z != other.m_loc_z)
 			return false;
 		
 		return true;
@@ -196,14 +193,6 @@ public class JxBaseNode implements JiBaseNode {
 		m_loc_y = y;
 	}
 
-	@Override
-	public int getZ() {
-		return m_loc_z;
-	}
-
-	@Override
-	public void setZ(int z) {
-		m_loc_z = z;
-	}	
+	
 }
 
