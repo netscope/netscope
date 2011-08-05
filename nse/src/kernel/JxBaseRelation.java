@@ -160,10 +160,14 @@ public class JxBaseRelation implements JiBaseRelation {
 	 *  
 	 * @return
 	 */
-	public JiBaseNode getNodeFrom(){
+	public JiBaseNode getNodeFrom()
+	{
 		return  m_nodes.get(0);
 	}
-	
+	public void setNodeFrom(JiBaseNode nodeFrom)
+	{
+		m_nodefrom=nodeFrom;
+	}
 	
 	/**
 	 * Returns the second one in the node list of the current relation object.
@@ -175,7 +179,10 @@ public class JxBaseRelation implements JiBaseRelation {
 		return m_nodes.get(1);
 	}
 	
-	
+	public void setNodeTo(JiBaseNode nodeTo)
+	{
+		m_nodeto=nodeTo;
+	}
 	public int getBandWidth()
 	{
 		return m_bandwidth;

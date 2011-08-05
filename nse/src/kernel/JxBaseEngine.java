@@ -135,7 +135,7 @@ import java.util.Random;
 		Class traceclass=nodes.getClass();
 		String tracename=relationsclass.getName();
 		
-		/** ”√¥¶£ø£ø*/
+		/**  */
 		return open( nodesname,relationsname,interactionname, tracename );
 	}
 
@@ -179,7 +179,9 @@ import java.util.Random;
 	public void step(int time) 
 	{
 		m_relations.randomize();
-		Iterator<JiBaseRelation> it = m_relations.iterator();
+		
+		JxBaseRelationCollection currentRelation=(JxBaseRelationCollection)m_relations;
+		Iterator<JiBaseRelation> it = currentRelation.iterator();
 
 		while (it.hasNext())
 		{
@@ -313,13 +315,18 @@ import java.util.Random;
 			nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesclass);
 			relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsclass);
 			interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionclass);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 		  setTrace(trace);
 		  setNodes(nodes);
 		  setRelations(relations);
 		  setInteraction(interaction);
-		  trace.restore(dbname, nodes, relations);
+		    
+		  int time=0;
+		  
+		  trace.restore(time,dbname, nodes, relations);
     }
 
 }

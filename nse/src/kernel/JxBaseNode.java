@@ -65,9 +65,9 @@ public class JxBaseNode implements JiBaseNode {
 		m_loc_x = x;
 		m_loc_y = y;
 		
-   	m_length = length;
+     	m_length = length;
 		m_capacity = capacity;
-   	m_degree = 0;
+     	m_degree = 0;
 	}
    
 	@Override

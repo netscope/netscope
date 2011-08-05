@@ -9,7 +9,8 @@ public interface JiBaseNodeCollection {
 	public void setTrace( JiBaseTrace trace );
 	
 	public int count();
-	public JiBaseNode get(int index);
+	
+	public JiBaseNode get( int index );
 	public JiBaseNode set( int id, JiBaseNode node );
 
 	public boolean add( JiBaseNode node );
@@ -18,7 +19,7 @@ public interface JiBaseNodeCollection {
 	public JiBaseNode remove( int idx );
 	public boolean remove( JiBaseNode node );
 
-	public int indexOf(JiBaseNode node);
+	public int indexOf( JiBaseNode node );
 	
 	/** 
 	 * Searching for the node object with specified identifier in the collection 

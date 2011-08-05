@@ -36,7 +36,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	
 	public void generate( int count )
 	{
-	   for (int i=0; i<count; i++)
+	    for (int i=0; i<count; i++)
 		super.add( new JxBaseNode(this, i) );		
 	}
 	
@@ -61,9 +61,9 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	}
 	
 	//@Override
-	public JiBaseNode set( int idx, JiBaseNode node )
+	public JiBaseNode set( int index, JiBaseNode node )
 	{
-		return super.set( idx, node );
+		return super.set( index, node );
 	}
 	
 	@Override
@@ -109,7 +109,8 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		JiBaseNode node = null;
 		for (int i=0; i<super.size(); i++){
 			node = this.get(i);
-			if (this.get(i).getId() == id){
+			if (this.get(i).getId() == id)
+			{
 				found = true;
 				break;
 			}

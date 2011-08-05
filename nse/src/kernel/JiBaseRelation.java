@@ -36,9 +36,9 @@ public interface JiBaseRelation {
 	public void setPacket(int sum);
 
 	public JiBaseNode getNodeFrom();
+	public void setNodeFrom(JiBaseNode nodeFrom);
+	
 	public JiBaseNode getNodeTo();
-	
-	
-	// public int getBandWidth();
-	// public int setBandWidth( int bandwidth );
+	public void setNodeTo(JiBaseNode nodeTo);
+
 }

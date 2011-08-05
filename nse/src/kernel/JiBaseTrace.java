@@ -4,7 +4,8 @@ package kernel;
  * Trace 
  * @author Allen
  */
-public interface JiBaseTrace {
+public interface JiBaseTrace 
+{
     
 	
 	public Object getOwner();
@@ -40,6 +41,6 @@ public interface JiBaseTrace {
      * Restore nodes, relations information from trace file saved previously.
      * @param dbname
      */
-    public void restore( String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations );
+    public void restore( int time,String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations );
 
 } 

@@ -22,12 +22,14 @@ public class JxScaleFreeEdgeCollection extends ArrayList<JxScaleFreeEdge>{
 	
 	
 	/** get JxScaleFreeEdge object at specified position with index */
-	public JxScaleFreeEdge get(int index){ 
-		return super.get(index); 
+	public JxScaleFreeEdge get(int index) 
+	{
+		return super.get(index);
 	}
 	
 	
-	public JxScaleFreeEdge search(int id){
+	public JxScaleFreeEdge search(int id)
+	{
 		boolean found = false;
 		JxScaleFreeEdge edge = null;
 		for (int i=0; i<super.size(); i++){

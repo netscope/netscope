@@ -9,7 +9,7 @@ public class JxBaseTest {
 	{
 		JxBaseEngine engine = new JxBaseEngine();
 		
-		engine.setNodes(new JxBaseNodeCollection(engine, 10000));
+		engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
 		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
 		engine.setInteraction(new JxBaseInteraction(engine));
 		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
@@ -25,12 +25,13 @@ public class JxBaseTest {
 		JxBaseEngine engine = new JxBaseEngine();
         
 		engine.setTrace( new JxBaseTrace(engine, "/temp/expr/"));
+		
 		engine.load( engine.getNodes() );
 		engine.load( engine.getRelations() );
 		engine.setInteraction( new JxBaseInteraction(engine) );
 		engine.execute( 100000 );
        
-		/** restore 函数的作用 */
+		/** restore */
 		engine.restore( "/temp/expr/20110722-124512-01" );
 	}
 	
@@ -47,4 +48,11 @@ public class JxBaseTest {
 		engine.open( nodesclass, relationsclass, interactionclass, traceclass );
 		engine.execute(10000);
 	}
+	public static void main(String []args)
+	{
+		JxBaseTest test=new JxBaseTest();
+		test.test1();
+		test.test2();
+		test.test3();
+	} 
 }
