@@ -162,16 +162,17 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	}	
 	
     public void randomize()
-    {int count=this.count();
+    {
+       int count=this.count();
 	
-	for(int i=0;i<count;i++)
-	{  
-		int temp=m_random.nextInt(count-i)+i;
+	   for(int i=0;i<count;i++)
+	   {  
+		   int temp=m_random.nextInt(count-i)+i;
 	    
-		JiBaseNode tempNode=this.get(temp);	
-		this.set(temp, this.get(i));	
-		this.set(i,tempNode);
-	}	
+		   JiBaseNode tempNode=this.get(temp);	
+		   this.set(temp, this.get(i));	
+		   this.set(i,tempNode);
+	   }	
     
     }	
 }

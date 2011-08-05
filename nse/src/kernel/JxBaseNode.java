@@ -49,18 +49,8 @@ public class JxBaseNode implements JiBaseNode {
      	m_capacity = 0;
      	m_degree = 0;
      }
-    
-   public JxBaseNode(int id, int x, int y, int z ) {	
-	   m_id = id;
-   		m_loc_x = x;
-   		m_loc_y = y;
-   	
-    	m_length = 0;
-    	m_capacity = 0;
-    	m_degree = 0;
-    }
    
-   public JxBaseNode(int id, int x, int y, int z, int capacity) {
+   public JxBaseNode(int id, int x, int y, int capacity) {
 		m_id =id;
 		m_loc_x = x;
 		m_loc_y = y;
@@ -70,7 +60,7 @@ public class JxBaseNode implements JiBaseNode {
     	m_degree = 0;
 	} 
    
-   public JxBaseNode(int id, int x, int y, int z, int length,int capacity) {
+   public JxBaseNode(int id, int x, int y,int length,int capacity) {
 		m_id =id;
 		m_loc_x = x;
 		m_loc_y = y;
@@ -138,30 +128,30 @@ public class JxBaseNode implements JiBaseNode {
 	public int getId(){
 		return m_id;
 	}
-	
 	@Override
 	public void setId(int id){
 		m_id=id;
 	}
 	
+	
 	@Override
 	public Object getOwner() {
 		return m_owner;
 	}
-
 	@Override
 	public void setOwner(Object owner) {
 		m_owner = owner;
 	}
 	
+	
 	public int getValue(){
 		return m_length;
 	}
-	
 	public void setValue(int value){
 		 m_length = value;
 	}
-		
+	
+	
 	public int getDegree(){ 
 		return m_degree;	
 	}
@@ -169,6 +159,7 @@ public class JxBaseNode implements JiBaseNode {
 		 this.m_degree=degree;	
 	}
 
+	
 	public  int getCapacity(){
 	  return m_capacity;	
 	}
@@ -177,17 +168,16 @@ public class JxBaseNode implements JiBaseNode {
 	public int getX(){
 		return m_loc_x;
 	}
-
 	@Override
 	public void setX(int x){
 		m_loc_x = x;
 	}
 	
+	
 	@Override
 	public int getY(){
 		return m_loc_y;
 	}
-
 	@Override
 	public void setY(int y){
 		m_loc_y = y;

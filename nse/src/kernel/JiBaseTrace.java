@@ -22,8 +22,8 @@ public interface JiBaseTrace {
 	public void save( JiBaseRelationCollection relations );
 
 	
-	public void trace( JiBaseNode node );
-	public void trace( JiBaseRelation relation );
+	public void trace( int time, JiBaseNode node);
+	public void trace( int time,JiBaseRelation relation);
 
 	
 	/**
@@ -33,7 +33,7 @@ public interface JiBaseTrace {
 	 * @param nodes
 	 * @param relations
 	 */
-	public void snapshot( JiBaseNodeCollection nodes, JiBaseRelationCollection relations );
+	public void snapshot( int time,String tablename );
   
 	
     /**

@@ -139,7 +139,7 @@ import java.util.Random;
 		return open( nodesname,relationsname,interactionname, tracename );
 	}
 
-	/** 用处?? */
+	/**  */
 	boolean open(String nodesname, String relationsname, String interactionname,String tracename)
 	{
 		m_trace = null;
@@ -176,7 +176,7 @@ import java.util.Random;
 	}
     
 	/** 所有的边做一次相互作用  */
-	public void step() 
+	public void step(int time) 
 	{
 		m_relations.randomize();
 		Iterator<JiBaseRelation> it = m_relations.iterator();
@@ -184,7 +184,7 @@ import java.util.Random;
 		while (it.hasNext())
 		{
 			JiBaseRelation relation = (JiBaseRelation) it.next();
-			m_interaction.interact(relation, m_trace);
+			m_interaction.interact(time, relation, m_trace);
 		}
 	}
 
@@ -193,14 +193,14 @@ import java.util.Random;
 		if (open(datadir)) 
 		{
 			for (int i = 0; i < stepcount; i++)
-				step();
+				step(i);
 			    close();
 		}
-		else{
-		      m_trace.open();	      
-		      for (int i = 0; i < stepcount; i++)
-			        step();
-		       m_trace.close();
+		else{ m_trace.open();
+		      
+		    for (int i = 0; i < stepcount; i++)
+			    step(i);
+		        close();
 		}
 		System.runFinalization();
 	}
@@ -209,33 +209,40 @@ import java.util.Random;
 		return JxBaseFoundation.random();
 	}
 
-	public JiBaseNodeCollection getNodes() {
-
+	public JiBaseNodeCollection getNodes() 
+	{
 		return m_nodes;
 	}
-	public void setNodes(JiBaseNodeCollection nodes) {
+	public void setNodes(JiBaseNodeCollection nodes) 
+	{
 		m_nodes = nodes;
 	}
 
 	
-	public JiBaseRelationCollection getRelations() {
+	public JiBaseRelationCollection getRelations()
+	{
 		return m_relations;
 	}
-	public void setRelations(JiBaseRelationCollection relations) {
+	public void setRelations(JiBaseRelationCollection relations) 
+	{
 		m_relations = relations;
 	}
 
-	public JiBaseInteraction getInteraction() {
+	public JiBaseInteraction getInteraction() 
+	{
 		return m_interaction;
 	}
-	public void setInteraction(JiBaseInteraction interaction) {
+	public void setInteraction(JiBaseInteraction interaction) 
+	{
 		m_interaction = (JxBaseInteraction) interaction;
 	}
 
-	public JiBaseTrace getTrace() {
+	public JiBaseTrace getTrace()
+	{
 		return m_trace;
 	}
-	public void setTrace(JiBaseTrace trace) {
+	public void setTrace(JiBaseTrace trace) 
+	{
 		m_trace = (JxBaseTrace) trace;
 	}
 
@@ -255,9 +262,10 @@ import java.util.Random;
 	 * 
 	 * @param node
 	 */
-	public void addNode(JiBaseNode node) {
+	public void addNode(int time,JiBaseNode node) 
+	{
 		m_nodes.add(node);
-		m_trace.trace(node);
+		m_trace.trace(time,node);
 	}
 
 	/**
@@ -265,9 +273,10 @@ import java.util.Random;
 	 * 
 	 * @param relation
 	 */
-	public void addRelation(JiBaseRelation relation) {
+	public void addRelation(int time,JiBaseRelation relation) 
+	{
 		m_relations.add(relation);
-		m_trace.trace(relation);
+		m_trace.trace(time,relation);
 	}
 
 	/**

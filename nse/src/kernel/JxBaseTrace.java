@@ -25,8 +25,14 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	/** Current database name */ 
 	private String m_curdbname = null;
-	JxBaseNodeCollection  nodes = new JxBaseNodeCollection();
-	JxBaseRelationCollection relations = new JxBaseRelationCollection();
+	
+	public String m_nodeMetaName=null;
+	public String m_relationMetaName=null;
+	public String m_nodeDataName=null;
+	public String m_relationDataName=null;
+	
+	JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
+	JxBaseRelationCollection m_relations = new JxBaseRelationCollection();
 	
 	
 	JxBaseTrace(){};	
@@ -101,6 +107,66 @@ public class JxBaseTrace implements JiBaseTrace {
 		close();
 	}
 	
+	public void nodeMetaTable()
+	{
+		m_nodeMetaName = getNextDatabaseDir(); 
+		String createNode = "create table " + m_nodeMetaName
+				+ "(CUR_TIME integer, NODEID integer,LENGTH integer)";
+		try{
+		    sta.executeUpdate(createNode); 
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void relationMetaTable()
+	{
+		m_relationMetaName= getNextDatabaseDir();
+		
+		String trace_edge = "create table " + m_relationMetaName
+		+"(CUR_TIME integer, EDGEID integer,PACKET integer)";
+		
+		try{
+		    sta.executeUpdate(trace_edge); 
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void nodeDataTable()
+	{
+		m_nodeDataName =  getNextDatabaseDir();
+		String trace_edge = "create table " + m_nodeDataName
+				+ "(CUR_TIME integer, EDGEID integer,PACKETSUM integer)";
+
+		try{
+		    sta.executeUpdate(trace_edge); 
+		}
+		catch(Exception e)
+		{
+		    e.printStackTrace();
+		}
+	}
+	
+	public void relationDataTable()
+	{
+		m_relationDataName = getNextDatabaseDir();
+		
+	    String trace_edge = "create table " + m_relationDataName
+			+ "(CUR_TIME integer, EDGEID integer,PACKETSUM integer)";
+	  try{
+		  sta.executeUpdate(trace_edge);
+	    }
+	    catch(Exception e)
+	    {
+		  e.printStackTrace();
+	    }	
+    }
+	
 	/**
 	 * Save a single node into the database.
 	 * 
@@ -108,12 +174,44 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	public void save( JiBaseNode node )
 	{
+		String currentTime=Integer.toString(time);
+	    JxBaseNode currentNode=(JxBaseNode)node;
+	 	String nodeId=Integer.toString(currentNode.getId());
+	  	String length=Integer.toString(currentNode.getValue());
 		
+	    String traceNode="insert into "+m_nodeDataName+" (time,nodeid,length) " +
+	    		"values ("+currentTime+","+nodeId+","+length+")";
+	    try{
+	         sta.executeUpdate(traceNode);
+	    }catch(Exception e)
+	    {
+	    	 e.printStackTrace();
+	    }
 	}
 	/** save nodes */
 	public void save( JxBaseNodeCollection nodes ) 
 	{
-		
+		try {
+			String str_time = getNextDatabaseName();
+			String node_tablename = "nodetable" + str_time;
+			String create_node = "create table " + node_tablename
+					+ "(NODEID INTEGER,LOC_X INTEGER,LOC_Y INTEGER)";
+			sta.executeUpdate(create_node); // 创建节点结构表
+
+			for (int i = 0; i < nodeSet.count(); i++) {
+				node = nodeSet.get(i);
+				String node_id = Integer.toString(node.getId()); // 转换为字符串
+				String loc_x = Integer.toString(node.getLocx());
+				String loc_y = Integer.toString(node.getLocy());
+
+				String insert_nodetable = "Insert into " + node_tablename
+						+ "(NODEID,LOC_X,LOC_Y) VALUES (" + node_id + ","
+						+ loc_x + "," + loc_y + ")";
+				sta.executeUpdate(insert_nodetable);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Save the collection of all nodes into database.
@@ -151,12 +249,35 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	public void save( JiBaseRelation relation )
 	{
+		String currentTime=Integer.toString(time);
+	    JxBaseRelation currentRelation=(JxBaseRelation)relation;
+	 	String relationId=Integer.toString(currentRelation.getId());
+	  	String packet=Integer.toString(currentRelation.getPacket());
+		
+	    String traceNode="insert into "+m_relationDataName+" (time,nodeid,length) values ("+currentTime+","+relationId+","+packet+")";
+	    try{
+	    sta.executeUpdate(traceNode);
+	    }catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
 		
 	}
 	/** save relations */
 	public void save( JxBaseRelationCollection relations )
 	{
+		String currentTime=Integer.toString(time);
+	    JxBaseRelation currentRelation=(JxBaseRelation)relation;
+	 	String relationId=Integer.toString(currentRelation.getId());
+	  	String packet=Integer.toString(currentRelation.getPacket());
 		
+	    String traceNode="insert into "+m_relationDataName+" (time,nodeid,length) values ("+currentTime+","+relationId+","+packet+")";
+	    try{
+	       sta.executeUpdate(traceNode);
+	    }catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
 	}
 	/**
 	 * Save the relation collection object into the database.
@@ -170,12 +291,12 @@ public class JxBaseTrace implements JiBaseTrace {
 			String create_edge = "create table " + edge_tablename
 					+ "(EDGEID integer,NODE_FROM integer,NODE_TO INTEGER)";
 
-			sta.executeUpdate(create_edge); // 创建边结构
+			sta.executeUpdate(create_edge);
 			for (int i = 0; i < relations.count(); i++) {
 
 				JiBaseRelation relation = relations.get(i);
 
-				String relation_id = Integer.toString(relation.getId()); // 转换为字符串
+				String relation_id = Integer.toString(relation.getId()); 
 				String node_from = Integer.toString(relation.getNodeFrom().getId());
 				String node_to = Integer.toString(relation.getNodeTo().getId());
 
@@ -199,23 +320,46 @@ public class JxBaseTrace implements JiBaseTrace {
 	 */
 	
 	
-	public void load(JiBaseNodeCollection nodes)
+	public void load(int time,JiBaseNodeCollection nodes)
 	{
 	     	
 	}
-	public void load(JiBaseRelationCollection relations)
+	public void load(int time,JiBaseRelationCollection relations)
 	{
 	  	
 	}
 
-	/**单个节点保存*/
-	public void trace( JiBaseNode node )
+	/** save the information of node*/
+	public void trace(int time, JiBaseNode node)
 	{
+	  	String currentTime=Integer.toString(time);
+	    JxBaseNode currentNode=(JxBaseNode)node;
+	 	String nodeId=Integer.toString(currentNode.getId());
+	  	String length=Integer.toString(currentNode.getValue());
 		
+	    String traceNode="insert into "+m_nodeDataName+" (time,nodeid,length) " +
+	    		"values ("+currentTime+","+nodeId+","+length+")";
+	    try{
+	         sta.executeUpdate(traceNode);
+	    }catch(Exception e)
+	    {
+	    	 e.printStackTrace();
+	    }
 	}	
-	public void trace( JiBaseRelation relation )
+	public void trace( int time,JiBaseRelation relation)
 	{
+	  	String currentTime=Integer.toString(time);
+	    JxBaseRelation currentRelation=(JxBaseRelation)relation;
+	 	String relationId=Integer.toString(currentRelation.getId());
+	  	String packet=Integer.toString(currentRelation.getPacket());
 		
+	    String traceNode="insert into "+m_relationDataName+" (time,nodeid,length) values ("+currentTime+","+relationId+","+packet+")";
+	    try{
+	    sta.executeUpdate(traceNode);
+	    }catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
 	}
 	
 	/**
@@ -231,9 +375,22 @@ public class JxBaseTrace implements JiBaseTrace {
 	 * @param nodes
 	 * @param relations
 	 */
-	public void snapshot( JiBaseNodeCollection nodes, JiBaseRelationCollection relations )
+	public void snapshot( int time,String tableName)
 	{
+		Iterator<JiBaseNode> itNode=m_nodes.iterator();
+		Iterator<JiBaseRelation> itRelation = m_relations.iterator();
 		
+	    while(itNode.hasNext())
+	    {
+	      JiBaseNode node=(JiBaseNode)itNode.next();	
+	      this.trace(time, node);
+	    }
+		
+		while(itRelation.hasNext())
+		{
+		  JiBaseRelation relation =(JiBaseRelation)itRelation.next();
+		  this.trace(time, relation);
+		}
 	}
 	
 	@Override
