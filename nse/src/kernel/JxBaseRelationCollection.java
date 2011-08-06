@@ -23,7 +23,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	
 	Random m_random = JxBaseFoundation.random();
 
-	JxBaseRelationCollection() 
+	public JxBaseRelationCollection() 
 	{
 		m_owner = null;
 		m_nodes = null;
@@ -31,21 +31,21 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	}
 	
 
-	JxBaseRelationCollection(Object owner) 
+	public JxBaseRelationCollection(Object owner) 
 	{
 		m_owner = owner;
 		m_nodes = null;
 		m_trace = null;
 	}
 	
-	JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes, JiBaseTrace trace  )
+	public JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes, JiBaseTrace trace  )
 	{
 		m_owner = owner;
 		m_nodes = (JxBaseNodeCollection)nodes;
 		m_trace = (JxBaseTrace)trace;
 	}
 	
-	JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes )
+	public JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes )
 	{
 		m_owner = owner;
 		m_nodes = (JxBaseNodeCollection)nodes;

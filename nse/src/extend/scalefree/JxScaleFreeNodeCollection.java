@@ -1,15 +1,19 @@
 package extend.scalefree;
+import kernel.JiBaseNodeCollection;
 import java.util.ArrayList;
 
 /**
  * This class maintains the collection of all nodes. 
  * @author Allen
  */
-public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode>{
+public class JxScaleFreeNodeCollection extends ArrayList<JxScaleFreeNode> implements JiBaseNodeCollection {
 
 	private static final long serialVersionUID = 1L;
     
-	
+	public JxScaleFreeNodeCollection()
+	{
+		
+	}
 
 
 	/** Node count in the collection 

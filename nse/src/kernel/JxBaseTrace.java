@@ -36,13 +36,13 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	
 	JxBaseTrace(){};	
-	JxBaseTrace(Object owner) 
+	public JxBaseTrace(Object owner) 
 	{
 		m_owner = owner;
 		m_datadir = "c:/temp/";
 		m_curdbname = "";
 	}
-	JxBaseTrace(Object owner, String datadir)
+	public JxBaseTrace(Object owner, String datadir)
 	{
 		m_owner = owner;
 		m_datadir = datadir;

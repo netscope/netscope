@@ -34,11 +34,10 @@ public interface JiBaseRelation {
 	
 	public int getPacket();
 	public void setPacket(int sum);
-
+	
 	public JiBaseNode getNodeFrom();
 	public void setNodeFrom(JiBaseNode nodeFrom);
 	
 	public JiBaseNode getNodeTo();
 	public void setNodeTo(JiBaseNode nodeTo);
-
 }

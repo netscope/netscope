@@ -36,7 +36,8 @@ import java.util.Random;
  *         ClassLoader、Bytecode 、ASM、cglib, http://www.iteye.com/topic/98178 -
  *         如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721
  */
-    public class JxBaseEngine {
+    public class JxBaseEngine 
+ {
 
 	Object m_owner = null;
 	

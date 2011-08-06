@@ -5,6 +5,11 @@ public class JxBaseTest {
 	/**
 	 * Create a network simulator from scratch.
 	 */
+	
+	public JxBaseTest()
+	{
+		
+	}
 	void test1()
 	{
 		JxBaseEngine engine = new JxBaseEngine();

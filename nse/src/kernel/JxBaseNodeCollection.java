@@ -18,17 +18,17 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	JiBaseTrace m_trace = null;
 	Random m_random = JxBaseFoundation.random();
 	
-	JxBaseNodeCollection()
+	public JxBaseNodeCollection()
 	{
 		m_owner = null;
 	}
 	
-	JxBaseNodeCollection(Object owner)
+	public JxBaseNodeCollection(Object owner)
 	{
 		m_owner = owner;
 	}
 	
-	JxBaseNodeCollection( Object owner, int count )
+	public JxBaseNodeCollection( Object owner, int count )
 	{
 		m_owner = owner;
 		generate( count );

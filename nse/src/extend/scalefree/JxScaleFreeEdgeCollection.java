@@ -1,10 +1,13 @@
 package extend.scalefree;
-
+import kernel.JiBaseRelationCollection;
 import java.util.ArrayList;
 
-public class JxScaleFreeEdgeCollection extends ArrayList<JxScaleFreeEdge>{
+public class JxScaleFreeEdgeCollection extends ArrayList<JxScaleFreeEdge> implements JiBaseRelationCollection{
 
 	
+	public JxScaleFreeEdgeCollection(){
+		
+	}
 	public int count() {		
 		return super.size();		
 	}
