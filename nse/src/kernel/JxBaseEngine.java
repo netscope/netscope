@@ -37,8 +37,7 @@ import java.util.Random;
  *         如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721
  */
     public class JxBaseEngine 
- {
-
+   {
 	Object m_owner = null;
 	
 	String datadir=null;
@@ -181,8 +180,8 @@ import java.util.Random;
 	{
 		m_relations.randomize();
 		
-		JxBaseRelationCollection currentRelation=(JxBaseRelationCollection)m_relations;
-		Iterator<JiBaseRelation> it = currentRelation.iterator();
+		JxBaseRelationCollection relations=(JxBaseRelationCollection)m_relations;
+		Iterator<JiBaseRelation> it = relations.iterator();
 
 		while (it.hasNext())
 		{
@@ -199,16 +198,17 @@ import java.util.Random;
 				step(i);
 			    close();
 		}
-		else{ m_trace.open();
-		      
-		    for (int i = 0; i < stepcount; i++)
+		else{
+			  m_trace.open();
+		     for (int i = 0; i < stepcount; i++)
 			    step(i);
 		        close();
 		}
 		System.runFinalization();
 	}
 
-	public Random getRandom() {
+	public Random getRandom() 
+	{
 		return JxBaseFoundation.random();
 	}
 
@@ -265,10 +265,10 @@ import java.util.Random;
 	 * 
 	 * @param node
 	 */
-	public void addNode(int time,JiBaseNode node) 
+	public void addNode(JiBaseNode node) 
 	{
 		m_nodes.add(node);
-		m_trace.trace(time,node);
+		m_trace.save(node);
 	}
 
 	/**
@@ -276,12 +276,12 @@ import java.util.Random;
 	 * 
 	 * @param relation
 	 */
-	public void addRelation(int time,JiBaseRelation relation) 
+	public void addRelation(JiBaseRelation relation) 
 	{
 		m_relations.add(relation);
-		m_trace.trace(time,relation);
+		m_trace.save(relation);
 	}
-
+    
 	/**
 	 * Load nodes and relation configurations from database saved before.
 	 * 

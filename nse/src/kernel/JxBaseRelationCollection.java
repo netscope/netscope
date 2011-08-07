@@ -85,7 +85,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	{   
 	      for(int i=0;i<count;i++)
 	     {   
-	 		super.add( new JxBaseRelation() );	
+	 		super.add( new JxBaseRelation(i));	
 	     }
 	}
 	

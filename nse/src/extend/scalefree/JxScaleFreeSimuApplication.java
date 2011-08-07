@@ -10,111 +10,101 @@ import kernel.JxBaseNodeCollection;
 import kernel.JxBaseRelationCollection;
 import kernel.JxBaseRelation;
 import kernel.JiBaseNode;
+import kernel.JxBaseNode;
 import kernel.JxBaseTrace;
 
   public class JxScaleFreeSimuApplication 
   {  
-	    JxBaseEngine engine = new JxBaseEngine();
-	    JxBaseRelation relation=new JxBaseRelation();
+	    JxBaseEngine m_engine = new JxBaseEngine();
+	    JxBaseRelation m_relation = new JxBaseRelation();
 	    
-		JxBaseRelationCollection  relations = new JxBaseRelationCollection();
-		JxBaseNodeCollection  leftnodes = new JxBaseNodeCollection();
-		JxBaseNodeCollection addednodes=new JxBaseNodeCollection();
+	    Random m_random = m_engine.getRandom();
+	    
+	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
+		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
+		
+	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
+		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
 	
-		JiBaseNode nodeFrom=null;
-		JiBaseNode nodeTo=null;
-		
-		
-	    protected JiBaseNode selectnodeto() 
+		JiBaseNode m_nodeFrom = null;
+		JiBaseNode m_nodeTo = null;
+				
+	    public void generateNodes(int nodeCount)
+	    {
+	    	for(int i=0;i<nodeCount;i++)
+	    	{
+	          int loc_x= m_random.nextInt(100);
+	          int loc_y= m_random.nextInt(100);
+	         
+	          /*add the node into the nodeCollection and save it into the database*/
+	          m_engine.addNode(new JxBaseNode(m_engine,i,loc_x,loc_y,50));  
+	    	}  
+	    }
+	    
+	    public void generateRelations(int relationCount)
+	    { 
+	    	 m_relations.generate(relationCount);
+	    	 m_relations.randomize();
+	    	 
+		     for(int i=0;i<m_relations.count();i++)
+			 { 
+		    	 m_relation=(JxBaseRelation)m_relations.get(i);	
+		    	 
+		    	  if(i==0)
+		          {
+		    	    m_nodeFrom = m_leftnodes.get(0);
+		    	    m_nodeTo=m_leftnodes.get(1);
+		    	  
+		    	    m_relation.setNodeFrom(m_nodeFrom);
+		    	    m_relation.setNodeTo(m_nodeTo);
+		    	  
+		    	    m_leftnodes.remove( m_nodeFrom );
+		    	    m_leftnodes.remove( m_nodeTo );
+		    	  
+		    	    m_addednodes.add( m_nodeFrom ); 
+		    	    m_addednodes.add(m_nodeTo);
+	             }
+	    	      else 
+	    	     { 
+		    	    m_nodeFrom  = m_leftnodes.get(0);
+		    	    m_nodeTo  = selectnodeto();
+		    	  
+		    	    m_relation.setNodeFrom(m_nodeFrom);
+		    	    m_relation.setNodeTo(m_nodeTo);
+		    	  
+		     	    m_addednodes.add( m_nodeFrom ); 
+		     	    m_addednodes.add( m_nodeTo ); 
+		     	  
+		     	    m_leftnodes.remove(m_nodeFrom);
+		         }
+		         /*add the node into the nodeCollection and save it into the database*/
+		    	 m_engine.addRelation(m_relation);
+		    }     
+	    } 
+	    
+	    
+	    JiBaseNode selectnodeto() 
 	    {    	
-	    	Random random= engine.getRandom();
-			int p= random.nextInt(addednodes.count()); 
-			return addednodes.get(p);  
+			int p = m_random.nextInt(m_addednodes.count()); 
+			return m_addednodes.get(p);  
+	    }
+	    
+			
+	    public void run()
+	    {        
+	         m_engine.setInteraction(new JxBaseInteraction(m_engine));
+		     m_engine.setTrace(new JxBaseTrace(m_engine, "/temp/expr/20110722-124512-01"));
+		
+		     m_engine.execute(10000);	    	    
 	    }
 	    
 	    
-	    public void generateGraph()
-	    { 
-	    	for(int i=0;i<relations.count();i++)
-			{ 
-	    	   engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
-			   engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
-			
-		       relations=(JxBaseRelationCollection)engine.getRelations();
-		       leftnodes=(JxBaseNodeCollection)engine.getNodes();
-	           engine.setInteraction(new JxBaseInteraction(engine));
-		       engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
-		
-		       engine.execute(10000);	    
-		    
-		        if(i==0)
-		        {
-		    	    relation=(JxBaseRelation)relations.get(i);	
-		    	  
-		    	    nodeFrom = leftnodes.get(0);
-		    	    nodeTo=leftnodes.get(1);
-		    	  
-		    	    relation.setNodeFrom(nodeFrom);
-		    	    relation.setNodeTo(nodeTo);
-		    	  
-		    	    leftnodes.remove( nodeFrom );
-		    	    leftnodes.remove( nodeTo );
-		    	  
-		    	    addednodes.add(nodeFrom); 
-		    	    addednodes.add(nodeTo);
-	            }
-	    	
-	    	   else 
-	    	   { 
-		    	  nodeFrom  = leftnodes.get(0);
-		    	  nodeTo = [0];
-		     	    addedSet.add(currentNodeId);  
-		
-			    	 JxBaseRelation relation=new JxBaseRelation(0, currentNodeId,selectNodeId,20);
-			    	 relationSet.add(relation);
-			    	 
-			    	 // 得到当前的点及选中点
-			    	 JiNode currentNode=nodeSet.get(currentNodeId);
-					 JiNode selectNode=nodeSet.get(selectNodeId);
-						
-					 
-					// 将当前点与选中点的度分别加1
-					int currentNodeDegree =currentNode.getDegree();
-					currentNode.setDegree(currentNodeDegree+1);
-						
-					int selectNodeDegree=selectNode.getDegree();
-					selectNode.setDegree(selectNodeDegree+1);    	 
-			  	
-			 
-			         currentNodeId=randomNodeSerial[i]; 
-			         
-			        // 选择与之相连的节点ID
-					 selectNodeId =selectnodeto();
-					// 将产生的边加入边集中 
-					JxBaseRelation relation=new JxBaseRelation(i-1,selectNodeId, currentNodeId,20);
-		         	relationSet.add(relation); 
-					
-					// 将当前点的编号及选中点的编号加入到addedSet中  
-		         	addedSet.add(currentNodeId);
-		         	addedSet.add(selectNodeId);         //最后一次会多加一次
-
-					JiNode currentNode=nodeSet.get(currentNodeId);
-					JiNode selectNode=nodeSet.get(selectNodeId);
-					
-					// 将当前点与选中点的度分别加1
-					int currentNodeDegree =currentNode.getDegree();
-					currentNode.setDegree(currentNodeDegree+1);
-					
-					int selectNodeDegree=selectNode.getDegree();
-					selectNode.setDegree(selectNodeDegree+1);
-		     }
-		}
-	 }
-			
-       public static void main(String []args)
-       {	
-			
-	   }     	   		
+        public static void main(String []args)
+        {	
+    	    JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication(); 
+    	    app.generateRelations(10);
+    	    app.run();
+	    }     	   		
  }
 	
 

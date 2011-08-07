@@ -92,7 +92,8 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	 * @param node
 	 * @return
 	 */
-	public int indexOf(JiBaseNode node){
+	public int indexOf(JiBaseNode node)
+	{
 		return super.indexOf(node);
 	}
 	
@@ -120,8 +121,10 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	
 	/** Clear all the nodes and release resources allocate for them */
 	@Override
-	public void clear() {
-	  for (int i=0; i<super.size(); i++){		
+	public void clear() 
+	{
+	  for (int i=0; i<super.size(); i++)
+	  {		
 	    super.set(i, null);
 	  }
 		super.clear();

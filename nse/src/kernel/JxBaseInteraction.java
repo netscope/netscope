@@ -30,22 +30,25 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	}
     
 	public void interact(int time, JiBaseRelation relation, JiBaseTrace trace) 
-	{
-		JxBaseEngine engine = (JxBaseEngine) m_owner;
-		
-		JiBaseNode nodefrom = engine.getNodes().get(relation.getNodeFrom().getId());
-		JiBaseNode nodeto = engine.getNodes().get(relation.getNodeTo().getId());	
+	{	
+		JiBaseNode nodefrom =relation.getNodeFrom();
+		JiBaseNode nodeto =relation.getNodeTo();	
 
 		int len1, len2, cut;
 		len1 = nodefrom.getValue();
 		len2 = nodeto.getValue();
 		cut = m_random.nextInt(len1 + len2);
+		
 		nodefrom.setValue(cut);
 		nodeto.setValue(len1 + len2 - cut);
-   
-		trace.trace( time,nodefrom );
-		trace.trace( time,nodeto );
-		trace.trace( time,relation );
+        relation.setPacket(cut);
+		
+        if(cut!=0)
+        {
+		  trace.trace( time,nodefrom );
+		  trace.trace( time,nodeto );
+		  trace.trace( time,relation );
+		}
 	}
     
 	public int Minimum(int a, int b, int c) { 
