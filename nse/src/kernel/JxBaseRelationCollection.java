@@ -84,9 +84,9 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	public void generate( int count )
 	{   
 	      for(int i=0;i<count;i++)
-	     {   
+	      {   
 	 		super.add( new JxBaseRelation(i));	
-	     }
+	      }
 	}
 	
 	public void generate()
@@ -132,7 +132,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 */		
 	}	
 	
-	/** 得到与节点相关的所有边*/
+	/** */
 	public ArrayList<JiBaseRelation> getNodeAllRelations( JiBaseNode node )
 	{
 		return null;

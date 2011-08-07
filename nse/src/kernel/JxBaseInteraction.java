@@ -8,7 +8,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
      Random m_random = JxBaseFoundation.random();	
      JxBaseTrace m_trace = null;
      
-    public  JxBaseInteraction()
+     public  JxBaseInteraction()
      {  
     	 m_owner = null;
          m_trace = null;
@@ -51,7 +51,8 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		}
 	}
     
-	public int Minimum(int a, int b, int c) { 
+	public int Minimum(int a, int b, int c) 
+	{ 
 
 		int minimum = 0;
 		int mini = a;
@@ -61,11 +62,14 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		if (c < mini)
 			mini = c;
 		
+		
 		if (mini == 0) 	
 			minimum = 0;
-		else {
+		else 
+		{
 		    minimum = m_random.nextInt(mini);
 		}
+		
 		return minimum;
 	}
 

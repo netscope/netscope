@@ -37,36 +37,36 @@ import java.util.Random;
  *         如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721
  */
     public class JxBaseEngine 
-   {
-	Object m_owner = null;
+    {
+	  Object m_owner = null;
 	
-	String datadir=null;
+	  String m_datadir=null;
  
-	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance();
+	  JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance();
 
-	/** Node collection. It contains all the nodes */
-	private JiBaseNodeCollection m_nodes = null;
+	  /** Node collection. It contains all the nodes */
+	  private JiBaseNodeCollection m_nodes = null;
 
-	/** Relation collection. It contains all the relations between nodes */
-	private JiBaseRelationCollection m_relations = null;
+	  /** Relation collection. It contains all the relations between nodes */
+	  private JiBaseRelationCollection m_relations = null;
 
-	/**
-	 * Define the interactive rule between nodes. It's actually associate with
-	 * the relation object
-	 */
-	private JxBaseInteraction m_interaction = null;
+	  /**
+	   * Define the interactive rule between nodes. It's actually associate with
+	   * the relation object
+	   */
+	  private JxBaseInteraction m_interaction = null;
 
-	/** For trace output */
-	private JxBaseTrace m_trace = null;
+	  /** For trace output */
+	  private JxBaseTrace m_trace = null;
 
-	public JxBaseEngine()
-	{
-		m_nodes = new JxBaseNodeCollection();
-		m_relations = new JxBaseRelationCollection();
-		m_interaction = new JxBaseInteraction();
-		m_trace = new JxBaseTrace();
-		m_owner = null;
-	}
+	  public JxBaseEngine()
+	  {
+		 m_nodes = new JxBaseNodeCollection();
+		 m_relations = new JxBaseRelationCollection();
+		 m_interaction = new JxBaseInteraction();
+		 m_trace = new JxBaseTrace();
+		 m_owner = null;
+	  }
 
 	/**
 	 * @brief Initialize the whole engine for execution.
@@ -83,8 +83,8 @@ import java.util.Random;
 	 *         This function should return true or else the later execute() will
 	 *         stop.
 	 */
-	public boolean open(JiBaseNodeCollection nodes,JiBaseRelationCollection relations, JiBaseInteraction interaction, JiBaseTrace trace)
-	{
+	 public boolean open(JiBaseNodeCollection nodes,JiBaseRelationCollection relations,JiBaseInteraction interaction,JiBaseTrace trace)
+	 {
 		m_nodes = nodes;
 		m_relations = relations;
 		m_interaction = (JxBaseInteraction)interaction;
@@ -94,19 +94,16 @@ import java.util.Random;
 		m_relations.setTrace(m_trace);
 		m_interaction.setTrace(m_trace);
 
-		//打开数据库
 		m_trace.open();
 
-		//生成边
 		m_nodes.generate(10000);
 		m_relations.generate();
 	    
-		/**保存点-边*/
 		m_trace.save(m_nodes);
 		m_trace.save(m_relations);
                                      
 		return true;
-	}
+	 }
 
 	/**
 	 * Initialize the base simulation engine with the default settings.
@@ -115,28 +112,14 @@ import java.util.Random;
 	 * @example if (open( "/temp/expr/" )) { do something here }
 	 * @return
 	 */
-	public boolean open(String datadir)
+	public boolean open(String m_datadir)
 	{
-		/** 产生10000个节点  */
-		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
-		Class nodesclass=nodes.getClass();
-	    String nodesname=nodesclass.getName();
-	        
+		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);    
 		JiBaseRelationCollection relations = new JxBaseRelationCollection(this,nodes);
-		Class relationsclass=nodes.getClass();
-		String relationsname=relationsclass.getName();
-         
-		
 		JiBaseInteraction interaction = new JxBaseInteraction(this);
-	    Class interactionclass=nodes.getClass();
-	    String interactionname=relationsclass.getName();
-	    
-		JiBaseTrace trace = new JxBaseTrace(this, datadir);
-		Class traceclass=nodes.getClass();
-		String tracename=relationsclass.getName();
+		JiBaseTrace trace = new JxBaseTrace(this, m_datadir);
 		
-		/**  */
-		return open( nodesname,relationsname,interactionname, tracename );
+		return true;	
 	}
 
 	/**  */
@@ -154,12 +137,12 @@ import java.util.Random;
 			  m_relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsname);
 			  m_interaction = (JxBaseInteraction) JxBaseFoundation.createObject(interactionname);
 		} catch (Exception e) 
-		{
-			 m_trace = null;
-			 m_nodes = null;
-			 m_relations = null;
-			 m_interaction = null;
-		}
+		 {
+			  m_trace = null;
+			  m_nodes = null;
+			  m_relations = null;
+			  m_interaction = null;
+		 }
 		   m_nodes.setTrace(m_trace);
 		   m_relations.setTrace(m_trace);
 		   m_interaction.setTrace(m_trace);
@@ -192,7 +175,7 @@ import java.util.Random;
 
 	public void execute(int stepcount)
 	{
-		if (open(datadir)) 
+		if (open(m_datadir)) 
 		{
 			for (int i = 0; i < stepcount; i++)
 				step(i);
@@ -207,11 +190,13 @@ import java.util.Random;
 		System.runFinalization();
 	}
 
+	
 	public Random getRandom() 
 	{
 		return JxBaseFoundation.random();
 	}
 
+	
 	public JiBaseNodeCollection getNodes() 
 	{
 		return m_nodes;
@@ -231,6 +216,7 @@ import java.util.Random;
 		m_relations = relations;
 	}
 
+	
 	public JiBaseInteraction getInteraction() 
 	{
 		return m_interaction;
@@ -240,6 +226,7 @@ import java.util.Random;
 		m_interaction = (JxBaseInteraction) interaction;
 	}
 
+	
 	public JiBaseTrace getTrace()
 	{
 		return m_trace;
@@ -249,6 +236,7 @@ import java.util.Random;
 		m_trace = (JxBaseTrace) trace;
 	}
 
+	
 	/**
 	 * Returns the node count in the simulated application. Actually you can get
 	 * this information from the node collection object returned by getNodes().

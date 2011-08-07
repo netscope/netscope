@@ -108,7 +108,8 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	{
 		boolean found = false;
 		JiBaseNode node = null;
-		for (int i=0; i<super.size(); i++){
+		for (int i=0; i<super.size(); i++)
+		{
 			node = this.get(i);
 			if (this.get(i).getId() == id)
 			{
@@ -177,6 +178,5 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		   this.set(temp, this.get(i));	
 		   this.set(i,tempNode);
 	   }	
-    
     }	
 }

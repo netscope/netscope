@@ -28,7 +28,19 @@ import kernel.JxBaseTrace;
 	
 		JiBaseNode m_nodeFrom = null;
 		JiBaseNode m_nodeTo = null;
-				
+		
+		String m_datadir = null;
+		
+		public void open()
+		{
+	       m_engine.open(m_datadir);  
+		}
+			
+		public void close()
+		{
+		   m_engine.close();	
+		}
+		
 	    public void generateNodes(int nodeCount)
 	    {
 	    	for(int i=0;i<nodeCount;i++)
@@ -36,7 +48,6 @@ import kernel.JxBaseTrace;
 	          int loc_x= m_random.nextInt(100);
 	          int loc_y= m_random.nextInt(100);
 	         
-	          /*add the node into the nodeCollection and save it into the database*/
 	          m_engine.addNode(new JxBaseNode(m_engine,i,loc_x,loc_y,50));  
 	    	}  
 	    }
@@ -77,19 +88,16 @@ import kernel.JxBaseTrace;
 		     	  
 		     	    m_leftnodes.remove(m_nodeFrom);
 		         }
-		         /*add the node into the nodeCollection and save it into the database*/
 		    	 m_engine.addRelation(m_relation);
 		    }     
 	    } 
-	    
 	    
 	    JiBaseNode selectnodeto() 
 	    {    	
 			int p = m_random.nextInt(m_addednodes.count()); 
 			return m_addednodes.get(p);  
 	    }
-	    
-			
+	    		
 	    public void run()
 	    {        
 	         m_engine.setInteraction(new JxBaseInteraction(m_engine));
@@ -98,12 +106,17 @@ import kernel.JxBaseTrace;
 		     m_engine.execute(10000);	    	    
 	    }
 	    
-	    
         public static void main(String []args)
         {	
     	    JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication(); 
+    	    
+    	    app.open();
+    	    
+    	    app.generateNodes(10);
     	    app.generateRelations(10);
     	    app.run();
+    	    
+    	    app.close();
 	    }     	   		
  }
 	
