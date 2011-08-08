@@ -35,10 +35,18 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		JiBaseNode nodeto =relation.getNodeTo();	
 
 		int len1, len2, cut;
+		
 		len1 = nodefrom.getValue();
 		len2 = nodeto.getValue();
-		cut = m_random.nextInt(len1 + len2);
 		
+		if((len1+len2)==0)
+		{
+		    cut=0;
+		}
+		else
+		{
+			cut = m_random.nextInt(len1 + len2);	
+		}
 		nodefrom.setValue(cut);
 		nodeto.setValue(len1 + len2 - cut);
         relation.setPacket(cut);
@@ -74,7 +82,8 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	}
 
 	@Override
-	public void setTrace(JiBaseTrace trace) {
+	public void setTrace(JiBaseTrace trace) 
+	{
 		m_trace = (JxBaseTrace)trace;		
 	}
 }

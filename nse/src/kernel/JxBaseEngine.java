@@ -122,7 +122,6 @@ import java.util.Random;
 		return true;	
 	}
     
-	public 
 	/**  */
 	boolean open(String nodesname, String relationsname, String interactionname,String tracename)
 	{
@@ -164,6 +163,8 @@ import java.util.Random;
 	public void close() 
 	{
 		m_trace.close();
+		
+		//System.runFinalization();
 	}
     
 	/** */
@@ -176,7 +177,7 @@ import java.util.Random;
 
 		while (it.hasNext())
 		{
-			JiBaseRelation relation = (JiBaseRelation) it.next();
+			JiBaseRelation relation = it.next();
 			m_interaction.interact(time, relation, m_trace);
 		}
 	}
@@ -185,8 +186,6 @@ import java.util.Random;
 	{
 	    for (int i = 0; i < stepcount; i++)
 			this.step(i);
-		
-		//System.runFinalization();
 	}
 
 	
@@ -225,7 +224,6 @@ import java.util.Random;
 		m_interaction = (JxBaseInteraction) interaction;
 	}
 
-	
 	public JiBaseTrace getTrace()
 	{
 		return m_trace;
@@ -255,9 +253,13 @@ import java.util.Random;
 	public void addNode(JiBaseNode node) 
 	{
 		m_nodes.add(node);
-		m_trace.save(node);
+		
 	}
 
+	public void save(JiBaseNode node)
+	{
+		m_trace.save(node);
+	}
 	/**
 	 * Add an relation object in the relation set in the simulated application.
 	 * 
@@ -266,8 +268,13 @@ import java.util.Random;
 	public void addRelation(JiBaseRelation relation) 
 	{
 		m_relations.add(relation);
+	}
+	
+	public void saveRelation(JiBaseRelation relation)
+	{
 		m_trace.save(relation);
 	}
+	
     
 	/**
 	 * Load nodes and relation configurations from database saved before.

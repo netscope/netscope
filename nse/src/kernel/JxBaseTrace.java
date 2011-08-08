@@ -64,8 +64,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 	  try {
 			Class.forName("org.hsqldb.jdbcDriver");
-			m_con = DriverManager.getConnection("jdbc:hsqldb:file:temp/exper/"
-					+ datadir + ";shutdown=true", "sa", "");
+			m_con = DriverManager.getConnection("jdbc:hsqldb:file:D:/temp/exper/"+ datadir + ";shutdown=true", "sa", "");
 			m_sta = m_con.createStatement();
 			
 			System.out.println("connect sucess!");
@@ -78,8 +77,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public void open()
 	{
-	   if (m_datadir == null)
-		  m_datadir = getNextDatabaseDir();
+		  m_datadir = "database"+getNextDatabaseDir();
 	      open(m_datadir);
 	     
 	      nodeMetaTable();
@@ -121,6 +119,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void nodeMetaTable()
 	{
 		m_nodeMetaName = "nodemeta"+getNextDatabaseDir(); 
+		System.out.println(m_nodeMetaName);
 		
 		String createNode = "create table " + m_nodeMetaName
 				+ "(nodeid integer, loc_x integer, loc_y integer)";
@@ -136,6 +135,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void relationMetaTable()
 	{
 		m_relationMetaName= "relationmeta"+getNextDatabaseDir();
+		System.out.println(m_relationMetaName);
 		
 		String trace_edge = "create table " + m_relationMetaName
 		+"(relationid integer, nodefrom integer,nodeto integer)";
@@ -152,6 +152,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void nodeDataTable()
 	{
 		m_nodeDataName =  "nodedata"+getNextDatabaseDir();
+		System.out.println(m_nodeDataName);
+		
 		String trace_edge = "create table " + m_nodeDataName
 				+ "(time integer, nodeid integer,length integer)";
 
@@ -167,6 +169,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void relationDataTable()
 	{
 		m_relationDataName = "relationdata"+getNextDatabaseDir();
+		System.out.println(m_relationDataName);
 		
 	    String trace_edge = "create table " + m_relationDataName
 			+ "(time integer, relationid integer,packet integer)";
@@ -214,14 +217,13 @@ public class JxBaseTrace implements JiBaseTrace {
 		    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y) " +
 	    		              "values ("+nodeId+","+loc_x+","+loc_y+")";
 	               
-		    
-		           try{
-	                     m_sta.executeUpdate(traceNode);
-	                  } 
-		               catch(Exception e)
-	                   {
-	    	             e.printStackTrace();
-	                   }
+		     try{
+	              m_sta.executeUpdate(traceNode);
+	            } 
+		         catch(Exception e)
+	             {
+	    	       e.printStackTrace();
+	             }
 	    }    
 	}
 	/**
@@ -244,13 +246,13 @@ public class JxBaseTrace implements JiBaseTrace {
 		    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y) " +
 	    		              "values ("+nodeId+","+loc_x+","+loc_y+")";
 	                   
-		           try{
-	                     m_sta.executeUpdate(traceNode);
-	                  } 
-		               catch(Exception e)
-	                   {
-	    	             e.printStackTrace();
-	                   }
+		     try{
+	               m_sta.executeUpdate(traceNode);
+	            } 
+		          catch(Exception e)
+	              {
+	    	        e.printStackTrace();
+	              }
 	    }  
 	}
 		
@@ -265,7 +267,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	  	String nodeFrom=Integer.toString(currentRelation.getNodeFrom().getId());
 	  	String nodeTo=Integer.toString(currentRelation.getNodeTo().getId());
 	  	
-	    String saveRelation="insert into "+m_relationDataName+" (id,nodefrom,nodeto)" +
+	    String saveRelation="insert into "+m_relationMetaName+" (relationid,nodefrom,nodeto)" +
 	    		         " values ("+relationId+","+nodeFrom+","+nodeTo+")";
 	        try{
 	             m_sta.executeUpdate(saveRelation);
@@ -285,17 +287,17 @@ public class JxBaseTrace implements JiBaseTrace {
 			  	String nodeFrom=Integer.toString(itRelations.next().getNodeFrom().getId());
 			  	String nodeTo=Integer.toString(itRelations.next().getNodeTo().getId());	
 		    
-			    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y) " +
+			    String traceNode="insert into "+m_relationMetaName+" (relationid,nodefrom,nodeto) " +
 		    		              "values ("+relationId+","+ nodeFrom+","+ nodeTo+")";
 		               
-			    
-			           try{
-		                     m_sta.executeUpdate(traceNode);
-		                  } 
-			               catch(Exception e)
-		                   {
-		    	             e.printStackTrace();
-		                   }
+	    
+	             try{
+                       m_sta.executeUpdate(traceNode);
+                    } 
+	                  catch(Exception e)
+                      {
+    	                 e.printStackTrace();
+                      }
 		    }
 	}
 	/**
@@ -313,7 +315,7 @@ public class JxBaseTrace implements JiBaseTrace {
 			  	String nodeFrom=Integer.toString(itRelations.next().getNodeFrom().getId());
 			  	String nodeTo=Integer.toString(itRelations.next().getNodeTo().getId());	
 		    
-			    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y) " +
+			    String traceNode="insert into "+m_relationMetaName+" (relationid,nodefrom,nodeto) " +
 		    		              "values ("+relationId+","+ nodeFrom+","+ nodeTo+")";
 		               
 			    
@@ -362,7 +364,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void load(int time,JiBaseRelationCollection relations)
 	{
 		try {
-			  String select_edge = "select * from " + m_relationDataName;
+			  String select_edge = "select * from " + m_relationMetaName;
 			  ResultSet r = m_sta.executeQuery(select_edge);
 
 			 while (r.next()) {
@@ -410,11 +412,12 @@ public class JxBaseTrace implements JiBaseTrace {
 	 	String relationId=Integer.toString(currentRelation.getId());
 	  	String packet=Integer.toString(currentRelation.getPacket());
 		
-	    String traceNode="insert into "+m_relationDataName+" (time,nodeid,length) values " +
+	    String tracerelation="insert into "+m_relationDataName+" (time,relationid,packet) values " +
 	    		"("+currentTime+","+relationId+","+packet+")";
 	    try{
 	    	
-	    m_sta.executeUpdate(traceNode);
+	        m_sta.executeUpdate(tracerelation);
+	    
 	    }catch(Exception e)
 	    {
 	    	e.printStackTrace();
@@ -464,10 +467,10 @@ public class JxBaseTrace implements JiBaseTrace {
 
 	public String getNextDatabaseDir() 
 	{
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd_hhmmss");
+	    Date date = new Date();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hhmmss");
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
-
+	
 }

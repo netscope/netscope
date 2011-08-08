@@ -16,9 +16,8 @@ import kernel.JxBaseTrace;
   public class JxScaleFreeSimuApplication 
   {  
 	    JxBaseEngine  m_engine = new JxBaseEngine();
-	    JxBaseRelation  m_relation = new JxBaseRelation();
 	    
-	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
+	   JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
 		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
 		
 	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
@@ -48,49 +47,54 @@ import kernel.JxBaseTrace;
 	          int loc_x= m_random.nextInt(100);
 	          int loc_y= m_random.nextInt(100);
 	         
-	          m_engine.addNode(new JxBaseNode(m_engine,i,loc_x,loc_y,50));  
+	          JiBaseNode node=new JxBaseNode(m_engine,i,loc_x,loc_y,50);
+	         
+	          m_engine.addNode(node);  
+	          m_engine.save(node);
 	    	}  
 	    }
 	    
 	    public void generateRelations(int relationCount)
 	    { 
 	    	 m_relations.generate(relationCount);
-	    	 m_relations.randomize();
+	    	 m_relations.randomize(); 
+	    	 m_engine.setRelations(m_relations); 
 	    	 
 	    	 m_leftnodes=(JxBaseNodeCollection)m_engine.getNodes();
 	    	 m_leftnodes.randomize();
 	    	 
 		     for(int i=0;i<m_relations.count();i++)
 			 { 
-		    	 m_relation=(JxBaseRelation)m_relations.get(i);	
+		    	JxBaseRelation relation=(JxBaseRelation)m_engine.getRelations().get(i);	
 		    	 
 		    	  if(i==0)
 		          {
 		    	    m_nodeFrom = m_leftnodes.get(0);
 		    	    m_nodeTo=m_leftnodes.get(1);
 		    	  
-		    	    m_relation.setNodeFrom( m_nodeFrom );
-		    	    m_relation.setNodeTo( m_nodeTo );
+		    	    relation.setNodeFrom( m_nodeFrom );
+		    	    relation.setNodeTo( m_nodeTo );
 		    	  
 		    	    m_leftnodes.remove( m_nodeFrom );
 		    	    m_leftnodes.remove( m_nodeTo );
 		    	  
 		    	    m_addednodes.add( m_nodeFrom ); 
-		    	    m_addednodes.add( m_nodeTo );    	    
+		    	    m_addednodes.add( m_nodeTo );         	    
 	              }
 	    	      else 
 	    	      { 
 		    	    m_nodeFrom  = m_leftnodes.get(0);
 		    	    m_nodeTo  = selectnodeto();
 		    	  
-		    	    m_relation.setNodeFrom(m_nodeFrom);
-		    	    m_relation.setNodeTo(m_nodeTo);
+		    	    relation.setNodeFrom(m_nodeFrom);
+		    	    relation.setNodeTo(m_nodeTo);
 		    	  
 		     	    m_addednodes.add( m_nodeFrom ); 
 		     	    m_addednodes.add( m_nodeTo ); 
 		     	  
 		     	    m_leftnodes.remove(m_nodeFrom);
-		          }  	
+		         } 
+		    	  m_engine.saveRelation(relation);  
 		    }     
 	    } 
 	    
@@ -105,7 +109,7 @@ import kernel.JxBaseTrace;
 	         m_engine.setInteraction(new JxBaseInteraction(m_engine));
 		     m_engine.setTrace(new JxBaseTrace(m_engine, "/temp/expr/20110722-124512-01"));
 		
-		     m_engine.execute(10000);	    	    
+		     m_engine.execute(1000);	    	    
 	    }
 	    
         public static void main(String []args)
@@ -114,8 +118,8 @@ import kernel.JxBaseTrace;
     	    
     	    app.open();
             
-    	    app.generateNodes(10);
-    	    app.generateRelations(9);
+    	    app.generateNodes(10000);
+    	    app.generateRelations(999);
     	   
     	    app.run();
     	    

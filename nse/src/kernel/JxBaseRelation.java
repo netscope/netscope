@@ -162,7 +162,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	 */
 	public JiBaseNode getNodeFrom()
 	{
-		return  m_nodes.get(0);
+		return  m_nodefrom;
 	}
 	public void setNodeFrom(JiBaseNode nodeFrom)
 	{
@@ -176,7 +176,7 @@ public class JxBaseRelation implements JiBaseRelation {
 	 */
 	public JiBaseNode getNodeTo()
 	{
-		return m_nodes.get(1);
+		return  m_nodeto;
 	}
 	
 	public void setNodeTo(JiBaseNode nodeTo)
