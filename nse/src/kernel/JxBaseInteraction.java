@@ -54,7 +54,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	public int Minimum(int a, int b, int c) 
 	{ 
 
-		int minimum = 0;
+		int minimum = 0;	
 		int mini = a;
 		
 		if (b < mini)

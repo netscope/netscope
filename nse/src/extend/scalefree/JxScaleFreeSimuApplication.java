@@ -15,16 +15,16 @@ import kernel.JxBaseTrace;
 
   public class JxScaleFreeSimuApplication 
   {  
-	    JxBaseEngine m_engine = new JxBaseEngine();
-	    JxBaseRelation m_relation = new JxBaseRelation();
-	    
-	    Random m_random = m_engine.getRandom();
+	    JxBaseEngine  m_engine = new JxBaseEngine();
+	    JxBaseRelation  m_relation = new JxBaseRelation();
 	    
 	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
 		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
 		
 	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
 		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
+		
+		Random m_random = m_engine.getRandom();
 	
 		JiBaseNode m_nodeFrom = null;
 		JiBaseNode m_nodeTo = null;
@@ -33,7 +33,7 @@ import kernel.JxBaseTrace;
 		
 		public void open()
 		{
-	       m_engine.open(m_datadir);  
+	       m_engine.open();  
 		}
 			
 		public void close()
@@ -57,6 +57,9 @@ import kernel.JxBaseTrace;
 	    	 m_relations.generate(relationCount);
 	    	 m_relations.randomize();
 	    	 
+	    	 m_leftnodes=(JxBaseNodeCollection)m_engine.getNodes();
+	    	 m_leftnodes.randomize();
+	    	 
 		     for(int i=0;i<m_relations.count();i++)
 			 { 
 		    	 m_relation=(JxBaseRelation)m_relations.get(i);	
@@ -66,17 +69,17 @@ import kernel.JxBaseTrace;
 		    	    m_nodeFrom = m_leftnodes.get(0);
 		    	    m_nodeTo=m_leftnodes.get(1);
 		    	  
-		    	    m_relation.setNodeFrom(m_nodeFrom);
-		    	    m_relation.setNodeTo(m_nodeTo);
+		    	    m_relation.setNodeFrom( m_nodeFrom );
+		    	    m_relation.setNodeTo( m_nodeTo );
 		    	  
 		    	    m_leftnodes.remove( m_nodeFrom );
 		    	    m_leftnodes.remove( m_nodeTo );
 		    	  
 		    	    m_addednodes.add( m_nodeFrom ); 
-		    	    m_addednodes.add(m_nodeTo);
-	             }
+		    	    m_addednodes.add( m_nodeTo );    	    
+	              }
 	    	      else 
-	    	     { 
+	    	      { 
 		    	    m_nodeFrom  = m_leftnodes.get(0);
 		    	    m_nodeTo  = selectnodeto();
 		    	  
@@ -87,8 +90,7 @@ import kernel.JxBaseTrace;
 		     	    m_addednodes.add( m_nodeTo ); 
 		     	  
 		     	    m_leftnodes.remove(m_nodeFrom);
-		         }
-		    	 m_engine.addRelation(m_relation);
+		          }  	
 		    }     
 	    } 
 	    
@@ -108,15 +110,17 @@ import kernel.JxBaseTrace;
 	    
         public static void main(String []args)
         {	
-    	    JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication(); 
+    	    JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication(); 	    
     	    
     	    app.open();
-    	    
+            
     	    app.generateNodes(10);
-    	    app.generateRelations(10);
+    	    app.generateRelations(9);
+    	   
     	    app.run();
     	    
     	    app.close();
+    	    System.out.println("sucess!");
 	    }     	   		
  }
 	

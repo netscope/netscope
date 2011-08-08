@@ -121,7 +121,8 @@ import java.util.Random;
 		
 		return true;	
 	}
-
+    
+	public 
 	/**  */
 	boolean open(String nodesname, String relationsname, String interactionname,String tracename)
 	{
@@ -140,6 +141,7 @@ import java.util.Random;
 		 {
 			  m_trace = null;
 			  m_nodes = null;
+			  
 			  m_relations = null;
 			  m_interaction = null;
 		 }
@@ -153,12 +155,18 @@ import java.util.Random;
 	/**
 	 * @brief Release resources allocated in open() function.
 	 */
+	public void open()
+	{
+	   m_trace.open();
+	  
+	}
+	
 	public void close() 
 	{
 		m_trace.close();
 	}
     
-	/** 所有的边做一次相互作用  */
+	/** */
 	public void step(int time) 
 	{
 		m_relations.randomize();
@@ -175,19 +183,10 @@ import java.util.Random;
 
 	public void execute(int stepcount)
 	{
-		if (open(m_datadir)) 
-		{
-			for (int i = 0; i < stepcount; i++)
-				step(i);
-			    close();
-		}
-		else{
-			  m_trace.open();
-		     for (int i = 0; i < stepcount; i++)
-			    step(i);
-		        close();
-		}
-		System.runFinalization();
+	    for (int i = 0; i < stepcount; i++)
+			this.step(i);
+		
+		//System.runFinalization();
 	}
 
 	
