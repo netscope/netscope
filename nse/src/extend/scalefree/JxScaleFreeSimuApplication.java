@@ -116,7 +116,7 @@ import kernel.JxBaseTrace;
 	    public void run()
 	    {           
 		     m_engine.print();
-		     m_engine.execute(100);		    	   
+		     m_engine.execute(2);		    	   
 	    }
 	    
         public static void main(String []args)
@@ -126,8 +126,8 @@ import kernel.JxBaseTrace;
     	    app.init();
     	    app.open();
             
-    	    app.generateNodes(100);
-    	    app.generateRelations(99);
+    	    app.generateNodes(10);
+    	    app.generateRelations(9);
     	    
     	    app.run();
     	    
