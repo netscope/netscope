@@ -185,7 +185,9 @@ import java.util.Random;
 	public void execute(int stepcount)
 	{
 	    for (int i = 0; i < stepcount; i++)
-			this.step(i);
+	    {	
+	    	step(i);
+	    }
 	}
 
 	
@@ -323,5 +325,8 @@ import java.util.Random;
 		  
 		  trace.restore(time,dbname, nodes, relations);
     }
-
+      public void print()
+     {
+	   m_trace.print();
+     }
 }

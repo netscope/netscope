@@ -13,8 +13,7 @@ import java.util.*;
  */
 public class JxBaseTrace implements JiBaseTrace {
     
-	private Connection m_con = null;
-	
+	private Connection m_con = null;	
 	private Statement m_sta = null;
 	
 	/** Owner of this object. It's usually the simulation engine object */
@@ -49,7 +48,12 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_curdbname = "";
 	}
 	
-	
+	public void print(){
+		System.out.println("m_nodeMetaName is "+m_nodeMetaName);
+		System.out.println("m_relationMetaName is "+m_relationMetaName);
+		System.out.println("m_nodeDataName is "+m_nodeDataName);
+		System.out.println("m_relaionDataName is "+m_relationDataName);
+	}
 	public Object getOwner()
 	{
 		return m_owner;
@@ -90,11 +94,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** Free resources allocated to this object. */
 	public void close()
 	{		
-		try{
-			if(m_sta!=null)
+		try{	
 			   m_sta.close();
-			
-			if(m_con!=null)
 			   m_con.close();
 		   } 
 		    catch (SQLException e) 
