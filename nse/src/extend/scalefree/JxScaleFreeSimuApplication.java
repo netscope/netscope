@@ -16,22 +16,19 @@ import kernel.JxBaseTrace;
   public class JxScaleFreeSimuApplication 
   {  
 	    JxBaseEngine  m_engine = new JxBaseEngine();
-	    
-	   JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
+	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
 		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
-		
-	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
-		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
-		
 		Random m_random = m_engine.getRandom();
 	
+	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
+		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
 		JiBaseNode m_nodeFrom = null;
 		JiBaseNode m_nodeTo = null;
 		
-		String m_datadir = null;
+		//String m_datadir = null;
 		
-		public void init()
-		{  
+		JxScaleFreeSimuApplication()
+		{
 		   m_engine.setInteraction(new JxBaseInteraction(m_engine));
 		   m_engine.setTrace(new JxBaseTrace(m_engine));      
 		}
@@ -45,7 +42,7 @@ import kernel.JxBaseTrace;
 		{
 		   m_engine.close();	
 		}
-		
+/*		
 	    public void generateNodes(int nodeCount)
 	    {
 	    	for(int i=0;i<nodeCount;i++)
@@ -59,7 +56,8 @@ import kernel.JxBaseTrace;
 	          m_engine.save(node);
 	    	}  
 	    }
-	    
+*/
+/*		
 	    public void generateRelations(int relationCount)
 	    { 
 	    	 m_relations.generate(relationCount);
@@ -103,6 +101,7 @@ import kernel.JxBaseTrace;
 		    	  m_engine.saveRelation(relation);  
 		    }     
 	    } 
+*/	    
 	    
 	    JiBaseNode selectnodeto() 
 	    {    	
@@ -133,7 +132,19 @@ import kernel.JxBaseTrace;
     	    
     	    app.close();
     	    System.out.println("sucess!");
-	    }     	   		
+	    }     
+        
+    	void test1()
+    	{
+    		JxBaseEngine engine = new JxBaseEngine();
+    		
+    		engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
+    		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
+    		engine.setInteraction(new JxBaseInteraction(engine));
+    		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
+    		
+    		engine.execute(10000);
+    	}        
  }
 	
 
