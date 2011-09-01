@@ -4,30 +4,23 @@ import java.util.*;
 
 public class JxBaseRelation implements JiBaseRelation {
 	
-	
-	protected int m_id = 0; 
-	protected Object m_owner = null;
-	protected Object m_value;
-	
-	
+
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
-	
 	protected ArrayList<JiBaseNode> m_nodes = new ArrayList<JiBaseNode>();
 	
-	
+	protected Object m_owner = null;
+	protected Object m_value = null;
+		
 	protected JiBaseNode  m_nodefrom;
 	protected JiBaseNode  m_nodeto;
 	
-	
+	protected int  m_id; 
 	protected int  m_bandwidth;
 	protected int  m_weight;
 	protected int  m_packetsum;
 	
-	
+	JiBaseNode node=new JxBaseNode();
 	protected Random m_random = JxBaseFoundation.random();
-
-	
-    JiBaseNode node=new JxBaseNode();
     
     public JxBaseRelation()
     {
@@ -38,7 +31,8 @@ public class JxBaseRelation implements JiBaseRelation {
 		m_packetsum=0;
 	}
 	
-    public JxBaseRelation( int id ){
+    public JxBaseRelation( int id )
+    {
     	m_id = id;
 		m_owner = null;
 		m_bandwidth = 0;
@@ -46,7 +40,8 @@ public class JxBaseRelation implements JiBaseRelation {
 		m_packetsum=0;
 	}
 	
-	public JxBaseRelation( int id, Object owner ){
+	public JxBaseRelation( Object owner, int id )
+	{
 		m_id = id;
 		m_owner = owner;
 		m_bandwidth = 0;
@@ -54,7 +49,8 @@ public class JxBaseRelation implements JiBaseRelation {
 		m_packetsum=0;
 	}
 
-    public JxBaseRelation ( int id, Object owner, int nodefrom,int nodeto ){
+    public JxBaseRelation ( Object owner,int id, int nodefrom,int nodeto )
+    {
      	super();
      	m_id = id;
      	m_owner = owner;
@@ -63,14 +59,14 @@ public class JxBaseRelation implements JiBaseRelation {
     }
     
 	@Override
-	public int getId(){
+	public int getId()
+	{
 	  return m_id;
-   }
+    }
 	@Override
 	public void setId(int id){
 		m_id=id; 	
    }
-	
 	
 	@Override
 	public Object getOwner() {
@@ -83,17 +79,20 @@ public class JxBaseRelation implements JiBaseRelation {
 	
 	
 	@Override
-	public JiRelationType getType(){
+	public JiRelationType getType()
+	{
 		return  m_type;
 	}
 	@Override
-	public void setType(JiRelationType type){
+	public void setType(JiRelationType type)
+	{
 		m_type = type;	
 	}
 	
 	
 	@Override
-	public ArrayList<JiBaseNode> nodelist() {
+	public ArrayList<JiBaseNode> nodelist() 
+	{
 		return m_nodes;
 	}
 		
@@ -120,7 +119,6 @@ public class JxBaseRelation implements JiBaseRelation {
 		m_type = JiRelationType.BROADCAST_RELATION;
 	}
 	
-	
 	public void setGroupRelation( ArrayList<JiBaseNode> nodelist )
 	{
 		m_nodes.clear();
@@ -139,6 +137,8 @@ public class JxBaseRelation implements JiBaseRelation {
 	{
 		m_nodes.add( node );
 	}
+	
+	
 	public void remove( JiBaseNode node )
 	{
 		m_nodes.remove( node );
@@ -179,17 +179,20 @@ public class JxBaseRelation implements JiBaseRelation {
 		return  m_nodeto;
 	}
 	
+	
 	public void setNodeTo(JiBaseNode nodeTo)
 	{
 		m_nodeto=nodeTo;
 	}
+	
+	
 	public int getBandWidth()
 	{
 		return m_bandwidth;
 	}
-	public int setBandWidth(int bandwidth)
+	public void setBandWidth(int bandwidth)
 	{
-		return m_bandwidth=bandwidth;
+		 m_bandwidth=bandwidth;
 	}
 	
 	
@@ -280,7 +283,4 @@ public class JxBaseRelation implements JiBaseRelation {
 			return false;
 		return true;
 	}
-	
-	
-
 }

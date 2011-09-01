@@ -11,39 +11,34 @@ public class JxScaleFreeTopology {
 	
 	public static Random random = new Random();
 	
-	JxScaleFreeTopology( Object owner ){
+	JxScaleFreeTopology( Object owner )
+	{
 		m_nodeset = new JxScaleFreeNodeCollection();
-		
 		m_edgeset = new JxScaleFreeEdgeCollection();
-		
 		this.m_owner = owner;
 	}
 	
-	JxScaleFreeTopology(){
-		
+	JxScaleFreeTopology()
+	{
 		m_nodeset = new JxScaleFreeNodeCollection();
-		
 		m_edgeset = new JxScaleFreeEdgeCollection();
-		
 	}
 	
-	JxScaleFreeNodeCollection nodeset(){
-		
+	JxScaleFreeNodeCollection nodeset()
+	{
 		return this.m_nodeset;
 	}
 	
-	JxScaleFreeEdgeCollection edgeset(){
-		
+	JxScaleFreeEdgeCollection edgeset()
+	{
 		return this.m_edgeset;
 	}
 	
-	void generate_random_graph( int nodecount, int edgecount ){
+	void generate_random_graph( int nodecount, int edgecount )
+	{
 		int i, x, y;
-		
 		JxScaleFreeEdge edge; 
-		
 		JxScaleFreeNode node;
-		
 		int nodefrom, nodeto;
 
 		// generate nodes and place them into the node set
@@ -70,12 +65,10 @@ public class JxScaleFreeTopology {
 		}
 	
 	
-	void generate( int nodecount ){
+	 void generate( int nodecount ){
 		
 		int i, x, y;
-		
 		JxScaleFreeEdge edge; 
-		
 		JxScaleFreeNode node;  
 
 		// generate nodes and place them into the node set
@@ -138,11 +131,10 @@ public class JxScaleFreeTopology {
 		}    
 
 	
-	protected JxScaleFreeNode selectnodeto() {  
-		
-		int p = random.nextInt(JoinInNetNode.size()); //生成在0——列表长度之间的整数值
-		
-		return JoinInNetNode.get(p);  //返回选中节点
+	protected JxScaleFreeNode selectnodeto() 
+	{  	
+		int p = random.nextInt(JoinInNetNode.size()); 	
+		return JoinInNetNode.get(p); 
     }
 	void load(){
 		

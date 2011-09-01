@@ -12,17 +12,16 @@ import java.util.Random;
  */
 public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implements JiBaseRelationCollection 
 {
-	
 	private static final long serialVersionUID = 1L;
 	
-	Object m_owner = null;
 	JxBaseNodeCollection m_nodes = null;
 	JxBaseRelation m_relation=null;
+	Object m_owner = null;
+
+	Random m_random = JxBaseFoundation.random();
 	
 	JxBaseTrace m_trace = null;
 	
-	Random m_random = JxBaseFoundation.random();
-
 	public JxBaseRelationCollection() 
 	{
 		m_owner = null;
@@ -38,11 +37,11 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		m_trace = null;
 	}
 	
-	public JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes, JiBaseTrace trace  )
+	public JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes, JiBaseTrace trace )
 	{
-		m_owner = owner;
 		m_nodes = (JxBaseNodeCollection)nodes;
 		m_trace = (JxBaseTrace)trace;
+		m_owner = owner;		
 	}
 	
 	public JxBaseRelationCollection( Object owner, JiBaseNodeCollection nodes )
@@ -151,12 +150,11 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
     public void randomize()
 	{  
     	int count=this.count();
-    	
 		for(int i=0;i<count;i++)
-		{  
+		{ 
 			int temp=m_random.nextInt(count-i)+i;
-		    
 			JiBaseRelation tempRelation=this.get(temp);	
+			
 			this.set(temp, this.get(i));	
 			this.set(i, tempRelation);
 		}	
