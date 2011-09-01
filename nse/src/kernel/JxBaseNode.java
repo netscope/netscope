@@ -2,29 +2,34 @@ package kernel;
 public class JxBaseNode implements JiBaseNode {
 	
 	protected int m_id;
-	protected Object m_owner;
 	protected int m_loc_x;
 	protected int m_loc_y;
+
+	
 	protected int m_length = 0;
 	protected int m_capacity = 0; 
 	
 	
-    public JxBaseNode() {
+	protected Object m_owner;
+	
+    public JxBaseNode() 
+    {
     	m_id = 0;
     	m_loc_x = 0;
     	m_loc_y = 0; 
     	m_length = 0;
     	m_capacity = 0; 	
-   }
+    }
     
-    public JxBaseNode( Object owner, int id ) {
+    public JxBaseNode( Object owner, int id ) 
+    {
     	m_owner=owner;
     	m_id = id;
     	m_loc_x = 0;
     	m_loc_y = 0;  
     	m_length = 0;
     	m_capacity = 0;  
-   }
+    }
     
     public JxBaseNode( int id ) {
     	m_id = id;
@@ -34,7 +39,8 @@ public class JxBaseNode implements JiBaseNode {
     	m_capacity = 0; 	
    }
     
-    public JxBaseNode(int id, int x, int y ) {	
+    public JxBaseNode(int id, int x, int y ) 
+    {	
     	m_id = id;
     	m_loc_x = x;
     	m_loc_y = y;   
@@ -43,7 +49,8 @@ public class JxBaseNode implements JiBaseNode {
      
      }
    
-   public JxBaseNode(Object owner,int id, int x, int y, int capacity) {
+    public JxBaseNode(Object owner,int id, int x, int y, int capacity) 
+    {
 		m_id =id;
 		m_loc_x = x;
 		m_loc_y = y;
@@ -51,7 +58,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = capacity;
 	} 
    
-   public JxBaseNode(int id, int x, int y,int length,int capacity) {
+   public JxBaseNode(int id, int x, int y,int length,int capacity) 
+   {
 		m_id =id;
 		m_loc_x = x;
 		m_loc_y = y;		

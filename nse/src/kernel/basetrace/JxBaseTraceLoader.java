@@ -3,20 +3,11 @@ package kernel.basetrace;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
-
-import kernel.JiBaseNodeCollection;
-import kernel.JiBaseRelationCollection;
-import kernel.JiBaseRelation;
-import kernel.JxBaseNode;
-import kernel.JxBaseNodeCollection;
-import kernel.JiBaseRelation;
-import kernel.JxBaseRelationCollection;
-
+import kernel.*;
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
@@ -30,7 +21,7 @@ import kernel.JxBaseRelationCollection;
  * R: 
  * 	1 Start MATLAB;
  * 	2 import the jar file including JxBaseTraceLoader;
- * 	3 Create an JxBaseTraceLoader object in matlab. Assume this object name is "trace";
+ * 	3 Create an JxBaseTraceLoader object in MATLAB. Assume this object name is "trace";
  *  4 Load data from trace database
  *  
  *  	trace.open( database );
@@ -48,20 +39,17 @@ import kernel.JxBaseRelationCollection;
  */
 public class JxBaseTraceLoader {
 
+	protected JxBaseTraceMetaSet m_metaset=new JxBaseTraceMetaSet();  
+	protected JxBaseTraceDataSet m_dataset=new JxBaseTraceDataSet();
+	//protected JxBaseTrace trace=new JxBaseTrace(); 		
+	
+	protected Connection m_connection = null;
+	protected Statement m_statement = null;
+		
 	protected String m_datadir = "d:/data/netscope/";
-	protected String m_dbname = null;
 	
-	Connection m_connection = null;
-	Statement m_statement=null;
-
-	JxBaseTraceMetaSet m_metaset;  
-	JxBaseTraceDataSet m_dataset;
-	
-	JxBaseTraceLoader()
-	{
-		m_metaset = new JxBaseTraceMetaSet(this);
-		m_dataset = new JxBaseTraceDataSet(this);
-	}
+	@SuppressWarnings("static-access")
+	protected String m_tablename=null; 
 	
 	/**
 	 * Open an trace data set for reading. 
@@ -69,40 +57,56 @@ public class JxBaseTraceLoader {
 	 * @param datadir
 	 * @param dbname
 	 */
-	void open(String datadir, String dbname) 
-	{
-	   try {
-			Class.forName("org.hsqldb.jdbcDriver");
-			m_connection = DriverManager.getConnection("jdbc:hsqldb:file:" + datadir
-					+ ";shutdown=true", "sa", "");
-			m_statement=m_connection.createStatement();
-			
-		} catch (SQLException e) 
-		{
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-			m_connection = null;
-		}
-	}
 	
+    public Statement opendatabase(String databasedir,String databasename)
+	{
+	  try {
+			 Class.forName("org.hsqldb.jdbcDriver");
+			 
+			 m_connection = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
+			 m_statement= m_connection.createStatement();
+	      } 
+	      catch (Exception e) 
+	      {
+			e.printStackTrace();
+	      }
+	      return  m_statement;
+	}
+    
+	public void open()
+	{
+		  m_datadir="D:/temp/exper/";
+		  opendatabase(m_datadir,m_tablename);
+	}
+    
 	/**
 	 * Close an trace data set opened before.
 	 */
 	void close()
 	{
-		if (m_connection != null)	
-	   
+		if (m_connection != null)		   
 		try{
 			 m_connection.close();
 		   }
 		    catch(Exception e)
-		   {
-		    	
+		   {	
+		     e.printStackTrace();
 		   }
 	}
-
+	
+	public void loadnodes()
+	{
+	   m_statement =JxBaseTrace.getStatement();
+	   m_tablename =JxBaseTrace.getName();
+	   
+	   m_metaset.loadnodes(m_statement,m_tablename); 	 		
+	}
+	
+	public void loadrelations()
+	{
+	   m_metaset.loadrelations(m_statement,m_tablename);
+	}
+  
 	JxBaseTraceMetaSet metaset()
 	{
 		return m_metaset;
@@ -113,6 +117,14 @@ public class JxBaseTraceLoader {
 		return m_dataset;
 	}
 	
+	public String getNextDatabaseDir() 
+	{
+	    Date date = new Date();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hhmmss");
+		String cur_time = sdf.format(date);
+		return cur_time;
+	}
+	
 	/** Returns an standard ResultSet object associate with an SQL SELECT clause.
 	 * @param sql An SQL SELECT clause.
 	 * @return
@@ -121,13 +133,15 @@ public class JxBaseTraceLoader {
 	{
 	  ResultSet r=null;
 	  try{
-		    Statement sta = m_connection.createStatement();
-		    r=sta.executeQuery(cmd);
+		   Statement sta = m_connection.createStatement();
+		   r=sta.executeQuery(cmd);
 	  }
 	  catch(Exception e)
 	  {
-		  e.printStackTrace();
+		   e.printStackTrace();
 	  }	
 		return  r ;
-	}
+   }
+	   
+  
 }

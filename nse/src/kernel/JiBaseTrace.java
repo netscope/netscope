@@ -12,7 +12,7 @@ public interface JiBaseTrace
 	public void setOwner(Object owner);
     
 	
-	public void open( String datadir );
+	public void open( String datadir,String databasename);
 	public void open();
 	public void close();
 	 

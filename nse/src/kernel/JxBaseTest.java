@@ -8,8 +8,10 @@ public class JxBaseTest {
 	
 	public JxBaseTest()
 	{
+	
 		
 	}
+	
 	void test1()
 	{
 		JxBaseEngine engine = new JxBaseEngine();
@@ -53,6 +55,7 @@ public class JxBaseTest {
 		engine.open( nodesclass, relationsclass, interactionclass, traceclass );
 		engine.execute(10000);
 	}
+	
 	public static void main(String []args)
 	{
 		JxBaseTest test=new JxBaseTest();

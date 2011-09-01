@@ -1,6 +1,7 @@
 package kernel;
 
-import java.util.*;
+import java.util.Random;
+
 
 public class JxBaseInteraction implements JiBaseInteraction {
      

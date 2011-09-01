@@ -1,5 +1,5 @@
 package kernel;
-
+import kernel.basetrace.JxBaseTraceLoader;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -39,34 +39,26 @@ import java.util.Random;
     public class JxBaseEngine 
     {
 	  Object m_owner = null;
-	
-	  String m_datadir=null;
+	  String m_datadir = null;
  
 	  JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance();
 
 	  /** Node collection. It contains all the nodes */
-	  private JiBaseNodeCollection m_nodes = null;
+	  private static JiBaseNodeCollection m_nodes = new JxBaseNodeCollection();
 
 	  /** Relation collection. It contains all the relations between nodes */
-	  private JiBaseRelationCollection m_relations = null;
+	  private static JiBaseRelationCollection m_relations = new JxBaseRelationCollection();
 
 	  /**
 	   * Define the interactive rule between nodes. It's actually associate with
 	   * the relation object
 	   */
-	  private JxBaseInteraction m_interaction = null;
+	  private JxBaseInteraction m_interaction = new JxBaseInteraction();
 
 	  /** For trace output */
-	  private JxBaseTrace m_trace = null;
-
-	  public JxBaseEngine()
-	  {
-		 m_nodes = new JxBaseNodeCollection();
-		 m_relations = new JxBaseRelationCollection();
-		 m_interaction = new JxBaseInteraction();
-		 m_trace = new JxBaseTrace();
-		 m_owner = null;
-	  }
+	  private JxBaseTrace m_trace = new JxBaseTrace();
+	  
+	  //private JxBaseTraceLoader m_traceLoader=new JxBaseTraceLoader();
 
 	/**
 	 * @brief Initialize the whole engine for execution.
@@ -157,7 +149,8 @@ import java.util.Random;
 	public void open()
 	{
 	   m_trace.open();
-	  
+	   
+	   //m_traceLoader.open();
 	}
 	
 	public void close() 
@@ -197,7 +190,7 @@ import java.util.Random;
 	}
 
 	
-	public JiBaseNodeCollection getNodes() 
+	public static JiBaseNodeCollection getNodes() 
 	{
 		return m_nodes;
 	}
@@ -207,7 +200,7 @@ import java.util.Random;
 	}
 
 	
-	public JiBaseRelationCollection getRelations()
+	public static JiBaseRelationCollection getRelations()
 	{
 		return m_relations;
 	}
@@ -242,7 +235,7 @@ import java.util.Random;
 	 * 
 	 * @return Node count in the simulated application.
 	 */
-	int nodecount() 
+	public int nodecount() 
 	{
 		return m_nodes.count();
 	}
@@ -255,7 +248,6 @@ import java.util.Random;
 	public void addNode(JiBaseNode node) 
 	{
 		m_nodes.add(node);
-		
 	}
 
 	public void save(JiBaseNode node)
@@ -308,25 +300,22 @@ import java.util.Random;
 		JiBaseInteraction interaction = null;
 
 	   try {
-			trace = (JiBaseTrace) JxBaseFoundation.createObject(traceclass);
-			nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesclass);
-			relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsclass);
-			interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionclass);
-		} catch (Exception e)
-		{
+				trace = (JiBaseTrace) JxBaseFoundation.createObject(traceclass);
+				nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesclass);
+				relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsclass);
+				interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionclass);
+	   } 
+	     catch (Exception e)
+		 {
 			e.printStackTrace();
-		}
-		  setTrace(trace);
-		  setNodes(nodes);
-		  setRelations(relations);
-		  setInteraction(interaction);
-		    
-		  int time=0;
+		 }
+			  setTrace(trace);
+			  setNodes(nodes);
+			  setRelations(relations);
+			  setInteraction(interaction);
+			    
+			  int time=0;
 		  
 		  trace.restore(time,dbname, nodes, relations);
     }
-      public void print()
-     {
-	   m_trace.print();
-     }
 }

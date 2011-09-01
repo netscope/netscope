@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import kernel.JxBaseRelation;
 
-public class JxBaseTraceDataSet {
+public class JxBaseTraceDataSet 
+{
+    public JxBaseTraceDataSet()
+    {
+    	
+    }
     
 	Object owner=null;
-	
-	public Statement m_statement=null;
 	
 	JxBaseNode []nodeSet=new JxBaseNode[10000];
 	JxBaseRelation []relationSet=new JxBaseRelation[10000];
@@ -21,11 +24,11 @@ public class JxBaseTraceDataSet {
 	}
 	
 	/** load information of the node and relation from trace */
-	JxBaseNode[] loadNode(String tablename,int begintime,int endtime)
+	JxBaseNode[] loadNode(Statement sta,String tablename,int begintime,int endtime)
 	{
 		   try{
 		         String selectTraceNode="select * from "+tablename+" where time>="+begintime+"and time<="+endtime;
-		         ResultSet r = m_statement.executeQuery(selectTraceNode);
+		         ResultSet r = sta.executeQuery(selectTraceNode);
 		        
 		         int i = 0;
 		         
@@ -46,40 +49,42 @@ public class JxBaseTraceDataSet {
 	    	  e.printStackTrace();
 	      }
 	      return nodeSet;
-	};
-	JxBaseRelation[] loadRelation(String tablename,int begintime,int endtime)
-	{ try{
-        String selectTraceRelation="select * from "+tablename+" where time>="+begintime+"and time<="+endtime;
-        ResultSet r = m_statement.executeQuery(selectTraceRelation);
+	}
+	
+	JxBaseRelation[] loadRelation(Statement sta,String tablename,int begintime,int endtime)
+	{ 
+		try{
+              String selectTraceRelation="select * from "+tablename+" where time>="+begintime+"and time<="+endtime;
+              ResultSet r = sta.executeQuery(selectTraceRelation);
        
-        int i = 0;
+              int i = 0;
         
-        while(r.next())
-        {
-        	 String time=r.getString(1);
-       	     String nodeId=r.getString(2);
-       	     String str=time+nodeId;
-       	     int  id=Integer.parseInt(str);
+              while(r.next())
+              {
+	        	 String time=r.getString(1);
+	       	     String nodeId=r.getString(2);
+	       	     String str=time+nodeId;
+	       	     int  id=Integer.parseInt(str);
 		     
-			 int packet= Integer.parseInt(r.getString(3));
-				
-			 nodeSet[i++].setId(id);
-			 nodeSet[i++].setValue(packet);
-        }
-    }catch(Exception e)
-     {
-	         e.printStackTrace();
-     }
-  return relationSet;
-	};
+				 int packet= Integer.parseInt(r.getString(3));
+					
+				 nodeSet[i++].setId(id);
+				 nodeSet[i++].setValue(packet);
+             }
+          }catch(Exception e)
+           {
+	          e.printStackTrace();
+           }
+              return relationSet;
+	}
 	
 	
 	/** Load the snapshot of the network at the given time*/
-	JxBaseNode[] loadNodeSnapShot(String tablename,int giventime)
+	JxBaseNode[] loadNodeSnapShot(Statement sta,String tablename,int giventime)
 	{
 	  try{
           String selectNodeSnapShot="select * from "+tablename+" where time= "+giventime;
-          ResultSet r = m_statement.executeQuery(selectNodeSnapShot);
+          ResultSet r = sta.executeQuery(selectNodeSnapShot);
        
           int i = 0;
         
@@ -96,12 +101,14 @@ public class JxBaseTraceDataSet {
 	       e.printStackTrace();
        }
        return nodeSet;
-};
-	JxBaseRelation[] loadRelationSnapShot(String tablename,int giventime)
+    }
+	
+	
+	JxBaseRelation[] loadRelationSnapShot(Statement sta,String tablename,int giventime)
 	{
 	  try{
 	         String selectRelationSnapShot="select * from "+tablename+"where time="+giventime;
-	         ResultSet r = m_statement.executeQuery(selectRelationSnapShot);
+	         ResultSet r = sta.executeQuery(selectRelationSnapShot);
 	        
 	         int i = 0;
 	         
@@ -118,5 +125,5 @@ public class JxBaseTraceDataSet {
    	         e.printStackTrace();
           }
        return relationSet;
-	};
+	}
 }

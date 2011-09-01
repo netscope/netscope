@@ -8,19 +8,22 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.apache.log4j.*;
 /**
  * The most fundamental implementation of Trace object.
  */
 public class JxBaseTrace implements JiBaseTrace {
     
 	private Connection m_con = null;	
-	private Statement m_sta = null;
+	private static  Statement m_sta = null;
 	
 	/** Owner of this object. It's usually the simulation engine object */
 	private Object m_owner = null;
 	
 	/** Where the trace data files are placed */
 	private String m_datadir = null;
+	
+	private static String m_tablename=null;
 	
 	/** Current database name */ 
 	private String m_curdbname = null;
@@ -31,15 +34,18 @@ public class JxBaseTrace implements JiBaseTrace {
 	public String m_relationDataName=null;
 	
 	JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
-	JxBaseRelationCollection m_relations = new JxBaseRelationCollection();
+	JxBaseRelationCollection m_relations = new JxBaseRelationCollection();	
 	
+	public JxBaseTrace()
+	{
+	  
+	}
 	
-	JxBaseTrace(){};	
 	public JxBaseTrace(Object owner) 
 	{
 		m_owner = owner;
 		m_datadir = "c:/temp/";
-		m_curdbname = "";
+		m_curdbname = " ";
 	}
 	public JxBaseTrace(Object owner, String datadir)
 	{
@@ -48,27 +54,21 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_curdbname = "";
 	}
 	
-	public void print(){
-		System.out.println("m_nodeMetaName is "+m_nodeMetaName);
-		System.out.println("m_relationMetaName is "+m_relationMetaName);
-		System.out.println("m_nodeDataName is "+m_nodeDataName);
-		System.out.println("m_relaionDataName is "+m_relationDataName);
-	}
 	public Object getOwner()
 	{
 		return m_owner;
-	};
+	}
 	public void setOwner(Object owner)
 	{ 
 		m_owner=owner;
-	};
-
-   /***/
-	public void open(String datadir)
+	}
+  
+	public void open(String databasedir,String databasename)
 	{
-	  try {
+	  try{
 			Class.forName("org.hsqldb.jdbcDriver");
-			m_con = DriverManager.getConnection("jdbc:hsqldb:file:D:/temp/exper/"+ datadir + ";shutdown=true", "sa", "");
+			
+			m_con = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
 			m_sta = m_con.createStatement();
 			
 			System.out.println("connect sucess!");
@@ -81,16 +81,18 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public void open()
 	{
-		  m_datadir = "database"+getNextDatabaseDir();
-	      open(m_datadir);
+		  m_tablename = getNextDatabaseDir();
+		  m_datadir="D:/temp/exper/";
 	     
-	      nodeMetaTable();
-		  relationMetaTable();
+		  open( m_datadir,m_tablename );
+	     
+	      nodeMetaTable( m_tablename );
+		  relationMetaTable( m_tablename );
 		      
-		  nodeDataTable();
-		  relationDataTable();
+		  nodeDataTable( m_tablename );
+		  relationDataTable( m_tablename );
 	}
-
+	
 	/** Free resources allocated to this object. */
 	public void close()
 	{		
@@ -117,9 +119,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		close();
 	}
 	
-	public void nodeMetaTable()
+	public void nodeMetaTable(String tablename)
 	{
-		m_nodeMetaName = "nodemeta"+getNextDatabaseDir(); 
+		m_nodeMetaName = "nodemeta"+ tablename ; 
 		System.out.println(m_nodeMetaName);
 		
 		String createNode = "create table " + m_nodeMetaName
@@ -133,9 +135,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 	
-	public void relationMetaTable()
+	public void relationMetaTable(String tablename)
 	{
-		m_relationMetaName= "relationmeta"+getNextDatabaseDir();
+		m_relationMetaName= "relationmeta"+ tablename;
 		System.out.println(m_relationMetaName);
 		
 		String trace_edge = "create table " + m_relationMetaName
@@ -150,9 +152,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 	
-	public void nodeDataTable()
+	public void nodeDataTable(String tablename)
 	{
-		m_nodeDataName =  "nodedata"+getNextDatabaseDir();
+		m_nodeDataName =  "nodedata"+tablename;
 		System.out.println(m_nodeDataName);
 		
 		String trace_edge = "create table " + m_nodeDataName
@@ -167,9 +169,9 @@ public class JxBaseTrace implements JiBaseTrace {
 		}
 	}
 	
-	public void relationDataTable()
+	public void relationDataTable(String tablename)
 	{
-		m_relationDataName = "relationdata"+getNextDatabaseDir();
+		m_relationDataName = "relationdata"+tablename;
 		System.out.println(m_relationDataName);
 		
 	    String trace_edge = "create table " + m_relationDataName
@@ -405,7 +407,9 @@ public class JxBaseTrace implements JiBaseTrace {
 	    {
 	    	 e.printStackTrace();
 	    }
-	}	
+	}
+	
+	
 	public void trace( int time,JiBaseRelation relation)
 	{
 	  	String currentTime=Integer.toString(time);
@@ -458,10 +462,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	@Override
 	/** */
-	// can add lastsnapshot time, default time 0
+	// can add lastsnapshot time, default time 06
     public void restore(int time, String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
 	{		
-		open( datadir );
+		open( datadir,m_tablename);
 		load( time,nodes );
 	    load( time,relations );
 	}
@@ -474,4 +478,13 @@ public class JxBaseTrace implements JiBaseTrace {
 		return cur_time;
 	}
 	
+	public static String getName()
+	{
+		return m_tablename;
+	}
+	
+	public static Statement getStatement()
+	{
+		return m_sta;
+	}
 }

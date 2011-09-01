@@ -18,15 +18,18 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	JiBaseTrace m_trace = null;
 	Random m_random = JxBaseFoundation.random();
 	
+	
 	public JxBaseNodeCollection()
 	{
 		m_owner = null;
 	}
 	
-	public JxBaseNodeCollection(Object owner)
+	
+	public JxBaseNodeCollection( Object owner )
 	{
 		m_owner = owner;
 	}
+	
 	
 	public JxBaseNodeCollection( Object owner, int count )
 	{
@@ -34,10 +37,11 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		generate( count );
 	}
 	
+	
 	public void generate( int count )
 	{
 	    for (int i=0; i<count; i++)
-		super.add( new JxBaseNode(this, i) );		
+		  super.add( new JxBaseNode(this, i) );		
 	}
 	
 	public void setTrace( JiBaseTrace trace )
@@ -67,12 +71,13 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	}
 	
 	@Override
-	public boolean add( JiBaseNode node ){
+	public boolean add( JiBaseNode node )
+	{
 		return super.add(node);
 	}
 	
 	@Override
-	public void add(int index, JiBaseNode node ){
+	public void add(int index, JiBaseNode node){
 		super.add(index,node); 
 	}
 	

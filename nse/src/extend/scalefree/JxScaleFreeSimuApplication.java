@@ -2,38 +2,41 @@
  * 
  */
 package extend.scalefree;
-import java.util.*;
 
-import kernel.JxBaseEngine;
-import kernel.JxBaseInteraction;
-import kernel.JxBaseNodeCollection;
-import kernel.JxBaseRelationCollection;
-import kernel.JxBaseRelation;
-import kernel.JiBaseNode;
-import kernel.JxBaseNode;
-import kernel.JxBaseTrace;
+import kernel.basetrace.*;
+import java.util.*;
+import kernel.*;
 
   public class JxScaleFreeSimuApplication 
   {  
-	    JxBaseEngine  m_engine = new JxBaseEngine();
 	    
-	   JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
+	    JxBaseEngine  m_engine = new JxBaseEngine();
+	    JxBaseTraceLoader m_traceLoader = new JxBaseTraceLoader();
+	    
+	    
+	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
 		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
 		
-	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
-		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
 		
+	   // JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
+	   // JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
+		
+		ArrayList<JiBaseNode>  leftnodes=new ArrayList();
+		ArrayList<JiBaseNode>  addednodes=new ArrayList();
+
 		Random m_random = m_engine.getRandom();
-	
-		JiBaseNode m_nodeFrom = null;
-		JiBaseNode m_nodeTo = null;
+	    
+		
+		JiBaseNode m_nodeFrom = new JxBaseNode();
+		JiBaseNode m_nodeTo = new JxBaseNode();
+		
 		
 		String m_datadir = null;
 		
 		public void init()
 		{  
 		   m_engine.setInteraction(new JxBaseInteraction(m_engine));
-		   m_engine.setTrace(new JxBaseTrace(m_engine));      
+		   m_engine.setTrace(new JxBaseTrace(m_engine));    
 		}
 		
 		public void open()
@@ -50,14 +53,17 @@ import kernel.JxBaseTrace;
 	    {
 	    	for(int i=0;i<nodeCount;i++)
 	    	{
-	          int loc_x= m_random.nextInt(100);
-	          int loc_y= m_random.nextInt(100);
+	           int loc_x = m_random.nextInt(100); 
+	           int loc_y = m_random.nextInt(100);
 	         
-	          JiBaseNode node=new JxBaseNode(i,loc_x,loc_y,50,100);
+	           JiBaseNode node=new JxBaseNode(i,loc_x,loc_y,50,100);
 	         
-	          m_engine.addNode(node);  
-	          m_engine.save(node);
-	    	}  
+	           m_engine.addNode(node);  
+	           m_engine.save(node);
+	           
+	           leftnodes.add(node);
+	    	} 
+	    	print1();
 	    }
 	    
 	    public void generateRelations(int relationCount)
@@ -66,41 +72,49 @@ import kernel.JxBaseTrace;
 	    	 m_relations.randomize(); 
 	    	 m_engine.setRelations(m_relations); 
 	    	 
-	    	 m_leftnodes=(JxBaseNodeCollection)m_engine.getNodes();
+	    	 m_leftnodes = (JxBaseNodeCollection)JxBaseEngine.getNodes();
+	    	 print1();
+	    	 
 	    	 m_leftnodes.randomize();
+	    	 print1();
 	    	 
 		     for(int i=0;i<m_relations.count();i++)
 			 { 
-		    	JxBaseRelation relation=(JxBaseRelation)m_engine.getRelations().get(i);	
+		    	JxBaseRelation relation=(JxBaseRelation)JxBaseEngine.getRelations().get(i);	
 		    	 
 		    	  if(i==0)
 		          {
-		    	    m_nodeFrom = m_leftnodes.get(0);
-		    	    m_nodeTo=m_leftnodes.get(1);
-		    	  
-		    	    relation.setNodeFrom( m_nodeFrom );
-		    	    relation.setNodeTo( m_nodeTo );
-		    	  
-		    	    m_leftnodes.remove( m_nodeFrom );
-		    	    m_leftnodes.remove( m_nodeTo );
-		    	  
-		    	    m_addednodes.add( m_nodeFrom ); 
-		    	    m_addednodes.add( m_nodeTo );         	    
+			    	    m_nodeFrom = m_leftnodes.get(0);
+			    	    m_nodeTo=m_leftnodes.get(1);
+			    	  
+			    	    relation.setNodeFrom( m_nodeFrom );
+			    	    relation.setNodeTo( m_nodeTo );
+			    	  
+			    	    print();
+			    	    m_leftnodes.remove( m_nodeFrom );
+			    	    m_leftnodes.remove( m_nodeTo );
+			    	    print();
+			    	    
+			    	    m_addednodes.add( m_nodeFrom ); 
+			    	    m_addednodes.add( m_nodeTo );   
+			    	    print();
 	              }
 	    	      else 
 	    	      { 
-		    	    m_nodeFrom  = m_leftnodes.get(0);
-		    	    m_nodeTo  = selectnodeto();
-		    	  
-		    	    relation.setNodeFrom(m_nodeFrom);
-		    	    relation.setNodeTo(m_nodeTo);
-		    	  
-		     	    m_addednodes.add( m_nodeFrom ); 
-		     	    m_addednodes.add( m_nodeTo ); 
-		     	  
-		     	    m_leftnodes.remove(m_nodeFrom);
+			    	    m_nodeFrom  = m_leftnodes.get(0);
+			    	    m_nodeTo  = selectnodeto();
+			    	  
+			    	    relation.setNodeFrom(m_nodeFrom);
+			    	    relation.setNodeTo(m_nodeTo);
+			    	  
+			     	    m_addednodes.add( m_nodeFrom ); 
+			     	    m_addednodes.add( m_nodeTo ); 
+			     	  
+			     	   // print();
+			     	    m_leftnodes.remove(m_nodeFrom);
+			     	   // print();
 		         } 
-		    	  m_engine.saveRelation(relation);  
+			    	  m_engine.saveRelation(relation);  
 		    }     
 	    } 
 	    
@@ -109,13 +123,21 @@ import kernel.JxBaseTrace;
 			int p = m_random.nextInt(m_addednodes.count()); 
 			return m_addednodes.get(p);  
 	    }
+	    
 	    public void print()
 	    {
-	    	m_engine.print();	
-	    }	
+		   System.out.println(JxBaseEngine.getNodes().count());
+	    }
+	    
+	    public void print1()
+	    {  
+	       System.out.println(" attention please£¡");
+		   System.out.println(JxBaseEngine.getNodes());
+	    }
+	   
+	   
 	    public void run()
 	    {           
-		     m_engine.print();
 		     m_engine.execute(2);		    	   
 	    }
 	    
@@ -130,9 +152,12 @@ import kernel.JxBaseTrace;
     	    app.generateRelations(9);
     	    
     	    app.run();
+    	    app.print();
     	    
-    	    app.close();
-    	    System.out.println("sucess!");
+    	    app.m_traceLoader.loadnodes();
+    	    app.m_traceLoader.loadrelations();
+    	    
+            System.out.println("sucess!");
 	    }     	   		
  }
 	

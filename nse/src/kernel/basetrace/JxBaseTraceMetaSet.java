@@ -1,28 +1,32 @@
 package kernel.basetrace;
 
+import kernel.*;
 import kernel.JxBaseNode;
 import kernel.JxBaseRelation;
 import java.sql.*;
 
 public class JxBaseTraceMetaSet 
-{
+{   
+	JxBaseNodeCollection nodes= new JxBaseNodeCollection() ;
+	JxBaseRelationCollection relations= new JxBaseRelationCollection();
 	
 	public Object m_owner;
-	public Statement m_statement=null;
 	
-	JxBaseNode []nodeSet=new JxBaseNode[100000];
-	JxBaseRelation []relationSet=new JxBaseRelation[100000];
-	
-	JxBaseTraceMetaSet( Object owner )
+	public JxBaseTraceMetaSet()
 	{
-		m_owner=owner;
+		
 	}
 	
-	public JxBaseNode[] loadnode(String nodeTableName)
+	public JxBaseTraceMetaSet( Object owner )
+	{
+		m_owner=owner;	
+	}
+	
+	public void loadnodes(Statement sta, String tableName )
 	{
 	   try{
-	         String selectMetaNode="select * from "+nodeTableName;
-	         ResultSet r = m_statement.executeQuery(selectMetaNode);
+	         String selectMetaNode="select * from nodemeta"+tableName;
+	         ResultSet r = sta.executeQuery(selectMetaNode);
 	        
 	         int i = 0;
 	         
@@ -32,39 +36,57 @@ public class JxBaseTraceMetaSet
 				 int nodeLocx = Integer.parseInt(r.getString(2));
 				 int nodeLocy = Integer.parseInt(r.getString(3));
 					
-				 nodeSet[i++].setId(nodeId);
-				 nodeSet[i++].setX(nodeLocx);
-				 nodeSet[i++].setY(nodeLocy);
+				 JxBaseNode node=new JxBaseNode();
+				 
+				 node.setId(nodeId);
+				 node.setX(nodeLocx);
+				 node.setY(nodeLocy);
+				 
+				 nodes.add(node);
 	         }
-      }catch(Exception e)
-      {
-    	  e.printStackTrace();
-      }
-      return nodeSet;
+	         
+	         for(i=0;i<nodes.size();i++)
+	         {
+	        	 System.out.println(nodes.get(i));
+	         }
+         }catch(Exception e)
+         {
+    	     e.printStackTrace();
+         }
    }
 	
-	public JxBaseRelation[] loadrelation(String relationTableName)
+	
+	public void  loadrelations(Statement sta, String tableName )
 	{
 	  try{
-	         String selectMetaRelation="select * from "+relationTableName;
-	         ResultSet r = m_statement.executeQuery(selectMetaRelation);
+	         String selectMetaRelation="select * from relationmeta"+tableName;
+	         ResultSet r = sta.executeQuery(selectMetaRelation);
 	        
 	         int i = 0;
 	         
 	         while(r.next())
 	         {
 			     int relationId = Integer.parseInt(r.getString(1));
-				 int relationLocx = Integer.parseInt(r.getString(2));
-				 int relationLocy = Integer.parseInt(r.getString(3));
-					
-				 nodeSet[i++].setId(relationId);
-				 nodeSet[i++].setX(relationLocx);
-				 nodeSet[i++].setY(relationLocy);
+				 int relationNodeFrom = Integer.parseInt(r.getString(2));
+				 int relationNodeTo = Integer.parseInt(r.getString(3));
+				 					 
+				 JxBaseRelation relation =new JxBaseRelation();
+				 
+				 relation.setId(relationId);
+				 relation.setNodeFrom(JxBaseEngine.getNodes().get(relationNodeFrom));
+				 relation.setNodeTo(JxBaseEngine.getNodes().get(relationNodeTo));
+				
+				 relations.add(relation);
 	         }
+	         
+	         for(int j=0;i<relations.size();j++)
+	         {
+	        	 System.out.println(relations.get(i));
+	         }
+	         
          }catch(Exception e)
           {
    	         e.printStackTrace();
           }
-       return relationSet;
 	}
 }

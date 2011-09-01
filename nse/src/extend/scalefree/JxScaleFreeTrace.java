@@ -26,7 +26,7 @@ public class JxScaleFreeTrace {
 
 	ResultSet res =null;
 	
-	Boolean evertra_node=false;  //一定要做成成员变量
+	Boolean evertra_node=false; 
 	
 	boolean  evertra_edge=false;
 	
@@ -42,8 +42,6 @@ public class JxScaleFreeTrace {
  	
 	Random random= new Random();
 	
-
-	// 打开数据库
 	public Statement openDatabase(String database) {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
@@ -59,7 +57,6 @@ public class JxScaleFreeTrace {
 		return sta;
 	}
 
-	// 创建节点表并保存节点结构
 	public void Save_NodeTopo(Connection con,JxScaleFreeNodeCollection m_nodes1) {
 
 		JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
