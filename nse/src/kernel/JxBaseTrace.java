@@ -81,14 +81,13 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public void open()
 	{
-		  m_tablename = getNextDatabaseDir();
 		  m_datadir="D:/temp/exper/";
+		  m_tablename = getNextDatabaseDir();
 	     
 		  open( m_datadir,m_tablename );
-	     
+	      
 	      nodeMetaTable( m_tablename );
-		  relationMetaTable( m_tablename );
-		      
+		  relationMetaTable( m_tablename );  
 		  nodeDataTable( m_tablename );
 		  relationDataTable( m_tablename );
 	}

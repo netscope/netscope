@@ -138,17 +138,20 @@ public class JxScaleFreeEdgeCollection extends JxBaseRelationCollection implemen
 	}
 	
 	
-	public ArrayList<JxScaleFreeEdge> in_edges_of( int nodeto ){
+	public ArrayList<JxScaleFreeEdge> in_edges_of( int nodeto )
+	{
 		return null;
 	}
 	
 	
-	public ArrayList<JxScaleFreeEdge> edges_of( int nodeid){
+	public ArrayList<JxScaleFreeEdge> edges_of( int nodeid)
+	{
 		return null;
 	}
 	
 	
-	public ArrayList<JxScaleFreeNode> neighbors_of( int nodeid ){
+	public ArrayList<JxScaleFreeNode> neighbors_of( int nodeid )
+	{
 		return null;
 	}
 	
