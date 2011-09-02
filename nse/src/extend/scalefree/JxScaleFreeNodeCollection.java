@@ -12,9 +12,9 @@ import kernel.*;
 public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements JiBaseNodeCollection {	
 
 	private static final long serialVersionUID = 1L;
-	
-	JxBaseEngine m_engine=new JxBaseEngine();
     
+	JxBaseEngine m_engine=new JxBaseEngine();
+	
 	public JxScaleFreeNodeCollection()
 	{
 		
@@ -30,7 +30,7 @@ public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements J
 	    	int loc_x = random.nextInt(100);
 	    	int loc_y = random.nextInt(100);
 	    	
-	    	super.add( new JxScaleFreeNode(this,i,loc_x,loc_y,100) );	
+	    	super.add( new JxScaleFreeNode(this,i,loc_x,loc_y,100));	
 	    }		
 	}
 	

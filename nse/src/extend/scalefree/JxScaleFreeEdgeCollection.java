@@ -16,21 +16,23 @@ public class JxScaleFreeEdgeCollection extends JxBaseRelationCollection implemen
 	}
 	
     public void generate(int relationCount)
-    { 
-    	//JxBaseEngine engine = (JxBaseEngine)this.m_owner;
-    	JxScaleFreeNodeCollection nodes = (JxScaleFreeNodeCollection)engine.getNodes();
+    {
+    	/** generate nodes */
+    	JxScaleFreeNodeCollection nodes = new JxScaleFreeNodeCollection();
+	    nodes.generate(relationCount+1);
+	    
+    	//(JxScaleFreeNodeCollection)JxBaseEngine.getNodes();
+    	super.generate();
+    	
     	JxScaleFreeNodeCollection leftnodes = new JxScaleFreeNodeCollection();
+    	JxScaleFreeNodeCollection addednodes = new JxScaleFreeNodeCollection();
     	
     	for(int i=0;i<nodes.count();i++)
     	{
     		leftnodes.add( nodes.get(i) );
     	}
-    	
-    	 m_relations.generate(relationCount);
-    	 m_relations.randomize(); 
-    	 m_engine.setRelations(m_relations); 
     	 
-    	 m_leftnodes=(JxBaseNodeCollection)m_engine.getNodes();
+    	 m_leftnodes=JxBasm_engine.getNodes();
     	 m_leftnodes.randomize();
     	 
 	     for(int i=0;i<m_relations.count();i++)
