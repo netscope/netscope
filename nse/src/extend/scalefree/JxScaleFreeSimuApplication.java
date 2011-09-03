@@ -34,7 +34,8 @@ import kernel.*;
 	    {           
 		     for(int i=0;i<expertime;i++)
 		     {
-		    	 m_interaction.interact(time, relation, trace);
+		    	 m_interaction.interact(i, relation, trace);
+		    	  
 		     }	    	   
 	    }
 	    

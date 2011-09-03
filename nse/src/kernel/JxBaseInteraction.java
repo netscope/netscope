@@ -2,7 +2,6 @@ package kernel;
 
 import java.util.Random;
 
-
 public class JxBaseInteraction implements JiBaseInteraction {
      
 	 Object m_owner = null;
@@ -70,8 +69,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 			mini = b;
 		if (c < mini)
 			mini = c;
-		
-		
+				
 		if (mini == 0) 	
 			minimum = 0;
 		else 
