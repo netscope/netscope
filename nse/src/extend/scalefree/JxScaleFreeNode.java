@@ -13,7 +13,7 @@ import kernel.*;
 public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode 
 {
 	/** edge list enables the developer can find all neighbor edges rapidly */
-	private ArrayList<JxScaleFreeEdge> m_edgelist = null;
+	private ArrayList<JxScaleFreeRelation> m_edgelist = null;
 	
 	private int degree;
 
@@ -61,7 +61,7 @@ public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode
 	/**
 	 * @return An array list containing the references to all neighbor edges.
 	 */
-	public ArrayList<JxScaleFreeEdge> edgelist() 
+	public ArrayList<JxScaleFreeRelation> edgelist() 
 	{
 		return m_edgelist;
 	}

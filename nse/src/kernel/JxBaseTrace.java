@@ -38,7 +38,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public JxBaseTrace()
 	{
-	  
+	           
 	}
 	
 	public JxBaseTrace(Object owner) 
@@ -251,7 +251,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		     try{
 	               m_sta.executeUpdate(traceNode);
 	            } 
-		          catch(Exception e)
+		         catch(Exception e)
 	              {
 	    	        e.printStackTrace();
 	              }
@@ -385,7 +385,8 @@ public class JxBaseTrace implements JiBaseTrace {
 				relation.setNodeFrom(nodeFrom);
 				relation.setNodeTo(nodeTo);
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}

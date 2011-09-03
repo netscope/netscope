@@ -89,7 +89,6 @@ import java.util.Random;
 		m_trace.open();
 
 		m_nodes.generate(10000);
-		m_relations.generate();
 	    
 		m_trace.save(m_nodes);
 		m_trace.save(m_relations);

@@ -7,9 +7,7 @@ public class JxBaseTest {
 	 */
 	
 	public JxBaseTest()
-	{
-	
-		
+	{	
 	}
 	
 	void test1()

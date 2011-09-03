@@ -7,7 +7,7 @@ public interface JiBaseRelationCollection {
 	
     public int count();	
 	
-    public void generate();
+    public void generate(int relationCount);
     public void randomize();	
     
     public JiBaseRelation get(int index); 

@@ -15,9 +15,15 @@ public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements J
     
 	JxBaseEngine m_engine=new JxBaseEngine();
 	
+
 	public JxScaleFreeNodeCollection()
 	{
-		
+		super();
+	}
+	
+	public JxScaleFreeNodeCollection(Object owner)
+	{
+		super(owner);
 	}
 
 	public void generate( int count )
