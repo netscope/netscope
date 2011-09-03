@@ -1,12 +1,12 @@
 package kernel;
 
-public class JxBaseTest {
+public class JxBaseTestApplication {
 
 	/**
 	 * Create a network simulator from scratch.
 	 */
 	
-	public JxBaseTest()
+	public JxBaseTestApplication()
 	{
 	
 		
@@ -58,7 +58,7 @@ public class JxBaseTest {
 	
 	public static void main(String []args)
 	{
-		JxBaseTest test=new JxBaseTest();
+		JxBaseTestApplication test=new JxBaseTestApplication();
 		test.test1();
 		test.test2();
 		test.test3();

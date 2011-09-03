@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.apache.log4j.*;
 /**
  * The most fundamental implementation of Trace object.
  */
