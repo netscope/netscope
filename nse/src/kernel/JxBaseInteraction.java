@@ -47,9 +47,11 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		{
 			cut = m_random.nextInt(len1 + len2);	
 		}
+		
 		nodefrom.setValue(cut);
 		nodeto.setValue(len1 + len2 - cut);
-        relation.setPacket(cut);
+       
+		relation.setPacket(cut);
 		
         if(cut!=0)
         {

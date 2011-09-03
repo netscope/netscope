@@ -16,10 +16,11 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	
 	Random m_random = JxBaseFoundation.random();
 	
-	JxBaseNodeCollection m_nodes = null;
-	JxBaseRelation m_relation=null;
-	Object m_owner = null;
-	JxBaseTrace m_trace = null;
+	public Object m_owner = null;
+	public JxBaseTrace m_trace = null;
+	public JxBaseRelation m_relation=null;
+	public JxBaseNodeCollection m_nodes = null;
+	
 	
 	public JxBaseRelationCollection() 
 	{
@@ -70,6 +71,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	{ 
 	  return super.get(index); 
 	}
+	
 	public JiBaseRelation set(int index,JiBaseRelation relation)
 	{
 		return super.set(index, relation);
