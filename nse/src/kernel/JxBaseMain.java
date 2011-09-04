@@ -1,12 +1,12 @@
 package kernel;
 
-public class JxBaseTestApplication {
+public class JxBaseMain {
 
 	/**
 	 * Create a network simulator from scratch.
 	 */
 	
-	public JxBaseTestApplication()
+	public JxBaseMain()
 	{
 	
 		
@@ -14,7 +14,7 @@ public class JxBaseTestApplication {
 	
 	void test1()
 	{
-		JxBaseEngine engine = new JxBaseEngine();
+		JxBaseApplication engine = new JxBaseApplication();
 		
 		engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
 		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
@@ -29,7 +29,7 @@ public class JxBaseTestApplication {
 	 */
 	void test2() 
 	{   
-		JxBaseEngine engine = new JxBaseEngine();
+		JxBaseApplication engine = new JxBaseApplication();
         
 		engine.setTrace( new JxBaseTrace(engine, "/temp/expr/"));
 		
@@ -51,14 +51,14 @@ public class JxBaseTestApplication {
 		relationsclass = "nse.kernel.JxBaseRelationsCollection";
 		interactionclass = "nse.kernel.JiBaseInteraction";
 		
-		JxBaseEngine engine = new JxBaseEngine();
+		JxBaseApplication engine = new JxBaseApplication();
 		engine.open( nodesclass, relationsclass, interactionclass, traceclass );
 		engine.execute(10000);
 	}
 	
 	public static void main(String []args)
 	{
-		JxBaseTestApplication test=new JxBaseTestApplication();
+		JxBaseMain test=new JxBaseMain();
 		test.test1();
 		test.test2();
 		test.test3();

@@ -7,12 +7,12 @@ import kernel.basetrace.*;
 import java.util.*;
 import kernel.*;
 
-  public class JxScaleFreeSimuApplication 
+  public class JxScaleFreeApplication 
   {  
 	    
-	    JxBaseEngine  m_engine = new JxBaseEngine();
+	    JxBaseApplication  m_engine = new JxBaseApplication();
 
-	    JxBaseTraceLoader m_traceLoader = new JxBaseTraceLoader();
+	    public JxBaseTraceLoader m_traceLoader = new JxBaseTraceLoader();
 	    
 	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
 		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
@@ -29,7 +29,7 @@ import kernel.*;
 	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
 		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
 		
-		JxScaleFreeSimuApplication()
+		JxScaleFreeApplication()
 		{
 		   m_engine.setInteraction(new JxBaseInteraction(m_engine));
 		   m_engine.setTrace(new JxBaseTrace(m_engine));    
@@ -62,30 +62,9 @@ import kernel.*;
 		     m_engine.execute(2);		    	   
 	    }
 	    
-        public static void main(String []args)
-        {	
-    	    JxScaleFreeSimuApplication app=new JxScaleFreeSimuApplication(); 	    
-    	    
-    	    app.init();
-    	    app.open();
-            
-    	   // app.generateNodes(10);
-    	    //app.generateRelations(9);
-    	    
-    	    app.run();
-
-    	    
-    	    app.m_traceLoader.loadnodes();
-    	    app.m_traceLoader.loadrelations(); 	   		
-
-    	    app.close();
-    	   
-    	    System.out.println("sucess!");
-	    }     
-        
     	void test1()
     	{
-    		JxBaseEngine engine = new JxBaseEngine();
+    		JxBaseApplication engine = new JxBaseApplication();
     		
     		engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
     		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));

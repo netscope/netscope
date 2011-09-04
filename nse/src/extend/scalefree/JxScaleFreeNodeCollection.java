@@ -13,7 +13,7 @@ public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements J
 
 	private static final long serialVersionUID = 1L;
     
-	JxBaseEngine m_engine=new JxBaseEngine();
+	JxBaseApplication m_engine=new JxBaseApplication();
 	
 	public JxScaleFreeNodeCollection()
 	{

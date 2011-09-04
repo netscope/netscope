@@ -73,8 +73,8 @@ public class JxBaseTraceMetaSet
 				 JxBaseRelation relation =new JxBaseRelation();
 				 
 				 relation.setId(relationId);
-				 relation.setNodeFrom(JxBaseEngine.getNodes().get(relationNodeFrom));
-				 relation.setNodeTo(JxBaseEngine.getNodes().get(relationNodeTo));
+				 relation.setNodeFrom(JxBaseApplication.getNodes().get(relationNodeFrom));
+				 relation.setNodeTo(JxBaseApplication.getNodes().get(relationNodeTo));
 				
 				 relations.add(relation);
 	         }
