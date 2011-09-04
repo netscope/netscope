@@ -2,7 +2,6 @@ package kernel;
 
 import java.util.Random;
 
-
 public class JxBaseInteraction implements JiBaseInteraction {
      
 	 Object m_owner = null;
@@ -48,9 +47,11 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		{
 			cut = m_random.nextInt(len1 + len2);	
 		}
+		
 		nodefrom.setValue(cut);
 		nodeto.setValue(len1 + len2 - cut);
-        relation.setPacket(cut);
+       
+		relation.setPacket(cut);
 		
         if(cut!=0)
         {
@@ -70,8 +71,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 			mini = b;
 		if (c < mini)
 			mini = c;
-		
-		
+				
 		if (mini == 0) 	
 			minimum = 0;
 		else 

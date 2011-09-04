@@ -156,7 +156,6 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	public ArrayList<JiBaseNode> neighborsof( JiBaseNode node, int distance )
 	{
 		ArrayList<JiBaseNode> neighbors = new ArrayList<JiBaseNode>();
-
 		return neighbors;
 	}
 	

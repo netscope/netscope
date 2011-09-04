@@ -6,8 +6,9 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import kernel.*;
+
+
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
  *  
@@ -37,10 +38,10 @@ import kernel.*;
  * @author Allen
  *
  */
-public class JxBaseTraceLoader {
-
-	protected JxBaseTraceMetaSet m_metaset=new JxBaseTraceMetaSet();  
-	protected JxBaseTraceDataSet m_dataset=new JxBaseTraceDataSet();
+public class JxBaseTraceLoader 
+{
+	protected JxBaseTraceMetaSet m_metaset = new JxBaseTraceMetaSet();  
+	protected JxBaseTraceDataSet m_dataset = new JxBaseTraceDataSet();
 	//protected JxBaseTrace trace=new JxBaseTrace(); 		
 	
 	protected Connection m_connection = null;
@@ -96,28 +97,28 @@ public class JxBaseTraceLoader {
 	
 	public void loadnodes()
 	{
-	   m_statement =JxBaseTrace.getStatement();
-	   m_tablename =JxBaseTrace.getName();
+	   m_statement = JxBaseTrace.getStatement();
+	   m_tablename = JxBaseTrace.getName();
 	   
 	   m_metaset.loadnodes(m_statement,m_tablename); 	 		
 	}
 	
-	public void loadrelations()
+	public void loadRelations()
 	{
 	   m_metaset.loadrelations(m_statement,m_tablename);
 	}
   
-	JxBaseTraceMetaSet metaset()
+	public JxBaseTraceMetaSet metaSet()
 	{
 		return m_metaset;
 	}
 	
-	JxBaseTraceDataSet dataset()
+	public JxBaseTraceDataSet dataSet()
 	{
 		return m_dataset;
 	}
 	
-	public String getNextDatabaseDir() 
+	public String DatabaseDir() 
 	{
 	    Date date = new Date();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hhmmss");
@@ -142,6 +143,4 @@ public class JxBaseTraceLoader {
 	  }	
 		return  r ;
    }
-	   
-  
 }

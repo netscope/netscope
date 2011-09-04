@@ -14,13 +14,13 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 {
 	private static final long serialVersionUID = 1L;
 	
-	JxBaseNodeCollection m_nodes = null;
-	JxBaseRelation m_relation=null;
-	Object m_owner = null;
-
 	Random m_random = JxBaseFoundation.random();
 	
-	JxBaseTrace m_trace = null;
+	public Object m_owner = null;
+	public JxBaseTrace m_trace = null;
+	public JxBaseRelation m_relation=null;
+	public JxBaseNodeCollection m_nodes = null;
+	
 	
 	public JxBaseRelationCollection() 
 	{
@@ -71,10 +71,16 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	{ 
 	  return super.get(index); 
 	}
+	
 	public JiBaseRelation set(int index,JiBaseRelation relation)
 	{
 		return super.set(index, relation);
 	}	
+	  
+	public Random getRandom()
+	{
+		return m_random;
+	}
 	/** 
 	 * Generate relation objects into the relation collection. These objects 
 	 * may describe the network topology as a graph, but it's not mandatory to 
@@ -88,11 +94,6 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	      }
 	}
 	
-	public void generate()
-	{
-		this.generate(10000);
-	}
-
 	public JiBaseRelation search(int id)
 	{
 		boolean found = false;

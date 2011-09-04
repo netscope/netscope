@@ -384,7 +384,8 @@ public class JxBaseTrace implements JiBaseTrace {
 				relation.setNodeFrom(nodeFrom);
 				relation.setNodeTo(nodeTo);
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -461,7 +462,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	@Override
 	/** */
 	// can add lastsnapshot time, default time 06
-    public void restore(int time, String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
+    public void restore( int time, String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
 	{		
 		open( datadir,m_tablename);
 		load( time,nodes );

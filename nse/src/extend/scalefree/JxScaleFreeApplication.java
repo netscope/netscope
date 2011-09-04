@@ -1,78 +1,88 @@
-/**
- * 
- */
+
 package extend.scalefree;
 
-import kernel.basetrace.*;
-import java.util.*;
 import kernel.*;
 
   public class JxScaleFreeApplication 
   {  
 	    
-	    JxBaseApplication  m_engine = new JxBaseApplication();
-
-	    public JxBaseTraceLoader m_traceLoader = new JxBaseTraceLoader();
+	    JxScaleFreeRelationCollection  m_relations = new JxScaleFreeRelationCollection();
+		JxScaleFreeNodeCollection  m_nodes = new JxScaleFreeNodeCollection();
 	    
-	    JxBaseRelationCollection  m_relations =  new JxBaseRelationCollection();
-		JxBaseNodeCollection  m_nodes = new JxBaseNodeCollection();
+		
+		JxScaleFreeRelation  m_relation = new JxScaleFreeRelation();
+		JxScaleFreeNode  m_node = new JxScaleFreeNode();
+		JxScaleFreeTrace  m_trace = new JxScaleFreeTrace(); 
+		JxScaleFreeInteraction m_interaction = new JxScaleFreeInteraction();
 		
 		
-		ArrayList<JiBaseNode>  leftnodes=new ArrayList();
-		ArrayList<JiBaseNode>  addednodes=new ArrayList();
-
-		Random m_random = m_engine.getRandom();
+	    JxBaseEngine  m_engine = new JxBaseEngine();
 	    
-		JiBaseNode m_nodeFrom = new JxBaseNode();
-		JiBaseNode m_nodeTo = new JxBaseNode();
-	
-	    JxBaseNodeCollection  m_leftnodes = new JxBaseNodeCollection();
-		JxBaseNodeCollection  m_addednodes = new JxBaseNodeCollection();
-		
-		JxScaleFreeApplication()
-		{
-		   m_engine.setInteraction(new JxBaseInteraction(m_engine));
-		   m_engine.setTrace(new JxBaseTrace(m_engine));    
-		}
-		
-		public void init()
-		{
-		  	
-		}
-		
+	    
 		public void open()
 		{
-	       m_engine.open(); 
-		}
-			
+	       m_trace.open(); 
+		}	
 		public void close()
 		{
-		   m_engine.close();	
+		   m_trace.close();	
 		}
-	 
-	    
-	    JiBaseNode selectnodeto() 
-	    {    	
-			int p = m_random.nextInt(m_addednodes.count()); 
-			return m_addednodes.get(p);  
-	    }
-	     
-	    public void run()
+	  
+		
+	    public void run(int expertime)
 	    {           
-		     m_engine.execute(2);		    	   
+		     for(int i=0;i<expertime;i++)
+		     {
+		    	 for(int j=0;j<m_relations.count();i++)
+		    	 {
+		    		 m_interaction.interact(i, m_relations.get(j), m_trace);	
+		    	 }    
+		     }	    	   
 	    }
 	    
-    	void test1()
-    	{
-    		JxBaseApplication engine = new JxBaseApplication();
-    		
-    		engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
-    		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
-    		engine.setInteraction(new JxBaseInteraction(engine));
-    		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
-    		
-    		engine.execute(10000);
-    	}        
+	    
+	    public void generateNodes(int count)
+	    {
+	    	m_nodes.generate(count);
+	    	setNodes(m_nodes);
+	    }    
+	    public void generateRelations(int count)
+	    {
+	    	m_relations.generate(count);
+	    	setRelations(m_relations);
+	    }
+	    
+	    
+	    public void saveNodes()
+	    {
+	    	m_trace.save(m_nodes);
+	    }
+	    public void saveRelations()
+	    {
+	    	m_trace.save(m_relations);
+	    }
+	    
+        
+        public void setNodes(JxScaleFreeNodeCollection nodes)
+        {
+        	m_nodes = nodes;
+        }
+		public  JxScaleFreeNodeCollection getNodes()
+		{
+			return m_nodes;
+		}
+		
+		
+		public void setRelations(JxScaleFreeRelationCollection relations)
+		{ 
+			m_relations = relations;
+		}
+		
+		public JxScaleFreeRelationCollection getRelations()
+		{
+			return m_relations;
+		}	
+	 
  }
 	
 

@@ -14,7 +14,7 @@ public class JxBaseTraceMetaSet
 	
 	public JxBaseTraceMetaSet()
 	{
-		
+		m_owner=null;
 	}
 	
 	public JxBaseTraceMetaSet( Object owner )
