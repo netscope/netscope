@@ -5,23 +5,23 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * JxBaseEngine
+ * JxBaseApplication
  * 
  * @author Allen
  * 
  *         The layer architecture of network net scope base network simulation:
  * 
  *         - Top Layer: Extended Layer (for user application) - Middle Layer:
- *         JxBaseEngine: The developer can create there own simulators by
+ *         JxBaseApplication: The developer can create there own simulators by
  *         extending this class, or build their own. JxBaseNode,
  *         JxBaseNodeCollection, JxBaseRelation, JxBaseRelationCollection,
  *         JxBaseInteraction: They're the basic building blocks for a simulator.
- *         The JxBaseEngine is built on them. JiBaseNode, JiBaseNodeCollection,
- *         JiBaseRelation, JiBaseRelationCollection, JiBaseInteraction: Provides
- *         fundamental interface for future extension. - Bottom Layer:
- *         JxFoundation: Provides the context and some commonly used components
- *         such as simulation time, random number generator, events, event queue
- *         and event dispatcher.
+ *         The JxBaseApplication is built on them. JiBaseNode,
+ *         JiBaseNodeCollection, JiBaseRelation, JiBaseRelationCollection,
+ *         JiBaseInteraction: Provides fundamental interface for future
+ *         extension. - Bottom Layer: JxFoundation: Provides the context and
+ *         some commonly used components such as simulation time, random number
+ *         generator, events, event queue and event dispatcher.
  * 
  *         reference - White paper develop mentor: Understanding Class.forName,
  *         Loading classes dynamically from within extensions,
@@ -35,23 +35,27 @@ import java.util.Random;
  *         07/31/java-classfornamestring-classname-and-jdbc/ - 深入了解Java
  *         ClassLoader、Bytecode 、ASM、cglib, http://www.iteye.com/topic/98178 -
  *         如何利用反射实现 动态生成一个对象（假如不存在类文件）？http://www.iteye.com/topic/7721
+ * 
+ * @modified by zhangwei on 2011.09.05 - Revision
  */
 public class JxBaseApplication {
+
 	Object m_owner = null;
 	String m_datadir = null;
 
 	JxBaseFoundation m_base = JxBaseFoundation.getSingleInstance();
 
-	/** Node collection. It contains all the nodes */
-	private static JiBaseNodeCollection m_nodes = new JxBaseNodeCollection();
-
-	/** Relation collection. It contains all the relations between nodes */
-	private static JiBaseRelationCollection m_relations = new JxBaseRelationCollection();
-
 	/**
-	 * Define the interactive rule between nodes. It's actually associate with
-	 * the relation object
+	 * m_nodes Node collection. It contains all the nodes
+	 * 
+	 * m_relations Relation collection. It contains all the relations between
+	 * nodes
+	 * 
+	 * m_interaction Define the interactive rule between nodes. It's actually
+	 * associate with the relation object
 	 */
+	private JiBaseNodeCollection m_nodes = new JxBaseNodeCollection();
+	private JiBaseRelationCollection m_relations = new JxBaseRelationCollection();
 	private JxBaseInteraction m_interaction = new JxBaseInteraction();
 
 	/** For trace output */
@@ -88,6 +92,7 @@ public class JxBaseApplication {
 
 		m_trace.open();
 
+		// todo
 		m_nodes.generate(10000);
 
 		m_trace.save(m_nodes);
@@ -105,6 +110,7 @@ public class JxBaseApplication {
 	 * @return
 	 */
 	public boolean open(String m_datadir) {
+		// todo
 		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
 		JiBaseRelationCollection relations = new JxBaseRelationCollection(this,
 				nodes);
@@ -114,9 +120,13 @@ public class JxBaseApplication {
 		return true;
 	}
 
-	/**  */
+	/**
+	 * Assemble an simulation from what the user input.  
+	 */
 	boolean open(String nodesname, String relationsname,
 			String interactionname, String tracename) {
+		
+		boolean ret = false;
 		m_trace = null;
 		m_nodes = null;
 		m_relations = null;
@@ -124,28 +134,27 @@ public class JxBaseApplication {
 
 		try {
 			m_trace = (JxBaseTrace) JxBaseFoundation.createObject(tracename);
-			m_nodes = (JiBaseNodeCollection) JxBaseFoundation
-					.createObject(nodesname);
-
-			m_relations = (JiBaseRelationCollection) JxBaseFoundation
-					.createObject(relationsname);
-			m_interaction = (JxBaseInteraction) JxBaseFoundation
-					.createObject(interactionname);
-		} catch (Exception e) {
+			m_nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesname);
+			m_relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsname);
+			m_interaction = (JxBaseInteraction) JxBaseFoundation.createObject(interactionname);
+			m_nodes.setTrace(m_trace);
+			m_relations.setTrace(m_trace);
+			m_interaction.setTrace(m_trace);
+			ret = true;
+		} 
+		catch (Exception e) {
 			m_trace = null;
 			m_nodes = null;
-
 			m_relations = null;
 			m_interaction = null;
 		}
-		m_nodes.setTrace(m_trace);
-		m_relations.setTrace(m_trace);
-		m_interaction.setTrace(m_trace);
 
 		return true;
 	}
 
 	/**
+	 * Initialize the simulation.
+	 * 
 	 * @brief Release resources allocated in open() function.
 	 */
 	public void open() {
@@ -154,6 +163,9 @@ public class JxBaseApplication {
 		// m_traceLoader.open();
 	}
 
+	/**
+	 * Finalize the simulation. Release all resources applied before.
+	 */
 	public void close() {
 		m_trace.close();
 
@@ -165,8 +177,8 @@ public class JxBaseApplication {
 		m_relations.randomize();
 
 		JxBaseRelationCollection relations = (JxBaseRelationCollection) m_relations;
+		
 		Iterator<JiBaseRelation> it = relations.iterator();
-
 		while (it.hasNext()) {
 			JiBaseRelation relation = it.next();
 			m_interaction.interact(time, relation, m_trace);
@@ -183,7 +195,7 @@ public class JxBaseApplication {
 		return JxBaseFoundation.random();
 	}
 
-	public static JiBaseNodeCollection getNodes() {
+	public JiBaseNodeCollection getNodes() {
 		return m_nodes;
 	}
 
@@ -191,7 +203,7 @@ public class JxBaseApplication {
 		m_nodes = nodes;
 	}
 
-	public static JiBaseRelationCollection getRelations() {
+	public JiBaseRelationCollection getRelations() {
 		return m_relations;
 	}
 
@@ -278,24 +290,19 @@ public class JxBaseApplication {
 		JiBaseRelationCollection relations = null;
 		JiBaseInteraction interaction = null;
 
+		int time = 0;
 		try {
 			trace = (JiBaseTrace) JxBaseFoundation.createObject(traceclass);
-			nodes = (JiBaseNodeCollection) JxBaseFoundation
-					.createObject(nodesclass);
-			relations = (JiBaseRelationCollection) JxBaseFoundation
-					.createObject(relationsclass);
-			interaction = (JiBaseInteraction) JxBaseFoundation
-					.createObject(interactionclass);
+			nodes = (JiBaseNodeCollection) JxBaseFoundation.createObject(nodesclass);
+			relations = (JiBaseRelationCollection) JxBaseFoundation.createObject(relationsclass);
+			interaction = (JiBaseInteraction) JxBaseFoundation.createObject(interactionclass);
+			setTrace(trace);
+			setNodes(nodes);
+			setRelations(relations);
+			setInteraction(interaction);
+			trace.restore(time, dbname, nodes, relations);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		setTrace(trace);
-		setNodes(nodes);
-		setRelations(relations);
-		setInteraction(interaction);
-
-		int time = 0;
-
-		trace.restore(time, dbname, nodes, relations);
 	}
 }

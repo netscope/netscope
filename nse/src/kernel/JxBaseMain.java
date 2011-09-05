@@ -1,27 +1,35 @@
 package kernel;
 
+/*
+ * @modified by zhangwei on 2011.09.05
+ * - Revision
+ */
 public class JxBaseMain {
-
+	
 	/**
-	 * Create a network simulator from scratch.
+	 * Demostrate how to assemble the kernel component into an full-functional 
+	 * simulator.
+	 *  
+	 * @param args
 	 */
-	
-	public JxBaseMain()
+	public static void main(String []args)
 	{
-	
-		
-	}
-	
+		JxBaseMain test=new JxBaseMain();
+		test.test1();
+		test.test2();
+		test.test3();
+	} 
+
 	void test1()
 	{
-		JxBaseApplication engine = new JxBaseApplication();
+		JxBaseApplication simu = new JxBaseApplication();
 		
-		engine.setNodes(new JxBaseNodeCollection(engine, 10)); 
-		engine.setRelations(new JxBaseRelationCollection(engine, engine.getNodes()));
-		engine.setInteraction(new JxBaseInteraction(engine));
-		engine.setTrace(new JxBaseTrace(engine, "/temp/expr/20110722-124512-01"));
+		simu.setNodes(new JxBaseNodeCollection(simu, 10)); 
+		simu.setRelations(new JxBaseRelationCollection(simu, simu.getNodes()));
+		simu.setInteraction(new JxBaseInteraction(simu));
+		simu.setTrace(new JxBaseTrace(simu, "/temp/expr/20110722-124512-01"));
 		
-		engine.execute(10000);
+		simu.execute(10000);
 	}
 
 	/**
@@ -29,17 +37,17 @@ public class JxBaseMain {
 	 */
 	void test2() 
 	{   
-		JxBaseApplication engine = new JxBaseApplication();
+		JxBaseApplication simu = new JxBaseApplication();
         
-		engine.setTrace( new JxBaseTrace(engine, "/temp/expr/"));
+		simu.setTrace( new JxBaseTrace(simu, "/temp/expr/"));
 		
-		engine.load( engine.getNodes() );
-		engine.load( engine.getRelations() );
-		engine.setInteraction( new JxBaseInteraction(engine) );
-		engine.execute( 100000 );
+		simu.load( simu.getNodes() );
+		simu.load( simu.getRelations() );
+		simu.setInteraction( new JxBaseInteraction(simu) );
+		simu.execute( 100000 );
        
 		/** restore */
-		engine.restore( "/temp/expr/20110722-124512-01" );
+		simu.restore( "/temp/expr/20110722-124512-01" );
 	}
 	
 	void test3()
@@ -51,16 +59,9 @@ public class JxBaseMain {
 		relationsclass = "nse.kernel.JxBaseRelationsCollection";
 		interactionclass = "nse.kernel.JiBaseInteraction";
 		
-		JxBaseApplication engine = new JxBaseApplication();
-		engine.open( nodesclass, relationsclass, interactionclass, traceclass );
-		engine.execute(10000);
+		JxBaseApplication simu = new JxBaseApplication();
+		simu.open( nodesclass, relationsclass, interactionclass, traceclass );
+		simu.execute(10000);
 	}
 	
-	public static void main(String []args)
-	{
-		JxBaseMain test=new JxBaseMain();
-		test.test1();
-		test.test2();
-		test.test3();
-	} 
 }
