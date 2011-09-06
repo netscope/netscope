@@ -6,6 +6,9 @@ package kernel;
  * 
  * @author Allen
  * @modified by Allen on 2011.07.08
+ * - Revision
+ * @modified by Allen on 2011.09.06
+ * - Revision
  */
 
 public interface JiBaseNode {
@@ -30,6 +33,10 @@ public interface JiBaseNode {
 
 	public void setOwner(Object owner);
 
+	public int getWeight();
+
+	public void setWeight(int value);
+
 	/**
 	 * Return the value of the current node object. The semantic of the value is
 	 * determined by the simulation itself. For example, it can be explained as
@@ -41,6 +48,10 @@ public interface JiBaseNode {
 
 	public void setValue(int value);
 
+	public int getCapacity();
+
+	public void setCapacity(int value);
+
 	public int getX();
 
 	public void setX(int x);
@@ -49,4 +60,7 @@ public interface JiBaseNode {
 
 	public void setY(int y);
 
+	public int getZ();
+
+	public void setZ(int y);
 }

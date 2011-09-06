@@ -1,92 +1,140 @@
 package kernel;
-public class JxBaseNode implements JiBaseNode {
-	
-	protected int m_id;
-	protected int m_loc_x;
-	protected int m_loc_y;
 
+/**
+ * JxBaseNode
+ * Saves the property of a basic node. You can get your own node class by extending
+ * this one. 
+ * 
+ * @author Allen
+ * @section History
+ * - modified by zhangwei on 2011.09.06
+ */
+public class JxBaseNode implements JiBaseNode {
+
+	protected int m_id = 0;
+	protected Object m_owner = null;
 	
+	protected int m_weight = 0;
+	protected int m_loc_x = 0;
+	protected int m_loc_y = 0;
+	protected int m_loc_z = 0;
 	protected int m_length = 0;
-	protected int m_capacity = 0; 
-	
-	
-	protected Object m_owner;
-	
-    public JxBaseNode() 
-    {
-    	m_id = 0;
-    	m_loc_x = 0;
-    	m_loc_y = 0; 
-    	m_length = 0;
-    	m_capacity = 0; 	
-    }
-    
-    public JxBaseNode( Object owner, int id ) 
-    {
-    	m_owner=owner;
-    	m_id = id;
-    	m_loc_x = 0;
-    	m_loc_y = 0;  
-    	m_length = 0;
-    	m_capacity = 0;  
-    }
-    
-    public JxBaseNode( int id ) {
-    	m_id = id;
-    	m_loc_x = 0;
-    	m_loc_y = 0;
-    	m_length = 0;
-    	m_capacity = 0; 	
-   }
-    
-    public JxBaseNode(int id, int x, int y ) 
-    {	
-    	m_id = id;
-    	m_loc_x = x;
-    	m_loc_y = y;   
-     	m_length = 0;
-     	m_capacity = 0;
-     
-     }
-   
-    public JxBaseNode(Object owner,int id, int x, int y, int capacity) 
-    {
-		m_id =id;
+	protected int m_capacity = 0;
+
+	public JxBaseNode() {
+		m_id = 0;
+		m_owner = null;
+		m_loc_x = 0;
+		m_loc_y = 0;
+		m_loc_z = 0;
+		m_length = 0;
+		m_capacity = 0;
+	}
+
+	public JxBaseNode(Object owner, int id) {
+		m_id = id;
+		m_owner = owner;
+		m_loc_x = 0;
+		m_loc_y = 0;
+		m_loc_z = 0;
+		m_length = 0;
+		m_capacity = 0;
+	}
+
+	public JxBaseNode(Object owner, int id, int x, int y) {
+		m_id = id;
+		m_owner = owner;
 		m_loc_x = x;
 		m_loc_y = y;
-    	m_length = 0;
-		m_capacity = capacity;
-	} 
-   
-   public JxBaseNode(int id, int x, int y,int length,int capacity) 
-   {
-		m_id =id;
-		m_loc_x = x;
-		m_loc_y = y;		
-     	m_length = length;
-		m_capacity = capacity;   
+		m_length = 0;
+		m_capacity = 0;
 	}
-   
+
+	public JxBaseNode(Object owner, int id, int x, int y, int z) {
+		m_id = id;
+		m_owner = owner;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_y = z;
+		m_length = 0;
+		m_capacity = 0;
+	}
+
+	public JxBaseNode(Object owner, int id, int x, int y, int z, int capacity) {
+		m_id = id;
+		m_owner = owner;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_y = z;
+		m_length = 0;
+		m_capacity = capacity;
+	}
+
+	public JxBaseNode(int id) {
+		m_owner = null;
+		m_id = id;
+		m_loc_x = 0;
+		m_loc_y = 0;
+		m_loc_z = 0;
+		m_length = 0;
+		m_capacity = 0;
+	}
+
+	public JxBaseNode(int id, int x, int y) {
+		m_id = id;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_z = 0;
+		m_length = 0;
+		m_capacity = 0;
+
+	}
+
+	public JxBaseNode(int id, int x, int y, int z) {
+		m_id = id;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_z = z;
+		m_length = 0;
+		m_capacity = 0;
+
+	}
+
+	public JxBaseNode(int id, int x, int y, int z, int capacity) {
+		m_id = id;
+		m_loc_x = x;
+		m_loc_y = y;
+		m_loc_z = z;
+		m_length = 0;
+		m_capacity = capacity;
+	}
+
 	@Override
-   public String toString() { 
-		return String.format( "JxBaseNode [id=%d, x=%d, y=%d, length=%d]", m_id, m_loc_x, m_loc_y,
-				 m_length );
+	public String toString() {
+		return String.format(
+				"JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d, capacity=%d]",
+				m_id, m_loc_x, m_loc_y, m_loc_z, m_length, m_capacity);
 	}
 
 	/**
-	 * Generate an nearly unique identifier of current object for hashing operations. 
+	 * Generate an nearly unique identifier of current object for hashing
+	 * operations.
+	 * 
+	 * @attention The following hashCode calculation is for stablized node. You
+	 *            should modify it if the node is in moving state.
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31; 
+		final int prime = 31;
 		int result = 1;
+		// result = prime * result + super().hashCode();
 		result = prime * result + m_id;
-		result = prime * result + m_owner.hashCode();
-		result = prime * result + m_loc_x;
-		result = prime * result + m_loc_y;
-		result = prime * result + m_loc_x;
-		result = prime * result + m_capacity;
+		result += m_loc_x;
+		result += m_loc_y;
+		result += m_loc_z;
+		result += m_capacity;
 		return result;
 	}
 
@@ -94,83 +142,102 @@ public class JxBaseNode implements JiBaseNode {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		
+
 		if (obj == null)
 			return false;
-		
+
 		if (getClass() != obj.getClass())
 			return false;
-		
-		JxBaseNode other = (JxBaseNode) obj;
-		if (m_capacity != other.m_capacity)
-			return false;
-		
-		if (m_owner == null) {
-			if (other.m_owner != null)
-				return false;
-		}
 
-		if (m_length != other.m_length)
+		JxBaseNode other = (JxBaseNode) obj;
+		if ((m_id != other.m_id) || (m_owner != other.m_owner)
+				|| (m_loc_x != other.m_loc_x) || (m_loc_y != other.m_loc_y)
+				|| (m_loc_z != other.m_loc_z) || (m_length != other.m_length)
+				|| (m_capacity != other.m_capacity)) {
 			return false;
-		if (m_loc_x != other.m_loc_x)
-			return false;
-		if (m_loc_y != other.m_loc_y)
-			return false;
-		
-		return true;
+		} else
+			return true;
 	}
 
-	
 	@Override
-	public int getId(){
+	public int getId() {
 		return m_id;
 	}
+
 	@Override
-	public void setId(int id){
-		m_id=id;
+	public void setId(int id) {
+		m_id = id;
 	}
-	
-	
+
 	@Override
 	public Object getOwner() {
 		return m_owner;
 	}
+
 	@Override
 	public void setOwner(Object owner) {
 		m_owner = owner;
 	}
-	
-	
-	public int getValue(){
+
+	@Override
+	public int getWeight()
+	{
+		return m_weight;
+	}
+
+	@Override
+	public void setWeight(int value)
+	{
+		m_weight = value;
+	}
+
+	@Override
+	public int getValue() {
 		return m_length;
 	}
-	public void setValue(int value){
-		 m_length = value;
-	}
-	
-	public  int getCapacity(){
-	  return m_capacity;	
-	}
-	
+
 	@Override
-	public int getX(){
+	public void setValue(int value) {
+		m_length = value;
+	}
+
+	@Override
+	public int getCapacity() {
+		return m_capacity;
+	}
+
+	@Override
+	public void setCapacity(int value) {
+		m_length = value;
+	}
+
+	@Override
+	public int getX() {
 		return m_loc_x;
 	}
+
 	@Override
-	public void setX(int x){
+	public void setX(int x) {
 		m_loc_x = x;
 	}
-	
-	
+
 	@Override
-	public int getY(){
+	public int getY() {
 		return m_loc_y;
 	}
+
 	@Override
-	public void setY(int y){
+	public void setY(int y) {
 		m_loc_y = y;
 	}
 
-	
-}
+	@Override
+	public int getZ() {
+		return m_loc_z;
+	}
 
+	@Override
+	public void setZ(int z) {
+		m_loc_z = z;
+	}
+}

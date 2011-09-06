@@ -2,6 +2,15 @@ package kernel;
 
 import java.util.ArrayList;
 
+/**
+ * JiBaseRelation 
+ * Defines the interface of the relation class. The relation class is used to save
+ * relation information among node.
+ *  
+ * @author Allen
+ * @modified by Allen on 2011.09.06
+ * - Revision
+ */
 public interface JiBaseRelation {
 	
 	public enum JiRelationType{BI_DIRECTION_RELATION, SINGLE_DIRECTIOIN_RELATION, 
@@ -16,7 +25,6 @@ public interface JiBaseRelation {
 	public JiRelationType getType();
 	public void setType( JiRelationType type );
 	
-	
 	/**
 	 * Get all the nodes in the relation object.
 	 *  
@@ -30,10 +38,14 @@ public interface JiBaseRelation {
 	 */
 	public ArrayList<JiBaseNode> nodelist();
     
-	public int getBandWidth();
+	public int getWeight();
+	public void setWeight(int weight);
 	
-	public int getPacket();
-	public void setPacket(int sum);
+	public int getBandWidth();
+	public void setBandWidth(int bandwidth);
+	
+	//public int getPacket();
+	//public void setPacket(int sum);
 	
 	public JiBaseNode getNodeFrom();
 	public void setNodeFrom(JiBaseNode nodeFrom);
