@@ -23,11 +23,13 @@ public interface JiBaseInteraction {
 	 */
 	public void setOwner( Object owner );
 	
-	public void setTrace( JiBaseTrace trace );	
+	//public JiBaseTrace getTrace();	
+	//public void setTrace( JiBaseTrace trace );	
 	
 	/**
 	 * Perform interaction among some nodes describe by the relation object.
-	 * @param relation
+	 * @param relation The Relation object containing all the nodes to be affected.
 	 */
-	public void interact(int time, JiBaseRelation relation, JiBaseTrace trace);
+	//public void interact(int time, JiBaseRelation relation, JiBaseTrace trace);
+	public void interact(JiBaseRelation relation, JiBaseTrace trace);
 }
