@@ -6,19 +6,19 @@ public class JxScaleFreeMain {
     {	
 	    JxScaleFreeApplication app=new JxScaleFreeApplication(); 	    
 	    
-	    app.init();
-	    app.open();
+	    // app.init();
+	    // app.open();
         
-	   // app.generateNodes(10);
+	    // app.generateNodes(10);
 	    //app.generateRelations(9);
 	    
-	    app.run();
+	    //app.run();
 
 	    
-	    app.m_traceLoader.loadnodes();
-	    app.m_traceLoader.loadrelations(); 	   		
+	    //app.m_traceLoader.loadnodes();
+	    //app.m_traceLoader.loadrelations(); 	   		
 
-	    app.close();
+	    //app.close();
 	   
 	    System.out.println("sucess!");
     }     
