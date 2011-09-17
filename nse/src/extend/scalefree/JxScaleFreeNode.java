@@ -13,7 +13,7 @@ import kernel.*;
 public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode 
 {
 	/** edge list enables the developer can find all neighbor edges rapidly */
-	private ArrayList<JxScaleFreeRelation> m_edgelist = null;
+	private ArrayList<JiBaseRelation> m_edgelist = null;
 	
 	private int degree;
 
@@ -41,7 +41,7 @@ public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode
 
 	public String toString()
 	{ 
-		return "JxScaleFreeNode [m_loc_x=" + this.getX() + ", m_loc_y=" + this.getY()
+		return "JxScaleFreeNode [m_id="+this.getId()+",m_loc_x=" + this.getX() + ", m_loc_y=" + this.getY()
 			+ "]";
 	}
 
@@ -61,7 +61,7 @@ public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode
 	/**
 	 * @return An array list containing the references to all neighbor edges.
 	 */
-	public ArrayList<JxScaleFreeRelation> edgelist() 
+	public ArrayList<JiBaseRelation> edgelist() 
 	{
 		return m_edgelist;
 	}
@@ -83,8 +83,7 @@ public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode
 		search whether the edge existed.
 		add the edge of <current node, neighbor node> into the edge list
 		
-		if 
-		m_edgelist
+		if 	m_edgelist
 		*/
 		return ret;
 	}

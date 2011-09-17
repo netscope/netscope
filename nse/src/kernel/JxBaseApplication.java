@@ -61,8 +61,6 @@ public class JxBaseApplication {
 	/** For trace output */
 	private JxBaseTrace m_trace = new JxBaseTrace();
 
-	// private JxBaseTraceLoader m_traceLoader=new JxBaseTraceLoader();
-
 	/**
 	 * @brief Initialize the whole engine for execution.
 	 * 
@@ -78,9 +76,9 @@ public class JxBaseApplication {
 	 *         This function should return true or else the later execute() will
 	 *         stop.
 	 */
-	public boolean open(JiBaseNodeCollection nodes,
-			JiBaseRelationCollection relations, JiBaseInteraction interaction,
-			JiBaseTrace trace) {
+	public boolean open( JiBaseNodeCollection nodes,JiBaseRelationCollection relations, JiBaseInteraction interaction,
+			JiBaseTrace trace) 
+	{
 		m_nodes = nodes;
 		m_relations = relations;
 		m_interaction = (JxBaseInteraction) interaction;
@@ -91,8 +89,7 @@ public class JxBaseApplication {
 		m_interaction.setTrace(m_trace);
 
 		m_trace.open();
-
-		// todo
+		
 		m_nodes.generate(10000);
 
 		m_trace.save(m_nodes);
@@ -112,8 +109,7 @@ public class JxBaseApplication {
 	public boolean open(String m_datadir) {
 		// todo
 		JiBaseNodeCollection nodes = new JxBaseNodeCollection(this, 10000);
-		JiBaseRelationCollection relations = new JxBaseRelationCollection(this,
-				nodes);
+		JiBaseRelationCollection relations = new JxBaseRelationCollection(this,nodes);
 		JiBaseInteraction interaction = new JxBaseInteraction(this);
 		JiBaseTrace trace = new JxBaseTrace(this, m_datadir);
 
@@ -268,15 +264,18 @@ public class JxBaseApplication {
 	 * 
 	 * @param dbname
 	 */
-	public void load(JiBaseNodeCollection nodes) {
+	public void load(JiBaseNodeCollection nodes)
+	{
 
 	}
 
-	public void load(JiBaseRelationCollection relations) {
+	public void load(JiBaseRelationCollection relations)
+	{
 
 	}
 
-	public void restore(String dbname) {
+	public void restore(String dbname)
+	{
 		// load class name from database
 		String traceclass, nodesclass, relationsclass, interactionclass;
 
@@ -301,7 +300,8 @@ public class JxBaseApplication {
 			setRelations(relations);
 			setInteraction(interaction);
 			trace.restore(time, dbname, nodes, relations);
-		} catch (Exception e) {
+		  } catch (Exception e)
+		  {
 			e.printStackTrace();
 		}
 	}

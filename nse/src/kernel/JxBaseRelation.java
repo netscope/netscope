@@ -16,8 +16,7 @@ public class JxBaseRelation implements JiBaseRelation
 
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
 	protected ArrayList<JiBaseNode> m_nodes = new ArrayList<JiBaseNode>();
-	//protected JiBaseNode m_nodefrom = null;
-	//protected JiBaseNode m_nodeto = null;
+	
 	
 	protected int m_weight = 0;
 	protected int m_bandwidth = 0;
@@ -28,6 +27,8 @@ public class JxBaseRelation implements JiBaseRelation
 	protected int m_totalreceived; 
 	protected int m_totallost;
 	
+	protected int m_packet;
+	
 	JiBaseNode node=new JxBaseNode();
 	protected Random m_random = JxBaseFoundation.random();
     
@@ -37,7 +38,7 @@ public class JxBaseRelation implements JiBaseRelation
 		m_owner = null;
 		m_bandwidth = 0;
 		m_weight = 0;
-		m_totalsent=0;
+		m_totalsent = 0;
 	}
 	
     public JxBaseRelation( int id )
@@ -46,7 +47,7 @@ public class JxBaseRelation implements JiBaseRelation
 		m_owner = null;
 		m_bandwidth = 0;
 		m_weight = 0;
-		m_totalsent=0;
+		m_totalsent = 0;
 	}
 	
     public JxBaseRelation( Object owner )
@@ -95,7 +96,6 @@ public class JxBaseRelation implements JiBaseRelation
 		m_owner = owner;
 	}
 	
-	
 	@Override
 	public JiRelationType getType()
 	{
@@ -106,7 +106,16 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		m_type = type;	
 	}
-	
+	 
+	public int getPacket()
+	{
+		return m_packet;
+	}
+   public void setPacket(int packet)
+   {
+	   m_packet=packet;
+   }
+   
 	@Override
 	public ArrayList<JiBaseNode> nodelist() 
 	{
@@ -149,24 +158,20 @@ public class JxBaseRelation implements JiBaseRelation
 		m_type = JiRelationType.GROUP_RELATION;
 	}
 	
-	
 	public int count()
 	{
 		return m_nodes.size();
 	}
-	
 	
 	public void add( JiBaseNode node )
 	{
 		m_nodes.add( node );
 	}
 	
-	
 	public void remove( JiBaseNode node )
 	{
 		m_nodes.remove( node );
 	}
-	
 	
 	public JiBaseNode first()
 	{
@@ -190,7 +195,6 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		assert(m_nodes.size() > 0);
 		return m_nodes.get(0); 
-		//m_nodefrom;
 	}
 	
 	@Override
@@ -200,7 +204,6 @@ public class JxBaseRelation implements JiBaseRelation
 			m_nodes.add(nodeFrom);
 		else
 			m_nodes.set(0, nodeFrom);
-		//m_nodefrom=nodeFrom;
 	}
 	
 	/**
@@ -213,7 +216,6 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		assert(m_nodes.size() > 0);
 		return m_nodes.get(1);
-		//return m_nodeto;
 	}
 	
 	@Override	
@@ -257,7 +259,7 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		 m_bandwidth=bandwidth;
 	}
-		
+
 	public int getTotalSent()
 	{
        return m_totalsent;		
@@ -267,23 +269,19 @@ public class JxBaseRelation implements JiBaseRelation
 		m_totalsent=totalsent;
 	}
 
-	// todo
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + m_id;
 		result += m_bandwidth;
-		// result = prime * result
-		//		+ ((m_nodefrom == null) ? 0 : m_nodefrom.hashCode());
-		// result = prime * result + ((m_nodes == null) ? 0 : m_nodes.hashCode());
-		// result = prime * result
-		//		+ ((m_nodeto == null) ? 0 : m_nodeto.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -293,54 +291,5 @@ public class JxBaseRelation implements JiBaseRelation
 		
 		JxBaseRelation other = (JxBaseRelation) obj;
 		return ((m_id == other.m_id) && (m_bandwidth == other.m_bandwidth));
-		
-		/*
-		if (m_bandwidth != other.m_bandwidth)
-			return false;
-		if (m_id != other.m_id)
-			return false;
-		if (m_nodefrom == null) {
-			if (other.m_nodefrom != null)
-				return false;
-		} else if (!m_nodefrom.equals(other.m_nodefrom))
-			return false;
-		if (m_nodes == null) {
-			if (other.m_nodes != null)
-				return false;
-		} else if (!m_nodes.equals(other.m_nodes))
-			return false;
-		if (m_nodeto == null) {
-			if (other.m_nodeto != null)
-				return false;
-		} else if (!m_nodeto.equals(other.m_nodeto))
-			return false;
-		if (m_owner == null) {
-			if (other.m_owner != null)
-				return false;
-		} else if (!m_owner.equals(other.m_owner))
-			return false;
-		if (m_totalsent != other.m_totalsent)
-			return false;
-		if (m_random == null) {
-			if (other.m_random != null)
-				return false;
-		} else if (!m_random.equals(other.m_random))
-			return false;
-		if (m_type != other.m_type)
-			return false;
-		if (m_value == null) {
-			if (other.m_value != null)
-				return false;
-		} else if (!m_value.equals(other.m_value))
-			return false;
-		if (m_weight != other.m_weight)
-			return false;
-		if (node == null) {
-			if (other.node != null)
-				return false;
-		} else if (!node.equals(other.node))
-			return false;
-		return true;
-		*/
 	}
 }

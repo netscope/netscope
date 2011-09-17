@@ -120,8 +120,11 @@ public class JxBaseSimulator {
 	 * 
 	 */
 	public void runWithTrace(JiBaseTrace trace) {
+		
 		//JiDisplayTrace trace = new JxBaseTrace( this, maxCoordinate );
+		
 		trace.show();    
+		
 		while( true ){
 			step(100);
 			trace.update();

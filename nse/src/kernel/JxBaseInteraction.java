@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class JxBaseInteraction implements JiBaseInteraction {
      
-	 Object m_owner = null;
-     Random m_random = JxBaseFoundation.random();	
+	 Object m_owner = null;	
      JxBaseTrace m_trace = null;
+     Random m_random = JxBaseFoundation.random();
      
      public  JxBaseInteraction()
      {  
@@ -28,7 +28,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 	{
 		m_owner = owner;
 	}
-    
+   
 	public void interact(int time, JiBaseRelation relation, JiBaseTrace trace) 
 	{	
 		JiBaseNode nodefrom =relation.getNodeFrom();
@@ -39,7 +39,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		len1 = nodefrom.getValue();
 		len2 = nodeto.getValue();
 		
-		if((len1+len2)==0)
+		if(len1+len2==0)
 		{
 		    cut=0;
 		}
@@ -63,7 +63,6 @@ public class JxBaseInteraction implements JiBaseInteraction {
     
 	public int Minimum(int a, int b, int c) 
 	{ 
-
 		int minimum = 0;	
 		int mini = a;
 		
@@ -78,13 +77,17 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		{
 		    minimum = m_random.nextInt(mini);
 		}
-		
 		return minimum;
 	}
-
-	@Override
-	public void setTrace(JiBaseTrace trace) 
-	{
-		m_trace = (JxBaseTrace)trace;		
-	}
+	
+    public JiBaseTrace getTrace()
+    {
+    	return m_trace;
+    }
+    
+    public void setTrace(JiBaseTrace trace)
+    {
+    	m_trace=(JxBaseTrace)trace;
+    }
+    
 }

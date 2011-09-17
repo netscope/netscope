@@ -1,13 +1,9 @@
 package kernel;
 
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
+import java.sql.*;
 import java.util.*;
-
+import java.util.Date;
+import java.text.*;
 /**
  * The most fundamental implementation of Trace object.
  */
@@ -318,8 +314,6 @@ public class JxBaseTrace implements JiBaseTrace {
 		    
 			    String traceNode="insert into "+m_relationMetaName+" (relationid,nodefrom,nodeto) " +
 		    		              "values ("+relationId+","+ nodeFrom+","+ nodeTo+")";
-		               
-			    
 			      try{
 		                m_sta.executeUpdate(traceNode);
 		             } 
@@ -368,7 +362,8 @@ public class JxBaseTrace implements JiBaseTrace {
 			  String select_edge = "select * from " + m_relationMetaName;
 			  ResultSet r = m_sta.executeQuery(select_edge);
 
-			 while (r.next()) {
+			 while (r.next())
+			 {
 
 				int i = 0;
 				JiBaseRelation relation = m_relations.get(i);

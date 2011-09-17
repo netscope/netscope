@@ -108,11 +108,13 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 		return (found ? relation: null);
 	}
 	
-	public int search(JiBaseRelation relation){
+	public int search(JiBaseRelation relation)
+	{
 		return -1;
 	}
 
-	public JiBaseRelation search(JiBaseNode nodefrom, JiBaseNode nodeto){
+	public JiBaseRelation search(JiBaseNode nodefrom, JiBaseNode nodeto)
+	{
 		return null;
 /*		
 		boolean found = false;
@@ -151,7 +153,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
     public void randomize()
 	{  
     	int count=this.count();
-		for(int i=0;i<count;i++)
+		for(int i=0;i<this.count();i++)
 		{ 
 			int temp=m_random.nextInt(count-i)+i;
 			JiBaseRelation tempRelation=this.get(temp);	

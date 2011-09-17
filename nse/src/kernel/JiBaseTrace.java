@@ -6,8 +6,6 @@ package kernel;
  */
 public interface JiBaseTrace 
 {
-    
-	
 	public Object getOwner();
 	public void setOwner(Object owner);
     

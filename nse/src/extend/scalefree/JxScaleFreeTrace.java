@@ -8,10 +8,12 @@ public class JxScaleFreeTrace extends JxBaseTrace
 	{
 		super();
 	}
+	
 	public JxScaleFreeTrace(Object owner)
 	{
 		super(owner);
 	}
+	
 	public JxScaleFreeTrace(Object owner, String datadir)
 	{
 		super(owner,datadir);

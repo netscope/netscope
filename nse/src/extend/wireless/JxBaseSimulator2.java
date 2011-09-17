@@ -43,7 +43,8 @@ public class JxBaseSimulator2 {
 	 */
 	JiBaseTrace m_trace = null;
 
-	public JxBaseSimulator2() {
+	public JxBaseSimulator2() 
+	{
 		super();  
 	}
 
@@ -51,7 +52,8 @@ public class JxBaseSimulator2 {
 	 * 
 	 * @return Returns the time of the last event in 1/ONE_SECOND
 	 */
-	public long getSimulationTime() { //最后一个事件的时间
+	public long getSimulationTime()
+	{ 
 		return lastEventTime;
 	}
 
@@ -59,7 +61,7 @@ public class JxBaseSimulator2 {
 	 * 
 	 * @return Returns the time of the last event in milliseconds.
 	 */
-	public long getSimulationTimeInMillisec() {     //？？
+	public long getSimulationTimeInMillisec() {    
 		return (long)(1000 * lastEventTime / (double)JxBaseSimulator2.ONE_SECOND);
 	}
 
@@ -78,8 +80,8 @@ public class JxBaseSimulator2 {
 	public void step() {
 		JxBaseEvent2 event = (JxBaseEvent2)getEventQueue().getAndRemoveFirst();
 		if( event != null ){
-			lastEventTime = event.time;//事件的时间
-			event.execute();  //???
+			lastEventTime = event.time;
+			event.execute();
 		}
 	}
 
@@ -88,7 +90,8 @@ public class JxBaseSimulator2 {
 	 * 
 	 * @param n the number of events to be processed
 	 */
-	public void step(int n) {
+	public void step(int n)
+	{
 		for( int i=0; i<n; ++i )
 			step();        
 	}
@@ -116,12 +119,14 @@ public class JxBaseSimulator2 {
 	 * This function runs the simulation with the display.
 	 * The user of the simulator must first add all the nodes used in the 
 	 * experiment!
-	 * 带显示的仿真
+	 * 
 	 */
-	public void runWithTrace(JiBaseTrace trace) {
+	public void runWithTrace(JiBaseTrace trace)
+	{
 		//JiDisplayTrace trace = new JxBaseTrace( this, maxCoordinate );
-		trace.show();    //显示    
-		while( true ){
+		trace.show();      
+		while( true )
+		{
 			step(100);
 			trace.update();
 		}

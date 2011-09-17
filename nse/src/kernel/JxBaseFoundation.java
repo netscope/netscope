@@ -51,8 +51,7 @@ public class JxBaseFoundation {
 	 *          DriverManager.getConnection(url, "myLogin", "myPassword");
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Object createObject(String className)
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException 
+	public static Object createObject(String className) throws ClassNotFoundException, InstantiationException, IllegalAccessException 
 	{
 		Class c = Class.forName(className);
 		return c.newInstance();

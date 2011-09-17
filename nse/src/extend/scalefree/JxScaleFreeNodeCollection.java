@@ -9,13 +9,12 @@ import kernel.*;
  * @author Allen
  */
 
-public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements JiBaseNodeCollection {	
-
+public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements JiBaseNodeCollection 
+{	
 	private static final long serialVersionUID = 1L;
     
-	JxBaseApplication m_engine=new JxBaseApplication();
+    Random random=JxBaseFoundation.random();
 	
-
 	public JxScaleFreeNodeCollection()
 	{
 		super();
@@ -29,10 +28,8 @@ public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements J
 	public void generate( int count )
 	{
 	    for (int i=0; i<count; i++)
-	    {
-	    	Random random=m_engine.getRandom();
-	    	
-	    	/** this value should be modified*/
+	    {	    	
+	    	/** this value should be modified */
 	    	int loc_x = random.nextInt(100);
 	    	int loc_y = random.nextInt(100);
 	    	
