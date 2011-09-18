@@ -27,7 +27,6 @@ public class JxBaseRelation implements JiBaseRelation
 	protected int m_totalreceived; 
 	protected int m_totallost;
 	
-	protected int m_packet;
 	
 	JiBaseNode node=new JxBaseNode();
 	protected Random m_random = JxBaseFoundation.random();
@@ -112,12 +111,12 @@ public class JxBaseRelation implements JiBaseRelation
 	 
 	public int getPacket()
 	{
-		return m_packet;
+		return m_totalsent;
 	}
-   public void setPacket(int packet)
-   {
-	   m_packet=packet;
-   }
+    public void setPacket(int totalsent)
+    {
+	   m_totalsent=totalsent;
+    }
    
 	@Override
 	public ArrayList<JiBaseNode> nodelist() 
@@ -294,5 +293,9 @@ public class JxBaseRelation implements JiBaseRelation
 		
 		JxBaseRelation other = (JxBaseRelation) obj;
 		return ((m_id == other.m_id) && (m_bandwidth == other.m_bandwidth));
+	}
+	public String tostring()
+	{
+		return String.format("JxBaseRelation [m_id=%d,m_nodefrom=%d,m_nodeto=%d,m_totalsent=%d]", m_id,m_nodes.get(0),m_nodes.get(1),m_totalsent);
 	}
 }

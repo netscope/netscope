@@ -80,7 +80,7 @@ public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements J
 	{
 		for (int i=0; i<super.size(); i++)
 		{
-			super.set(i, null);
+		  super.set(i, null);
 		}
 		super.clear();
 	}

@@ -10,7 +10,8 @@ import java.util.Random;
  * @author Allen
  *
  */
-public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBaseNodeCollection {
+public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBaseNodeCollection
+{
     
 	private static final long serialVersionUID = 1L;
 	

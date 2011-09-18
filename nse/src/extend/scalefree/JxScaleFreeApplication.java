@@ -9,13 +9,12 @@ import java.util.*;
 	    JxBaseRelationCollection  m_relations = new JxBaseRelationCollection();
 		JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
 		
-		JxScaleFreeNodeCollection leftnodes=new JxScaleFreeNodeCollection();
-		JxScaleFreeNodeCollection addnodes=new JxScaleFreeNodeCollection();
-		
+		ArrayList<JiBaseNode> leftnodes=new ArrayList<JiBaseNode>();
+		ArrayList<JiBaseNode> addnodes=new ArrayList<JiBaseNode>();
 
 		JxBaseRelation  m_relation =  new JxBaseRelation();
 		JxBaseNode  m_node = new JxBaseNode();
-		JxBaseTrace  m_trace =new JxBaseTrace(); 
+		JxBaseTrace  m_trace = new JxBaseTrace(); 
 		
 		Random m_random=new Random();
 	    
@@ -34,7 +33,7 @@ import java.util.*;
 	    {           
 		     for(int i=0;i<expertime;i++)
 		     {
-		    	 for(int j=0;j<m_relations.count();i++)
+		    	 for(int j=0;j<m_relations.count();j++)
 		    	 {
 		    		 m_interaction.interact(i, m_relations.get(j), m_trace);	
 		    	 }    
@@ -48,9 +47,13 @@ import java.util.*;
 	    
 	    public void generateRelations(int count)
 	    {
-	    	m_relations.generate(count);
+	    	m_nodes.randomize();
+	    	for(int i=0;i<m_nodes.count();i++)
+	    	{
+	    	   leftnodes.add(i, m_nodes.get(i)); 
+	    	}
 	    	
-	    	leftnodes=m_nodes;
+	    	m_relations.generate(count);
 	    			 
     		JxBaseRelation relation=new JxBaseRelation();
     		JxScaleFreeNode nodeFrom=new JxScaleFreeNode();
@@ -84,7 +87,7 @@ import java.util.*;
 	    
 	    public JiBaseNode selectNodeTo()
 	    {
-	    	int p=m_random.nextInt(addnodes.count());
+	    	int p=m_random.nextInt(addnodes.size());
 	    	return addnodes.get(p);
 	    }
 	    
