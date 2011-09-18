@@ -3,6 +3,7 @@ package extend.scalefree;
 
 import kernel.*;
 import java.util.*;
+
   public class JxScaleFreeApplication 
   {  
 	    JxBaseRelationCollection  m_relations = new JxBaseRelationCollection();
