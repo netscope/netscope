@@ -83,16 +83,19 @@ public class JxBaseRelation implements JiBaseRelation
 	  return m_id;
     }
 	@Override
-	public void setId(int id){
+	public void setId(int id)
+	{
 		m_id=id; 	
-   }
+    }
 	
 	@Override
-	public Object getOwner() {
+	public Object getOwner() 
+	{
 		return m_owner;
 	}
 	@Override
-	public void setOwner(Object owner) {
+	public void setOwner(Object owner) 
+	{
 		m_owner = owner;
 	}
 	
@@ -223,17 +226,17 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		switch (m_nodes.size())
 		{
-		case 0:
-			// You should call setNodeFrom first
-			assert(false);
-			m_nodes.add(null);
-			break;
-		case 1:
-			m_nodes.add(nodeTo);
-			break;
-		default:
-			m_nodes.set(1, nodeTo);
-		}
+		  case 0:
+			 // You should call setNodeFrom first
+			  assert(false);
+			  m_nodes.add(null);
+			  break;
+		  case 1:
+			 m_nodes.add(nodeTo);
+			 break;
+		  default:
+			 m_nodes.set(1, nodeTo);
+	  }
 	}
 	
 	@Override

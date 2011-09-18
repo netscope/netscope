@@ -10,14 +10,15 @@ import java.util.*;
 		
 		JxScaleFreeNodeCollection leftnodes=new JxScaleFreeNodeCollection();
 		JxScaleFreeNodeCollection addnodes=new JxScaleFreeNodeCollection();
-    	
+		
+
 		JxBaseRelation  m_relation =  new JxBaseRelation();
 		JxBaseNode  m_node = new JxBaseNode();
 		JxBaseTrace  m_trace =new JxBaseTrace(); 
-		JxBaseInteraction m_interaction = new JxBaseInteraction();
-
+		
 		Random m_random=new Random();
 	    
+		JxBaseInteraction m_interaction = new JxBaseInteraction();
 		public void open()
 		{
 	       m_trace.open(); 
@@ -48,10 +49,8 @@ import java.util.*;
 	    {
 	    	m_relations.generate(count);
 	    	
-	    	
 	    	leftnodes=m_nodes;
 	    			 
-	    	
     		JxBaseRelation relation=new JxBaseRelation();
     		JxScaleFreeNode nodeFrom=new JxScaleFreeNode();
     		JxScaleFreeNode nodeTo=new JxScaleFreeNode();
@@ -61,7 +60,7 @@ import java.util.*;
 	    		relation = (JxBaseRelation)m_relations.get(i);
 	    		
 	    		if(i==0)
-	    		{
+	    		{   
 	    			nodeFrom=(JxScaleFreeNode)m_nodes.get(0);
 	    			nodeTo=(JxScaleFreeNode)m_nodes.get(1);	
 	    			
@@ -74,10 +73,12 @@ import java.util.*;
 	    			 
 	    			leftnodes.remove(nodeFrom);
 	    		}
+	    		    relation.setNodeFrom(nodeFrom);
+	    		    relation.setNodeTo(nodeTo);
+	    		    
 	    		    addnodes.add(nodeFrom);
     			    addnodes.add(nodeTo);	
-	       }
-	    	
+	       }	
 	    }
 	    
 	    public JiBaseNode selectNodeTo()

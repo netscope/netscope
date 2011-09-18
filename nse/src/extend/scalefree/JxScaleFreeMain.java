@@ -8,16 +8,16 @@ public class JxScaleFreeMain {
 	    
 	    app.open();
         
-	    app.generateNodes(10);
-	    app.generateRelations(9);
+	    app.generateNodes(1000);
+	    app.generateRelations(999);
+	    
+	    app.saveNodes();
+	    app.saveRelations();
 	    
 	    app.run(10);
-
+ 
 	    app.close();
 	   
 	    System.out.println("sucess!");
     }     
-    
-
-
 }

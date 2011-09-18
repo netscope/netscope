@@ -50,23 +50,22 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id, int x, int y, int z) {
+	public JxBaseNode(Object owner, int id, int x, int y,int z) {
 		m_id = id;
 		m_owner = owner;
 		m_loc_x = x;
 		m_loc_y = y;
-		m_loc_y = z;
+		m_loc_z = z;
 		m_length = 0;
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id, int x, int y, int z, int capacity) {
+	public JxBaseNode(Object owner, int id, int x, int y, int length, int capacity) {
 		m_id = id;
 		m_owner = owner;
 		m_loc_x = x;
 		m_loc_y = y;
-		m_loc_y = z;
-		m_length = 0;
+		m_length= length;
 		m_capacity = capacity;
 	}
 

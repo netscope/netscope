@@ -38,10 +38,14 @@ public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode
 		super( owner, id, loc_x, loc_y, capacity);
 	}
    
+	public JxScaleFreeNode(Object owner,int id,int loc_x,int loc_y,int length,int capacity)
+	{
+		super(owner,id,loc_x,loc_y,length,capacity);
+	}
 
 	public String toString()
 	{ 
-		return "JxScaleFreeNode [m_id="+this.getId()+",m_loc_x=" + this.getX() + ", m_loc_y=" + this.getY()
+		return "JxScaleFreeNode [id="+m_id+",x=" + m_loc_x + ",y=" + m_loc_y+",length="+m_length+",capacity="+m_capacity
 			+ "]";
 	}
 
