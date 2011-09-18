@@ -1,5 +1,8 @@
 package extend.scalefree;
-import kernel.*;
-public class JxScaleFreeRelation extends JxBaseRelation {
+
+import kernel.JiBaseRelation;
+import kernel.JxBaseRelation;
+
+public class JxScaleFreeRelation extends JxBaseRelation implements JiBaseRelation {
 
 }
