@@ -7,8 +7,8 @@ import java.sql.*;
 
 public class JxBaseTraceMetaSet 
 {   
-	JxBaseNodeCollection nodes= new JxBaseNodeCollection() ;
-	JxBaseRelationCollection relations= new JxBaseRelationCollection();
+	JxBaseNodeCollection nodes = new JxBaseNodeCollection();
+	JxBaseRelationCollection relations = new JxBaseRelationCollection();
 	
 	public Object m_owner;
 	
@@ -22,7 +22,7 @@ public class JxBaseTraceMetaSet
 		m_owner=owner;	
 	}
 	
-	public void loadnodes(Statement sta, String tableName )
+	public void loadnodes(Statement sta, String tableName)
 	{
 	   try{
 	         String selectMetaNode="select * from nodemeta"+tableName;
@@ -43,8 +43,7 @@ public class JxBaseTraceMetaSet
 				 node.setY(nodeLocy);
 				 
 				 nodes.add(node);
-	         }
-	         
+	         } 
 	         for(i=0;i<nodes.size();i++)
 	         {
 	        	 System.out.println(nodes.get(i));
@@ -56,7 +55,7 @@ public class JxBaseTraceMetaSet
    }
 	
 	
-	public void  loadrelations(Statement sta, String tableName )
+	public void  loadrelations(Statement sta, String tableName)
 	{
 	  try{
 	         String selectMetaRelation="select * from relationmeta"+tableName;
@@ -70,23 +69,22 @@ public class JxBaseTraceMetaSet
 				 int relationNodeFrom = Integer.parseInt(r.getString(2));
 				 int relationNodeTo = Integer.parseInt(r.getString(3));
 				 					 
-				 JxBaseRelation relation =new JxBaseRelation();
+				 JxBaseRelation relation = new JxBaseRelation();
+				 JxBaseApplication app = new JxBaseApplication();
 				 
 				 relation.setId(relationId);
-				 relation.setNodeFrom(JxBaseApplication.getNodes().get(relationNodeFrom));
-				 relation.setNodeTo(JxBaseApplication.getNodes().get(relationNodeTo));
+				 relation.setNodeFrom(app.getNodes().get(relationNodeFrom));
+				 relation.setNodeTo(app.getNodes().get(relationNodeTo));
 				
 				 relations.add(relation);
 	         }
-	         
-	         for(int j=0;i<relations.size();j++)
+	         for(int j=0;j<relations.size();j++)
 	         {
 	        	 System.out.println(relations.get(i));
-	         }
-	         
+	         }      
          }catch(Exception e)
-          {
+         {
    	         e.printStackTrace();
-          }
+         }
 	}
 }

@@ -14,7 +14,7 @@ import kernel.*;
  *  
  * Hierarchical architecture:
  * 
- *  	App: MATLAB Based
+ *  	Applicaton: MATLAB Based
  *  	Middle: Trace Loader
  *  	Low: Database
  *  
@@ -41,16 +41,15 @@ import kernel.*;
 public class JxBaseTraceLoader 
 {
 	protected JxBaseTraceMetaSet m_metaset = new JxBaseTraceMetaSet();  
-	protected JxBaseTraceDataSet m_dataset = new JxBaseTraceDataSet();
-	//protected JxBaseTrace trace=new JxBaseTrace(); 		
+	protected JxBaseTraceDataSet m_dataset = new JxBaseTraceDataSet();		
 	
 	protected Connection m_connection = null;
 	protected Statement m_statement = null;
 		
-	protected String m_datadir = "d:/data/netscope/";
+	protected String m_datadir = "D:/temp/exper/";
 	
 	@SuppressWarnings("static-access")
-	protected String m_tablename=null; 
+	protected String m_tableName="20110930_112113"; 
 	
 	/**
 	 * Open an trace data set for reading. 
@@ -65,7 +64,7 @@ public class JxBaseTraceLoader
 			 Class.forName("org.hsqldb.jdbcDriver");
 			 
 			 m_connection = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
-			 m_statement= m_connection.createStatement();
+			 m_statement = m_connection.createStatement();
 	      } 
 	      catch (Exception e) 
 	      {
@@ -76,8 +75,7 @@ public class JxBaseTraceLoader
     
 	public void open()
 	{
-		  m_datadir="D:/temp/exper/";
-		  opendatabase(m_datadir,m_tablename);
+       opendatabase(m_datadir,m_tableName);
 	}
     
 	/**
@@ -96,18 +94,41 @@ public class JxBaseTraceLoader
 	}
 	
 	public void loadnodes()
+	{   
+	   m_metaset.loadnodes(m_statement,m_tableName); 	 		
+	}
+	
+	public void loadNode()
+	{	
+       int beginTime = 1;
+       int endTime = 2;
+       m_dataset.loadNode(m_statement,m_tableName, beginTime, endTime);
+	}
+	
+	public void loadRelation()
 	{
-	   m_statement = JxBaseTrace.getStatement();
-	   m_tablename = JxBaseTrace.getName();
-	   
-	   m_metaset.loadnodes(m_statement,m_tablename); 	 		
+		int beginTime = 1;
+		int endTime = 2;
+		m_dataset.loadRelation(m_statement, m_tableName, beginTime, endTime);
 	}
 	
 	public void loadRelations()
 	{
-	   m_metaset.loadrelations(m_statement,m_tablename);
+	   m_metaset.loadrelations(m_statement,m_tableName);
 	}
-  
+ 
+	public void loadNodeSnapShot()
+	{
+		int givenTime = 5;
+		m_dataset.loadNodeSnapShot(m_statement,m_tableName,givenTime);
+	}
+	
+	public void loadRelationSnapShot()
+	{
+		int givenTime = 5;
+		m_dataset.loadRelationSnapShot(m_statement,m_tableName,givenTime);
+	}
+	
 	public JxBaseTraceMetaSet metaSet()
 	{
 		return m_metaset;
@@ -142,5 +163,15 @@ public class JxBaseTraceLoader
 		   e.printStackTrace();
 	  }	
 		return  r ;
-   }
+    }
+	
+	public static void main(String args[])
+	{
+		JxBaseTraceLoader loader=new JxBaseTraceLoader();
+		
+		loader.open();
+	  //loader.loadnodes();
+		loader.loadRelations();
+		loader.close();
+	}
 }

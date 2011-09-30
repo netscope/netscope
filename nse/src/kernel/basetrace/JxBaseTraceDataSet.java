@@ -1,50 +1,64 @@
 package kernel.basetrace;
 
-import kernel.JxBaseNode;
+import kernel.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import kernel.JxBaseRelation;
 
 public class JxBaseTraceDataSet 
 {
-	Object owner = null;
+	Object m_owner = null;
    
 	public JxBaseTraceDataSet()
     {
-    	owner = null;
+    	m_owner = null;
     }
 	
 	JxBaseTraceDataSet(Object owner)
 	{
-	    this.owner = owner;	
+	    this.m_owner = owner;	
 	}
 	
-	JxBaseNode []nodeSet = new JxBaseNode[10000];
-	JxBaseRelation []relationSet = new JxBaseRelation[10000];
+	/**二维数组，第一维为试验次数，第二维为节点标号
+	 * 
+	 * */
+	JxBaseNode [][]nodeSet = new JxBaseNode[1000][1000];
+	JxBaseRelation [][]relationSet = new JxBaseRelation[1000][1000];
 	
-	/** load information of the node and relation from trace */
-	JxBaseNode[] loadNode(Statement sta,String tablename,int begintime,int endtime)
+	JxBaseNodeCollection nodeCollection = new JxBaseNodeCollection();
+	JxBaseRelationCollection relationCollection = new JxBaseRelationCollection();
+	
+	public void init()
 	{
-	 try{
-	         String selectTraceNode="select * from "+tablename+" where time>="+begintime+"and time<="+endtime;
-	         ResultSet r = sta.executeQuery(selectTraceNode);
+	  for(int i=0;i<1000;i++)
+	  {
+		  for(int j=0;j<1000;j++)
+		  {
+			  nodeSet[i][j] = new JxBaseNode();
+			  relationSet[i][j] = new JxBaseRelation();
+		  }
+	  }
+	}
+
+	/** load information of the node and relation from trace */
+	JxBaseNode[][] loadNode(Statement sta,String tableName,int beginTime,int endTime)
+	{
+	 try{    
+		   while(beginTime<endTime)
+		   {	  
+	          String selectTraceNode="select * from "+tableName+" where time="+beginTime;
+	          ResultSet r = sta.executeQuery(selectTraceNode);
+
+	          String nodeId = r.getString(2);
+	          String nodeLength = r.getString(3);
 	        
-	         int i = 0;
-	         
-	         while(r.next())
-	         {	 
-	        	 String time = r.getString(1);
-	        	 String nodeId = r.getString(2);
-	        	 String nodeLength = r.getString(3);
-	        	 
-	             String str=time+nodeId;
-	        	 int  id=Integer.parseInt(str);
-	        	
-				 int length = Integer.parseInt(nodeLength);
+	          int  id = Integer.parseInt(nodeId);
+	          int  length = Integer.parseInt(nodeLength);
 					
-				 nodeSet[i++].setId(id);
-				 nodeSet[i++].setValue(length);
-	         }
+			  nodeSet[beginTime][id].setId(id);
+			  nodeSet[beginTime][id].setValue(length);
+			  
+			  beginTime++;
+	       }
 	     }catch(Exception e)
 	     {
 	        e.printStackTrace();
@@ -52,62 +66,60 @@ public class JxBaseTraceDataSet
 	      return nodeSet;
 	}
 	
-	JxBaseRelation[] loadRelation(Statement sta,String tablename,int begintime,int endtime)
+	JxBaseRelation[][] loadRelation(Statement sta,String tableName,int beginTime,int endTime)
 	{ 
 		try{
-              String selectTraceRelation="select * from "+tablename+" where time>="+begintime+"and time<="+endtime;
-              ResultSet r = sta.executeQuery(selectTraceRelation);
+			 while(beginTime<endTime)
+			 { 	
+                String selectTraceRelation="select * from "+tableName+" where time="+beginTime;
+                ResultSet r = sta.executeQuery(selectTraceRelation);
        
-              int i = 0;
-        
-              while(r.next())
-              {
-	        	 String time = r.getString(1);
-	       	     String nodeId = r.getString(2);
-	       	     String relationPacket =r.getString(3);
+	       	    String relationId = r.getString(2);
+	       	    String relationPacket =r.getString(3);
 	       	   
-                 String str = time+nodeId;
-	       	     int id = Integer.parseInt(str);
-		     
-				 int packet= Integer.parseInt(relationPacket);
+	       	    int id = Integer.parseInt(relationId);
+	       	    int packet = Integer.parseInt(relationPacket);
 					
-				 nodeSet[i++].setId(id);
-				 nodeSet[i++].setValue(packet);
+	       	    
+				relationSet[beginTime][id].setId(id);
+				relationSet[beginTime][id].setPacket(packet);
+				
+				beginTime++;
              }
-          }catch(Exception e)
-           {
-	          e.printStackTrace();
-           }
+            }catch(Exception e)
+             {
+	           e.printStackTrace();
+             }
               return relationSet;
 	}
 	
 	
 	/** Load the snapshot of the network at the given time*/
-	JxBaseNode[] loadNodeSnapShot(Statement sta,String tablename,int giventime)
+	JxBaseNodeCollection loadNodeSnapShot(Statement sta,String tableName,int givenTime)
 	{
-	  try{
-          String selectNodeSnapShot="select * from "+tablename+" where time= "+giventime;
+	 try{
+          String selectNodeSnapShot="select * from "+tableName+" where time = "+givenTime;
           ResultSet r = sta.executeQuery(selectNodeSnapShot);
        
           int i = 0;
         
-         while(r.next())
-         {  
-			 int nodeId = Integer.parseInt(r.getString(2));
+          while(r.next())
+          {  
+			 int id = Integer.parseInt(r.getString(2));
 			 int length = Integer.parseInt(r.getString(3));
     	     
-			 nodeSet[i++].setId(nodeId);
-			 nodeSet[i++].setValue(length);	
-         }
+			 nodeCollection.get(i++).setId(id);
+			 nodeCollection.get(i++).setValue(length);	
+          }
       }catch(Exception e)
        {
 	       e.printStackTrace();
        }
-       return nodeSet;
-    }
+       return nodeCollection;
+   }
 	
 	
-	JxBaseRelation[] loadRelationSnapShot(Statement sta,String tablename,int giventime)
+	JxBaseRelationCollection loadRelationSnapShot(Statement sta,String tablename,int giventime)
 	{
 	  try{
 	         String selectRelationSnapShot=" select * from "+tablename+" where time= "+giventime;
@@ -117,16 +129,16 @@ public class JxBaseTraceDataSet
 	         
 	         while(r.next())
 	         {
-				 int relationId = Integer.parseInt(r.getString(2));
-				 int packet= Integer.parseInt(r.getString(3));
+				int id = Integer.parseInt(r.getString(2));
+				int packet= Integer.parseInt(r.getString(3));
 					 
-				 relationSet[i++].setId(relationId);
-				 relationSet[i++].setPacket(packet);
+			    relationCollection.get(i).setId(id);
+				relationCollection.get(i).setPacket(packet);
 	         }
          }catch(Exception e)
          {
    	         e.printStackTrace();
          }
-       return relationSet;
+       return relationCollection;
 	}
-}
+} 
