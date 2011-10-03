@@ -7,8 +7,8 @@ import java.sql.*;
 
 public class JxBaseTraceMetaSet 
 {   
-	JxBaseNodeCollection nodes = new JxBaseNodeCollection();
-	JxBaseRelationCollection relations = new JxBaseRelationCollection();
+	JxBaseNodeCollection m_nodes = new JxBaseNodeCollection();
+	JxBaseRelationCollection m_relations = new JxBaseRelationCollection();
 	
 	public Object m_owner;
 	
@@ -42,11 +42,11 @@ public class JxBaseTraceMetaSet
 				 node.setX(nodeLocx);
 				 node.setY(nodeLocy);
 				 
-				 nodes.add(node);
+				 m_nodes.add(node);
 	         } 
-	         for(i=0;i<nodes.size();i++)
+	         for(i=0;i<m_nodes.size();i++)
 	         {
-	        	 System.out.println(nodes.get(i));
+	        	 System.out.println(m_nodes.get(i));
 	         }
          }catch(Exception e)
          {
@@ -70,17 +70,16 @@ public class JxBaseTraceMetaSet
 				 int relationNodeTo = Integer.parseInt(r.getString(3));
 				 					 
 				 JxBaseRelation relation = new JxBaseRelation();
-				 JxBaseApplication app = new JxBaseApplication();
 				 
 				 relation.setId(relationId);
-				 relation.setNodeFrom(app.getNodes().get(relationNodeFrom));
-				 relation.setNodeTo(app.getNodes().get(relationNodeTo));
+				 relation.setNodeFrom(m_nodes.get(relationNodeFrom));
+				 relation.setNodeTo(m_nodes.get(relationNodeTo));
 				
-				 relations.add(relation);
+				 m_relations.add(relation);
 	         }
-	         for(int j=0;j<relations.size();j++)
+	         for(int j=0;j<m_relations.size();j++)
 	         {
-	        	 System.out.println(relations.get(i));
+	        	 System.out.println(m_relations.get(i));
 	         }      
          }catch(Exception e)
          {

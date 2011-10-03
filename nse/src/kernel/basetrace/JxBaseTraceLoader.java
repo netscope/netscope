@@ -82,37 +82,39 @@ public class JxBaseTraceLoader
 	 * Close an trace data set opened before.
 	 */
 	void close()
-	{
-		if (m_connection != null)		   
+	{ 
 		try{
+		     if (m_connection != null)	
 			 m_connection.close();
-		   }
-		    catch(Exception e)
+		
+		     if (m_statement!=null)
+		     m_statement.close();	
+		   } catch(Exception e)
 		   {	
 		     e.printStackTrace();
 		   }
 	}
 	
-	public void loadnodes()
+	public void loadMetaNode()
 	{   
 	   m_metaset.loadnodes(m_statement,m_tableName); 	 		
 	}
 	
-	public void loadNode()
+	public void loadDataNode()
 	{	
        int beginTime = 1;
        int endTime = 2;
        m_dataset.loadNode(m_statement,m_tableName, beginTime, endTime);
 	}
 	
-	public void loadRelation()
+	public void loadDataRelation()
 	{
 		int beginTime = 1;
 		int endTime = 2;
 		m_dataset.loadRelation(m_statement, m_tableName, beginTime, endTime);
 	}
 	
-	public void loadRelations()
+	public void loadMetaRelation()
 	{
 	   m_metaset.loadrelations(m_statement,m_tableName);
 	}
@@ -170,8 +172,8 @@ public class JxBaseTraceLoader
 		JxBaseTraceLoader loader=new JxBaseTraceLoader();
 		
 		loader.open();
-	  //loader.loadnodes();
-		loader.loadRelations();
-		loader.close();
+	    loader.loadMetaNode();
+		loader.loadMetaRelation();
+	    loader.close();
 	}
 }

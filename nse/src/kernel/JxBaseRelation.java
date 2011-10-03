@@ -294,8 +294,12 @@ public class JxBaseRelation implements JiBaseRelation
 		JxBaseRelation other = (JxBaseRelation) obj;
 		return ((m_id == other.m_id) && (m_bandwidth == other.m_bandwidth));
 	}
-	public String tostring()
+
+	@Override
+	public String toString() 
 	{
-		return String.format("JxBaseRelation [m_id=%d,m_nodefrom=%d,m_nodeto=%d,m_totalsent=%d]", m_id,m_nodes.get(0),m_nodes.get(1),m_totalsent);
+		return "JxBaseRelation [m_id=" + m_id + ", m_weight=" + m_weight
+				+ ", m_bandwidth=" + m_bandwidth + "]";
 	}
+	
 }

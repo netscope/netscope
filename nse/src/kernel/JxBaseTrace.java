@@ -39,6 +39,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_datadir = "c:/temp/";
 		m_curdbname = " ";
 	}
+	
 	public JxBaseTrace(Object owner, String datadir)
 	{
 		m_owner = owner;
@@ -50,6 +51,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 		return m_owner;
 	}
+	
 	public void setOwner(Object owner)
 	{ 
 		m_owner=owner;

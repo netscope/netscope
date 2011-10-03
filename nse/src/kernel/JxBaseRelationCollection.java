@@ -18,7 +18,7 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	
 	public Object m_owner = null;
 	public JxBaseTrace m_trace = null;
-	public JxBaseRelation m_relation=null;
+	public JxBaseRelation m_relation = null;
 	public JxBaseNodeCollection m_nodes = null;
 	
 	
@@ -98,9 +98,11 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	{
 		boolean found = false;
 		JiBaseRelation  relation = new JxBaseRelation();
-		for (int i=0; i<super.size(); i++){
+		for (int i=0; i<super.size(); i++)
+		{
 			relation = this.get(i);
-			if (relation.getId()== id){
+			if (relation.getId()== id)
+			{
 				found = true;
 				break;
 			}
