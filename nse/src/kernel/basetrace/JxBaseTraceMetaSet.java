@@ -79,7 +79,7 @@ public class JxBaseTraceMetaSet
 	         }
 	         for(int j=0;j<m_relations.size();j++)
 	         {
-	        	 System.out.println(m_relations.get(i));
+	        	 System.out.println(m_relations.get(j));
 	         }      
          }catch(Exception e)
          {

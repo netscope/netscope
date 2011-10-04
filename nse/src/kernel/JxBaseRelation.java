@@ -27,6 +27,8 @@ public class JxBaseRelation implements JiBaseRelation
 	protected int m_totalreceived; 
 	protected int m_totallost;
 	
+	protected int nodeFrom;
+	protected int nodeTo;
 	
 	JiBaseNode node=new JxBaseNode();
 	protected Random m_random = JxBaseFoundation.random();

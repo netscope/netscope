@@ -81,7 +81,7 @@ public class JxBaseTraceLoader
 	/**
 	 * Close an trace data set opened before.
 	 */
-	void close()
+	void closeDataBase()
 	{ 
 		try{
 		     if (m_connection != null)	
@@ -90,9 +90,9 @@ public class JxBaseTraceLoader
 		     if (m_statement!=null)
 		     m_statement.close();	
 		   } catch(Exception e)
-		   {	
-		     e.printStackTrace();
-		   }
+		     {	
+		       e.printStackTrace();
+		     }
 	}
 	
 	public void loadMetaNode()
@@ -173,7 +173,12 @@ public class JxBaseTraceLoader
 		
 		loader.open();
 	    loader.loadMetaNode();
-		loader.loadMetaRelation();
-	    loader.close();
+	//	loader.loadMetaRelation();
+	    loader.closeDataBase();
+	}
+	
+	public void print()
+	{
+		System.out.println("success!");
 	}
 }
