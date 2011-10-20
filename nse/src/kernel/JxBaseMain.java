@@ -12,7 +12,7 @@ public class JxBaseMain {
 	 *  
 	 * @param args
 	 */
-	public static void main(String []args)
+	public static void basemain(String []args)
 	{
 		JxBaseMain test=new JxBaseMain();
 		test.test1();
