@@ -29,7 +29,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		m_owner = owner;
 	}
    
-	public void interact(int time, JiBaseRelation relation, JiBaseTrace trace) 
+	public void interact(int time,JiBaseRelation relation,JiBaseTrace trace) 
 	{	
 		JiBaseNode nodefrom =relation.getNodeFrom();
 		JiBaseNode nodeto =relation.getNodeTo();	
@@ -80,11 +80,11 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		return minimum;
 	}
 	
+	
     public JiBaseTrace getTrace()
     {
     	return m_trace;
     }
-    
     public void setTrace(JiBaseTrace trace)
     {
     	m_trace=(JxBaseTrace)trace;

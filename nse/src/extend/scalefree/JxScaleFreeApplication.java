@@ -1,4 +1,3 @@
-
 package extend.scalefree;
 
 import kernel.*;
@@ -9,16 +8,17 @@ import java.util.*;
 	    JxBaseRelationCollection  m_relations = new JxBaseRelationCollection();
 		JxScaleFreeNodeCollection m_nodes = new JxScaleFreeNodeCollection();
 		
-		ArrayList<JiBaseNode> leftnodes=new ArrayList<JiBaseNode>();
-		ArrayList<JiBaseNode> addnodes=new ArrayList<JiBaseNode>();
+		JxBaseInteraction m_interaction = new JxBaseInteraction();
+		
+		ArrayList<JiBaseNode> m_leftnodes = new ArrayList<JiBaseNode>();
+		ArrayList<JiBaseNode> m_addnodes = new ArrayList<JiBaseNode>();
 
 		JxBaseRelation  m_relation =  new JxBaseRelation();
 		JxBaseNode  m_node = new JxBaseNode();
-		JxBaseTrace  m_trace = new JxBaseTrace(); 
+		JxBaseTrace  m_trace = new JxBaseTrace();
 		
-		Random m_random=new Random();
+		Random m_random = new Random();
 	    
-		JxBaseInteraction m_interaction = new JxBaseInteraction();
 		public void open()
 		{
 	       m_trace.open(); 
@@ -27,18 +27,7 @@ import java.util.*;
 		public void close()
 		{
 		   m_trace.close();	
-		}
-	  
-	    public void run(int expertime)
-	    {           
-		     for(int i=0;i<expertime;i++)
-		     {
-		    	 for(int j=0;j<m_relations.count();j++)
-		    	 {
-		    		 m_interaction.interact(i, m_relations.get(j), m_trace);	
-		    	 }    
-		     }	    	   
-	    }
+		}  
 	      
 	    public void generateNodes(int count)
 	    {
@@ -50,14 +39,13 @@ import java.util.*;
 	    	m_nodes.randomize();
 	    	for(int i=0;i<m_nodes.count();i++)
 	    	{
-	    	   leftnodes.add(i, m_nodes.get(i)); 
+	    	   m_leftnodes.add(i, m_nodes.get(i)); 
 	    	}
-	    	
 	    	m_relations.generate(count);
 	    			 
-    		JxBaseRelation relation=new JxBaseRelation();
-    		JxScaleFreeNode nodeFrom=new JxScaleFreeNode();
-    		JxScaleFreeNode nodeTo=new JxScaleFreeNode();
+    		JxBaseRelation relation = new JxBaseRelation();
+    		JxScaleFreeNode nodeFrom = new JxScaleFreeNode();
+    		JxScaleFreeNode nodeTo = new JxScaleFreeNode();
     		
 	    	for(int i=0;i<m_relations.count();i++)
 	    	{
@@ -68,27 +56,38 @@ import java.util.*;
 	    			nodeFrom=(JxScaleFreeNode)m_nodes.get(0);
 	    			nodeTo=(JxScaleFreeNode)m_nodes.get(1);	
 	    			
-	    			leftnodes.remove(nodeFrom);
-	    			leftnodes.remove(nodeTo);		
+	    			m_leftnodes.remove(nodeFrom);
+	    			m_leftnodes.remove(nodeTo);		
 	    		}
 	    		else{
-	    			nodeFrom=(JxScaleFreeNode)leftnodes.get(0);
-	    			nodeTo=(JxScaleFreeNode)selectNodeTo();
+	    			nodeFrom=(JxScaleFreeNode)m_leftnodes.get(0);
+	    			nodeTo=(JxScaleFreeNode)this.selectNodeTo();
 	    			 
-	    			leftnodes.remove(nodeFrom);
+	    			m_leftnodes.remove(nodeFrom);
 	    		}
 	    		    relation.setNodeFrom(nodeFrom);
 	    		    relation.setNodeTo(nodeTo);
 	    		    
-	    		    addnodes.add(nodeFrom);
-    			    addnodes.add(nodeTo);	
+	    		    m_addnodes.add(nodeFrom);
+    			    m_addnodes.add(nodeTo);	
 	       }	
+	    }
+
+	    public void run(int expertime)
+	    {           
+		   for(int i=0;i<expertime;i++)
+		   {
+		      for(int j=0;j<m_relations.count();j++)
+		      {
+		    	m_interaction.interact(i, m_relations.get(j), m_trace);	
+		      }    
+		   }	    	   
 	    }
 	    
 	    public JiBaseNode selectNodeTo()
 	    {
-	    	int p=m_random.nextInt(addnodes.size());
-	    	return addnodes.get(p);
+	    	int p = m_random.nextInt(m_addnodes.size());
+	    	return m_addnodes.get(p);
 	    }
 	    
 	    public void saveNodes()
@@ -101,6 +100,7 @@ import java.util.*;
 	    	m_trace.save(m_relations);
 	    }
 	      
+	    
         public void setNodes(JiBaseNodeCollection nodes)
         {
         	m_nodes = (JxScaleFreeNodeCollection)nodes;
@@ -110,6 +110,7 @@ import java.util.*;
 		{
 			return m_nodes;
 		}
+		
 		
 		public void setRelations(JxBaseRelationCollection relations)
 		{ 

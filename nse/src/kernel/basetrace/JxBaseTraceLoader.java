@@ -6,12 +6,10 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import kernel.*;
 
 
 /**
  * The JxBaseTraceLoader class is used for other modules to load data from traced files.
- *  
  * Hierarchical architecture:
  * 
  *  	Applicaton: MATLAB Based
@@ -36,7 +34,6 @@ import kernel.*;
  *  6 Output report 
  *  
  * @author Allen
- *
  */
 public class JxBaseTraceLoader 
 {
@@ -44,13 +41,11 @@ public class JxBaseTraceLoader
 	protected JxBaseTraceDataSet m_dataset = new JxBaseTraceDataSet();		
 	
 	protected Connection m_connection = null;
-	protected Statement m_statement = null;
+	protected Statement  m_statement = null;
 		
 	protected String m_datadir = "D:/temp/exper/";
-	
-	@SuppressWarnings("static-access")
-	protected String m_tableName="20110930_112113"; 
-	
+	protected String m_tableName = "20110930_112113"; 
+		
 	/**
 	 * Open an trace data set for reading. 
 	 * 
@@ -58,11 +53,10 @@ public class JxBaseTraceLoader
 	 * @param dbname
 	 */
 	
-    public Statement opendatabase(String databasedir,String databasename)
+    public void opendatabase(String databasedir,String databasename)
 	{
 	  try {
 			 Class.forName("org.hsqldb.jdbcDriver");
-			 
 			 m_connection = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
 			 m_statement = m_connection.createStatement();
 	      } 
@@ -70,7 +64,6 @@ public class JxBaseTraceLoader
 	      {
 			e.printStackTrace();
 	      }
-	      return  m_statement;
 	}
     
 	public void open()
@@ -81,42 +74,55 @@ public class JxBaseTraceLoader
 	/**
 	 * Close an trace data set opened before.
 	 */
-	void closeDataBase()
+	public void close()
 	{ 
-		try{
+	    try{
 		     if (m_connection != null)	
 			 m_connection.close();
 		
 		     if (m_statement!=null)
 		     m_statement.close();	
-		   } catch(Exception e)
-		     {	
+		   }catch(Exception e)
+		    {	
 		       e.printStackTrace();
-		     }
+		    }
 	}
 	
-	public void loadMetaNode()
+	public int[][] loadMetaNodes()
 	{   
-	   m_metaset.loadnodes(m_statement,m_tableName); 	 		
+	   int [][] metaNodes = new int[10000][3];
+	   int [][] metaNodes2= new int[10][3];
+	   metaNodes = m_metaset.loadnodes(m_statement,m_tableName); 	 	
+	   
+	   for(int i=0;i<10;i++)
+	   {
+		  for(int j=0;j<3;j++) 
+		  {
+			metaNodes2[i][j]=metaNodes[i][j]; 
+		  }
+	   }
+	   return metaNodes2;
 	}
 	
-	public void loadDataNode()
+	public void loadDataNodes()
 	{	
        int beginTime = 1;
        int endTime = 2;
        m_dataset.loadNode(m_statement,m_tableName, beginTime, endTime);
 	}
 	
-	public void loadDataRelation()
+	public void loadDataRelations()
 	{
 		int beginTime = 1;
 		int endTime = 2;
 		m_dataset.loadRelation(m_statement, m_tableName, beginTime, endTime);
 	}
 	
-	public void loadMetaRelation()
+	public int[][] loadMetaRelations()
 	{
-	   m_metaset.loadrelations(m_statement,m_tableName);
+	   int [][]metaRelations=new int[9999][3];
+	   metaRelations=m_metaset.loadrelations(m_statement,m_tableName);
+	   return metaRelations;
 	}
  
 	public void loadNodeSnapShot()
@@ -164,7 +170,7 @@ public class JxBaseTraceLoader
 	  {
 		   e.printStackTrace();
 	  }	
-		return  r ;
+		return  r;
     }
 	
 	public static void main(String args[])
@@ -172,13 +178,8 @@ public class JxBaseTraceLoader
 		JxBaseTraceLoader loader=new JxBaseTraceLoader();
 		
 		loader.open();
-	    loader.loadMetaNode();
-	//	loader.loadMetaRelation();
-	    loader.closeDataBase();
-	}
-	
-	public void print()
-	{
-		System.out.println("success!");
+	    loader.loadMetaNodes();
+		loader.loadMetaRelations();
+	    loader.close();
 	}
 }

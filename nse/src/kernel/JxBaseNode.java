@@ -12,16 +12,21 @@ package kernel;
 public class JxBaseNode implements JiBaseNode {
 
 	protected int m_id = 0;
-	protected Object m_owner = null;
-	
 	protected int m_weight = 0;
 	protected int m_loc_x = 0;
 	protected int m_loc_y = 0;
 	protected int m_loc_z = 0;
 	protected int m_length = 0;
 	protected int m_capacity = 0;
+	protected int stat_degreein = 0;
+	protected int stat_degreeout = 0;
+    protected int stat_totaltraffic = 0;
+    protected int stat_totallost = 0;
+	
+	protected Object m_owner = null;
 
-	public JxBaseNode() {
+	public JxBaseNode()
+	{
 		m_id = 0;
 		m_owner = null;
 		m_loc_x = 0;
@@ -31,7 +36,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id) {
+	public JxBaseNode(Object owner, int id) 
+	{
 		m_id = id;
 		m_owner = owner;
 		m_loc_x = 0;
@@ -41,7 +47,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id, int x, int y) {
+	public JxBaseNode(Object owner, int id, int x, int y) 
+	{
 		m_id = id;
 		m_owner = owner;
 		m_loc_x = x;
@@ -50,7 +57,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id, int x, int y,int z) {
+	public JxBaseNode(Object owner, int id, int x, int y,int z) 
+	{
 		m_id = id;
 		m_owner = owner;
 		m_loc_x = x;
@@ -60,7 +68,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id, int x, int y, int length, int capacity) {
+	public JxBaseNode(Object owner, int id, int x, int y, int length, int capacity) 
+	{
 		m_id = id;
 		m_owner = owner;
 		m_loc_x = x;
@@ -69,7 +78,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = capacity;
 	}
 
-	public JxBaseNode(int id) {
+	public JxBaseNode(int id) 
+	{
 		m_owner = null;
 		m_id = id;
 		m_loc_x = 0;
@@ -79,7 +89,8 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(int id, int x, int y) {
+	public JxBaseNode(int id, int x, int y) 
+	{
 		m_id = id;
 		m_loc_x = x;
 		m_loc_y = y;
@@ -89,7 +100,8 @@ public class JxBaseNode implements JiBaseNode {
 
 	}
 
-	public JxBaseNode(int id, int x, int y, int z) {
+	public JxBaseNode(int id, int x, int y, int z) 
+	{
 		m_id = id;
 		m_loc_x = x;
 		m_loc_y = y;
@@ -99,7 +111,8 @@ public class JxBaseNode implements JiBaseNode {
 
 	}
 
-	public JxBaseNode(int id, int x, int y, int z, int capacity) {
+	public JxBaseNode(int id, int x, int y, int z, int capacity) 
+	{
 		m_id = id;
 		m_loc_x = x;
 		m_loc_y = y;
@@ -109,7 +122,8 @@ public class JxBaseNode implements JiBaseNode {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return String.format(
 				"JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d, capacity=%d]",
 				m_id, m_loc_x, m_loc_y, m_loc_z, m_length, m_capacity);
@@ -125,7 +139,8 @@ public class JxBaseNode implements JiBaseNode {
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		// result = prime * result + super().hashCode();
@@ -138,7 +153,8 @@ public class JxBaseNode implements JiBaseNode {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 
@@ -159,22 +175,26 @@ public class JxBaseNode implements JiBaseNode {
 	}
 
 	@Override
-	public int getId() {
+	public int getId() 
+	{
 		return m_id;
 	}
 
 	@Override
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		m_id = id;
 	}
 
 	@Override
-	public Object getOwner() {
+	public Object getOwner()
+{
 		return m_owner;
 	}
 
 	@Override
-	public void setOwner(Object owner) {
+	public void setOwner(Object owner)
+	{
 		m_owner = owner;
 	}
 
@@ -238,5 +258,55 @@ public class JxBaseNode implements JiBaseNode {
 	@Override
 	public void setZ(int z) {
 		m_loc_z = z;
+	}
+	
+	public int getLength()
+	{
+		return m_length;
+	}
+	
+	public void setLength(int length)
+	{
+		m_length=length;
+	}
+
+	public int getDegreeIn() 
+	{
+		return stat_degreein;
+	}
+
+	public void setDegreeIn(int stat_degreein) 
+	{
+		this.stat_degreein = stat_degreein;
+	}
+
+	public int getDegreeOut()
+	{
+		return stat_degreeout;
+	}
+
+	public void setDegreeOut(int stat_degreeout)
+	{
+		this.stat_degreeout = stat_degreeout;
+	}
+
+	public int getTotalTraffic() 
+	{
+		return stat_totaltraffic;
+	}
+
+	public void setTotalTraffic(int stat_totaltraffic)
+	{
+		this.stat_totaltraffic = stat_totaltraffic;
+	}
+
+	public int getTotalLost() 
+	{
+		return stat_totallost;
+	}
+
+	public void setStat_totallost(int stat_totallost) 
+	{
+		this.stat_totallost = stat_totallost;
 	}
 }

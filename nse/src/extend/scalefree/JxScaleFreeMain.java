@@ -8,13 +8,13 @@ public class JxScaleFreeMain {
 	    
 	    app.open();
         
-	    app.generateNodes(10000);
+	    app.generateNodes(3);
 	    app.saveNodes();
 	    
-	    app.generateRelations(9999);
+	    app.generateRelations(2);
 	    app.saveRelations();
 	  
-	    app.run(10);
+	  //app.run(1);
  
 	    app.close();
 	   

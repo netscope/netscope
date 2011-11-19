@@ -22,7 +22,7 @@ public class JxScaleFreeNode extends JxBaseNode implements JiBaseNode
 		super();
 	}
 	
-	public JxScaleFreeNode(Object owner,int id )
+	public JxScaleFreeNode(Object owner,int id)
 	{
 		this.m_owner = owner;
 		this.m_id=id;

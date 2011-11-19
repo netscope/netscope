@@ -12,11 +12,13 @@ import java.util.*;
 public class JxBaseRelation implements JiBaseRelation
 {
 	protected Object m_owner = null;
-	protected int  m_id; 
+	protected int  m_id = 0; 
 
 	protected JiRelationType m_type = JiRelationType.BI_DIRECTION_RELATION;
 	protected ArrayList<JiBaseNode> m_nodes = new ArrayList<JiBaseNode>();
 	
+	protected int m_begintime = 0;
+	protected int m_endtime = 0;
 	
 	protected int m_weight = 0;
 	protected int m_bandwidth = 0;
@@ -27,10 +29,13 @@ public class JxBaseRelation implements JiBaseRelation
 	protected int m_totalreceived; 
 	protected int m_totallost;
 	
-	protected int nodeFrom;
-	protected int nodeTo;
+	protected int stat_totaltraffic;
+	protected int stat_totallost;
 	
-	JiBaseNode node=new JxBaseNode();
+	protected int m_nodeFrom;
+	protected int m_nodeTo;
+	
+	JiBaseNode node = new JxBaseNode();
 	protected Random m_random = JxBaseFoundation.random();
     
     public JxBaseRelation()
@@ -126,6 +131,84 @@ public class JxBaseRelation implements JiBaseRelation
 		return m_nodes;
 	}
 		
+	public int getBeginTime() 
+	{
+		return m_begintime;
+	}
+
+	public void setBeginTime(int m_begintime) 
+	{
+		this.m_begintime = m_begintime;
+	}
+
+	public int getEndtime() 
+	{
+		return m_endtime;
+	}
+
+	public void setEndtime(int m_endtime) 
+	{
+		this.m_endtime = m_endtime;
+	}
+
+	public int getBandwidth() 
+	{
+		return m_bandwidth;
+	}
+
+	public void setBandwidth(int m_bandwidth) 
+	{
+		this.m_bandwidth = m_bandwidth;
+	}
+
+	public int getTotalsent() 
+	{
+		return m_totalsent;
+	}
+
+	public void setTotalsent(int m_totalsent) 
+	{
+		this.m_totalsent = m_totalsent;
+	}
+
+	public int getTotalreceived()
+	{
+		return m_totalreceived;
+	}
+
+	public void setTotalreceived(int m_totalreceived) 
+	{
+		this.m_totalreceived = m_totalreceived;
+	}
+
+	public int getTotallost() 
+	{
+		return m_totallost;
+	}
+
+	public void setTotallost(int m_totallost) 
+	{
+		this.m_totallost = m_totallost;
+	}
+
+	public int getTotaltraffic() 
+	{
+		return stat_totaltraffic;
+	}
+
+	public void setTotaltraffic(int stat_totaltraffic) 
+	{
+		this.stat_totaltraffic = stat_totaltraffic;
+	}
+
+	public JiBaseNode getNode() {
+		return node;
+	}
+
+	public void setNode(JiBaseNode node) {
+		this.node = node;
+	}
+
 	public void setBiDirRelation( JiBaseNode node1, JiBaseNode node2 )
 	{
 		m_nodes.clear();
@@ -263,7 +346,6 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		 m_bandwidth=bandwidth;
 	}
-
 	public int getTotalSent()
 	{
        return m_totalsent;		
