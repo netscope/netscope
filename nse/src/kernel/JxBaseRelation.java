@@ -35,6 +35,9 @@ public class JxBaseRelation implements JiBaseRelation
 	protected int m_nodeFrom;
 	protected int m_nodeTo;
 	
+	protected  int traffic_send;
+	protected int traffic_lost; 
+	
 	JiBaseNode node = new JxBaseNode();
 	protected Random m_random = JxBaseFoundation.random();
     
@@ -340,12 +343,13 @@ public class JxBaseRelation implements JiBaseRelation
 	{
 		return m_bandwidth;
 	}
-	
 	@Override
 	public void setBandWidth(int bandwidth)
 	{
 		 m_bandwidth=bandwidth;
 	}
+	
+	
 	public int getTotalSent()
 	{
        return m_totalsent;		
@@ -365,6 +369,27 @@ public class JxBaseRelation implements JiBaseRelation
 		return result;
 	}
 
+	
+	public int getTrafficSend()
+	{
+		return traffic_send;
+	}
+	
+	public void  setTrafficSend(int trafficSend)
+	{
+		 traffic_send=trafficSend;
+	}
+	
+	
+	public int getTrafficLost()
+	{
+		return traffic_lost;
+	}
+	
+	public void setTrafficLost(int trafficLost)
+	{
+		trafficLost=trafficLost;
+	}
 	@Override
 	public boolean equals(Object obj) 
 	{

@@ -111,7 +111,6 @@ import java.util.*;
 			return m_nodes;
 		}
 		
-		
 		public void setRelations(JxBaseRelationCollection relations)
 		{ 
 			m_relations = relations;

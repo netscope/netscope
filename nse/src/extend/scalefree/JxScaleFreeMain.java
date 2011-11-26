@@ -13,11 +13,11 @@ public class JxScaleFreeMain {
 	    
 	    app.generateRelations(2);
 	    app.saveRelations();
-	  
-	  //app.run(1);
+	     
+	    app.run(1);
  
 	    app.close();
 	   
-	    System.out.println("sucess!");
+	    System.out.println("success!");
     }     
 }

@@ -55,11 +55,11 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		
         if(cut!=0)
         {
-		  trace.trace( time,nodefrom );
-		  trace.trace( time,nodeto );
-		  trace.trace( time,relation );
+		   trace.trace( time,relation );
 		}
 	}
+	
+	public void 
     
 	public int Minimum(int a, int b, int c) 
 	{ 

@@ -91,15 +91,15 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** Free resources allocated to this object. */
 	public void close()
 	{		
-		try{	
-			   m_sta.close();
-			   m_con.close();
-		   } 
-		    catch (SQLException e) 
-		   {
-		       m_sta = null;
-			   m_con = null;
-		   } 		
+	  try{	
+		   m_sta.close();
+		   m_con.close();
+		 } 
+		   catch (SQLException e) 
+		 {
+		   m_sta = null;
+	       m_con = null;
+		 } 		
 	}
 	
 	/*
@@ -119,7 +119,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		m_nodeMetaName = "nodemeta"+ tablename; 
 		
 		String createNode = "create table " + m_nodeMetaName
-				+ "(nodeid int not null identity,loc_x int default'0',loc_y int default'0'," +
+				+ "(nodeid int not null primary key,loc_x int default'0',loc_y int default'0'," +
 				"loc_z int default'0',length int default'0',capacity int default'0'" +
 				",stat_degreein int default'0',stat_degreeout int  default'0',stat_totaltraffic int default'0'," +
 				"stat_totallost int default'0')";
@@ -138,7 +138,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		System.out.println(m_relationMetaName);
 		
 		String createRelation = "create table " + m_relationMetaName
-				+ "(relationid int not null identity,reltype smallint default '0', begintime int default '0'," +
+				+ "(relationid int not null primary key,reltype smallint default '0', begintime int default '0'," +
 				"endtime int default '0',nodefrom int default '0',nodeto int default '0'" +
 				",bandwidth int default '0',stat_totaltraffic int default '0',stat_totallost int default '0'," +
 				")";
@@ -157,8 +157,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		System.out.println(m_nodeDataName);
 		
 		String traceNode = "create table " + m_nodeDataName
-				+ "(simtime int not null, nodeid int not null,quelength int default'0'," +
-				"traffic_in int default'0', traffic_out int default'0'," +
+				+ "(simtime int not null, nodeid int not null,quelength int default'0'," +"traffic_in int default'0', traffic_out int default'0'," +
 				"traffic_lost int default '0',constraint nodedataid primary key(simtime,nodeid))";
 		try{
 		    m_sta.executeUpdate(traceNode); 
@@ -210,8 +209,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	  	String stat_totaltraffic=Integer.toString(currentNode.getTotalTraffic());
 	  	String stat_totallost=Integer.toString(currentNode.getTotalLost());
 	  	
-	    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y£¬loc_z,length," +
-	    		"capacity,stat_degreein,stat_degreeout,stat_totaltraffic,stat_totallost)" +
+	    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y,loc_z,length," +
+	      "capacity,stat_degreein,stat_degreeout,stat_totaltraffic,stat_totallost)" +
 	    		"values ("+nodeId+","+loc_x+","+loc_y+","+loc_z+","+length+","+capacity+","
 	    		+stat_degreein+","+stat_degreeout+";"+stat_totaltraffic+","+stat_totallost+")";
 	    try{
@@ -473,12 +472,18 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void trace(int time, JiBaseNode node)
 	{
 	  	String currentTime=Integer.toString(time);
-	    JxBaseNode currentNode=(JxBaseNode)node;
+	  	JxBaseNode currentNode=(JxBaseNode)node;
+	    
 	 	String nodeId=Integer.toString(currentNode.getId());
-	  	String length=Integer.toString(currentNode.getValue());
+	  	String queLength=Integer.toString(currentNode.getValue());
+	  	
+	  	String traffic_in=Integer.toString(currentNode.getTrafficIn());
+	  	String traffic_out=Integer.toString(currentNode.getTrafficOut());
+	  	String traffic_lost=Integer.toString(currentNode.getTrafficLost());
+	  	
 		
-	    String traceNode="insert into "+m_nodeDataName+"(time,nodeid,length) " +
-	    		"values ("+currentTime+","+nodeId+","+length+")";
+	    String traceNode="insert into  "+m_nodeDataName+"(simtime,nodeid,quelength,traffic_in,traffic_out,traffic_lost) " +
+	    		"values ("+currentTime+","+nodeId+","+queLength+"," +traffic_in+","+traffic_out+","+traffic_lost+")";
 	    try{
 	         m_sta.executeUpdate(traceNode);
 	    }catch(Exception e)
@@ -491,12 +496,16 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void trace( int time,JiBaseRelation relation)
 	{
 	  	String currentTime=Integer.toString(time);
+	  	
 	    JxBaseRelation currentRelation=(JxBaseRelation)relation;
-	 	String relationId=Integer.toString(currentRelation.getId());
-	  	String packet=Integer.toString(currentRelation.getPacket());
+	 	
+	    String relationId=Integer.toString(currentRelation.getId());
 		
-	    String tracerelation="insert into "+m_relationDataName+" (time,relationid,packet) values " +
-	    		"("+currentTime+","+relationId+","+packet+")";
+	  	String trafficSend=Integer.toString(currentRelation.getTrafficSend());
+	  	String trafficLost=Integer.toString(currentRelation.getTrafficLost());
+	  	
+	    String tracerelation="insert into "+m_relationDataName+"(simtime,relationId,traffic_send,traffic_lost)  values " +
+	    		"("+currentTime+","+relationId+","+trafficSend+","+trafficLost+")";
 	    try{
 	    	
 	        m_sta.executeUpdate(tracerelation);

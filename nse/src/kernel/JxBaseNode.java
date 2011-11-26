@@ -12,16 +12,25 @@ package kernel;
 public class JxBaseNode implements JiBaseNode {
 
 	protected int m_id = 0;
+	
 	protected int m_weight = 0;
+	
 	protected int m_loc_x = 0;
 	protected int m_loc_y = 0;
 	protected int m_loc_z = 0;
+	
 	protected int m_length = 0;
 	protected int m_capacity = 0;
+	
 	protected int stat_degreein = 0;
 	protected int stat_degreeout = 0;
+	
     protected int stat_totaltraffic = 0;
     protected int stat_totallost = 0;
+    
+    protected int  traffic_in=0;
+    protected int traffic_out=0;
+    protected int traffic_lost=0;
 	
 	protected Object m_owner = null;
 
@@ -68,7 +77,7 @@ public class JxBaseNode implements JiBaseNode {
 		m_capacity = 0;
 	}
 
-	public JxBaseNode(Object owner, int id, int x, int y, int length, int capacity) 
+	public JxBaseNode(Object owner,int id,int x,int y,int length,int capacity) 
 	{
 		m_id = id;
 		m_owner = owner;
@@ -108,7 +117,6 @@ public class JxBaseNode implements JiBaseNode {
 		m_loc_z = z;
 		m_length = 0;
 		m_capacity = 0;
-
 	}
 
 	public JxBaseNode(int id, int x, int y, int z, int capacity) 
@@ -305,8 +313,38 @@ public class JxBaseNode implements JiBaseNode {
 		return stat_totallost;
 	}
 
-	public void setStat_totallost(int stat_totallost) 
+	public void setTotallost(int stat_totallost) 
 	{
 		this.stat_totallost = stat_totallost;
+	}
+	
+	public void  setTrafficIn(int trafficIn)
+	{
+	   traffic_in = trafficIn;
+	}
+	
+	public int getTrafficIn()
+	{
+		return  traffic_in;
+	}
+	
+	public void  setTrafficOut(int trafficOut)
+	{
+		  traffic_out=trafficOut;   
+	}
+	
+	public int getTrafficOut()
+	{
+		return traffic_out;
+	}
+	
+	public void  setTrafficLost(int trafficLost)
+	{
+		traffic_lost=trafficLost;
+	}
+	
+	public int  getTrafficLost()
+	{
+		return traffic_lost;
 	}
 }
