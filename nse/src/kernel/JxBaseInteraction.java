@@ -58,8 +58,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		   trace.trace( time,relation );
 		}
 	}
-	
-	public void 
+	 
     
 	public int Minimum(int a, int b, int c) 
 	{ 
@@ -85,9 +84,9 @@ public class JxBaseInteraction implements JiBaseInteraction {
     {
     	return m_trace;
     }
+    
     public void setTrace(JiBaseTrace trace)
     {
     	m_trace=(JxBaseTrace)trace;
-    }
-    
+    } 
 }

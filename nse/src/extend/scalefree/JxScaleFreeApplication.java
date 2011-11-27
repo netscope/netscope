@@ -73,6 +73,7 @@ import java.util.*;
 	       }	
 	    }
 
+	   
 	    public void run(int expertime)
 	    {           
 		   for(int i=0;i<expertime;i++)
@@ -80,7 +81,11 @@ import java.util.*;
 		      for(int j=0;j<m_relations.count();j++)
 		      {
 		    	m_interaction.interact(i, m_relations.get(j), m_trace);	
-		      }    
+		      }
+		      for(int k=0;k<m_nodes.count();k++)
+		      {
+		    	 m_trace.trace(i, m_nodes.get(k)); 
+		      }
 		   }	    	   
 	    }
 	    
