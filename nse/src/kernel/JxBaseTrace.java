@@ -67,7 +67,7 @@ public class JxBaseTrace implements JiBaseTrace {
 			m_con = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
 			m_sta = m_con.createStatement();
 			
-			System.out.println("connect sucess!");
+			System.out.println("connect success!");
 	     } 
 	      catch (Exception e) 
 	     {

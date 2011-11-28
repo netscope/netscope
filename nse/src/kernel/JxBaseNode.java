@@ -28,7 +28,7 @@ public class JxBaseNode implements JiBaseNode {
     protected int stat_totaltraffic = 0;
     protected int stat_totallost = 0;
     
-    protected int  traffic_in=0;
+    protected int traffic_in=0;
     protected int traffic_out=0;
     protected int traffic_lost=0;
 	
@@ -133,8 +133,8 @@ public class JxBaseNode implements JiBaseNode {
 	public String toString() 
 	{
 		return String.format(
-				"JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d, capacity=%d]",
-				m_id, m_loc_x, m_loc_y, m_loc_z, m_length, m_capacity);
+				"JxBaseNode [id=%d, x=%d, y=%d, z=%d, length=%d, capacity=%d,stat_degreein=%d]",
+				m_id, m_loc_x, m_loc_y, m_loc_z, m_length, m_capacity,stat_degreein);
 	}
 
 	/**

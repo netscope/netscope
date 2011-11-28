@@ -32,8 +32,6 @@ public class JxBaseRelation implements JiBaseRelation
 	protected int stat_totaltraffic;
 	protected int stat_totallost;
 	
-	protected int m_nodeFrom;
-	protected int m_nodeTo;
 	
 	protected  int traffic_send;
 	protected int traffic_lost; 

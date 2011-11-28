@@ -14,8 +14,8 @@ import java.util.*;
 		ArrayList<JiBaseNode> m_addnodes = new ArrayList<JiBaseNode>();
 
 		JxBaseRelation  m_relation =  new JxBaseRelation();
-		JxBaseNode  m_node = new JxBaseNode();
 		JxBaseTrace  m_trace = new JxBaseTrace();
+		JxBaseNode  m_node = new JxBaseNode();
 		
 		Random m_random = new Random();
 	    
@@ -36,13 +36,13 @@ import java.util.*;
 	    
 	    public void generateRelations(int count)
 	    {
-	    	m_nodes.randomize();
+	    	m_nodes.randomize();                    //randomize the nodes
 	    	for(int i=0;i<m_nodes.count();i++)
 	    	{
 	    	   m_leftnodes.add(i, m_nodes.get(i)); 
 	    	}
 	    	m_relations.generate(count);
-	    			 
+	    	
     		JxBaseRelation relation = new JxBaseRelation();
     		JxScaleFreeNode nodeFrom = new JxScaleFreeNode();
     		JxScaleFreeNode nodeTo = new JxScaleFreeNode();
@@ -70,6 +70,14 @@ import java.util.*;
 	    		    
 	    		    m_addnodes.add(nodeFrom);
     			    m_addnodes.add(nodeTo);	
+    			    
+    			    nodeFrom.setDegreeIn(nodeFrom.getDegreeIn()+1);    
+    			    System.out.println("nodefromid is"+nodeFrom.getId());
+    			    System.out.println("nodefrom degreein is"+nodeFrom.getDegreeIn());
+    			    
+    			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);
+    			    System.out.println("nodetoid is"+nodeTo.getId());
+    			    System.out.println("nodetodegreein is"+nodeTo.getDegreeIn());    
 	       }	
 	    }
 

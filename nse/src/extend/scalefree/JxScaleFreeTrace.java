@@ -8,16 +8,21 @@ public class JxScaleFreeTrace extends JxBaseTrace
 {
     Statement  m_sta;
     
-    String m_nodeMetaName = super.getNodeMetaName();
-    String m_nodeDataName = super.getNodeDataName();
-    
-	String m_relationMetaName = super.getRelationMetaName();
-	String m_relationDataName = super.getRelationDataName();
-   
-	
+    //String m_nodeMetaName = null;
+    //String m_nodeDataName = null;
+  
+	//String m_relationMetaName = null;
+	//String m_relationDataName = null;
+   	
 	public JxScaleFreeTrace()
 	{
 		super();
+		
+		//m_nodeMetaName = super.getNodeMetaName();
+		//m_nodeDataName = super.getNodeDataName();
+		
+		//m_relationMetaName = super.getRelationMetaName();
+		//m_relationDataName = super.getRelationDataName();
 	}
 	
 	public JxScaleFreeTrace(Object owner)
@@ -30,7 +35,6 @@ public class JxScaleFreeTrace extends JxBaseTrace
 		super(owner,datadir);
 	}
 
-	
 	public void save( JiBaseNode node )
 	{
 	    JxBaseNode currentNode=(JxBaseNode)node;
@@ -39,19 +43,19 @@ public class JxScaleFreeTrace extends JxBaseTrace
 	  	
 	 	String loc_x=Integer.toString(currentNode.getX());
 	  	String loc_y=Integer.toString(currentNode.getY());
-	   // String loc_z=Integer.toString(currentNode.getZ());
+     // String loc_z=Integer.toString(currentNode.getZ());
 	  	
-	   //String length=Integer.toString(currentNode.getLength());
+	   // String length=Integer.toString(currentNode.getLength());
 	  	String capacity=Integer.toString(currentNode.getCapacity());
 	  	
-	  //String stat_degreein=Integer.toString(currentNode.getDegreeIn());
-	  //String stat_degreeout=Integer.toString(currentNode.getDegreeOut());
+	   String stat_degreein=Integer.toString(currentNode.getDegreeIn());
+	   //String stat_degreeout=Integer.toString(currentNode.getDegreeOut());
 	  	
-	  //String stat_totaltraffic=Integer.toString(currentNode.getTotalTraffic());
+	   //String stat_totaltraffic=Integer.toString(currentNode.getTotalTraffic());
 	  //String stat_totallost=Integer.toString(currentNode.getTotalLost());
 	  	
-	    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y," +
-	    		"capacity)" +"values ("+nodeId+","+loc_x+","+loc_y+","+capacity+",)";
+	    String traceNode="insert into "+this.getNodeMetaName()+" (nodeid,loc_x,loc_y," +
+	    		"capacity,stat_degreein)" +"values ("+nodeId+","+loc_x+","+loc_y+","+capacity+","+stat_degreein+")";
 	    try{
 	         m_sta.executeUpdate(traceNode);
 	    }catch(Exception e)
@@ -77,14 +81,14 @@ public class JxScaleFreeTrace extends JxBaseTrace
 		  	
 		  	String capacity=Integer.toString(currentNode.getCapacity());
 		  	
-		  //	String stat_degreein=Integer.toString(currentNode.getDegreeIn());
+		  	String stat_degreein=Integer.toString(currentNode.getDegreeIn());
 		  //	String stat_degreeout=Integer.toString(currentNode.getDegreeOut());
 		  	
 		  //	String stat_totaltraffic=Integer.toString(currentNode.getTotalTraffic());
 		 // 	String stat_totallost=Integer.toString(currentNode.getTotalLost());
 		  	
-		    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y,length,capacity)" 
-		    		+"values ("+nodeId+","+loc_x+","+loc_y+","+capacity+")";       
+		    String traceNode="insert into "+this.getNodeMetaName()+" (nodeid,loc_x,loc_y,length,capacity,stat_degreein)" 
+		    		+"values ("+nodeId+","+loc_x+","+loc_y+","+capacity+","+stat_degreein+")";       
 		     try{
 	              m_sta.executeUpdate(traceNode);
 	            } 
@@ -116,14 +120,14 @@ public class JxScaleFreeTrace extends JxBaseTrace
 		  	//String length=Integer.toString(currentNode.getLength());
 		  	String capacity=Integer.toString(currentNode.getCapacity());
 		  	
-		  	//String stat_degreein=Integer.toString(currentNode.getDegreeIn());
+		  	String stat_degreein=Integer.toString(currentNode.getDegreeIn());
 		  	//String stat_degreeout=Integer.toString(currentNode.getDegreeOut());
 		  	
 		  	//String stat_totaltraffic=Integer.toString(currentNode.getTotalTraffic());
 		  	//String stat_totallost=Integer.toString(currentNode.getTotalLost());
 		  	
-		  	String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y,length,capacity)" 
-		    		+"values ("+nodeId+","+loc_x+","+loc_y+","+capacity+")";       
+		  	String traceNode="insert into "+this.getNodeMetaName()+" (nodeid,loc_x,loc_y,length,capacity,stat_degreein)" 
+		    		+"values ("+nodeId+","+loc_x+","+loc_y+","+capacity+","+stat_degreein+")";       
 		     try{
 	               m_sta.executeUpdate(traceNode);
 	            } 
@@ -155,7 +159,7 @@ public class JxScaleFreeTrace extends JxBaseTrace
 	 	String nodeFrom=Integer.toString(currentRelation.getNodeFrom().getId());
 	  	String nodeTo=Integer.toString(currentRelation.getNodeTo().getId());
 	  	
-	    String saveRelation="insert into "+m_relationMetaName+"(relationid,reltype,nodefrom,nodeto,"+
+	    String saveRelation="insert into "+this.getRelationMetaName()+"(relationid,reltype,nodefrom,nodeto,"+
 	    		"bandwidth)"+" values ("+relationId+","+reltype+","+nodeFrom+","+nodeTo+","+bandwidth+")";
 	        try{
 	             m_sta.executeUpdate(saveRelation);
@@ -189,7 +193,7 @@ public class JxScaleFreeTrace extends JxBaseTrace
 			 	//String stat_totaltraffic=Integer.toString(currentRelation.getTotaltraffic());
 			 	//String stat_totallost=Integer.toString(currentRelation.getTotallost());
 			 	
-			 	String saveRelation="insert into "+m_relationMetaName+"(relationid,reltype,nodefrom,nodeto,"+
+			 	String saveRelation="insert into "+this.getRelationMetaName()+"(relationid,reltype,nodefrom,nodeto,"+
 			    		"bandwidth)"+" values ("+relationId+","+reltype+","+nodeFrom+","+nodeTo+","+bandwidth+")";
 	             try{
                        m_sta.executeUpdate(saveRelation);
@@ -228,15 +232,15 @@ public class JxScaleFreeTrace extends JxBaseTrace
 			 	//String stat_totaltraffic=Integer.toString(currentRelation.getTotaltraffic());
 			 	//String stat_totallost=Integer.toString(currentRelation.getTotallost());
 			  	
-			 	String traceRelation="insert into "+m_relationMetaName+"(relationid,reltype,nodefrom,nodeto,"+
+			 	String traceRelation="insert into "+this.getRelationMetaName()+"(relationid,reltype,nodefrom,nodeto,"+
 			    		"bandwidth)"+" values ("+relationId+","+reltype+","+nodeFrom+","+nodeTo+","+bandwidth+")";
 			      try{
 		                m_sta.executeUpdate(traceRelation);
 		             } 
-			         catch(Exception e)
-		             {
+			       catch(Exception e)
+		           {
 		    	       e.printStackTrace();
-		             }
+		           }
 		    } 
 	}
 }

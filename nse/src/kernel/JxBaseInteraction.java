@@ -68,8 +68,7 @@ public class JxBaseInteraction implements JiBaseInteraction {
 		if (b < mini)
 			mini = b;
 		if (c < mini)
-			mini = c;
-				
+			mini = c;			
 		if (mini == 0) 	
 			minimum = 0;
 		else 
