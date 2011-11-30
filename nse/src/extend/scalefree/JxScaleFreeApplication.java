@@ -72,12 +72,8 @@ import java.util.*;
     			    m_addnodes.add(nodeTo);	
     			    
     			    nodeFrom.setDegreeIn(nodeFrom.getDegreeIn()+1);    
-    			    System.out.println("nodefromid is"+nodeFrom.getId());
-    			    System.out.println("nodefrom degreein is"+nodeFrom.getDegreeIn());
     			    
-    			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);
-    			    System.out.println("nodetoid is"+nodeTo.getId());
-    			    System.out.println("nodetodegreein is"+nodeTo.getDegreeIn());    
+    			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);     
 	       }	
 	    }
 
