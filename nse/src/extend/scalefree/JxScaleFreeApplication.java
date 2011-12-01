@@ -72,7 +72,6 @@ import java.util.*;
     			    m_addnodes.add(nodeTo);	
     			    
     			    nodeFrom.setDegreeIn(nodeFrom.getDegreeIn()+1);    
-    			    
     			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);     
 	       }	
 	    }
