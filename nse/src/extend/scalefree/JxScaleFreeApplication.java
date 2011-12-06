@@ -75,16 +75,17 @@ import java.util.*;
     			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);     
 	       }	
 	    }
-
 	   
 	    public void run(int expertime)
 	    {           
 		   for(int i=0;i<expertime;i++)
 		   {
+			   
 		      for(int j=0;j<m_relations.count();j++)
 		      {
 		    	m_interaction.interact(i, m_relations.get(j), m_trace);	
 		      }
+		      
 		      for(int k=0;k<m_nodes.count();k++)
 		      {
 		    	 m_trace.trace(i, m_nodes.get(k)); 
@@ -108,7 +109,6 @@ import java.util.*;
 	    	m_trace.save(m_relations);
 	    }
 	      
-	    
         public void setNodes(JiBaseNodeCollection nodes)
         {
         	m_nodes = (JxScaleFreeNodeCollection)nodes;

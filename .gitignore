@@ -13,3 +13,6 @@
 /nse/.settings
 /nse/.project
 /nsc
+/nse/lib/hsqldb.jar
+/nse/lib/netty-3.2.4.jar
+/nse/lib/note.txt

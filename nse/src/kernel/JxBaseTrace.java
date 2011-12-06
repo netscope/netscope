@@ -64,15 +64,16 @@ public class JxBaseTrace implements JiBaseTrace {
 	  try{
 			Class.forName("org.hsqldb.jdbcDriver");
 			
-			m_con = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
+			m_con = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename 
+					+ ";shutdown=true", "sa", "");
 			m_sta = m_con.createStatement();
 			
 			System.out.println("connect success!");
 	     } 
 	      catch (Exception e) 
-	     {
+	      {
 			e.printStackTrace();
-	     }
+	      }
 	}
 	
 	public void open()
@@ -82,10 +83,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	     
 		  open( m_datadir,m_tablename );
 	      
-	      nodeMetaTable( m_tablename );
-		  relationMetaTable( m_tablename );  
-		  nodeDataTable( m_tablename );
-		  relationDataTable( m_tablename );
+	      this.nodeMetaTable( m_tablename );
+		  this.relationMetaTable( m_tablename );  
+		  this.nodeDataTable( m_tablename );
+		  this.relationDataTable( m_tablename );
 	}
 	
 	/** Free resources allocated to this object. */

@@ -44,7 +44,7 @@ public class JxBaseTraceLoader
 	protected Statement  m_statement = null;
 		
 	protected String m_datadir = "D:/temp/exper/";
-	protected String m_tableName = "20110930_112113"; 
+	protected String m_tableName = "20111201_112236"; 
 		
 	/**
 	 * Open an trace data set for reading. 
@@ -58,7 +58,7 @@ public class JxBaseTraceLoader
 	  try {
 			 Class.forName("org.hsqldb.jdbcDriver");
 			 m_connection = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
-			 m_statement = m_connection.createStatement();
+			 m_statement = m_connection.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
 	      } 
 	      catch (Exception e) 
 	      {
@@ -82,59 +82,90 @@ public class JxBaseTraceLoader
 		
 		     if (m_statement!=null)
 		     m_statement.close();	
-		   }catch(Exception e)
+		   }
+	        catch(Exception e)
 		    {	
 		       e.printStackTrace();
 		    }
 	}
 	
-	public int[][] loadMetaNodes()
-	{   
-	   int [][] metaNodes = new int[10000][3];
-	   int [][] metaNodes2= new int[10][3];
-	   metaNodes = m_metaset.loadnodes(m_statement,m_tableName); 	 	
+	public  int[][] loadMetaNodes()
+	{  
+	   int nodeCount = 1000;
+	   int rowCount = nodeCount;
 	   
-	   for(int i=0;i<10;i++)
-	   {
-		  for(int j=0;j<3;j++) 
-		  {
-			metaNodes2[i][j]=metaNodes[i][j]; 
-		  }
-	   }
-	   return metaNodes2;
+	   int[][] metaNodeSet = new int[rowCount][10];	   
+	   metaNodeSet = m_metaset.loadMetaNodes(m_statement,m_tableName); 	 	
+	  
+	   return metaNodeSet;
 	}
 	
-	public void loadDataNodes()
+	public int[][]  loadDataNodes()
 	{	
        int beginTime = 1;
        int endTime = 2;
-       m_dataset.loadNode(m_statement,m_tableName, beginTime, endTime);
+       
+       int nodeCount =1000;
+       
+       int rowCount = nodeCount*(endTime-beginTime);
+       
+       int[][] dataNodeSet = new int[rowCount][6];	
+       
+       dataNodeSet = m_dataset.loadDataNodes(m_statement,m_tableName, beginTime, endTime);
+       
+       return dataNodeSet;
+	}
+
+	public int[][] loadMetaRelations()
+	{
+	   int	relationCount=999;
+	   
+	   int	rowCount=relationCount;
+	   
+	   int [][]metaRelations=new int[rowCount][9];
+	   
+	   metaRelations=m_metaset.loadMetaRelations(m_statement,m_tableName);
+	   
+	   return metaRelations;
 	}
 	
-	public void loadDataRelations()
+	public int[][] loadDataRelations()
 	{
 		int beginTime = 1;
 		int endTime = 2;
-		m_dataset.loadRelation(m_statement, m_tableName, beginTime, endTime);
+		
+		int relationCount=999;
+		
+		
+		int[][] dataRelationSet = new int[100000][4];
+		
+		dataRelationSet = m_dataset.loadDataRelations(m_statement, m_tableName, beginTime, endTime);
+		
+		return dataRelationSet;
 	}
 	
-	public int[][] loadMetaRelations()
+	public int[][] loadNodeSnapShot()
 	{
-	   int [][]metaRelations=new int[9999][3];
-	   metaRelations=m_metaset.loadrelations(m_statement,m_tableName);
-	   return metaRelations;
-	}
- 
-	public void loadNodeSnapShot()
-	{
-		int givenTime = 5;
-		m_dataset.loadNodeSnapShot(m_statement,m_tableName,givenTime);
+		int givenTime = 1;
+		
+		int rowCount=1000;
+		
+		int[][] dataNodeSet = new int[rowCount][6];
+		 
+		dataNodeSet = m_dataset.loadNodeSnapShot(m_statement,m_tableName,givenTime);
+		
+		return dataNodeSet;
 	}
 	
-	public void loadRelationSnapShot()
+	public int[][]  loadRelationSnapShot()
 	{
-		int givenTime = 5;
+		int givenTime = 5;	
+		int rowCount =999;
+		
+		int[][] dataRelationSet = new int[rowCount][4];
 		m_dataset.loadRelationSnapShot(m_statement,m_tableName,givenTime);
+		
+		return dataRelationSet;
 	}
 	
 	public JxBaseTraceMetaSet metaSet()
@@ -161,16 +192,17 @@ public class JxBaseTraceLoader
 	 */
 	public ResultSet select( String cmd )
 	{
-	  ResultSet r=null;
-	  try{
+	   ResultSet r=null;
+	   
+	   try{
 		   Statement sta = m_connection.createStatement();
 		   r=sta.executeQuery(cmd);
-	  }
-	  catch(Exception e)
-	  {
+	   }
+	    catch(Exception e)
+	   {
 		   e.printStackTrace();
-	  }	
-		return  r;
+	   }	
+		 return  r;
     }
 	
 	public static void main(String args[])
@@ -178,8 +210,15 @@ public class JxBaseTraceLoader
 		JxBaseTraceLoader loader=new JxBaseTraceLoader();
 		
 		loader.open();
+		
 	    loader.loadMetaNodes();
 		loader.loadMetaRelations();
+		
+		loader.loadDataNodes();
+	    loader.loadDataRelations();
+	    
 	    loader.close();
+	    
+	    System.out.println("success !");
 	}
 }
