@@ -68,6 +68,7 @@ public class JxBaseTraceMetaSet
 				   nodeMetaSet[i][8]=total_traffic;
 				   nodeMetaSet[i][9]=total_lost;
 	          } 
+	               r.close();
            }catch(Exception e)
            {
     	     e.printStackTrace();
@@ -85,7 +86,7 @@ public class JxBaseTraceMetaSet
 	         
 	         ResultSet r = sta.executeQuery(selectMetaRelation);
           
-             r.last();
+	         r.last();
 	         int rowCount = r.getRow();
 	         r.beforeFirst();
 	             
@@ -123,15 +124,11 @@ public class JxBaseTraceMetaSet
 				 relationMetaSet[i][7] = stat_totaltraffic;
 				 relationMetaSet[i][8] = stat_totallost;
 	         }
+	    	     r.close();
          }catch(Exception e)
          {
    	         e.printStackTrace();
          }
 	  return relationMetaSet;
 	}
-	
-	 public String  print2()
-	 {
-		 return "nothing";
-	 }
 }

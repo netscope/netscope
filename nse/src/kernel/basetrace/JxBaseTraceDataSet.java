@@ -55,6 +55,7 @@ public class JxBaseTraceDataSet
 			       nodeDataSet[i][4] = trafficOut;
 			       nodeDataSet[i][5] = trafficLost;
 	           }
+	               r.close();
 	     }catch(Exception e)
 	     {
 	        e.printStackTrace();
@@ -91,11 +92,12 @@ public class JxBaseTraceDataSet
 	       	       relationSet[i][2] = tra_send;
 	       	       relationSet[i][3] = tra_lost;
                  }
+ 	    		 r.close();
             }catch(Exception e)
              {
 	           e.printStackTrace();
              }
-              return relationSet;
+         return relationSet;
 	}
 	
 	
@@ -105,7 +107,7 @@ public class JxBaseTraceDataSet
 		  int[][]  nodeDataSet =null;
 	    
 		  try{
-               String selectNodeSnapShot = "select * from "+tableName+" where time = "+givenTime;
+               String selectNodeSnapShot = "select * from nodedata"+tableName+" where simtime = "+givenTime;
              
                ResultSet r = sta.executeQuery(selectNodeSnapShot);
             
@@ -135,6 +137,7 @@ public class JxBaseTraceDataSet
 		          nodeDataSet[i][4] = trafficOut;
 		          nodeDataSet[i][5] = trafficLost;
                }
+               r.close();
       }catch(Exception e)
        {
 	       e.printStackTrace();
@@ -148,7 +151,7 @@ public class JxBaseTraceDataSet
 		int[][]  relationDataSet =null;
 		
 	    try{
-	         String selectRelationSnapShot=" select * from "+tablename+" where time= "+givenTime;
+	         String selectRelationSnapShot=" select * from relationdata"+tablename+" where simtime= "+givenTime;
 	         ResultSet r = sta.executeQuery(selectRelationSnapShot);
 
 	         r.last();
@@ -169,6 +172,7 @@ public class JxBaseTraceDataSet
      	       relationDataSet[i][2] = tra_send;
      	       relationDataSet[i][3] = tra_lost;
 	         }
+	         r.close();
          }catch(Exception e)
           {
    	         e.printStackTrace();

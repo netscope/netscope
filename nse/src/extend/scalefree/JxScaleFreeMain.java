@@ -14,7 +14,7 @@ public class JxScaleFreeMain {
 	    app.saveNodes();
 	    app.saveRelations();
 	     
-	    app.run(7000);
+	    app.run(1000);
  
 	    app.close();
 	   

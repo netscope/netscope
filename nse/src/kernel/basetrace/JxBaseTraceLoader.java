@@ -42,10 +42,9 @@ public class JxBaseTraceLoader
 	
 	protected Connection m_connection = null;
 	protected Statement  m_statement = null;
-		
-	protected String m_datadir = "D:/temp/exper/";
-	protected String m_tableName = "20111201_112236"; 
-		
+	
+	protected String m_tableName = "20111206_082526";
+	protected String m_datadir = "D:/temp/exper/";	
 	/**
 	 * Open an trace data set for reading. 
 	 * 
@@ -100,14 +99,15 @@ public class JxBaseTraceLoader
 	   return metaNodeSet;
 	}
 	
-	public int[][]  loadDataNodes()
-	{	
-       int beginTime = 1;
-       int endTime = 2;
-       
+	public int[][]  loadDataNodes(int beginTime,int endTime)
+	{   
        int nodeCount =1000;
-       
-       int rowCount = nodeCount*(endTime-beginTime);
+       int rowCount =1000;
+      
+       if(beginTime!=endTime)
+       {
+          rowCount=nodeCount*(endTime-beginTime);
+       }
        
        int[][] dataNodeSet = new int[rowCount][6];	
        
@@ -129,25 +129,24 @@ public class JxBaseTraceLoader
 	   return metaRelations;
 	}
 	
-	public int[][] loadDataRelations()
-	{
-		int beginTime = 1;
-		int endTime = 2;
+	public int[][] loadDataRelations(int beginTime,int endTime)
+	{	
+		int nodeCount=1000;
+		int relationCount=nodeCount-1;
 		
-		int relationCount=999;
+		if(beginTime != endTime) 
+		{ 
+           relationCount=(nodeCount-1)*(beginTime-endTime);			
+		}
 		
-		
-		int[][] dataRelationSet = new int[100000][4];
+		int[][] dataRelationSet = new int[relationCount][4];
 		
 		dataRelationSet = m_dataset.loadDataRelations(m_statement, m_tableName, beginTime, endTime);
-		
 		return dataRelationSet;
 	}
 	
-	public int[][] loadNodeSnapShot()
+	public int[][] loadNodeSnapShot(int givenTime)
 	{
-		int givenTime = 1;
-		
 		int rowCount=1000;
 		
 		int[][] dataNodeSet = new int[rowCount][6];
@@ -157,9 +156,8 @@ public class JxBaseTraceLoader
 		return dataNodeSet;
 	}
 	
-	public int[][]  loadRelationSnapShot()
+	public int[][]  loadRelationSnapShot(int givenTime)
 	{
-		int givenTime = 5;	
 		int rowCount =999;
 		
 		int[][] dataRelationSet = new int[rowCount][4];
@@ -193,15 +191,14 @@ public class JxBaseTraceLoader
 	public ResultSet select( String cmd )
 	{
 	   ResultSet r=null;
-	   
 	   try{
 		   Statement sta = m_connection.createStatement();
 		   r=sta.executeQuery(cmd);
 	   }
 	    catch(Exception e)
-	   {
+	    {
 		   e.printStackTrace();
-	   }	
+	    }	
 		 return  r;
     }
 	
@@ -214,11 +211,14 @@ public class JxBaseTraceLoader
 	    loader.loadMetaNodes();
 		loader.loadMetaRelations();
 		
-		loader.loadDataNodes();
-	    loader.loadDataRelations();
+		loader.loadDataNodes(999,999); 
+	    loader.loadDataRelations(999,999);
+	    
+	    loader.loadNodeSnapShot(999);
+	    loader.loadRelationSnapShot(999);
 	    
 	    loader.close();
 	    
-	    System.out.println("success !");
+	    System.out.println("JxBaseTraceLoader success!");
 	}
 }
