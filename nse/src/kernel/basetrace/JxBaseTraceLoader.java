@@ -45,6 +45,7 @@ public class JxBaseTraceLoader
 	
 	protected String m_tableName = "20111206_082526";
 	protected String m_datadir = "D:/temp/exper/";	
+	
 	/**
 	 * Open an trace data set for reading. 
 	 * 
