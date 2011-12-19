@@ -43,7 +43,7 @@ public class JxBaseTraceLoader
 	protected Connection m_connection = null;
 	protected Statement  m_statement = null;
 	
-	protected String m_tableName = "20111206_082526";
+	protected String m_tableName = "20111215_002017";
 	protected String m_datadir = "D:/temp/exper/";	
 	
 	/**
@@ -113,6 +113,17 @@ public class JxBaseTraceLoader
        int[][] dataNodeSet = new int[rowCount][6];	
        
        dataNodeSet = m_dataset.loadDataNodes(m_statement,m_tableName, beginTime, endTime);
+       
+       return dataNodeSet;
+	}
+	
+	public int[][]  loadDataNodes1()
+	{   
+       int rowCount =1000;
+    
+       int[][] dataNodeSet = new int[rowCount][2];	
+       
+       dataNodeSet = m_dataset.loadDataNodes1(m_statement,m_tableName);
        
        return dataNodeSet;
 	}
@@ -209,14 +220,14 @@ public class JxBaseTraceLoader
 		
 		loader.open();
 		
-	    loader.loadMetaNodes();
-		loader.loadMetaRelations();
+	    loader.loadDataNodes1();
+		//loader.loadMetaRelations();
 		
-		loader.loadDataNodes(999,999); 
-	    loader.loadDataRelations(999,999);
+	    //loader.loadDataNodes(999,999); 
+	    //loader.loadDataRelations(999,999);
 	    
-	    loader.loadNodeSnapShot(999);
-	    loader.loadRelationSnapShot(999);
+	    //loader.loadNodeSnapShot(999);
+	    // loader.loadRelationSnapShot(999);
 	    
 	    loader.close();
 	    

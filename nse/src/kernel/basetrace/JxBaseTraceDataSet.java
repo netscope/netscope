@@ -63,6 +63,7 @@ public class JxBaseTraceDataSet
 		return nodeDataSet;
 	}
 	
+	
 	int[][] loadDataRelations(Statement sta,String tableName,int beginTime,int endTime)
 	{ 
 		int[][] relationSet=null;
@@ -163,14 +164,10 @@ public class JxBaseTraceDataSet
 	        
 	         for(int i =0;r.next();i++)
 	         { 
-     	       int id = Integer.parseInt(r.getString(2));
-     	       int tra_send = Integer.parseInt(r.getString(3));
-     	       int tra_lost = Integer.parseInt(r.getString(4));     	
-			
      	       relationDataSet[i][0] = givenTime;
-     	       relationDataSet[i][1] = id;
-     	       relationDataSet[i][2] = tra_send;
-     	       relationDataSet[i][3] = tra_lost;
+     	       relationDataSet[i][1] = Integer.parseInt(r.getString(2)); //id
+     	       relationDataSet[i][2] = Integer.parseInt(r.getString(3)); //traffic send
+     	       relationDataSet[i][3] = Integer.parseInt(r.getString(4)); //traffic lost
 	         }
 	         r.close();
          }catch(Exception e)
@@ -178,5 +175,60 @@ public class JxBaseTraceDataSet
    	         e.printStackTrace();
           }
        return relationDataSet;
+	}
+	/** load information of the node and relation from trace */
+	int[][] loadDataNodes1(Statement sta,String tableName)
+	{
+		int[][]  nodeDataSet = null;
+		
+		int nodeCount=1000;
+		int[][] nodeLength=new int[nodeCount][2]; // the first dimension is queue length
+		                                          // the second dimension is a binary number,1 means that the node is
+	                                              // the node is already exist,0 means not
+		try{  
+	            String selectTraceNode="select * from nodedata"+tableName;
+	           
+	            ResultSet r = sta.executeQuery(selectTraceNode);
+
+	            r.last();
+	            int rowCount = r.getRow();
+	            r.beforeFirst();
+	            
+	    		int columnCount = 6;
+	    				
+	    		nodeDataSet = new int [rowCount][columnCount];
+	            
+	            for(int i=0;r.next();i++)
+	            {          
+			       nodeDataSet[i][0] =  Integer.parseInt(r.getString(1)); //Time
+			       nodeDataSet[i][1] =  Integer.parseInt( r.getString(2));//Id
+	          
+			       nodeDataSet[i][2] = Integer.parseInt(r.getString(3));//Length
+			    
+			       nodeDataSet[i][3] = Integer.parseInt(r.getString(4));//traffic In
+			       nodeDataSet[i][4] = Integer.parseInt(r.getString(5));// trafficOut 
+			       nodeDataSet[i][5] = Integer.parseInt(r.getString(6));//trafficLost 
+			       
+			    // System.out.println(nodeDataSet[i][0]+","+ nodeDataSet[i][1]+","+nodeDataSet[i][2]+
+			    // ","+nodeDataSet[i][3]+","+nodeDataSet[i][4]+","+nodeDataSet[i][5]);
+	            }
+	          
+	           int nodeId=0; 
+	           for(int j=rowCount-1;j>=0;j--)
+	           {
+	        	  nodeId = nodeDataSet[j][1];
+	        	  
+	              if(nodeLength[nodeId][1]==0)
+	              {
+	            	nodeLength[nodeId][0]=nodeDataSet[j][2];
+	            	nodeLength[nodeId][1]=1;
+	              }
+	           }
+	           r.close();
+	     }catch(Exception e)
+	     {
+	        e.printStackTrace();
+	     }
+		return nodeLength;
 	}
 } 

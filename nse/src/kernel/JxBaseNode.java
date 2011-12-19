@@ -1,5 +1,5 @@
 package kernel;
-
+import java.util.*;
 /**
  * JxBaseNode
  * Saves the property of a basic node. You can get your own node class by extending
@@ -32,7 +32,11 @@ public class JxBaseNode implements JiBaseNode {
     protected int traffic_out=0;
     protected int traffic_lost=0;
 	
+    protected Random m_random=new Random();
 	protected Object m_owner = null;
+	
+	protected ArrayList<JiBaseNode> m_neighborNodes=new ArrayList<JiBaseNode>();
+	protected ArrayList<JiBaseRelation> m_neighborRelations=new ArrayList<JiBaseRelation>();
 
 	public JxBaseNode()
 	{
@@ -346,5 +350,51 @@ public class JxBaseNode implements JiBaseNode {
 	public int  getTrafficLost()
 	{
 		return traffic_lost;
+	}
+
+	public ArrayList<JiBaseNode> getNeighborNodes() 
+	{
+		return m_neighborNodes;
+	}
+
+	public void setNeighborNodes(JiBaseNode neighborNode) 
+	{
+		m_neighborNodes.add(neighborNode);
+	}
+
+	public ArrayList<JiBaseRelation> getNeighborRelations() 
+	{
+		return m_neighborRelations;
+	}
+
+	public void setNeighborRelations(JiBaseRelation neighborRelation) 
+	{
+	   m_neighborRelations.add(neighborRelation);
+	}
+	
+	public int  neighborNodeSize()
+	{
+		return m_neighborNodes.size();
+	}
+	
+	public int  neighborRelationSize()
+	{
+		return m_neighborRelations.size();
+	}
+	
+	public JiBaseNode oneNeighborNode()
+	{
+	   int nodeId = m_random.nextInt((m_neighborNodes.size()));
+	   JiBaseNode neighborNode = m_neighborNodes.get(nodeId);
+	   
+	   return neighborNode;
+	}
+	
+	public JiBaseRelation oneNeighborRelation()
+	{
+	   int relationId = m_random.nextInt((m_neighborNodes.size()));
+	   JiBaseRelation neighborRelation = m_neighborRelations.get(relationId);
+	   
+	   return neighborRelation;
 	}
 }

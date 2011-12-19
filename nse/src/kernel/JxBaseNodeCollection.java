@@ -3,6 +3,8 @@ package kernel;
 import java.util.ArrayList;
 import java.util.Random;
 
+import extend.scalefree.JxScaleFreeNode;
+
 /**
  * The JxBaseNodeCollection maintains a node set. You can add/remove node into/from 
  * this set.
@@ -17,7 +19,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	
 	Object m_owner;
 	JiBaseTrace m_trace = null;
-	Random m_random = JxBaseFoundation.random();
+	Random m_random = JxBaseFoundation.random(); 
 	
 	
 	public JxBaseNodeCollection()
@@ -25,12 +27,10 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		m_owner = null;
 	}
 	
-	
 	public JxBaseNodeCollection( Object owner )
 	{
 		m_owner = owner;
 	}
-	
 	
 	public JxBaseNodeCollection( Object owner, int count )
 	{
@@ -38,11 +38,16 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 		generate( count );
 	}
 	
-	
 	public void generate( int count )
 	{
 	    for (int i=0; i<count; i++)
-		  super.add( new JxBaseNode(this, i) );		
+	    {	    	
+	    	/** this value should be modified */
+	    	int loc_x = m_random.nextInt(100);
+	    	int loc_y = m_random.nextInt(100);
+	    	
+	    	super.add( new JxScaleFreeNode(this,i,loc_x,loc_y,30,100));	
+	    }		
 	}
 	
 	public void setTrace( JiBaseTrace trace )
@@ -83,12 +88,12 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	}
 	
 	@Override
-	public JiBaseNode remove( int idx )
+	public JiBaseNode remove(int index)
 	{
-		return super.remove(idx);
+		return super.remove(index);
 	}
 	
-	public boolean remove( JiBaseNode node )
+	public boolean remove(JiBaseNode node)
 	{
 		return super.remove(node);
 	}

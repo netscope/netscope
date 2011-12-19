@@ -21,7 +21,6 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 	public JxBaseRelation m_relation = null;
 	public JxBaseNodeCollection m_nodes = null;
 	
-	
 	public JxBaseRelationCollection() 
 	{
 		m_owner = null;

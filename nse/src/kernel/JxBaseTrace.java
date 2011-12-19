@@ -19,11 +19,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** Where the trace data files are placed */
 	private String m_datadir = null;
 	
-	private static String m_tablename = null;
-	
-	/** Current database name */ 
-	private String m_curdbname = null;
-	
+	private static String m_curdbname = null;
+
 	private String m_nodeMetaName = null;
 	private String m_relationMetaName = null;
 	private String m_nodeDataName = null;
@@ -79,14 +76,14 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void open()
 	{
 		  m_datadir="D:/temp/exper/";
-		  m_tablename = getNextDatabaseDir();
+		  m_curdbname = getCurrentTime();
 	     
-		  open( m_datadir,m_tablename );
+		  open( m_datadir,m_curdbname );
 	      
-	      this.nodeMetaTable( m_tablename );
-		  this.relationMetaTable( m_tablename );  
-		  this.nodeDataTable( m_tablename );
-		  this.relationDataTable( m_tablename );
+	      this.nodeMetaTable( m_curdbname );
+		  this.relationMetaTable( m_curdbname );  
+		  this.nodeDataTable( m_curdbname );
+		  this.relationDataTable( m_curdbname );
 	}
 	
 	/** Free resources allocated to this object. */
@@ -124,6 +121,7 @@ public class JxBaseTrace implements JiBaseTrace {
 				"loc_z int default'0',length int default'0',capacity int default'0'" +
 				",stat_degreein int default'0',stat_degreeout int  default'0',stat_totaltraffic int default'0'," +
 				"stat_totallost int default'0')";
+		System.out.println(m_nodeMetaName);
 		try{
 		    m_sta.executeUpdate(createNode); 
 		}
@@ -222,7 +220,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	    }
 	}
 	/** save nodes */
-	public void save( JxBaseNodeCollection nodes ) 
+	public void save(JxBaseNodeCollection nodes) 
 	{
 	    Iterator<JiBaseNode> itNodes=nodes.iterator();
 	   
@@ -510,7 +508,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	    try{
 	    	
 	        m_sta.executeUpdate(tracerelation);
-	    
 	    }catch(Exception e)
 	    {
 	    	e.printStackTrace();
@@ -553,15 +550,15 @@ public class JxBaseTrace implements JiBaseTrace {
 	// can add lastsnapshot time, default time 06
     public void restore(int time, String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
 	{		
-		open( datadir,m_tablename);
+		open( datadir,m_curdbname);
 		load( time,nodes );
 	    load( time,relations );
 	}
 
-	public String getNextDatabaseDir() 
+	public String getCurrentTime() 
 	{
 	    Date date = new Date();
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hhmmss");
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
@@ -585,7 +582,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public static String getName()
 	{
-		return m_tablename;
+		return m_curdbname;
 	}
 	
 	public Statement getStatement()

@@ -33,7 +33,7 @@ public class JxScaleFreeNodeCollection extends JxBaseNodeCollection implements J
 	    	int loc_x = random.nextInt(100);
 	    	int loc_y = random.nextInt(100);
 	    	
-	    	super.add( new JxScaleFreeNode(this,i,loc_x,loc_y,50,100));	
+	    	super.add( new JxScaleFreeNode(this,i,loc_x,loc_y,30,100));	
 	    }		
 	}
 	
