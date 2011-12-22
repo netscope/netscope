@@ -14,19 +14,18 @@ public class JxScaleFreeMain
 	public void run()
 	{	  	    
 	    m_relationCount=m_nodeCount-1;
-	    m_app.generateRelations(m_relationCount); 
+	   // m_app.generateRelations(m_relationCount); 
 	    m_app.saveRelations(); //this method can be insert into generateRelations  
-	    m_app.run1(10000);
+	  //m_app.run1(10000);
     }
 	
 	public void run1()  //current experiments
 	{   
-		m_nodeCount=10;
+		m_nodeCount=10000;
 		m_app.generateNodes(m_nodeCount);
-		m_relationCount=24;
+		m_relationCount=59964;
 		m_app.generateTopo(m_relationCount);
-	    m_app.run1(1);
-		System.out.println("run1 is success!");
+	    m_app.interact(5000000);
 	}
 	
 	public void close()

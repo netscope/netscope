@@ -357,20 +357,22 @@ public class JxBaseNode implements JiBaseNode {
 		return m_neighborNodes;
 	}
 
-	public void setNeighborNodes(JiBaseNode neighborNode) 
-	{
-		m_neighborNodes.add(neighborNode);
-	}
-
 	public ArrayList<JiBaseRelation> getNeighborRelations() 
 	{
 		return m_neighborRelations;
 	}
-
-	public void setNeighborRelations(JiBaseRelation neighborRelation) 
+	
+	
+	public void addNeighborNode(JiBaseNode neighborNode) 
+	{
+		m_neighborNodes.add(neighborNode);
+	}
+	
+	public void addNeighborRelation(JiBaseRelation neighborRelation) 
 	{
 	   m_neighborRelations.add(neighborRelation);
 	}
+	
 	
 	public int  neighborNodeSize()
 	{
@@ -382,18 +384,17 @@ public class JxBaseNode implements JiBaseNode {
 		return m_neighborRelations.size();
 	}
 	
-	public JiBaseNode oneNeighborNode()
+	
+	public JiBaseNode getNeighborNode(int index)
 	{
-	   int nodeId = m_random.nextInt((m_neighborNodes.size()));
-	   JiBaseNode neighborNode = m_neighborNodes.get(nodeId);
+	   JiBaseNode neighborNode = m_neighborNodes.get(index);
 	   
 	   return neighborNode;
 	}
 	
-	public JiBaseRelation oneNeighborRelation()
+	public JiBaseRelation getNeighborRelation(int index)
 	{
-	   int relationId = m_random.nextInt((m_neighborNodes.size()));
-	   JiBaseRelation neighborRelation = m_neighborRelations.get(relationId);
+	   JiBaseRelation neighborRelation = m_neighborRelations.get(index);
 	   
 	   return neighborRelation;
 	}

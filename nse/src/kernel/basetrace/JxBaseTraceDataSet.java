@@ -181,7 +181,7 @@ public class JxBaseTraceDataSet
 	{
 		int[][]  nodeDataSet = null;
 		
-		int nodeCount=1000;
+		int nodeCount=10000;
 		int[][] nodeLength=new int[nodeCount][2]; // the first dimension is queue length
 		                                          // the second dimension is a binary number,1 means that the node is
 	                                              // the node is already exist,0 means not

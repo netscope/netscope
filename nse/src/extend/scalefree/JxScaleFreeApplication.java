@@ -32,54 +32,7 @@ import java.util.*;
 	    public void generateNodes(int count)
 	    {
 	    	m_nodes.generate(count);
-	    	m_trace.save(m_nodes);
 	    }    
-	    
-	    public void generateRelations(int count)
-	    {
-	    	m_nodes.randomize();  //randomize the nodes
-	    	
-	    	for(int i=0;i<m_nodes.count();i++)
-	    	{
-	    	   m_leftnodes.add(i, m_nodes.get(i)); 
-	    	}
-	    	m_relations.generate(count);
-    		
-	    	for(int i=0;i<m_relations.count();i++)
-	    	{
-	    		JxBaseRelation relation = (JxBaseRelation)m_relations.get(i);
-	    		
-	    		JxBaseNode nodeFrom = new JxBaseNode();
-	    		JxBaseNode nodeTo =new JxBaseNode();
-	    		
-	    		if(i==0)
-	    		{   
-	    		    nodeFrom =(JxBaseNode)m_nodes.get(0);
-	    	        nodeTo =(JxScaleFreeNode)m_nodes.get(1);	
-	    	        
-	    	        nodeFrom.setNeighborNodes(nodeTo);
-	  
-	    			
-	    			m_leftnodes.remove(nodeFrom);
-	    			m_leftnodes.remove(nodeTo);		
-	    		}
-	    		
-	    		else{
-	    			nodeFrom =(JxScaleFreeNode)m_leftnodes.get(0);
-	    			nodeTo =(JxScaleFreeNode)this.selectNodeTo();
-	    			 
-	    			m_leftnodes.remove(nodeFrom);
-	    		}
-	    		    relation.setNodeFrom(nodeFrom);
-	    		    relation.setNodeTo(nodeTo);
-	    		    
-	    		    m_addnodes.add(nodeFrom);
-    			    m_addnodes.add(nodeTo);	
-    			    
-    			    nodeFrom.setDegreeIn(nodeFrom.getDegreeIn()+1);    
-    			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);     
-	       }	
-	    }
 	  
 	    public void generateTopo(int count)	    
 	    {
@@ -96,98 +49,94 @@ import java.util.*;
 	       	  m_leftnodes.add(m_nodes.get(i));	
 	       	}
 	       		        
- 	      	for(int i=0;i<m_leftnodes.size()+i;i++)
+ 	      	for(int i=0;i<m_nodes.size()-6;i++)
 	      	{
 	      	   if(i==0)
 	      	   {
 	      		  JxBaseNode firstNodeFrom=(JxBaseNode)m_leftnodes.remove(0);
-	      		  
-	      		  for(int j=0;j<6;j++)
+	      		  m_addnodes.add(firstNodeFrom);
+	      		  for(int j=0;j<6;j++) //the first six is permanent
 	      		  {
 	                  JxBaseRelation relation=(JxBaseRelation)m_relations.get(j);
 	      			  
-	                  JxBaseNode nodeTo=(JxBaseNode)m_addnodes.get(j);
+	                  JxBaseNode nodeTo=(JxBaseNode)m_nodes.get(j);
 	                  
 	                  relation.setNodeFrom(firstNodeFrom);
 	      			  relation.setNodeTo(nodeTo);
 	      			  
-	      			  firstNodeFrom.setNeighborNodes(nodeTo); //set the neighborNodes
-	      			  nodeTo.setNeighborNodes(firstNodeFrom); 
+	      			  firstNodeFrom.addNeighborNode(nodeTo); //set the neighbor nodes
+	      			  nodeTo.addNeighborNode(firstNodeFrom); 
 	      			  
-	      			  firstNodeFrom.setNeighborRelations(relation);
-	      			  nodeTo.setNeighborRelations(relation);
+	      			//  firstNodeFrom.addNeighborRelation(relation); //set the neighbor relations
+	      			// nodeTo.addNeighborRelation(relation);
 	      			  
-	      			  m_trace.save(relation);
-	      			  m_addnodes.add(firstNode);
+	      			  int degree1=firstNodeFrom.getDegreeIn();
+	      			  int degree2=nodeTo.getDegreeIn();
+	                 
+	                  firstNodeFrom.setDegreeIn(degree1+1);
+	                  nodeTo.setDegreeIn(degree2+1);
 	      		  }   		 
 	      	   }
 	      	   
 	      	   else{
-	      		    JxBaseNode nodefrom=(JxBaseNode)m_leftnodes.remove(0);
+	      		    JxBaseNode nodeFrom=(JxBaseNode)m_leftnodes.remove(0);
 	      		    
-	      		    ArrayList<JiBaseNode> neighborNodes=this.selectNodesTo();
+	      		    ArrayList<JiBaseNode> selectNodesTo=this.selectNodesTo();
 	      		    
 	      		    for(int j=0;j<6;j++)
 	      		    { 
 	      		      JxBaseRelation relation=(JxBaseRelation)m_relations.get(6*i+j);
-	      		      relation.setNodeFrom(nodefrom);
+	      		      relation.setNodeFrom(nodeFrom);
 	      		      
-	      		      JxBaseNode nodeTo=(JxBaseNode)neighborNodes.get(j);
+	      		      JxBaseNode nodeTo=(JxBaseNode)selectNodesTo.get(j);
 	      		      relation.setNodeTo(nodeTo);
 	      		      
-	      		      m_trace.save(relation);
+	      		      nodeFrom.addNeighborNode(nodeTo);
+	      		      nodeTo.addNeighborNode(nodeFrom);
 	      		      
-	      		      m_addnodes.add(nodefrom);
+	      		      int degree1= nodeFrom.getDegreeIn();
+	      			  int degree2= nodeTo.getDegreeIn();
+	      		      
+	      			  nodeFrom.setDegreeIn(degree1+1);
+	      			  nodeTo.setDegreeIn(degree2+1);
+	      			  
+	      		      m_addnodes.add(nodeFrom);
 	      		      m_addnodes.add(nodeTo);
 	      		    }    
 	      	  }
 	      	}
+ 	      	for(int i=0;i<m_nodes.count();i++)
+ 	      	{
+ 	      		m_trace.save(m_nodes.get(i));
+ 	      	}
 	    }
 	   
-	    public void run(int experTime)
-	    {           
-		   for(int i=0;i<experTime;i++)
-		   { 
-		      for(int j=0;j<m_relations.count();j++)
-		      {
-		         m_interaction.interact(i,m_relations.get(j), m_trace);	
-		      }
-		      
-		      for(int k=0;k<m_nodes.count();k++)
-		      {
-		    	 m_trace.trace(i, m_nodes.get(k)); 
-		      }
-		   }	    	   
-	    }    
+	   
 	    
-	    public void run1(int experTime)   //the number of is initial node is 6;
-	    {                                 //there 6 relations for each new node,Each time(for each node) 
-	       for(int i=0;i<experTime;i++)   //we choose one of them to do the packet exchanges 
+	    public void interact(int experTime)//the number of is initial node is 6;
+	    {                                  //there 6 relations for each new node,Each time(for each node) 
+	       for(int i=0;i<experTime;i++)    //we choose one of them to do the packet exchanges 
 	       {
 	    	  for(int j=0;j<m_nodes.count();j++)
 	    	  { 	
-	        	int relationId =j*6+m_random.nextInt(6);
-	
-	        	JxBaseRelation relation=(JxBaseRelation)m_relations.get(relationId);
-	    		
-	        	JxBaseNode nodefrom = (JxBaseNode)relation.getNodeFrom();
-	    		JxBaseNode nodeto =(JxBaseNode)relation.getNodeTo();
-	    		
-	    		int length1 = nodefrom.getLength();
-		    	int length2 = nodeto.getLength();
+	        	JxBaseNode currentNode =(JxBaseNode)m_nodes.get(j);  
+	    	    int neighborSize=currentNode.neighborNodeSize();
+	    	   
+	    	    int index=m_random.nextInt(neighborSize);
+	    	    JxBaseNode neighborNode=(JxBaseNode)currentNode.getNeighborNode(index);
+	    	    
+	    	    int queLength1=currentNode.getLength();
+	    	    int queLength2=neighborNode.getLength();
 		    	
-		    	int totalength = length1+length2;
+		    	int totalength = queLength1+queLength2;
 		    	int cut = 0;
 		    	
 		    	if(totalength!=0)
 		    	{
-		           cut = m_random.nextInt(nodefrom.getLength()+nodeto.getLength());
+		           cut = m_random.nextInt(totalength);
 		    	}
-		    	
-		    	nodefrom.setLength(cut);
-		    	nodeto.setLength(totalength-cut);
-		    	
-		    	m_trace.trace(i, relation);
+		    	currentNode.setLength(cut);
+		    	neighborNode.setLength(totalength-cut);
 	    	 }
 	       }
 	    }
@@ -247,6 +196,79 @@ import java.util.*;
 		{
 			return m_relations;
 		}	
+		
+		public void traceNode(int experTime,JiBaseNode node)
+		{
+			m_trace.trace(experTime, node);
+		}
+		
+		public void traceRelaion(int experTime,JiBaseRelation relation)
+		{
+			m_trace.trace(experTime,relation);
+		}
+		
+		  
+//	     public void generateRelations(int count)
+//		    {
+//		    	m_nodes.randomize();  //randomize the nodes
+//		    	
+//		    	for(int i=0;i<m_nodes.count();i++)
+//		    	{
+//		    	   m_leftnodes.add(i, m_nodes.get(i)); 
+//		    	}
+//		    	m_relations.generate(count);
+//	    		
+//		    	for(int i=0;i<m_relations.count();i++)
+//		    	{
+//		    		JxBaseRelation relation = (JxBaseRelation)m_relations.get(i);
+//		    		
+//		    		JxBaseNode nodeFrom = new JxBaseNode();
+//		    		JxBaseNode nodeTo =new JxBaseNode();
+//		    		
+//		    		if(i==0)
+//		    		{   
+//		    		    nodeFrom =(JxBaseNode)m_nodes.get(0);
+//		    	        nodeTo =(JxScaleFreeNode)m_nodes.get(1);	
+//		    	        
+//		    	        nodeFrom.addNeighborNode(nodeTo);
+//		  
+//		    			
+//		    			m_leftnodes.remove(nodeFrom);
+//		    			m_leftnodes.remove(nodeTo);		
+//		    		}
+//		    		
+//		    		else{
+//		    			nodeFrom =(JxScaleFreeNode)m_leftnodes.get(0);
+//		    			nodeTo =(JxScaleFreeNode)this.selectNodeTo();
+//		    			 
+//		    			m_leftnodes.remove(nodeFrom);
+//		    		}
+//		    		    relation.setNodeFrom(nodeFrom);
+//		    		    relation.setNodeTo(nodeTo);
+//		    		    
+//		    		    m_addnodes.add(nodeFrom);
+//	    			    m_addnodes.add(nodeTo);	
+//	    			    
+//	    			    nodeFrom.setDegreeIn(nodeFrom.getDegreeIn()+1);    
+//	    			    nodeTo.setDegreeIn(nodeTo.getDegreeIn()+1);     
+//		       }	
+//		    }
+//		  
+//		    public void run(int experTime)
+//		    {           
+//			   for(int i=0;i<experTime;i++)
+//			   { 
+//			      for(int j=0;j<m_relations.count();j++)
+//			      {
+//			         m_interaction.interact(i,m_relations.get(j), m_trace);	
+//			      }
+//			      
+//			      for(int k=0;k<m_nodes.count();k++)
+//			      {
+//			    	 m_trace.trace(i, m_nodes.get(k)); 
+//			      }
+//			   }	    	   
+//		    }    
  }
 	
 

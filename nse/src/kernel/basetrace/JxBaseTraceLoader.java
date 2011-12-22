@@ -91,7 +91,7 @@ public class JxBaseTraceLoader
 	
 	public  int[][] loadMetaNodes()
 	{  
-	   int nodeCount = 1000;
+	   int nodeCount = 10000;
 	   int rowCount = nodeCount;
 	   
 	   int[][] metaNodeSet = new int[rowCount][10];	   
@@ -119,7 +119,7 @@ public class JxBaseTraceLoader
 	
 	public int[][]  loadDataNodes1()
 	{   
-       int rowCount =1000;
+       int rowCount = 10000;
     
        int[][] dataNodeSet = new int[rowCount][2];	
        

@@ -211,7 +211,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y,loc_z,length," +
 	      "capacity,stat_degreein,stat_degreeout,stat_totaltraffic,stat_totallost)" +
 	    		"values ("+nodeId+","+loc_x+","+loc_y+","+loc_z+","+length+","+capacity+","
-	    		+stat_degreein+","+stat_degreeout+";"+stat_totaltraffic+","+stat_totallost+")";
+	    		+stat_degreein+","+stat_degreeout+","+stat_totaltraffic+","+stat_totallost+")";
 	    try{
 	         m_sta.executeUpdate(traceNode);
 	    }catch(Exception e)
