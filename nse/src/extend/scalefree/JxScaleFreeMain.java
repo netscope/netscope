@@ -3,8 +3,8 @@ package extend.scalefree;
 public class JxScaleFreeMain 
 {
 	JxScaleFreeApplication m_app=new JxScaleFreeApplication(); 
-	int m_nodeCount=0; 
-	int m_relationCount=0;
+	int m_nodeCount = 0; 
+	int m_relationCount = 0;
 	
 	public void init()
 	{
@@ -21,11 +21,12 @@ public class JxScaleFreeMain
 	
 	public void run1()  //current experiments
 	{   
-		m_nodeCount=10000;
+		m_nodeCount=1000;
 		m_app.generateNodes(m_nodeCount);
-		m_relationCount=59964;
+		m_relationCount=5964;
 		m_app.generateTopo(m_relationCount);
-	    m_app.interact(5000000);
+      //m_app.interact(1000); the random packet exchange
+        m_app.interact1(10);//the interact of the neighbor node
 	}
 	
 	public void close()

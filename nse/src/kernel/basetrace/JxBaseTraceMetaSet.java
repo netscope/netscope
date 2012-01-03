@@ -77,7 +77,7 @@ public class JxBaseTraceMetaSet
     }
 	
 	
-	public int[][] loadMetaRelations(Statement sta, String tableName)
+	public int[][] loadMetaRelations(Statement sta,String tableName)
 	{
 	  int[][] relationMetaSet=null;
 	  

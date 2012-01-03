@@ -177,7 +177,7 @@ public class JxBaseTraceDataSet
        return relationDataSet;
 	}
 	/** load information of the node and relation from trace */
-	int[][] loadDataNodes1(Statement sta,String tableName)
+	int[][] loadDataNodes1(Statement sta,String tableName) //get the last experiment time queue length of node
 	{
 		int[][]  nodeDataSet = null;
 		
@@ -201,7 +201,7 @@ public class JxBaseTraceDataSet
 	            for(int i=0;r.next();i++)
 	            {          
 			       nodeDataSet[i][0] =  Integer.parseInt(r.getString(1)); //Time
-			       nodeDataSet[i][1] =  Integer.parseInt( r.getString(2));//Id
+			       nodeDataSet[i][1] =  Integer.parseInt(r.getString(2));//Id
 	          
 			       nodeDataSet[i][2] = Integer.parseInt(r.getString(3));//Length
 			    
@@ -212,11 +212,9 @@ public class JxBaseTraceDataSet
 			    // System.out.println(nodeDataSet[i][0]+","+ nodeDataSet[i][1]+","+nodeDataSet[i][2]+
 			    // ","+nodeDataSet[i][3]+","+nodeDataSet[i][4]+","+nodeDataSet[i][5]);
 	            }
-	          
-	           int nodeId=0; 
-	           for(int j=rowCount-1;j>=0;j--)
+	           for(int j=rowCount-1;j>=0;j--) //get the length of the node
 	           {
-	        	  nodeId = nodeDataSet[j][1];
+	        	  int nodeId = nodeDataSet[j][1];
 	        	  
 	              if(nodeLength[nodeId][1]==0)
 	              {

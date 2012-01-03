@@ -39,7 +39,7 @@ import java.util.*;
 	       	m_nodes.randomize();
 	       	m_relations.generate(count);
 	       	
-	    	for(int i=0;i<6;i++)        //add the initial 6 nodes into the addnodes	      
+	    	for(int i=0;i<6;i++)        //add the initial 6 nodes into the add nodes	      
 	    	{
 	       	  m_addnodes.add(m_nodes.get(i)); 
 	       	}
@@ -112,11 +112,17 @@ import java.util.*;
 	    }
 	   
 	   
-	    
+	    /** random packet exchange */
 	    public void interact(int experTime)//the number of is initial node is 6;
 	    {                                  //there 6 relations for each new node,Each time(for each node) 
-	       for(int i=0;i<experTime;i++)    //we choose one of them to do the packet exchanges 
-	       {
+                                           //we choose one of them to do the packet exchanges  
+	    	for(int i=0;i<m_nodes.count();i++) //trace the node queue length when time=0;
+	    	{
+	    	  m_trace.trace(0,m_nodes.get(i));
+	    	}                                 
+	    	
+	    	for(int i=1;i<=experTime;i++)  
+	        {
 	    	  for(int j=0;j<m_nodes.count();j++)
 	    	  { 	
 	        	JxBaseNode currentNode =(JxBaseNode)m_nodes.get(j);  
@@ -137,9 +143,53 @@ import java.util.*;
 		    	}
 		    	currentNode.setLength(cut);
 		    	neighborNode.setLength(totalength-cut);
-	    	 }
+	    	  }
+	    	   for(int j=0;j<m_nodes.count();j++)
+	    	   {
+	    	      m_trace.trace(i, m_nodes.get(j));  
+	    	   }  
 	       }
 	    }
+	    
+	    /**No BandWidth, No Packet Capacity*/
+	    public void interact1(int experTime)//the number of is initial node is 6;
+	    {                                   //there 6 relations for each new node,Each time(for each node) 
+	    	
+	    	for(int i=0;i<m_nodes.count();i++) //trace the node queue length when time=0;
+	    	{
+	    	  m_trace.trace(0,m_nodes.get(i));
+	    	}                               
+	    	
+	    	for(int i=1;i<=experTime;i++)   
+	        {
+	    	  for(int j=0;j<m_nodes.count();j++)
+	    	  { 	
+	        	JxBaseNode currentNode =(JxBaseNode)m_nodes.get(j);  
+	    	    int neighborSize=currentNode.neighborNodeSize();
+	    	   
+	    	    int index=m_random.nextInt(neighborSize);
+	    	    JxBaseNode neighborNode=(JxBaseNode)currentNode.getNeighborNode(index);
+	    	    
+	    	    int length1=currentNode.getLength();
+	    	    int length2=neighborNode.getLength();
+	    	   
+	    	    int v=0;
+	    	    if(length1!=0)
+	    	    {
+	    	      v=m_random.nextInt(length1);
+	    	    }	
+		    	
+		    	currentNode.setLength(length1-v);
+		    	neighborNode.setLength(length2+v);
+	    	 }
+	    	 
+	    	  for(int j=0;j<m_nodes.count();j++)
+	    	  {
+	    	      m_trace.trace(i, m_nodes.get(j));  
+	    	  } 
+	       }
+	    }
+	    
 	    
 	    public JiBaseNode selectNodeTo()
 	    {

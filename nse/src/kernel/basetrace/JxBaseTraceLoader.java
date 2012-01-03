@@ -43,8 +43,8 @@ public class JxBaseTraceLoader
 	protected Connection m_connection = null;
 	protected Statement  m_statement = null;
 	
-	protected String m_tableName = "20111215_002017";
-	protected String m_datadir = "D:/temp/exper/";	
+	protected String m_tableName = "20111229_134340";
+	protected String m_datadir = "D:/temp/exper1/";	
 	
 	/**
 	 * Open an trace data set for reading. 
@@ -117,14 +117,14 @@ public class JxBaseTraceLoader
        return dataNodeSet;
 	}
 	
-	public int[][]  loadDataNodes1()
+	public int[][]  loadDataNodes1()//get the queue length of the node at the last experiment time
 	{   
        int rowCount = 10000;
     
        int[][] dataNodeSet = new int[rowCount][2];	
        
        dataNodeSet = m_dataset.loadDataNodes1(m_statement,m_tableName);
-       
+      
        return dataNodeSet;
 	}
 
@@ -220,7 +220,8 @@ public class JxBaseTraceLoader
 		
 		loader.open();
 		
-	    loader.loadDataNodes1();
+	   // loader.loadDataNodes1();
+	      loader.loadNodeSnapShot(1);
 		//loader.loadMetaRelations();
 		
 	    //loader.loadDataNodes(999,999); 
