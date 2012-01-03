@@ -600,17 +600,20 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public String getNodeDataName()
 	{
+		
 	   return m_nodeDataName;
 	}
 	
 	
 	public String getRelationMetaName()
 	{
+		
 	   return m_relationMetaName;
 	}
 	
 	public String getRelationDataName()
 	{
+		
 	   return m_relationDataName;
 	}
 }
