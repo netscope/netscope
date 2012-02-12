@@ -112,13 +112,13 @@ public class JxBaseTraceDataSet
              
                ResultSet r = sta.executeQuery(selectNodeSnapShot);
             
-	           r.last();
-	           int rowCount = r.getRow();
-	           r.beforeFirst();
+	         //  r.last();
+	         //  int rowCount = r.getRow();
+	         //  r.beforeFirst();
               
                int columnCount = 6;
              
-               nodeDataSet =new int [rowCount][columnCount];
+               nodeDataSet =new int [1000][columnCount];
               
                for(int i =0;r.next();i++)
                { 

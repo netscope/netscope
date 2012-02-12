@@ -18,8 +18,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	/** Where the trace data files are placed */
 	private String m_datadir = null;
-	
-	private static String m_curdbname = null;
+	private static String m_DataBaseName = null;
 
 	private String m_nodeMetaName = null;
 	private String m_relationMetaName = null;
@@ -30,20 +29,20 @@ public class JxBaseTrace implements JiBaseTrace {
 	JxBaseRelationCollection m_relations = new JxBaseRelationCollection();	
 	 
 	int m_relationType;
-	public JxBaseTrace(){}
+	public JxBaseTrace(){};
 	
 	public JxBaseTrace(Object owner) 
 	{
 		m_owner = owner;
-		m_datadir ="c:/temp/";
-		m_curdbname ="";
+		m_datadir = "c:/temp/";
+		m_DataBaseName = "";
 	}
 	
 	public JxBaseTrace(Object owner, String datadir)
 	{
 		m_owner = owner;
 		m_datadir = datadir;
-		m_curdbname ="";
+		m_DataBaseName = null;
 	}
 	
 	public Object getOwner()
@@ -61,17 +60,32 @@ public class JxBaseTrace implements JiBaseTrace {
 	  try{
 		    Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
 		    
-		    Properties props=new Properties(); 
-		    props.put("user","user1");
-		    props.put("password","user1");
-		    
-			m_con = DriverManager.getConnection("jdbc:derby:"+databasedir+ databasename 
-					+ ";create=true",props);
-			
-			m_con.setAutoCommit(false);
+			m_con = DriverManager.getConnection("jdbc:derby:"+databasedir+ databasename 		
+					+ ";create=true");
 			
 			m_sta = m_con.createStatement();	
-	     } 
+		
+		/*	String sql1 = "create table people(id int,name varchar(10))";
+			String sql2 = "insert into people values(2,'lipengfei')";
+			String sql3 = "select * from people";
+			
+			m_sta.execute(sql1);
+			
+			for(int i=0;i<10000;i++)
+			{
+	    		m_sta.execute(sql2);
+	    	}
+			
+			ResultSet r=m_sta.executeQuery(sql3);
+			
+			  while(r.next())
+			  {
+			     System.out.println(r.getInt(1));
+			     System.out.println(r.getString(2));
+			
+		         System.out.println("success !");
+			  }*/
+		 } 
 	      catch (Exception e) 
 	      {
 			e.printStackTrace();
@@ -80,15 +94,17 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public void open()
 	{
-		  m_datadir="D:/temp/derbydata/";
-		  m_curdbname = getCurrentTime();
+		  m_datadir="D:/temp/derbyData/";
+		  m_DataBaseName = getCurrentTime();
 	     
-		  open( m_datadir,m_curdbname );
+		  open( m_datadir,m_DataBaseName);
 	      
-	      this.nodeMetaTable( m_curdbname );
-		  this.relationMetaTable( m_curdbname );  
-		  this.nodeDataTable( m_curdbname );
-		  this.relationDataTable( m_curdbname );
+		  System.out.println("databaseName is:"+m_DataBaseName);
+		  
+	      this.nodeMetaTable( m_DataBaseName );
+	      this.relationMetaTable( m_DataBaseName  );  
+	      this.nodeDataTable(  m_DataBaseName );
+	      this.relationDataTable( m_DataBaseName );
 	}
 	
 	/** Free resources allocated to this object. */
@@ -97,6 +113,8 @@ public class JxBaseTrace implements JiBaseTrace {
 	  try{	
 		   m_sta.close();
 		   m_con.close();
+		   
+		   DriverManager.getConnection("jdbc:derby:;shutdown=true");
 		 } 
 		   catch (SQLException e) 
 		 {
@@ -107,7 +125,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	/*
 	 * finalize() will be called by JVM automatically. But JVM cannot guarantee
-	 * when to call it. So We call system.runFinalization() in the engine to force
+	 * when to call it. So We call .runFinalization() in the engine to force
 	 * the JVM to call finalize() of each revoked objects.
 	 * 
 	 * @see java.lang.Object#finalize()
@@ -126,7 +144,6 @@ public class JxBaseTrace implements JiBaseTrace {
 				",loc_z int default 0,length int default 0,capacity int default 0" +
 				",stat_degreein int default 0,stat_degreeout int default 0,stat_totaltraffic int default 0" +
 				",stat_totallost int default 0)";
-		System.out.println(m_nodeMetaName);
 		try{
 		    m_sta.executeUpdate(createNode); 
 		}
@@ -139,7 +156,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void relationMetaTable(String tablename)
 	{
 		m_relationMetaName = "relationmeta"+ tablename;
-		System.out.println(m_relationMetaName);
 		
 		String createRelation = "create table " + m_relationMetaName
 				+ " (relationid int not null primary key,reltype smallint default 0, begintime int default 0," +
@@ -157,7 +173,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void nodeDataTable(String tablename)
 	{
 		m_nodeDataName =  "nodedata"+tablename;
-		System.out.println(m_nodeDataName);
 		
 		String traceNode = "create table " + m_nodeDataName
 				+ " (simtime int not null, nodeid int not null,quelength int default 0," +"traffic_in int default 0, traffic_out int  default 0," +
@@ -174,7 +189,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	public void relationDataTable(String tablename)
 	{
 		m_relationDataName = "relationdata"+tablename;
-		System.out.println(m_relationDataName);
 		
 	    String traceEdge = "create table " + m_relationDataName
 	    		+ " (simtime int not null, relationid int not null,traffic_send int default 0," +
@@ -352,7 +366,6 @@ public class JxBaseTrace implements JiBaseTrace {
 			    String nodeFrom=Integer.toString(currentRelation.getNodeFrom().getId());
 			  	String nodeTo=Integer.toString(currentRelation.getNodeTo().getId());	
 		    
-			 	
 			 	String bandwidth=Integer.toString(currentRelation.getBandwidth());
 			 	
 			 	String stat_totaltraffic=Integer.toString(currentRelation.getTotaltraffic());
@@ -496,7 +509,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	}
 	
 	
-	public void trace( int time,JiBaseRelation relation)
+	public void trace(int time,JiBaseRelation relation)
 	{
 	  	String currentTime=Integer.toString(time);
 	  	
@@ -510,7 +523,6 @@ public class JxBaseTrace implements JiBaseTrace {
 	    String tracerelation="insert into "+m_relationDataName+" (simtime,relationId,traffic_send,traffic_lost)  values " +
 	    		"("+currentTime+","+relationId+","+trafficSend+","+trafficLost+")";
 	    try{
-	    	
 	        m_sta.executeUpdate(tracerelation);
 	    }catch(Exception e)
 	    {
@@ -551,10 +563,10 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	@Override
 	/** */
-	// can add lastsnapshot time, default time 06
+	// can add last snapshot time, default time 06
     public void restore(int time, String datadir, JiBaseNodeCollection nodes, JiBaseRelationCollection relations ) 
 	{		
-		open( datadir,m_curdbname);
+		open( datadir,m_DataBaseName);
 		load( time,nodes );
 	    load( time,relations );
 	}
@@ -563,6 +575,14 @@ public class JxBaseTrace implements JiBaseTrace {
 	{
 	    Date date = new Date();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		String cur_time = sdf.format(date);
+		return cur_time;
+	}
+	
+	public String getSystemTime()
+	{
+		Date date = new Date();
+	    SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
 		String cur_time = sdf.format(date);
 		return cur_time;
 	}
@@ -585,7 +605,7 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public static String getName()
 	{
-		return m_curdbname;
+		return m_DataBaseName;
 	}
 	
 	public Statement getStatement()
@@ -600,20 +620,16 @@ public class JxBaseTrace implements JiBaseTrace {
 	
 	public String getNodeDataName()
 	{
-		
 	   return m_nodeDataName;
 	}
 	
-	
 	public String getRelationMetaName()
 	{
-		
 	   return m_relationMetaName;
 	}
 	
 	public String getRelationDataName()
-	{
-		
+	{	
 	   return m_relationDataName;
 	}
 }

@@ -43,8 +43,30 @@ public class JxBaseTraceLoader
 	protected Connection m_connection = null;
 	protected Statement  m_statement = null;
 	
-	protected String m_tableName = "20111229_134340";
-	protected String m_datadir = "D:/temp/exper1/";	
+	
+	//protected String m_tableName = "20120111_103221";  //experiment 1,n0=9
+	//protected String m_tableName = "20120111_103105";  //experiment 1,n0=7
+	//protected String m_tableName = "20120111_102942";  //experiment 1,n0=5
+	//protected String m_tableName = "20120111_102214";  //experiment 1,n0=3
+	//protected String m_tableName = "20120112_231614";  //experiment 1,n0=1
+	
+	//experiment 3-1,1000 times
+	//protected String m_tableName = "20120112_140448";  //L=0.1
+	//protected String m_tableName = "20120112_210159";  //L=0.3
+	//protected String m_tableName = "20120112_213242";  //L=0.5 
+    //protected String m_tableName = "20120112_231813";  //L=0.7
+	//protected String m_tableName = "20120113_001759";  //L=0.9
+	
+	//experiment 3-1,5000 times
+	
+    //protected String m_tableName = "20120115_160137";  //L=0.1
+	//protected String m_tableName = "20120115_132419";  //L=0.3
+	//protected String m_tableName = "20120115_193748";  //L=0.5
+	//protected String m_tableName = "20120116_000521";  //L=0.7
+	protected String m_tableName = "20120116_094657";  //L=0.9
+	
+	protected String m_datadir = "D:/temp/derbyData/";	  
+  //protected String m_datadir = "D:/temp/severData/";	
 	
 	/**
 	 * Open an trace data set for reading. 
@@ -56,9 +78,9 @@ public class JxBaseTraceLoader
     public void opendatabase(String databasedir,String databasename)
 	{
 	  try {
-			 Class.forName("org.hsqldb.jdbcDriver");
-			 m_connection = DriverManager.getConnection("jdbc:hsqldb:file:"+databasedir+ databasename + ";shutdown=true", "sa", "");
-			 m_statement = m_connection.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+		     Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+			 m_connection = DriverManager.getConnection("jdbc:derby:"+databasedir+ databasename +";create=true");
+			 m_statement = m_connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
 	      } 
 	      catch (Exception e) 
 	      {
@@ -78,10 +100,11 @@ public class JxBaseTraceLoader
 	{ 
 	    try{
 		     if (m_connection != null)	
-			 m_connection.close();
-		
+			     m_connection.close();
+		        
 		     if (m_statement!=null)
-		     m_statement.close();	
+		         m_statement.close();
+		    DriverManager.getConnection("jdbc:derby:;shutdown=true"); //close all the derby databases
 		   }
 	        catch(Exception e)
 		    {	
@@ -100,7 +123,7 @@ public class JxBaseTraceLoader
 	   return metaNodeSet;
 	}
 	
-	public int[][]  loadDataNodes(int beginTime,int endTime)
+	public int[][] loadDataNodes(int beginTime,int endTime)
 	{   
        int nodeCount =1000;
        int rowCount =1000;
@@ -219,9 +242,9 @@ public class JxBaseTraceLoader
 		JxBaseTraceLoader loader=new JxBaseTraceLoader();
 		
 		loader.open();
-		
+		loader.loadMetaNodes();
 	   // loader.loadDataNodes1();
-	      loader.loadNodeSnapShot(1);
+	    loader.loadNodeSnapShot(1000);
 		//loader.loadMetaRelations();
 		
 	    //loader.loadDataNodes(999,999); 
