@@ -155,7 +155,7 @@ public class JxBaseNode implements JiBaseNode {
 	{
 		final int prime = 31;
 		int result = 1;
-		// result = prime * result + super().hashCode();
+		
 		result = prime * result + m_id;
 		result += m_loc_x;
 		result += m_loc_y;

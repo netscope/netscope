@@ -43,7 +43,7 @@ public class JxBaseTraceLoader
 	protected Connection m_connection = null;
 	protected Statement  m_statement = null;
 	
-	
+//1 scale free network	
 	//protected String m_tableName = "20120111_103221";  //experiment 1,n0=9
 	//protected String m_tableName = "20120111_103105";  //experiment 1,n0=7
 	//protected String m_tableName = "20120111_102942";  //experiment 1,n0=5
@@ -63,7 +63,25 @@ public class JxBaseTraceLoader
 	//protected String m_tableName = "20120115_132419";  //L=0.3
 	//protected String m_tableName = "20120115_193748";  //L=0.5
 	//protected String m_tableName = "20120116_000521";  //L=0.7
-	protected String m_tableName = "20120116_094657";  //L=0.9
+	//protected String m_tableName = "20120116_094657";  //L=0.9
+
+ //2 lattice network	
+	//protected String m_tableName= "20120214_234527";   //L=0.1
+    //protected String m_tableName= "20120214_234527";   //L=0.3
+	//protected String m_tableName= "20120214_234527";   //L=0.5
+	//protected String m_tableName= "20120214_234527";   //L=0.7
+	//protected String m_tableName= "20120214_234527";   //L=0.9
+	
+ //3 mesh network
+	protected String m_tableName= "20120216_153914";   //L=0.1
+    //protected String m_tableName= "20120217_190033";   //L=0.3
+	//protected String m_tableName= "20120218_103659";   //L=0.5
+	//protected String m_tableName= "20120218_210848";   //L=0.7
+	//protected String m_tableName= "20120219_145835";   //L=0.9
+	
+
+
+	
 	
 	protected String m_datadir = "D:/temp/derbyData/";	  
   //protected String m_datadir = "D:/temp/severData/";	
@@ -182,7 +200,7 @@ public class JxBaseTraceLoader
 	
 	public int[][] loadNodeSnapShot(int givenTime)
 	{
-		int rowCount=1000;
+		int rowCount=1024;
 		
 		int[][] dataNodeSet = new int[rowCount][6];
 		 

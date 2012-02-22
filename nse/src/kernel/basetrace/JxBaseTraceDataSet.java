@@ -118,7 +118,7 @@ public class JxBaseTraceDataSet
               
                int columnCount = 6;
              
-               nodeDataSet =new int [1000][columnCount];
+               nodeDataSet =new int [1024][columnCount];
               
                for(int i =0;r.next();i++)
                { 

@@ -163,4 +163,9 @@ public class JxBaseRelationCollection extends ArrayList<JiBaseRelation> implemen
 			this.set(i, tempRelation);
 		}	
 	}
+    
+    public void clear()
+    {
+    	super.clear();
+    }
  }

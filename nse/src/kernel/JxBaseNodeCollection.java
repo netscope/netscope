@@ -3,7 +3,6 @@ package kernel;
 import java.util.ArrayList;
 import java.util.Random;
 
-import extend.scalefree.JxScaleFreeNode;
 
 /**
  * The JxBaseNodeCollection maintains a node set. You can add/remove node into/from 
@@ -35,10 +34,10 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	public JxBaseNodeCollection( Object owner, int count )
 	{
 		m_owner = owner;
-		generate( count );
+      //generate( count );
 	}
 	
-	public void generate( int count )
+	public void generate( int count,int queLength )
 	{
 	    for (int i=0; i<count; i++)
 	    {	    	
@@ -46,7 +45,7 @@ public class JxBaseNodeCollection extends ArrayList<JiBaseNode> implements JiBas
 	    	int loc_x = m_random.nextInt(100);
 	    	int loc_y = m_random.nextInt(100);
 	    	
-	    	super.add( new JxScaleFreeNode(this,i,loc_x,loc_y,30,100));	
+	    	super.add( new JxBaseNode(this,i,loc_x,loc_y,queLength,100));	
 	    }		
 	}
 	

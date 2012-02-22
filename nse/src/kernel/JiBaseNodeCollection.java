@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface JiBaseNodeCollection {
 	
 	
-	public void generate( int nodecount );
+	public void generate( int nodecount,int capacity );
 	public void setTrace( JiBaseTrace trace );
 	
 	public int count();

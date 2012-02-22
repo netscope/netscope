@@ -63,28 +63,7 @@ public class JxBaseTrace implements JiBaseTrace {
 			m_con = DriverManager.getConnection("jdbc:derby:"+databasedir+ databasename 		
 					+ ";create=true");
 			
-			m_sta = m_con.createStatement();	
-		
-		/*	String sql1 = "create table people(id int,name varchar(10))";
-			String sql2 = "insert into people values(2,'lipengfei')";
-			String sql3 = "select * from people";
-			
-			m_sta.execute(sql1);
-			
-			for(int i=0;i<10000;i++)
-			{
-	    		m_sta.execute(sql2);
-	    	}
-			
-			ResultSet r=m_sta.executeQuery(sql3);
-			
-			  while(r.next())
-			  {
-			     System.out.println(r.getInt(1));
-			     System.out.println(r.getString(2));
-			
-		         System.out.println("success !");
-			  }*/
+			m_sta = m_con.createStatement();		
 		 } 
 	      catch (Exception e) 
 	      {
@@ -102,7 +81,7 @@ public class JxBaseTrace implements JiBaseTrace {
 		  System.out.println("databaseName is:"+m_DataBaseName);
 		  
 	      this.nodeMetaTable( m_DataBaseName );
-	      this.relationMetaTable( m_DataBaseName  );  
+	      this.relationMetaTable( m_DataBaseName );  
 	      this.nodeDataTable(  m_DataBaseName );
 	      this.relationDataTable( m_DataBaseName );
 	}
@@ -240,11 +219,9 @@ public class JxBaseTrace implements JiBaseTrace {
 	/** save nodes */
 	public void save(JxBaseNodeCollection nodes) 
 	{
-	    Iterator<JiBaseNode> itNodes=nodes.iterator();
-	   
-	    while(itNodes.hasNext())
-	    {
-	    	JiBaseNode currentNode= itNodes.next();
+	   for(int i=0;i<nodes.count();i++)
+	   { 	
+		    JiBaseNode currentNode= nodes.get(i);
 	    	String nodeId=Integer.toString(currentNode.getId());
 		
 	    	String loc_x=Integer.toString(currentNode.getX());
@@ -264,14 +241,14 @@ public class JxBaseTrace implements JiBaseTrace {
 		    String traceNode="insert into "+m_nodeMetaName+" (nodeid,loc_x,loc_y,loc_z,length," +
 		    		"capacity,stat_degreein,stat_degreeout,stat_totaltraffic,stat_totallost" +") " 
 		    		+"values ("+nodeId+","+loc_x+","+loc_y+","+loc_z+","+length+","+capacity+
-		    		","+stat_degreein+","+stat_degreeout+","+stat_totaltraffic+","+stat_totallost+")";       
-		     try{
+		    		","+stat_degreein+","+stat_degreeout+","+stat_totaltraffic+","+stat_totallost+")";   
+		    try{
 	              m_sta.executeUpdate(traceNode);
-	            } 
-		         catch(Exception e)
-	             {
+	           } 
+		        catch(Exception e)
+	            {
 	    	       e.printStackTrace();
-	             }
+	            }
 	    }    
 	}
 	/**
