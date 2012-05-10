@@ -103,15 +103,15 @@ public class Jxlatticemain {
 		
 		m_app.interact(10000);	
 		
-		m_app.clearNodes();
-		m_app.clearRelations();
-		
 		this.close();
 	}
 	
 	public void close()
 	{                 
 	    m_app.close();
+	    
+	    m_app.clearNodes();
+		m_app.clearRelations();
 	    
 	    System.out.println("end at:"+m_trace.getSystemTime());
 	}
