@@ -1,5 +1,4 @@
 package extend.lattice;
-
 import kernel.JxBaseTrace;
 
 /**
@@ -15,7 +14,6 @@ public class Jxlatticemain {
 	
 	String m_beginTime=null;
 	String m_endTime=null;
-	
 	
 	public void init()
 	{
@@ -125,6 +123,5 @@ public class Jxlatticemain {
     	//m.run5();
     	//m.run7();
     	m.run9();
-    	
     } 
 }
